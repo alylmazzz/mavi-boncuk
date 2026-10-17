@@ -12,6 +12,9 @@
     return n;
   };
   const waLink = (text) => `https://wa.me/${WA}?text=${encodeURIComponent(text)}`;
+  // Beden bulucuda girilen ölçü varsa ürün mesajına eklenir
+  const olcu = () => { try { const o = JSON.parse(localStorage.getItem('mb-olcu') || 'null'); return o ? ` Çocuğumun boyu ${o.boy} cm, kilosu ${o.kilo} kg.` : ''; } catch (e) { return ''; } };
+  const tl = (n) => `${Number(n).toLocaleString('tr-TR', { minimumFractionDigits: n % 1 ? 2 : 0, maximumFractionDigits: 2 })} TL`;
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const img = (src, alt, w = 800, h = 1000, lazy = true) =>
     el('img', { src, alt, width: w, height: h, loading: lazy ? 'lazy' : null, decoding: 'async' });
@@ -56,7 +59,9 @@
     const ilk = kucukSet(u.gorseller[0]); ilk.alt = u.ad; if (i <= 3) ilk.removeAttribute('loading');
     f.append(ilk);
     if (u.gorseller[1]) f.append(kucukSet(u.gorseller[1]));
-    a.append(f, el('span', { class: 'tile__name', text: u.ad }), el('span', { class: 'tile__fact', text: u.kisa || yasYazi(u) || TURLER[u.kategori] }));
+    if (u.durum === 'tükendi') { a.classList.add('is-tukendi'); f.append(el('span', { class: 'tile__badge', text: 'Tükendi' })); }
+    const bilgi = [u.fiyat ? tl(u.fiyat) : '', u.kisa || yasYazi(u) || TURLER[u.kategori]].filter(Boolean).join(' · ');
+    a.append(f, el('span', { class: 'tile__name', text: u.ad }), el('span', { class: 'tile__fact', text: bilgi }));
     return a;
   }
 
@@ -65,7 +70,18 @@
       fetch('/data/urunler.json').then((r) => r.json()),
       fetch('/data/site.json').then((r) => r.json())
     ]);
-    return { urunler: u.urunler.filter((x) => !x.gizle), site: s };
+    // Mağazanın stok tablosu (Google E-Tablolar) varsa fiyat ve durum oradan gelir; yoksa sessizce atlanır
+    let stok = {};
+    try {
+      const c = new AbortController(); const t = setTimeout(() => c.abort(), 2500);
+      stok = await fetch('/api/stok', { signal: c.signal }).then((r) => (r.ok ? r.json() : {}));
+      clearTimeout(t);
+    } catch (e) { stok = {}; }
+    const birles = u.urunler.map((x) => {
+      const s2 = stok[x.id]; if (!s2) return x;
+      return { ...x, fiyat: s2.fiyat || x.fiyat, durum: s2.durum || x.durum, stok_notu: s2.not || x.stok_notu, gizle: x.gizle || s2.durum === 'gizle' };
+    });
+    return { urunler: birles.filter((x) => !x.gizle), site: s };
   }
 
   // ---------- ana sayfa ----------
@@ -88,7 +104,7 @@
         return im;
       }));
       fact.textContent = it.not;
-      cta.href = waLink(`Merhaba, sitede ${it.ad.toLocaleLowerCase('tr')} bölümüne baktım. Elinizde neler var?`);
+      cta.href = waLink(`Merhaba, sitede ${it.ad.toLocaleLowerCase('tr')} bölümüne baktım. Elinizde neler var?${olcu()}`);
       cta.textContent = it.buton || 'WhatsApp’tan sor';
       frame = 0;
     };
@@ -126,7 +142,7 @@
       const row = el('div', { class: 'showcase__row' }, [
         el('div', {}, [el('p', { class: 'showcase__name', text: u.ad }), el('p', { class: 'muted', text: u.kisa || yasYazi(u) })]),
         el('div', { class: 'showcase__actions' }, [
-          el('a', { class: 'button', href: waLink(`Merhaba, “${u.ad}” için yazıyorum. Fiyatı ve bedenleri nedir?`), text: 'WhatsApp’tan sor' }),
+          el('a', { class: 'button', href: waLink(`Merhaba, “${u.ad}” için yazıyorum. Fiyatı ve bedenleri nedir?${olcu()}`), text: 'WhatsApp’tan sor' }),
           el('a', { class: 'button button--paper', href: `/urun/${encodeURIComponent(u.id)}`, text: 'Fotoğraflar' })
         ])
       ]);
@@ -157,18 +173,40 @@
       kinds.append(b);
     });
     more.addEventListener('click', () => { shown += PAGE; draw(); });
+    // arama: ad, açıklama ve türde geçen kelimeler (Türkçe harf duyarsız)
+    const ara = $('#ara');
+    const norm = (s) => String(s || '').toLocaleLowerCase('tr').normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/ı/g, 'i');
+    let q = '';
+    if (ara) {
+      let zam;
+      ara.addEventListener('input', () => { clearTimeout(zam); zam = setTimeout(() => { q = norm(ara.value.trim()); shown = PAGE; draw(); }, 160); });
+    }
+    // beden bulucu ve alt çubuk buradan yaş seçer
+    window.mbYasSec = (id) => {
+      const y = YASLAR.find((x) => x.id === id); if (!y) return;
+      yas = y; shown = PAGE; draw();
+      $('#askidakiler').scrollIntoView({ behavior: reduced ? 'auto' : 'smooth' });
+    };
 
     function draw() {
       dividers.querySelectorAll('button').forEach((b, i) => b.setAttribute('aria-pressed', String(YASLAR[i] === yas)));
       kinds.querySelectorAll('button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.k === tur)));
-      const list = urunler.filter((u) => yasUyar(u, yas) && (tur === 'hepsi' || u.kategori === tur));
+      const kelimeler = q ? q.split(/\s+/) : [];
+      const list = urunler.filter((u) => yasUyar(u, yas) && (tur === 'hepsi' || u.kategori === tur) &&
+        (!kelimeler.length || kelimeler.every((k) => norm(`${u.ad} ${u.aciklama} ${TURLER[u.kategori]} ${u.kisa}`).includes(k))));
       grid.replaceChildren(...list.slice(0, shown).map((u, i) => {
         const t = tile(u, i);
         if (i % 7 === 3) t.classList.add('tile--wide');
         if (i < 16) { t.classList.add('is-drop'); t.style.setProperty('--i', i); }
         return t;
       }));
-      if (!list.length) grid.append(el('p', { class: 'catalogue__empty', text: 'Bu yaşta bu türden şu an sitede ürün yok. Bize yazın, dükkânda olanı söyleyelim.' }));
+      if (!list.length) {
+        const aranan = ara && ara.value.trim();
+        grid.append(el('div', { class: 'catalogue__empty' }, [
+          el('p', { text: aranan ? `“${aranan}” şu an sitede yok, ama dükkânda olabilir. Sitede her ürünü göstermiyoruz.` : 'Bu yaşta bu türden şu an sitede ürün yok. Bize yazın, dükkânda olanı söyleyelim.' }),
+          el('a', { class: 'button', style: 'margin-top:1rem', href: waLink(aranan ? `Merhaba, sitede “${aranan}” aradım, bulamadım. Elinizde var mı?${olcu()}` : `Merhaba, ${yas.ad} için elinizde neler var?${olcu()}`), text: 'WhatsApp’tan sor' })
+        ]));
+      }
       count.textContent = `${list.length} ürün` + (yas.id !== 'hepsi' ? `, ${yas.ad}` : '');
       more.hidden = list.length <= shown;
       const u = new URL(location.href);
@@ -291,13 +329,13 @@
     });
     const bilinmiyor = 'Yazın, bakıp söyleyelim';
     const satir = (k, v) => el('div', {}, [el('dt', { text: k }), el('dd', { text: v || bilinmiyor })]);
-    const fiyat = u.fiyat ? `${u.fiyat.toLocaleString('tr-TR', { minimumFractionDigits: 2 })} TL` : null;
+    const fiyat = u.fiyat ? tl(u.fiyat) : null;
     const facts = el('dl', { class: 'facts' }, [
       satir('Yaş', (u.yas_tahmini && u.yas_araligi ? 'Yaklaşık ' : '') + yasYazi(u) || (u.bedenler && u.bedenler.length ? u.bedenler.map((b) => b.beden).join(', ') : null)),
       satir('Fiyat', fiyat),
       satir('Kumaş', u.kumas),
       satir('Yıkama', u.yikama),
-      satir('Stok', u.stok_notu),
+      satir('Stok', u.durum === 'tükendi' ? 'Şu an tükendi, gelince haber verelim' : u.stok_notu),
       satir('Teslim', 'Mağazadan alabilir ya da gönderim için yazabilirsiniz'),
       satir('Değişim', 'Almadan önce sorun, ürüne göre söylüyoruz')
     ]);
@@ -307,7 +345,9 @@
       el('p', { class: 'lead', text: u.aciklama }),
       facts,
       el('div', { class: 'product__cta' }, [
-        el('a', { class: 'button', href: waLink(`Merhaba, “${u.ad}” için yazıyorum (${location.href}). Fiyatı ve bedenleri nedir?`), text: 'WhatsApp’tan sor' }),
+        u.durum === 'tükendi'
+          ? el('a', { class: 'button', href: waLink(`Merhaba, “${u.ad}” (${location.href}) tükenmiş görünüyor. Gelince haber verir misiniz?${olcu()}`), text: 'Gelince haber ver' })
+          : el('a', { class: 'button', href: waLink(`Merhaba, “${u.ad}” için yazıyorum (${location.href}). Fiyatı ve bedenleri nedir?${olcu()}`), text: 'WhatsApp’tan sor' }),
         el('a', { class: 'button button--paper gift-note', href: waLink(`Merhaba, “${u.ad}” ürününü hediye olarak almak istiyorum (${location.href}). Hediye notu eklemek istiyorum: `), text: 'Hediye notu ekle' }),
         u.instagram ? el('a', { class: 'button button--paper', href: u.instagram, rel: 'noopener', text: 'Instagram’da gör' }) : null
       ])

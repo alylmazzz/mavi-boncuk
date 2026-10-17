@@ -1,0 +1,8 @@
+{
+  "_not": "Haftanın kombinleri. Ürün id'leri data/urunler.json'dan. Değiştirmek için bu dosyayı düzenleyin.",
+  "kombinler": [
+    { "ad": "Düğünde kardeşler", "not": "Lila saten abiye ile lacivert yelekli takım elbise aynı fotoğrafta iyi duruyor.", "urunler": ["lila-saten-fiyonklu-abiye", "lacivert-yelekli-takim-elbise"] },
+    { "ad": "Sonbaharda okul yolu", "not": "Kalpli kazakla ekose şort etek, yanında lacivert sweat ve baklava desenli pantolon.", "urunler": ["kalpli-kazak-sort-etek", "lacivert-sweat-baklava-pantolon"] },
+    { "ad": "Yaz bayramı", "not": "Krem fiyonklu takım ve bej gömlekli şort; ikisi de sıcakta rahat.", "urunler": ["krem-fiyonklu-takim", "bej-keten-gomlek-sort"] }
+  ]
+}

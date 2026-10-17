@@ -28,7 +28,7 @@
 </script>
 <link rel="preload" href="/assets/fonts/roundo-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/baloo2-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/assets/css/app.min.css?v=20261018a">
+<link rel="stylesheet" href="/assets/css/app.min.css?v=20261018c">
 </head>
 <body>
 
@@ -68,10 +68,17 @@
 
   <section class="showcase" aria-label="Bu hafta askıda" id="vitrin"></section>
 
+  <section class="kombinler" aria-labelledby="kombin-title">
+    <div class="kombinler__head"><h2 class="head" id="kombin-title">Haftanın kombinleri</h2><p>Birlikte iyi duran parçalar. Kardeşler için de uygun; tek mesajla hepsini sorabilirsiniz.</p></div>
+    <ul class="kombinler__list" id="kombinler"></ul>
+  </section>
+
   <section class="catalogue" id="askidakiler" aria-labelledby="cat-title">
     <div class="catalogue__head">
       <h2 class="head" id="cat-title">Askıdakiler</h2>
       <p>Askıdaki yaş ayırıcıları gibi: çocuğunuzun yaşına dokunun, o yaşa uyanlar kalsın. Fiyat ve beden için ürüne girip bize yazın.</p>
+      <label class="sr-only" for="ara">Ürün ara</label>
+      <input class="ara" id="ara" type="search" placeholder="Ürün ara: abiye, eşofman, bebek arabası…" autocomplete="off" enterkeyhint="search">
       <div class="dividers" role="group" aria-label="Yaş" id="dividers"></div>
       <div class="kinds" role="group" aria-label="Ürün türü" id="kinds"></div>
       <p class="catalogue__count" id="cat-count" aria-live="polite"></p>
@@ -124,6 +131,7 @@
             <strong id="sizer-out">5 yaş bedenine bakın</strong>
             <p class="sizer__note">Genel tablodur, markaya göre bir beden oynayabilir. Kesin bilgi için ölçüleri gönderin, ürünü elimize alıp söyleyelim.</p>
             <a class="button" id="sizer-wa" href="https://wa.me/905057458364">Ölçüleri WhatsApp’tan gönder</a>
+            <button class="button button--paper" id="sizer-goster" type="button" data-yas="4-8">4-8 yaş ürünlerini göster</button>
           </div>
         </div>
       </div>
@@ -242,7 +250,8 @@
   </div>
 </footer>
 
-<script src="/assets/js/site.js?v=20261018a" defer></script>
-<script src="/assets/js/oyun.js?v=20261018a" defer></script>
+<script src="/assets/js/site.js?v=20261018c" defer></script>
+<script src="/assets/js/oyun.js?v=20261018c" defer></script>
+<script src="/assets/js/ek.js?v=20261018c" defer></script>
 </body>
 </html>

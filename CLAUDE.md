@@ -45,6 +45,13 @@ yıkama talimatı, stok, kargo süresi, iade koşulu.
 on-bilgilendirme, kvkk, gizlilik (.html). Mağaza bilgileri tek yerde: `data/magaza.json`; sayfalar `assets/js/magaza.js` ile
 doldurur, boş alanlar turuncu [işaret] görünür. Yasal metinler şablondur; yayından önce mali müşavir/avukat kontrolü önerilir.
 
+## Ek kolaylıklar (2026-10-18)
+
+`assets/js/ek.js`: gece modu (21.00-06.00 otomatik, menüden değiştirilir), IP ile il düzeyinde yakınlık bildirimi (`/api/konum`),
+haftanın kombinleri (`data/kombinler.json`), telefonda alt işlem çubuğu, kaydırınca bir kez belirme. Stok ve fiyat: Google E-Tablo
+CSV bağlantısı Vercel ortam değişkeni `SHEET_CSV_URL`; `/api/stok` okur, şablon `docs/stok-tablosu.csv`. Ürün arama ve beden bulucudan
+yaş süzme site.js içinde (`window.mbYasSec`).
+
 ## Blog ve arama görünürlüğü
 
 365 yazı `api/_lib/yazilar.json` içinde, her biri bir `tarih` ile (2026-10-17 → 2027-10-16). `/blog`, `/blog/:slug`, `/blog/rss.xml`,

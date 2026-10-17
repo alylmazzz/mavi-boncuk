@@ -282,6 +282,12 @@
       const agir = k > row[2] * 1.2 && i < TABLO.length - 1;
       const sonuc = agir ? `${row[1]} bedenine, bir de ${TABLO[i + 1][1]} bedenine bakın` : `${row[1]} bedenine bakın`;
       out.textContent = sonuc;
+      // ölçüyü hatırla (ürün mesajlarına eklenir) ve süzme için yaş grubunu hesapla
+      try { localStorage.setItem('mb-olcu', JSON.stringify({ boy: b, kilo: k, beden: row[1] })); } catch (e) { /* gizli pencere */ }
+      const yasNo = /yaş/.test(row[1]) ? parseInt(row[1], 10) : 0;
+      const grup = yasNo <= 3 ? '0-3' : yasNo <= 8 ? '4-8' : yasNo <= 12 ? '9-12' : '13-16';
+      const goster = $('#sizer-goster');
+      if (goster) { goster.dataset.yas = grup; goster.textContent = `${grup} yaş ürünlerini göster`; }
       wa.href = waLink(`Merhaba, sitedeki beden bulucudan yazıyorum. Çocuğumun boyu ${b} cm, kilosu ${k} kg. Tablo “${sonuc}” dedi. Baktığım ürün için hangi bedeni önerirsiniz?`);
       if (kid) {
         const sy = Math.max(0.55, Math.min(1.45, b / 115));
@@ -290,6 +296,10 @@
       }
     };
     boy.addEventListener('input', calc); kilo.addEventListener('input', calc);
+    const goster = $('#sizer-goster');
+    if (goster) goster.addEventListener('click', () => { if (window.mbYasSec) window.mbYasSec(goster.dataset.yas); });
+    // daha önce girilen ölçü varsa onu göster
+    try { const o = JSON.parse(localStorage.getItem('mb-olcu') || 'null'); if (o) { boy.value = o.boy; kilo.value = o.kilo; } } catch (e) { /* yok */ }
     calc();
   }
 

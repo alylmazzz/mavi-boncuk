@@ -15,7 +15,8 @@ const ver = (urunHtml.match(/\?v=(\w+)/) || [, '1'])[1];
 const header = urunHtml.slice(urunHtml.indexOf('<header'), urunHtml.indexOf('</header>') + 9);
 const footer = urunHtml.slice(urunHtml.indexOf('<footer'), urunHtml.indexOf('</footer>') + 9);
 const headLinks = urunHtml.slice(urunHtml.indexOf('<link rel="icon"'), urunHtml.indexOf('</head>')).split(/\r?\n/).filter((l) => !/rel="canonical"|property="og:|name="robots"/.test(l)).join('\n').trim();
-const scripts = `<script src="/assets/js/site.js?v=${ver}" defer></script>\n<script src="/assets/js/oyun.js?v=${ver}" defer></script>`;
+const scripts = `<script src="/assets/js/site.js?v=${ver}" defer></script>\n<script src="/assets/js/oyun.js?v=${ver}" defer></script>
+<script src="/assets/js/ek.js?v=${ver}" defer></script>`;
 
 // ---------- 1) blog iskeleti ----------
 wr('api/_lib/kabuk.json', JSON.stringify({ head: headLinks, header, footer, scripts }));

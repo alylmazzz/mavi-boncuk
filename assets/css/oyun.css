@@ -498,3 +498,84 @@ section[id], main [id] { scroll-margin-top: 90px; }
 .post__pager a { color: var(--muted); max-width: 48%; }
 
 .shop__cats { margin: 0 0 2rem; }
+
+/* =====================================================================
+   Ek kolaylıklar: arama, tükendi, kombinler, yakınlık bildirimi,
+   telefonda alt çubuk, kaydırınca belirme, gece modu
+   ===================================================================== */
+.ara { width: 100%; max-width: 32rem; min-height: 3.25rem; padding: 0 1.25rem; border: 0; border-radius: 999px; background: #fff; box-shadow: inset 0 2px 6px rgba(20, 40, 60, 0.12); font-size: max(1rem, var(--step-body)); color: var(--ink); }
+.ara::placeholder { color: var(--muted); }
+.tile__badge { position: absolute; top: 0.75rem; left: 0.75rem; z-index: 1; background: var(--ink); color: #fff; border-radius: 999px; padding: 0.2rem 0.75rem; font-size: var(--step-small); font-weight: 600; }
+.tile.is-tukendi .tile__frame img { filter: grayscale(0.6); opacity: 0.75; }
+.gece-btn { color: var(--muted); }
+.gece-btn[aria-pressed="true"] { color: var(--sun); }
+@media (max-width: 59.99em) { .bar__links .gece-btn { order: 12; width: auto; height: 52px; justify-content: start; padding: 0 0.5rem; display: flex; gap: 0.5rem; } .bar__links .gece-btn::after { content: "Gece modu"; font-size: 1rem; color: var(--ink); } }
+
+/* kombinler */
+.kombinler { padding: var(--section) var(--margin) 0; }
+.kombinler__head { margin-bottom: 1.75rem; }
+.kombinler__head p { margin-top: 0.6rem; max-width: 46ch; }
+.kombinler__list { display: grid; gap: 1.25rem; padding: 0; list-style: none; }
+@media (min-width: 60em) { .kombinler__list { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.kombin { background: #fff; border-radius: var(--clay-r); box-shadow: var(--clay); padding: 1rem; display: grid; gap: 0.6rem; align-content: start; }
+.kombin:nth-child(3n+1) { background: var(--field-1); } .kombin:nth-child(3n+2) { background: var(--field-2); }
+.kombin__fotolar { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+.kombin__foto { display: block; aspect-ratio: 4 / 5; overflow: hidden; border-radius: 18px; background: #fff; }
+.kombin__foto img { width: 100%; height: 100%; object-fit: contain; }
+.kombin h3 { font-family: "Baloo 2", var(--font); font-weight: 800; color: var(--navy); font-size: var(--step-lead); margin-top: 0.4rem; }
+.kombin p { color: var(--muted); font-size: var(--step-small); }
+.kombin ul { padding-left: 1.1rem; font-size: var(--step-small); }
+.kombin .button { justify-self: start; margin-top: 0.4rem; }
+
+/* yakınlık bildirimi */
+.konum { position: relative; display: flex; flex-wrap: wrap; gap: 0.4rem 1rem; align-items: center; background: var(--field-1); border-radius: 22px; padding: 0.8rem 3rem 0.8rem 1.1rem; margin-bottom: 1rem; box-shadow: var(--clay); font-size: var(--step-small); }
+.konum p { max-width: none; }
+.konum__kapat { position: absolute; top: 50%; right: 0.4rem; transform: translateY(-50%); width: 44px; height: 44px; border-radius: 50%; font-size: 1.5rem; line-height: 1; color: var(--muted); }
+
+/* telefonda alt çubuk */
+.altbar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 44; display: grid; grid-template-columns: 1fr auto auto; gap: 0.5rem; align-items: center;
+  padding: 0.6rem max(12px, env(safe-area-inset-right)) calc(0.6rem + env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left));
+  background: rgba(251, 251, 251, 0.96); box-shadow: 0 -8px 24px -12px rgba(20, 50, 80, 0.3); }
+.altbar__yas { min-height: 48px; border: 0; border-radius: 999px; padding: 0 1rem; background: var(--field-1); font-size: 1rem; color: var(--ink); font-weight: 600; min-width: 0; }
+.altbar__btn { min-height: 48px; display: inline-flex; align-items: center; padding: 0 1rem; border-radius: 999px; background: var(--field-2); text-decoration: none; font-weight: 600; white-space: nowrap; }
+.altbar__wa { min-height: 48px; display: inline-flex; align-items: center; gap: 0.4rem; padding: 0 1rem 0 0.75rem; border-radius: 999px; background: #25d366; color: #fff; text-decoration: none; font-weight: 600; }
+.altbar__wa svg { width: 26px; height: 26px; }
+html.has-altbar .fab { display: none; }
+html.has-altbar .foot { padding-bottom: calc(6.5rem + env(safe-area-inset-bottom)); }
+@media (max-width: 22.5em) { .altbar__btn { display: none; } .altbar { grid-template-columns: 1fr auto; } }
+
+/* kaydırınca belirme (bir kez, hareket azaltılmışsa yok) */
+.js-reveal .reveal { opacity: 0; transform: translateY(22px); transition: opacity 600ms ease, transform 700ms var(--spring); transition-delay: var(--d, 0ms); }
+.js-reveal .reveal.is-in { opacity: 1; transform: none; }
+
+/* ---------- gece modu ---------- */
+html.gece {
+  --bg: #141a33; --surface: #1f2747; --ink: #eef0f7; --muted: #b9c1da; --accent: #13a39b; --accent-ink: #ffffff;
+  --field-1: #1d3a4a; --field-2: #3a2840; --field-3: #2a3152; --navy: #c9d2ff;
+  color-scheme: dark;
+}
+html.gece body { background: var(--bg); color: var(--ink); }
+html.gece .bar, html.gece .altbar { background: rgba(20, 26, 51, 0.97); }
+html.gece .bar__links { background: var(--surface); }
+html.gece .bubble, html.gece .bubble::after, html.gece .sizer__result, html.gece .latest__list a, html.gece .blog__item a, html.gece .kombin, html.gece .kombin__foto,
+html.gece .ara, html.gece .fab__tip, html.gece .showcase__row, html.gece .showcase__title, html.gece .range input[type="range"]::-webkit-slider-runnable-track { background: var(--surface); color: var(--ink); }
+html.gece .postcard { background: var(--surface); }
+html.gece .product__main, html.gece .tile__frame, html.gece .hero__tile { background-color: var(--surface); }
+html.gece .button--paper { background: var(--surface); color: var(--ink); }
+html.gece .toy-switch__track { background: var(--field-3); }
+html.gece .card__body, html.gece .card__tab { color: var(--ink); }
+html.gece .coupon { background: #0f5f5a; }
+html.gece .floaties { opacity: 0.6; }
+html.gece .hero__mark img, html.gece .hero__bead img { filter: drop-shadow(0 0 18px rgba(127, 224, 220, 0.25)); }
+html.gece .stop h3, html.gece .sizer h2, html.gece .kombin h3, html.gece .latest__list h3, html.gece .blog__item h2, html.gece .legal h1, html.gece .legal h2, html.gece .blog h1, html.gece .post h1, html.gece .post__body h2 { color: #c9d2ff; }
+html.gece .post__body a, html.gece .price { color: #6fe0d8; }
+html.gece .divider { color: #1d2426; }
+html.gece .divider[aria-pressed="true"] { outline-color: #c9d2ff; }
+html.gece [data-m].is-missing { background: #5a3a1a; color: #ffd9b0; }
+html.gece .konum { background: var(--field-1); }
+.altbar { grid-template-columns: minmax(7.5rem, 1fr) auto auto; }
+@media (max-width: 26em) {
+  .altbar__wa span { display: none; }
+  .altbar__wa { padding: 0 0.75rem; }
+  .altbar__btn { padding: 0 0.85rem; }
+}
