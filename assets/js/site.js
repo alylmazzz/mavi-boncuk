@@ -51,8 +51,9 @@
   function tile(u, i) {
     const a = el('a', { class: 'tile', href: `/urun?id=${encodeURIComponent(u.id)}` });
     const f = el('div', { class: 'tile__frame' });
-    f.append(img(u.gorseller[0], u.ad, 800, 1000, i > 3));
-    if (u.gorseller[1]) f.append(img(u.gorseller[1], '', 800, 1000, true));
+    const kucuk = (g) => g.replace(/\.webp$/, '-600.webp');
+    f.append(img(kucuk(u.gorseller[0]), u.ad, 600, 750, i > 3));
+    if (u.gorseller[1]) f.append(img(kucuk(u.gorseller[1]), '', 600, 750, true));
     a.append(f, el('span', { class: 'tile__name', text: u.ad }), el('span', { class: 'tile__fact', text: u.kisa || yasYazi(u) || TURLER[u.kategori] }));
     return a;
   }
@@ -309,34 +310,42 @@
   // imleç takibi ve imlece göre eğilen kartlar (yalnızca fareyle, hareket azaltılmamışsa)
   function hareket() {
     if (reduced || !matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+    // İmleç doğrudan farenin olduğu yere çizilir (gecikmesiz). Tek pointermove dinleyicisi, kare başına tek yazma.
     const dot = el("div", { class: "cursor", "aria-hidden": "true" });
     document.body.append(dot);
-    let x = 0, y = 0, cx = 0, cy = 0;
-    addEventListener("pointermove", (e) => { x = e.clientX; y = e.clientY; dot.classList.add("is-on"); }, { passive: true });
-    document.addEventListener("pointerleave", () => dot.classList.remove("is-on"));
-    (function loop() { cx += (x - cx) * 0.2; cy += (y - cy) * 0.2; dot.style.transform = `translate(${cx}px, ${cy}px)`; requestAnimationFrame(loop); })();
-
-    const SEL = ".tile__frame, .shop__item figure, .hero__tile, .step__tile, .strip__row a, .showcase__panel, .product__main";
-    let cur = null;
-    const reset = (n) => { n.style.transform = ""; const im = n.querySelector("img.is-on, img"); n.querySelectorAll("img").forEach((i) => (i.style.transform = "")); };
-    document.addEventListener("pointerover", (e) => {
-      const n = e.target.closest(SEL);
-      if (n === cur) return;
-      if (cur) reset(cur);
-      cur = n;
-      if (n) { n.setAttribute("data-tilt", ""); dot.classList.add("is-big"); } else dot.classList.remove("is-big");
-      const a = e.target.closest("a, button");
-      if (a && !n) dot.classList.add("is-big");
-    });
-    document.addEventListener("pointermove", (e) => {
+    const SEL = ".tile__frame, .shop__item figure, .hero__tile, .strip__row a, .showcase__panel, .product__main";
+    let x = -100, y = -100, queued = false, cur = null, rect = null, imgs = [], big = 8;
+    const reset = (n) => {
+      n.classList.remove("is-tilting");
+      n.style.transform = "";
+      n.querySelectorAll("img").forEach((i) => (i.style.transform = ""));
+    };
+    const paint = () => {
+      queued = false;
+      dot.style.transform = `translate3d(${x}px, ${y}px, 0)`;
       if (!cur) return;
-      const r = cur.getBoundingClientRect();
-      const px = (e.clientX - r.left) / r.width - 0.5, py = (e.clientY - r.top) / r.height - 0.5;
-      const big = r.width > 700 ? 3 : 8; // büyük panellerde daha az
+      if (!rect) { rect = cur.getBoundingClientRect(); big = rect.width > 700 ? 3 : 8; }
+      const px = (x - rect.left) / rect.width - 0.5, py = (y - rect.top) / rect.height - 0.5;
       // imlecin bulunduğu köşe içeri basar, karşı köşe öne gelir
       cur.style.transform = `perspective(900px) rotateX(${(py * big).toFixed(2)}deg) rotateY(${(-px * big).toFixed(2)}deg) scale(1.015)`;
-      cur.querySelectorAll("img").forEach((i) => (i.style.transform = `translate(${(-px * 14).toFixed(1)}px, ${(-py * 14).toFixed(1)}px) scale(1.06)`));
-    }, { passive: true });
+      const t = `translate3d(${(-px * 12).toFixed(1)}px, ${(-py * 12).toFixed(1)}px, 0) scale(1.05)`;
+      for (const i of imgs) i.style.transform = t;
+    };
+    const queue = () => { if (!queued) { queued = true; requestAnimationFrame(paint); } };
+    addEventListener("pointermove", (e) => { x = e.clientX; y = e.clientY; queue(); }, { passive: true });
+    document.addEventListener("pointerenter", () => dot.classList.add("is-on"));
+    document.documentElement.addEventListener("pointerleave", () => dot.classList.remove("is-on"));
+    dot.classList.add("is-on");
+    addEventListener("scroll", () => { rect = null; }, { passive: true });
+    document.addEventListener("pointerover", (e) => {
+      const n = e.target.closest(SEL);
+      dot.classList.toggle("is-big", !!(n || e.target.closest("a, button")));
+      if (n === cur) return;
+      if (cur) reset(cur);
+      cur = n; rect = null;
+      imgs = n ? [...n.querySelectorAll("img")] : [];
+      if (n) n.classList.add("is-tilting");
+    });
   }
 
   document.querySelectorAll('[data-wa]').forEach((a) => {

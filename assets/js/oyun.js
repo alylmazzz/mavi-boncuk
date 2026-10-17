@@ -25,7 +25,7 @@
     fx.setAttribute('aria-hidden', 'true');
     document.body.append(fx);
     ctx = fx.getContext('2d');
-    const size = () => { fx.width = innerWidth * devicePixelRatio; fx.height = innerHeight * devicePixelRatio; ctx.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0); };
+    const size = () => { const d = Math.min(1.5, devicePixelRatio); fx.width = innerWidth * d; fx.height = innerHeight * d; ctx.setTransform(d, 0, 0, d, 0, 0); };
     size(); addEventListener('resize', size);
   }
   function loop() {
@@ -151,7 +151,7 @@
     trail.className = 'trail'; trail.setAttribute('aria-hidden', 'true');
     document.body.append(trail);
     const tc = trail.getContext('2d');
-    const size = () => { trail.width = innerWidth * devicePixelRatio; trail.height = innerHeight * devicePixelRatio; tc.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0); };
+    const size = () => { trail.width = innerWidth; trail.height = innerHeight; };
     size(); addEventListener('resize', size);
     let bits = [], on = false, last = 0;
     const tick = () => {
@@ -168,10 +168,10 @@
     };
     addEventListener('pointermove', (e) => {
       const now = performance.now();
-      if (now - last < 45) return;
+      if (now - last < 60) return;
       last = now;
-      bits.push({ x: e.clientX + (Math.random() - 0.5) * 8, y: e.clientY + (Math.random() - 0.5) * 8, vx: (Math.random() - 0.5) * 0.4, vy: -0.3 - Math.random() * 0.5, s: 2 + Math.random() * 3, c: COLORS[(Math.random() * 5) | 0], l: 32, L: 32, k: Math.random() < 0.45 ? 'bubble' : 'spark' });
-      if (bits.length > 40) bits.shift();
+      bits.push({ x: e.clientX + (Math.random() - 0.5) * 8, y: e.clientY + (Math.random() - 0.5) * 8, vx: (Math.random() - 0.5) * 0.4, vy: -0.3 - Math.random() * 0.5, s: 2 + Math.random() * 3, c: COLORS[(Math.random() * 5) | 0], l: 24, L: 24, k: Math.random() < 0.45 ? 'bubble' : 'spark' });
+      if (bits.length > 18) bits.shift();
       if (!on) { on = true; requestAnimationFrame(tick); }
     }, { passive: true });
   }
@@ -184,7 +184,7 @@
       shoe: '<svg viewBox="0 0 40 24"><path d="M4 6c0-3 6-3 7 0 2 5 8 6 14 7 8 1 12 4 11 8H4z" fill="#7fe0dc"/><rect x="4" y="19" width="32" height="3" rx="1.5" fill="#fff"/></svg>',
       bead: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#2f6fd6"/><circle cx="12" cy="12" r="7" fill="#fff"/><circle cx="12" cy="12" r="4" fill="#7fe0dc"/><circle cx="12" cy="12" r="2" fill="#26357a"/></svg>'
     };
-    const kinds = ['bow', 'star', 'shoe', 'star', 'bead', 'bow', 'shoe', 'star', 'bead', 'bow'];
+    const kinds = ['bow', 'star', 'shoe', 'bead', 'star', 'bow', 'shoe'];
     const layer = document.createElement('div');
     layer.className = 'floaties'; layer.setAttribute('aria-hidden', 'true');
     const items = kinds.map((k, i) => {
@@ -224,15 +224,16 @@
       confetti(r.left + r.width / 2, r.top + r.height / 2, 60, 0.9);
     });
     if (motion && finePointer) {
-      dividers.addEventListener('pointermove', (e) => {
-        dividers.querySelectorAll('.divider').forEach((d) => {
-          const r = d.getBoundingClientRect();
-          const dist = Math.abs(e.clientX - (r.left + r.width / 2));
-          const s = 1 + Math.max(0, 1 - dist / 160) * 0.28;
-          d.style.transform = `scale(${s.toFixed(3)})`;
-        });
-      });
-      dividers.addEventListener('pointerleave', () => dividers.querySelectorAll('.divider').forEach((d) => (d.style.transform = '')));
+      let centers = null, mx = 0, q = false;
+      const draw = () => {
+        q = false;
+        const list = dividers.querySelectorAll('.divider');
+        if (!centers) centers = [...list].map((d) => { const r = d.getBoundingClientRect(); return r.left + r.width / 2; });
+        list.forEach((d, k) => { const sc = 1 + Math.max(0, 1 - Math.abs(mx - centers[k]) / 160) * 0.28; d.style.transform = `scale(${sc.toFixed(3)})`; });
+      };
+      dividers.addEventListener('pointerenter', () => { centers = null; });
+      dividers.addEventListener('pointermove', (e) => { mx = e.clientX; if (!q) { q = true; requestAnimationFrame(draw); } }, { passive: true });
+      dividers.addEventListener('pointerleave', () => { centers = null; dividers.querySelectorAll('.divider').forEach((d) => (d.style.transform = '')); });
     }
   }
 
@@ -286,6 +287,13 @@
     };
     document.querySelectorAll('.card button').forEach((b) => b.addEventListener('click', () => look(b)));
   }
+
+  // ---------- görünmeyen bölümlerde animasyonlar durur ----------
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((list) => list.forEach((en) => en.target.classList.toggle('is-offscreen', !en.isIntersecting)), { rootMargin: '120px' });
+    document.querySelectorAll('.hero__top, .dividers, .board, .reviews, .faq').forEach((n) => io.observe(n));
+  }
+  document.addEventListener('visibilitychange', () => document.documentElement.classList.toggle('is-offscreen', document.hidden));
 
   // ---------- WhatsApp asistanı ----------
   if (!$('.fab')) {

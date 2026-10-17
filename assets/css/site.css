@@ -184,7 +184,7 @@ p { max-width: 62ch; text-wrap: pretty; }
 @media (min-width: 48em) {
   .tile--wide { grid-column: span 2; }
   .tile--wide .tile__frame { aspect-ratio: 8 / 5; }
-  .tile--wide .tile__frame img { object-fit: contain; mix-blend-mode: multiply; padding-block: 0.75rem; }
+  .tile--wide .tile__frame img { object-fit: contain; padding-block: 0.75rem; }
 }
 .catalogue__more { margin-top: 2.5rem; display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; }
 .catalogue__empty { padding: 3rem 0; }
@@ -363,13 +363,15 @@ p { max-width: 62ch; text-wrap: pretty; }
 }
 
 /* ---------- imleç takibi ve eğilen kartlar ---------- */
-.cursor { position: fixed; left: 0; top: 0; width: 34px; height: 34px; margin: -17px 0 0 -17px; border-radius: 50%;
-  background: var(--pink); opacity: 0; pointer-events: none; z-index: 50; mix-blend-mode: multiply;
-  transition: opacity 200ms ease, width 220ms var(--ease-out), height 220ms var(--ease-out), margin 220ms var(--ease-out); }
-.cursor.is-on { opacity: 0.28; }
-.cursor.is-big { width: 72px; height: 72px; margin: -36px 0 0 -36px; opacity: 0.2; }
-[data-tilt] { transform-style: preserve-3d; transition: transform 450ms var(--ease-out); will-change: transform; }
-[data-tilt] img { transition: transform 450ms var(--ease-out), opacity 450ms ease; }
+.cursor { position: fixed; left: 0; top: 0; width: 26px; height: 26px; margin: -13px 0 0 -13px; pointer-events: none; z-index: 50; opacity: 0; transition: opacity 150ms ease; will-change: transform; contain: layout style; }
+.cursor.is-on { opacity: 1; }
+.cursor.is-big svg { transform: scale(1.5); }
+.cursor svg { transition: transform 160ms ease-out; }
+/* eğilme: geçiş yalnızca bırakınca; üzerindeyken anında takip eder, katman yalnızca o an açılır */
+.tile__frame, .shop__item figure, .hero__tile, .strip__row a, .showcase__panel, .product__main { transition: transform 380ms var(--ease-out); }
+.tile__frame img, .shop__item img, .strip__row img, .showcase__img, .product__main img { transition: transform 380ms var(--ease-out), opacity 450ms ease; }
+.is-tilting { will-change: transform; transition: transform 80ms linear !important; }
+.is-tilting img { transition: transform 80ms linear, opacity 450ms ease !important; }
 @media (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) { .cursor { display: none; } }
 
 /* ---------- hero kategori adları: logo tadında renkli yazılar ---------- */
