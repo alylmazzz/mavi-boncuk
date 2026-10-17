@@ -85,6 +85,23 @@
     if (t !== soundBtn) bloop();
   });
 
+  // ---------- telefon menüsü (hamburger) ----------
+  const menuBtn = $('#menu-btn'), menu = $('#menu');
+  if (menuBtn && menu) {
+    const setOpen = (open, klavye) => {
+      menu.classList.toggle('is-open', open);
+      menuBtn.setAttribute('aria-expanded', String(open));
+      menuBtn.setAttribute('aria-label', open ? 'Menüyü kapat' : 'Menüyü aç');
+      document.documentElement.classList.toggle('menu-open', open);
+      if (open && klavye) { const first = menu.querySelector('a, button'); if (first) first.focus({ preventScroll: true }); }
+    };
+    menuBtn.addEventListener('click', (e) => setOpen(!menu.classList.contains('is-open'), e.detail === 0));
+    menu.addEventListener('click', (e) => { if (e.target.closest('a')) setOpen(false); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && menu.classList.contains('is-open')) { setOpen(false); menuBtn.focus(); } });
+    document.addEventListener('pointerdown', (e) => { if (menu.classList.contains('is-open') && !menu.contains(e.target) && !menuBtn.contains(e.target)) setOpen(false); });
+    matchMedia('(min-width: 60em)').addEventListener('change', (m) => { if (m.matches) setOpen(false); });
+  }
+
   // ---------- hediye modu ----------
   const gift = $('#gift');
   const GIFT_LINE = '\n\nHediye olarak alıyorum; paketleme ve hediye notu için yardımcı olur musunuz?';
@@ -180,7 +197,8 @@
   }
 
   // ---------- süzülen arka plan (tek tuval, yalnızca kaydırınca çizilir) ----------
-  if (motion) {
+  const weak = (navigator.deviceMemory && navigator.deviceMemory <= 2) || (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 2);
+  if (motion && !weak) {
     const layer = document.createElement('canvas');
     layer.className = 'floaties'; layer.setAttribute('aria-hidden', 'true');
     document.body.prepend(layer);
@@ -196,7 +214,7 @@
     function draw() {
       queued = false;
       lc.clearRect(0, 0, layer.width, layer.height);
-      lc.globalAlpha = mobile ? 0.28 : 0.36;
+      lc.globalAlpha = mobile ? 0.2 : 0.36;
       const H = innerHeight * 1.3;
       for (const it of items) {
         const im = pics[it.n]; if (!im || !im.complete) continue;
@@ -314,8 +332,11 @@
       const [metin, mesaj] = IPUCU[n % IPUCU.length]; n++;
       tip.textContent = metin; tip.href = waLink(mesaj);
       tip.classList.remove('is-hidden');
-      setTimeout(() => tip.classList.add('is-hidden'), 6000);
+      setTimeout(() => tip.classList.add('is-hidden'), telefon ? 4000 : 6000);
     };
-    setTimeout(() => { show(); setInterval(show, 10000); }, 4000);
+    // telefonda ipucu daha seyrek ve kısa; kaydırırken gizlenir
+    const telefon = matchMedia('(max-width: 59.99em)').matches;
+    if (telefon) addEventListener('scroll', () => tip.classList.add('is-hidden'), { passive: true });
+    setTimeout(() => { show(); setInterval(show, telefon ? 25000 : 10000); }, telefon ? 8000 : 4000);
   }
 })();

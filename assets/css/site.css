@@ -88,7 +88,6 @@ p { max-width: 62ch; text-wrap: pretty; }
 .bar__links { display: flex; gap: clamp(0.5rem, 2vw, 2rem); align-items: center; }
 .bar__links a:not(.button) { text-decoration: none; min-height: 44px; display: inline-flex; align-items: center; }
 .bar__links .button { min-height: 2.75rem; padding: 0 1.1rem; }
-@media (max-width: 47.99em) { .bar__links a:not(.button) { display: none; } }
 
 /* ---------- hero: tek numune, isim listesi ---------- */
 .hero { padding: clamp(1rem, 3vw, 3.5rem) var(--margin) var(--section); }

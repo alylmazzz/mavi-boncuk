@@ -301,3 +301,137 @@ html.gift-on .product__cta .button:first-child { background: var(--pink); }
 
 /* ---------- ekran dışındaki bölümler görünene kadar çizilmez ---------- */
 .strip, .steps, .sizer, .shop, .reviews, .faq, .coupon-wrap, .foot { content-visibility: auto; contain-intrinsic-size: auto 900px; }
+
+/* =====================================================================
+   Telefon ve tablet (iOS + Android): hamburger menü, tek sütun akış,
+   güvenli alanlar, dokunma ayarları, taşma koruması
+   ===================================================================== */
+html { -webkit-tap-highlight-color: transparent; }
+body { overflow-x: clip; }
+img, svg, video, canvas { max-width: 100%; }
+a, button, input, label, .tile { touch-action: manipulation; }
+h1, h2, h3, p, .tile__name, .showcase__name, blockquote { overflow-wrap: anywhere; }
+
+/* üst çubuk her ekranda üstte kalır, menüye her an ulaşılır */
+.bar {
+  position: sticky; top: 0; z-index: 45; background: #fbfbfb;
+  padding-top: max(0.6rem, env(safe-area-inset-top)); padding-bottom: 0.6rem;
+  padding-left: max(var(--margin), env(safe-area-inset-left)); padding-right: max(var(--margin), env(safe-area-inset-right));
+}
+.menu-btn { display: none; }
+
+@media (max-width: 59.99em) {
+  .bar__brand img { height: 52px; }
+  .menu-btn {
+    display: grid; place-content: center; gap: 5px; width: 52px; height: 52px; border-radius: 18px;
+    background: var(--field-1); box-shadow: var(--clay); transition: transform 180ms var(--spring);
+  }
+  .menu-btn span { display: block; width: 24px; height: 3px; border-radius: 3px; background: var(--navy); transition: transform 220ms var(--spring), opacity 160ms ease; }
+  .menu-btn:active { transform: scale(0.94); }
+  .menu-btn[aria-expanded="true"] span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+  .menu-btn[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+  .menu-btn[aria-expanded="true"] span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+  .bar__links {
+    position: fixed; left: max(12px, env(safe-area-inset-left)); right: max(12px, env(safe-area-inset-right));
+    top: calc(max(0.6rem, env(safe-area-inset-top)) + 64px);
+    max-height: calc(100dvh - 90px); overflow-y: auto; overscroll-behavior: contain;
+    display: flex; flex-direction: column; align-items: stretch; gap: 0.35rem;
+    padding: 1rem; background: #fff; border-radius: 28px; box-shadow: 0 24px 48px -16px rgba(20, 50, 80, 0.35), var(--clay);
+    opacity: 0; visibility: hidden; transform: translateY(-12px) scale(0.98); transform-origin: top right;
+    transition: opacity 180ms ease, transform 240ms var(--spring), visibility 0s linear 240ms;
+  }
+  .bar__links.is-open { opacity: 1; visibility: visible; transform: none; transition: opacity 180ms ease, transform 240ms var(--spring), visibility 0s; }
+  .bar__links a:not(.button) { display: flex !important; align-items: center; min-height: 52px; font-size: 1.6rem; padding: 0 0.5rem; }
+  .bar__links .button { width: 100%; min-height: 3.25rem; margin-top: 0.4rem; }
+  .bar__links .toy-switch { order: 10; min-height: 52px; padding: 0 0.5rem; }
+  .bar__links .toy-switch__label { display: inline; font-size: 1rem; }
+  .bar__links .sound-btn { order: 11; width: auto; height: 52px; justify-content: start; padding: 0 0.5rem; display: flex; gap: 0.5rem; }
+  .bar__links .sound-btn::after { content: "Tıklama sesi"; font-size: 1rem; color: var(--ink); }
+  html.menu-open { overflow: hidden; }
+  html.menu-open body { overflow: hidden; }
+
+  /* hero: önce Mavi Boncuk, sonra nazar boncuğu, sonra metin; hepsi alt alta */
+  .hero { padding-top: 0.75rem; }
+  .hero__top { grid-template-columns: 1fr; justify-items: center; row-gap: 0.5rem; }
+  .hero__top .hero__desc { grid-column: 1; justify-self: stretch; padding-top: 0.5rem; text-align: center; max-width: none; }
+  .hero__mark { justify-self: center; }
+  .hero__mark img { width: min(82vw, 400px); }
+  .hero__mark .string { display: none; }
+  .hero__bead { width: clamp(90px, 28vw, 130px); margin-top: 0.25rem; margin-bottom: 0.75rem; }
+  .sky { width: 56px; height: 56px; top: 0; right: 0; }
+  .hero__stage { margin-top: 1.25rem; }
+  .hero__side { display: grid; gap: 0.75rem; }
+
+  /* yaş balonları tek sıraya sığar */
+  .dividers { gap: 0.5rem; justify-content: space-between; flex-wrap: nowrap; padding-bottom: 3rem; }
+  .divider { width: min(4.3rem, 18.5vw); height: min(5rem, 21.5vw); font-size: clamp(0.78rem, 3.3vw, 0.95rem); }
+  .divider::before { top: 0.6rem; left: 0.75rem; width: 0.7rem; height: 1rem; }
+  .divider::after { height: 2.4rem; }
+  .kinds { gap: 0.25rem 1rem; }
+
+  /* beden bulucu: dar ekranda figür üstte */
+  .sizer__stage { grid-template-columns: 1fr; }
+  .kid { height: 170px; }
+
+  /* sipariş yolu: alt alta */
+  .stop { grid-template-columns: 84px 1fr; }
+  .stop__token { width: 84px; height: 84px; }
+}
+@media (min-width: 60em) { .hero__top .hero__desc { text-align: left; } }
+
+/* çok dar telefonlar (320-360 px) */
+@media (max-width: 22.5em) {
+  :root { --margin: 0.875rem; }
+  .hero__names button { font-size: 1.25rem; }
+  .showcase__actions { grid-template-columns: 1fr; }
+  .grid-tiles { gap: 1.5rem 0.5rem; }
+  .tile__name { font-size: 1rem; }
+  .fab__tip { display: none; }
+}
+
+/* sağ alttaki WhatsApp butonu güvenli alanda; altta içerik kapanmasın */
+.fab { right: max(16px, env(safe-area-inset-right)); bottom: max(16px, env(safe-area-inset-bottom)); }
+@media (max-width: 59.99em) {
+  .foot { padding-bottom: calc(6rem + env(safe-area-inset-bottom)); }
+  .fab__btn { width: 58px; height: 58px; }
+}
+
+/* eski iOS (svh desteklemeyen) için yedek yükseklikler */
+@supports not (height: 1svh) {
+  .showcase__panel { min-height: 78vh; }
+  @media (min-width: 60em) { .hero { min-height: 100vh; } .showcase__panel { min-height: 92vh; } }
+}
+
+/* yapışkan üst çubuk bağlantıların üstünü örtmesin */
+section[id], main [id] { scroll-margin-top: 90px; }
+
+/* yaş balonları: dar ekranda esneyerek tek sıraya sığar */
+@media (max-width: 59.99em) {
+  .dividers { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0.4rem; justify-items: center; }
+  .divider { width: 100%; max-width: 4.4rem; height: auto; aspect-ratio: 0.86; min-width: 0; padding: 0 0.15rem; }
+  .catalogue__head { min-width: 0; }
+  .catalogue__head > * { min-width: 0; }
+}
+
+/* beden bulucu ve butonlar: dar ekranda içerik kutudan taşmaz */
+.sizer__box, .sizer__box > *, .sizer__stage, .sizer__controls, .sizer__result, .range { min-width: 0; }
+.sizer__box { grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 60em) { .sizer__box { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); } }
+@media (max-width: 59.99em) {
+  .button { white-space: normal; text-align: center; line-height: 1.25; padding-block: 0.6rem; }
+  .sizer__box { padding: 1.25rem; border-radius: 28px; }
+  .sizer h2 { font-size: clamp(2rem, 9vw, 2.75rem); }
+}
+
+/* telefonda güneş/ay logonun üstüne binmesin: boncuğun altında, selamın önünde */
+@media (max-width: 59.99em) {
+  .sky { position: static; width: 52px; height: 52px; margin: -0.25rem auto 0; grid-row: 3; }
+  .hero__top .hero__desc { grid-row: 4; }
+}
+
+/* telefonda ipucu balonu butonun üstünde durur, içeriği yana doğru kapatmaz */
+@media (max-width: 59.99em) {
+  .fab { flex-direction: column; align-items: flex-end; gap: 0.5rem; }
+  .fab__tip { max-width: min(15rem, calc(100vw - 32px)); border-radius: 20px 20px 4px 20px; }
+}
