@@ -110,10 +110,10 @@
   if (hello && sky) {
     const h = new Date().getHours();
     const gece = h >= 20 || h < 6;
-    const selam = h >= 6 && h < 11 ? 'Günaydın! Bugünün kombini hazır mı?'
+    const selam = h >= 6 && h < 11 ? 'İyi günler! Bugünün kombini hazır mı?'
       : h < 17 ? 'İyi günler! Okul, parti, bayram; ne lazım?'
-      : h < 20 ? 'İyi akşamlar! Yarınki oyunlar için kıyafet seçelim mi?'
-      : 'İyi geceler! Minikler uyurken siz rahatça bakın.';
+      : h < 20 ? 'İyi günler! Yarınki oyunlar için kıyafet seçelim mi?'
+      : 'İyi günler! Minikler uyurken siz rahatça bakın.';
     hello.textContent = selam;
     sky.setAttribute('aria-label', gece ? 'Uykulu ay' : 'Güneş');
     sky.innerHTML = gece
