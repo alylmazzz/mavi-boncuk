@@ -708,3 +708,8 @@ html.has-altbar .dil-oneri { bottom: calc(10rem + env(safe-area-inset-bottom)); 
 .mb-gizli img { width: 40px; height: auto; border-radius: 0; object-fit: contain; }
 /* selamlama JS ile iki satırlık metne dönüşüyor; yer baştan ayrılsın (CLS) */
 .hero__hello { display: block; min-height: 2.5em; line-height: 1.2; }
+/* bildirim yığını: konum, dil önerisi, duyuru; içeriği itmez */
+.yigin { position: fixed; z-index: 45; left: 50%; transform: translateX(-50%); bottom: calc(max(16px, env(safe-area-inset-bottom)) + 4.5rem); width: min(36rem, calc(100vw - 32px)); display: flex; flex-direction: column; gap: 0.5rem; pointer-events: none; }
+html.has-altbar .yigin { bottom: calc(9.5rem + env(safe-area-inset-bottom)); }
+.yigin > * { pointer-events: auto; position: relative !important; left: auto !important; top: auto !important; bottom: auto !important; transform: none !important; width: auto !important; margin: 0 !important; box-shadow: var(--clay); }
+.yigin .konum { background: var(--surface, #fff); }

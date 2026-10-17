@@ -37,6 +37,9 @@
   uygula();
   setInterval(uygula, 10 * 60 * 1000);
 
+  // bildirimler sayfayı itmesin (CLS): hepsi altta yüzen tek bir yığında
+  function yigin() { let y = $('.yigin'); if (!y) { y = document.createElement('div'); y.className = 'yigin'; document.body.append(y); } return y; }
+
   // ---------- yakınlık bildirimi (il düzeyinde, izin istemeden) ----------
   if (!ses.get('mb-konum-kapat') && $('.hero')) {
     fetch('/api/konum').then((r) => r.json()).then((k) => {
@@ -50,7 +53,7 @@
       kapat.type = 'button'; kapat.className = 'konum__kapat'; kapat.setAttribute('aria-label', 'Bildirimi kapat'); kapat.textContent = '×';
       kapat.addEventListener('click', () => { kutu.remove(); ses.set('mb-konum-kapat', '1'); });
       kutu.append(kapat);
-      $('.hero').prepend(kutu);
+      yigin().append(kutu);
     }).catch(() => {});
   }
 
@@ -271,7 +274,7 @@
       const x = document.createElement('button'); x.type = 'button'; x.className = 'duyuru__kapat'; x.setAttribute('aria-label', 'Duyuruyu kapat'); x.textContent = '×';
       x.addEventListener('click', () => { k.remove(); ses.set('mb-duyuru-kapat', d.metin); });
       k.append(p, x);
-      const h = $('header.bar'); h ? h.after(k) : document.body.prepend(k);
+      yigin().prepend(k);
     }).catch(() => {});
   }
 

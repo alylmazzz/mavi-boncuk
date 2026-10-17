@@ -151,7 +151,7 @@
     const a = k.querySelector('a'); a.href = hedef(tercih); a.innerHTML = (BAYRAK[tercih] || '') + '<span></span>'; a.lastChild.textContent = C.DILLER[tercih].ad;
     a.addEventListener('click', () => store.set('mb-dil', tercih));
     k.querySelector('button').addEventListener('click', () => { k.remove(); try { sessionStorage.setItem('mb-dil-oneri', '1'); } catch (e) { /* */ } });
-    const h = document.querySelector('header.bar'); h ? h.after(k) : document.body.prepend(k);
+    let y = document.querySelector('.yigin'); if (!y) { y = document.createElement('div'); y.className = 'yigin'; document.body.append(y); } y.append(k);
   }
   const ONERI_METIN = {
     en: 'This page is also available in English.', de: 'Diese Seite gibt es auch auf Deutsch.', ru: 'Эта страница есть и на русском.',
