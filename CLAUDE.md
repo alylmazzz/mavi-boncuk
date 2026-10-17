@@ -39,6 +39,12 @@ yıldız ya da “mağazada denedik” gibi doğrulanmamış iddia yazılmaz.
 Ebeveyn için kritik bilgiler her üründe görünür olmalı: beden ve yaş karşılığı, kumaş içeriği,
 yıkama talimatı, stok, kargo süresi, iade koşulu.
 
+## Yasal sayfalar ve ödeme
+
+Ödeme altyapısı PayTR (kullanıcı kararı, 2026-10-17). Yasal sayfalar: iletisim, teslimat, iade, mesafeli-satis,
+on-bilgilendirme, kvkk, gizlilik (.html). Mağaza bilgileri tek yerde: `data/magaza.json`; sayfalar `assets/js/magaza.js` ile
+doldurur, boş alanlar turuncu [işaret] görünür. Yasal metinler şablondur; yayından önce mali müşavir/avukat kontrolü önerilir.
+
 ## Metin
 
 Tüm metinler `docs/ses-ve-dil.md` kurallarına göre yazılır. Teslimden önce metinleri o dosyadaki
