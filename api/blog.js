@@ -5,6 +5,7 @@ module.exports = (req, res) => {
   const url = new URL(req.url, 'http://x');
   const kat = url.searchParams.get('kategori');
   let list = yayindakiler();
+  if (kat && KATEGORI[kat]) list = list.filter((y) => y.kategori === kat);
   res.setHeader('Cache-Control', `public, s-maxage=${geceYarisinaSaniye()}, stale-while-revalidate=300`);
 
   if (url.searchParams.get('format') === 'json') {
@@ -13,7 +14,6 @@ module.exports = (req, res) => {
     return res.end(JSON.stringify(list.slice(0, n).map(({ slug, baslik, ozet, tarih, kategori }) => ({ slug, baslik, ozet, tarih, kategori }))));
   }
 
-  if (kat && KATEGORI[kat]) list = list.filter((y) => y.kategori === kat);
   const sayac = {};
   for (const y of yayindakiler()) sayac[y.kategori] = (sayac[y.kategori] || 0) + 1;
 

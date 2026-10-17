@@ -14,7 +14,7 @@ const urunHtml = rd('urun.html');
 const ver = (urunHtml.match(/\?v=(\w+)/) || [, '1'])[1];
 const header = urunHtml.slice(urunHtml.indexOf('<header'), urunHtml.indexOf('</header>') + 9);
 const footer = urunHtml.slice(urunHtml.indexOf('<footer'), urunHtml.indexOf('</footer>') + 9);
-const headLinks = urunHtml.slice(urunHtml.indexOf('<link rel="icon"'), urunHtml.indexOf('</head>')).trim();
+const headLinks = urunHtml.slice(urunHtml.indexOf('<link rel="icon"'), urunHtml.indexOf('</head>')).split(/\r?\n/).filter((l) => !/rel="canonical"|property="og:|name="robots"/.test(l)).join('\n').trim();
 const scripts = `<script src="/assets/js/site.js?v=${ver}" defer></script>\n<script src="/assets/js/oyun.js?v=${ver}" defer></script>`;
 
 // ---------- 1) blog iskeleti ----------
@@ -25,7 +25,7 @@ const { urunler } = JSON.parse(rd('data/urunler.json'));
 const TUR = { abiye: 'Abiye', 'takim-elbise': 'Takım elbise', gunluk: 'Günlük takımlar', okul: 'Okul', bebek: 'Bebek', aksesuar: 'Aksesuar' };
 const yasYazi = (u) => (u.yas_araligi ? `${u.yas_tahmini ? 'Yaklaşık ' : ''}${u.yas_araligi[0]}-${u.yas_araligi[1]} yaş` : 'Yazın, bakıp söyleyelim');
 const wa = (t) => `https://wa.me/905057458364?text=${encodeURIComponent(t)}`;
-const sabitSayfa = ({ baslik, aciklama, yol, govde, jsonld }) => `<!doctype html>
+const sabitSayfa = ({ baslik, aciklama, yol, govde, jsonld, gorsel }) => `<!doctype html>
 <html lang="tr">
 <head>
 <meta charset="utf-8">
@@ -37,6 +37,8 @@ const sabitSayfa = ({ baslik, aciklama, yol, govde, jsonld }) => `<!doctype html
 <meta property="og:description" content="${esc(aciklama)}">
 <meta property="og:url" content="${SITE}${yol}">
 <meta property="og:locale" content="tr_TR">
+<meta property="og:image" content="${gorsel || SITE + '/assets/img/site/og.jpg'}">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#fbfbfb">
 ${headLinks}
 <script type="application/ld+json">${JSON.stringify(jsonld)}</script>
@@ -61,7 +63,7 @@ for (const u of gorunur) {
     <h1>${esc(u.ad)}</h1>
     <p class="lead">${esc(u.aciklama)}</p>
     <dl class="facts">
-      ${satir('Yaş', yasYazi(u))}${satir('Tür', TUR[u.kategori] || '')}${satir('Fiyat', fiyat)}${satir('Kumaş', u.kumas || 'Yazın, bakıp söyleyelim')}${satir('Teslim', 'Mağazadan alabilir ya da gönderim için yazabilirsiniz')}
+      ${satir('Yaş', yasYazi(u))}<div><dt>Tür</dt><dd><a class="link" href="/kategori/${u.kategori}">${TUR[u.kategori] || ''}</a></dd></div>${satir('Fiyat', fiyat)}${satir('Kumaş', u.kumas || 'Yazın, bakıp söyleyelim')}${satir('Teslim', 'Mağazadan alabilir ya da gönderim için yazabilirsiniz')}
     </dl>
     <div class="product__cta"><a class="button" href="${wa(`Merhaba, “${u.ad}” için yazıyorum (${SITE}${yol}). Fiyatı ve bedenleri nedir?`)}">WhatsApp’tan sor</a></div>
   </div>
@@ -72,7 +74,8 @@ for (const u of gorunur) {
     brand: { '@type': 'Brand', name: 'Mavi Boncuk' },
     ...(u.fiyat ? { offers: { '@type': 'Offer', price: u.fiyat, priceCurrency: 'TRY', availability: 'https://schema.org/InStock', url: SITE + yol, seller: { '@type': 'Organization', name: 'Mavi Boncuk Bebe Mağazası' } } } : {})
   };
-  wr(`urun/${u.id}.html`, sabitSayfa({ baslik: `${u.ad} · Mavi Boncuk, Ortaca`, aciklama: `${u.aciklama} ${yasYazi(u)}. Ortaca’daki Mavi Boncuk’ta; fiyat ve beden için WhatsApp’tan sorun.`.slice(0, 300), yol, govde, jsonld }));
+  const kirinti = { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Ana sayfa', item: SITE }, { '@type': 'ListItem', position: 2, name: TUR[u.kategori] || 'Ürünler', item: `${SITE}/kategori/${u.kategori}` }, { '@type': 'ListItem', position: 3, name: u.ad, item: SITE + yol }] };
+  wr(`urun/${u.id}.html`, sabitSayfa({ baslik: `${u.ad} · Mavi Boncuk, Ortaca`, aciklama: `${u.aciklama} ${yasYazi(u)}. Ortaca’daki Mavi Boncuk’ta; fiyat ve beden için WhatsApp’tan sorun.`.slice(0, 300), yol, govde, jsonld: [jsonld, kirinti], gorsel: SITE + u.gorseller[0] }));
 }
 // ürün listesi
 const gruplar = Object.entries(TUR).map(([k, ad]) => [ad, gorunur.filter((u) => u.kategori === k)]).filter(([, l]) => l.length);
@@ -84,9 +87,92 @@ wr('urunler.html', sabitSayfa({
   govde: `<main class="legal">
   <h1>Bütün ürünler</h1>
   <p>Mavi Boncuk, Muğla Ortaca’da 0-16 yaş çocuk giyim mağazasıdır. Askıdaki ürünlerin listesi aşağıda; fiyat ve beden için WhatsApp’tan yazabilirsiniz.</p>
-  ${gruplar.map(([ad, l]) => `<h2>${ad}</h2><ul>${l.map((u) => `<li><a class="link" href="/urun/${u.id}">${esc(u.ad)}</a>, ${esc(yasYazi(u).toLocaleLowerCase('tr'))}</li>`).join('')}</ul>`).join('\n  ')}
+  ${gruplar.map(([ad, l]) => `<h2><a class="link" href="/kategori/${Object.keys(TUR).find((k) => TUR[k] === ad)}">${ad}</a></h2><ul>${l.map((u) => `<li><a class="link" href="/urun/${u.id}">${esc(u.ad)}</a>, ${esc(yasYazi(u).toLocaleLowerCase('tr'))}</li>`).join('')}</ul>`).join('\n  ')}
 </main>`
 }));
+
+// ---------- 2b) kategori sayfaları ----------
+const KATEGORILER = [
+  {
+    id: 'abiye', ad: 'Çocuk abiyeleri', blog: 'ozel-gun',
+    baslik: 'Çocuk abiyeleri, mezuniyet ve düğün elbiseleri · Mavi Boncuk Ortaca',
+    aciklama: 'Ortaca’da 3-15 yaş kız çocuk abiyeleri: mezuniyet, düğün, kına ve doğum günü için tül, saten ve pullu modeller. Beden için WhatsApp’tan sorun.',
+    giris: ['Mezuniyet, düğün, kına ve doğum günü için 3-15 yaş kız çocuk abiyeleri Ortaca’daki mağazamızda. Tül, saten ve pullu modeller var; uzun etekli ve önü kısa arkası uzun kesimler askıda.', 'Bedenini bilmiyorsanız çocuğunuzun boyunu ve kilosunu yazın, elbiseyi ölçüp hangi bedenin olacağını söyleyelim.'],
+    sss: [['Abiyeyi denemeden alabilir miyim?', 'Ortaca dışındaysanız boy ve kilo ölçüsüyle WhatsApp’tan sorun, elbiseyi ölçüp söyleyelim. Ortaca’daysanız mağazaya gelip deneyebilirsiniz.'],
+      ['Mezuniyet abiyesine ne zaman bakmalı?', 'Mezuniyetler haziranda olduğu için mayıs başı iyi bir zaman. Bedeni netleştirmeye ve ayakkabıyı denemeye vakit kalır.']]
+  },
+  {
+    id: 'takim-elbise', ad: 'Çocuk takım elbiseleri', blog: 'erkek-cocuk',
+    baslik: 'Çocuk takım elbise, sünnet ve düğün kıyafeti · Mavi Boncuk Ortaca',
+    aciklama: 'Ortaca’da 1-14 yaş erkek çocuk takım elbiseleri: smokin, keten ve yelekli üç parça. Sünnet, düğün, nikâh ve mezuniyet için.',
+    giris: ['Sünnet, düğün, nikâh ve mezuniyet için 1-14 yaş erkek çocuk takım elbiseleri. Smokin, keten ve yelekli üç parça modeller var, papyonlu olanlar da.', 'Yaz düğünleri için keten takımlar daha hafif durur. Bebekler için mevlit ve nikâha uygun küçük takımlarımız da var.'],
+    sss: [['Takım elbiseyi büyük almalı mıyım?', 'Ceketin kolu bileği geçmesin, pantolon paçası ayakkabının üstüne hafifçe değsin. Bir beden büyük ceket fotoğrafta bol görünür; tam bedenini almak daha iyi olur.'],
+      ['Sünnet kıyafetine ne zaman bakmalı?', 'Tarih belli olunca en az iki hafta önceden bakın. Kol ya da paça boyu gerekirse terzide ayarlatmaya vakit kalır.']]
+  },
+  {
+    id: 'gunluk', ad: 'Günlük çocuk takımları', blog: 'kombin',
+    baslik: 'Günlük çocuk takımları, eşofman ve kombinler · Mavi Boncuk Ortaca',
+    aciklama: 'Ortaca’da 2-14 yaş kız ve erkek çocuk günlük takımları: eşofman, kot takım, şort etek ve tişört. Yeni sezon ürünler Mavi Boncuk’ta.',
+    giris: ['Okula, parka ve eve giyilecek 2-14 yaş kız ve erkek çocuk takımları: eşofmanlar, kot takımlar, şort etekler, sweatshirt ve tişörtler.', 'Yeni sezon ürünler geldikçe Instagram’da paylaşıyoruz; burada askıdakilerin bir kısmını görebilirsiniz.'],
+    sss: [['Eşofman takımı kaç beden almalı?', 'Lastikli bel ve manşetli paçalı takımlarda tam beden alın; paça biraz uzunsa manşet tutar. Boy ve kiloyu yazarsanız modele göre söyleyelim.']]
+  },
+  {
+    id: 'okul', ad: 'Okul kıyafetleri', blog: 'okul',
+    baslik: 'Okul kıyafetleri, polo tişört ve etek · Mavi Boncuk Ortaca',
+    aciklama: 'Ortaca’da okul kıyafetleri: polo yaka tişört, şort, etek ve pantolon. Okulunuzun istediği renkleri yazın, elimizde olanı söyleyelim.',
+    giris: ['Polo yaka tişört, şort, etek ve pantolon gibi okul kıyafetleri mağazamızda. Beyaz, bordo ve yeşil polo tişörtler ile bej şortlar askıda.', 'Okulunuzun istediği rengi ve modeli yazın, elimizde olan bedenleri söyleyelim.'],
+    sss: [['Okul kıyafetinden kaç takım almalı?', 'Her gün yıkamak istemiyorsanız üst için üç, alt için iki parça çoğu ailenin işini görür.']]
+  },
+  {
+    id: 'bebek', ad: 'Bebek kıyafetleri ve bebek arabası', blog: 'bebek',
+    baslik: 'Bebek kıyafetleri, bebek arabası ve beşik · Mavi Boncuk Ortaca',
+    aciklama: 'Ortaca’da 0-3 yaş bebek kıyafetleri ile bebek arabası, beşik, ana kucağı, yürüteç ve mama sandalyesi. Modeller ve fiyat için WhatsApp’tan yazın.',
+    giris: ['0-3 yaş bebek elbiseleri ve takımlarının yanında bebek arabası, beşik, ana kucağı, yürüteç ve mama sandalyesi de satıyoruz.', 'Büyük ürünlerin hepsi sitede yok. Hangisini aradığınızı yazın, elimizdeki modellerin fotoğrafını ve fiyatını gönderelim.'],
+    sss: [['Yenidoğan bebek hangi bedeni giyer?', 'Çoğu yenidoğan 0-3 ay, yani 56-62 beden giyer. İri doğan bebekler 3-6 ay bedende daha rahat eder.'],
+      ['Bebek arabası fiyatları ne kadar?', 'Fiyat modele göre değişiyor. Elimizdeki modellerin fotoğrafını ve güncel fiyatını WhatsApp’tan gönderiyoruz.']]
+  }
+];
+const kart = (u) => { const g = u.gorseller[0]; const k = g.replace(/\.webp$/, '-400.webp'), o = g.replace(/\.webp$/, '-600.webp');
+  return `<a class="tile" href="/urun/${u.id}"><div class="tile__frame"><img src="${o}" srcset="${k} 400w, ${o} 600w" sizes="(min-width: 75em) 22vw, (min-width: 48em) 31vw, 48vw" alt="${esc(u.ad)}" width="600" height="750" loading="lazy" decoding="async"></div><span class="tile__name">${esc(u.ad)}</span><span class="tile__fact">${esc(yasYazi(u))}</span></a>`; };
+for (const k of KATEGORILER) {
+  const list = gorunur.filter((u) => u.kategori === k.id);
+  const yol = `/kategori/${k.id}`;
+  const govde = `<main class="blog">
+  <nav class="post__crumb" aria-label="Konum"><a href="/">Ana sayfa</a> / <a href="/urunler">Ürünler</a> / ${esc(k.ad)}</nav>
+  <h1>${esc(k.ad)}</h1>
+  ${k.giris.map((p) => `<p class="blog__lead">${esc(p)}</p>`).join('\n  ')}
+  <p style="margin-top:1.25rem"><a class="button" href="${wa(`Merhaba, sitede ${k.ad.toLocaleLowerCase('tr')} sayfasına baktım. Elinizde neler var?`)}">WhatsApp’tan sor</a></p>
+  <div class="grid-tiles" style="margin-top:2.5rem">${list.map(kart).join('')}</div>
+  <section class="kat__sss"><h2 class="head" style="margin-top:4rem">Sık sorulanlar</h2>${k.sss.map(([s, c]) => `<h3>${esc(s)}</h3><p>${esc(c)}</p>`).join('')}</section>
+  <section class="latest" style="padding-inline:0"><div class="latest__head"><h2 class="head">İlgili yazılar</h2><a class="link" href="/blog?kategori=${k.blog}">Hepsi</a></div><ul class="latest__list" id="latest" data-kategori="${k.blog}"></ul></section>
+</main>`;
+  const jsonld = [
+    { '@context': 'https://schema.org', '@type': 'CollectionPage', name: k.ad, description: k.aciklama, url: SITE + yol,
+      isPartOf: { '@type': 'WebSite', name: 'Mavi Boncuk', url: SITE },
+      mainEntity: { '@type': 'ItemList', itemListElement: list.map((u, i) => ({ '@type': 'ListItem', position: i + 1, url: `${SITE}/urun/${u.id}`, name: u.ad })) } },
+    { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: k.sss.map(([s, c]) => ({ '@type': 'Question', name: s, acceptedAnswer: { '@type': 'Answer', text: c } })) },
+    { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Ana sayfa', item: SITE }, { '@type': 'ListItem', position: 2, name: 'Ürünler', item: `${SITE}/urunler` }, { '@type': 'ListItem', position: 3, name: k.ad, item: SITE + yol }] }
+  ];
+  wr(`kategori/${k.id}.html`, sabitSayfa({ baslik: k.baslik, aciklama: k.aciklama, yol, govde, jsonld, gorsel: list[0] ? SITE + list[0].gorseller[0] : null }));
+}
+
+// ---------- 2c) 404 sayfası ----------
+wr('404.html', sabitSayfa({
+  baslik: 'Sayfa bulunamadı · Mavi Boncuk', aciklama: 'Aradığınız sayfa bulunamadı.', yol: '/404',
+  jsonld: { '@context': 'https://schema.org', '@type': 'WebPage', name: 'Sayfa bulunamadı' },
+  govde: `<main class="blog"><h1>Bu sayfa askıda yok</h1><p class="blog__lead">Adres değişmiş ya da ürün satılmış olabilir. Şunlara bakabilirsiniz:</p>
+  <ul class="blog__kats">${KATEGORILER.map((k) => `<li style="list-style:none"><a class="blog__kat" href="/kategori/${k.id}">${k.ad}</a></li>`).join('')}<li style="list-style:none"><a class="blog__kat" href="/blog">Blog</a></li></ul>
+  <p><a class="button" href="${wa('Merhaba, sitede aradığım bir sayfayı bulamadım.')}">WhatsApp’tan sorun</a></p></main>`
+}));
+
+// ---------- 2d) canonical ve paylaşım etiketleri (elle yazılan sayfalar) ----------
+for (const f of fs.readdirSync(ROOT).filter((x) => x.endsWith('.html') && x !== '404.html' && x !== 'urun.html')) {
+  let h = rd(f);
+  const yol = f === 'index.html' ? '/' : '/' + f.replace(/\.html$/, '');
+  if (!h.includes('rel="canonical"')) h = h.replace('<meta name="theme-color"', `<link rel="canonical" href="${SITE}${yol}">\n<meta property="og:url" content="${SITE}${yol}">\n<meta name="theme-color"`);
+  wr(f, h);
+}
 
 // ---------- 3) llms.txt ve robots.txt ----------
 wr('llms.txt', `# Mavi Boncuk Bebe Mağazası

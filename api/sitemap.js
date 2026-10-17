@@ -4,7 +4,7 @@ const URUNLER = require('../data/urunler.json').urunler;
 
 module.exports = (req, res) => {
   const t = bugun();
-  const sabit = ['/', '/blog', '/urunler', '/iletisim', '/teslimat', '/iade', '/mesafeli-satis', '/on-bilgilendirme', '/kvkk', '/gizlilik'];
+  const sabit = ['/', '/blog', '/urunler', '/iletisim', '/teslimat', '/iade', '/mesafeli-satis', '/on-bilgilendirme', '/kvkk', '/gizlilik', '/kategori/abiye', '/kategori/takim-elbise', '/kategori/gunluk', '/kategori/okul', '/kategori/bebek'];
   const satir = (loc, lastmod, freq, pri) => `<url><loc>${SITE}${loc}</loc>${lastmod ? `<lastmod>${lastmod}</lastmod>` : ''}<changefreq>${freq}</changefreq><priority>${pri}</priority></url>`;
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">

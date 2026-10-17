@@ -496,3 +496,5 @@ section[id], main [id] { scroll-margin-top: 90px; }
 .post__more li { margin-top: 0.5rem; }
 .post__pager { display: flex; justify-content: space-between; gap: 1rem; margin-top: 2rem; font-size: var(--step-small); }
 .post__pager a { color: var(--muted); max-width: 48%; }
+
+.shop__cats { margin: 0 0 2rem; }

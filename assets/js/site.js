@@ -52,8 +52,10 @@
     const a = el('a', { class: 'tile', href: `/urun/${encodeURIComponent(u.id)}` });
     const f = el('div', { class: 'tile__frame' });
     const kucuk = (g) => g.replace(/\.webp$/, '-600.webp');
-    f.append(img(kucuk(u.gorseller[0]), u.ad, 600, 750, i > 3));
-    if (u.gorseller[1]) f.append(img(kucuk(u.gorseller[1]), '', 600, 750, true));
+    const kucukSet = (g) => { const im = img(kucuk(g), '', 600, 750, true); im.srcset = `${g.replace(/.webp$/, '-400.webp')} 400w, ${kucuk(g)} 600w`; im.sizes = '(min-width: 75em) 22vw, (min-width: 48em) 31vw, 48vw'; return im; };
+    const ilk = kucukSet(u.gorseller[0]); ilk.alt = u.ad; if (i <= 3) ilk.removeAttribute('loading');
+    f.append(ilk);
+    if (u.gorseller[1]) f.append(kucukSet(u.gorseller[1]));
     a.append(f, el('span', { class: 'tile__name', text: u.ad }), el('span', { class: 'tile__fact', text: u.kisa || yasYazi(u) || TURLER[u.kategori] }));
     return a;
   }
@@ -80,6 +82,8 @@
       tileBox.style.backgroundColor = fields[i % fields.length];
       tileBox.replaceChildren(...it.gorseller.map((g, j) => {
         const im = img(g, j === 0 ? it.alt : '', 900, 1125, i !== 0 || j !== 0);
+        im.srcset = `${g.replace(/.webp$/, '-500.webp')} 500w, ${g} 1000w`; im.sizes = '(min-width: 60em) 30rem, 90vw';
+        if (i === 0 && j === 0) im.fetchPriority = 'high';
         if (j === 0) im.classList.add('is-on');
         return im;
       }));
@@ -117,6 +121,7 @@
       const p = el('article', { class: 'showcase__panel' });
       if (i === 0) p.append(el('h2', { class: 'showcase__title', text: 'Bu hafta askıda' }));
       p.append(img(u.gorseller[0], u.ad, 1200, 1500, true));
+      p.lastChild.srcset = `${u.gorseller[0].replace(/.webp$/, '-600.webp')} 600w, ${u.gorseller[0]} 1200w`; p.lastChild.sizes = '(min-width: 60em) 50vw, 100vw';
       p.lastChild.className = 'showcase__img';
       const row = el('div', { class: 'showcase__row' }, [
         el('div', {}, [el('p', { class: 'showcase__name', text: u.ad }), el('p', { class: 'muted', text: u.kisa || yasYazi(u) })]),
@@ -223,7 +228,7 @@
   function sonYazilar() {
     const ul = $('#latest');
     if (!ul) return;
-    fetch('/api/blog?format=json&adet=3').then((r) => r.json()).then((list) => {
+    fetch(`/api/blog?format=json&adet=${ul.dataset.kategori ? 6 : 3}${ul.dataset.kategori ? `&kategori=${ul.dataset.kategori}` : ''}`).then((r) => r.json()).then((list) => {
       if (!list.length) { ul.closest('section').hidden = true; return; }
       const AY = ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'];
       const t = (s) => { const [y, m, d] = s.split('-').map(Number); return `${d} ${AY[m - 1]}`; };
