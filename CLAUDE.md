@@ -61,6 +61,7 @@ yeni yazıyı IndexNow ile bildirir. Statik ürün sayfaları `urun/<id>.html`, 
 Hız: `node tools/optimize.js <sürüm>` CSS’i birleştirir (assets/css/app.min.css; site.css ve oyun.css kaynaktır) ve HTML başlıklarını günceller;
 sonra `node tools/derle.js <taslak>` üretilen sayfaları yeniler. Yazı tipleri assets/fonts altında (dış istek yok). Kategori sayfaları kategori/*.html.
 Google ve Bing doğrulama etiketleri index.html’de; silinmemeli.
+Yayın testi: `node tools/blog-test.js` (365 yazıyı kendi gününde dener; deploydan önce çalıştır).
 Yazı kuralları: uydurma anekdot/istatistik/politika yok, yapay zekâ kalıpları yok (docs/ses-ve-dil.md).
 
 ## Metin

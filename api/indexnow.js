@@ -17,6 +17,7 @@ module.exports = async (req, res) => {
     });
     durum = String(r.status);
   } catch (e) { durum = 'hata: ' + e.message; }
+  console.log('indexnow', t, yeni.length ? yeni[0] : 'yeni yazı yok', durum); // Vercel kayıtlarında görünsün
   res.setHeader('Content-Type', 'application/json; charset=utf-8');
   res.end(JSON.stringify({ tarih: t, urlList, durum }));
 };
