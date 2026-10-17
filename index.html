@@ -17,7 +17,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&display=swap" rel="stylesheet">
 <link href="https://api.fontshare.com/v2/css?f[]=roundo@400,500,600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/css/site.css">
+<link rel="stylesheet" href="/assets/css/site.css?v=20261017c">
+<link rel="stylesheet" href="/assets/css/oyun.css?v=20261017c">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"ClothingStore","name":"Mavi Boncuk Bebe Mağazası","telephone":"+902522828463","address":{"@type":"PostalAddress","streetAddress":"Şerifnaz Başoğlu Sokak","addressLocality":"Ortaca","addressRegion":"Muğla","addressCountry":"TR"},"sameAs":["https://www.instagram.com/maviboncuk_ortaca/"]}
 </script>
@@ -27,6 +28,8 @@
 <header class="bar">
   <a class="bar__brand" href="/" aria-label="Mavi Boncuk ana sayfa"><img src="/assets/img/site/mb-logo.webp" alt="Mavi Boncuk" width="213" height="160"></a>
   <nav class="bar__links" aria-label="Ana menü">
+    <button class="toy-switch" id="gift" type="button" aria-pressed="false"><span class="toy-switch__track"><span class="toy-switch__knob"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12c-2-3-6-5-7.5-3.5S6 13 12 12zm0 0c2-3 6-5 7.5-3.5S18 13 12 12z" fill="#f28db2" stroke="#26357a" stroke-width="1.4"/><circle cx="12" cy="12" r="2" fill="#26357a"/><path d="M11 13l-3 6m5-6l3 6" stroke="#26357a" stroke-width="1.6" stroke-linecap="round"/></svg></span></span><span class="toy-switch__label">Hediye alıyorum</span></button>
+    <button class="sound-btn" id="sound" type="button" aria-pressed="false" aria-label="Tıklama sesini aç"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor" fill-opacity=".15"/><path d="M16 9a4 4 0 010 6M18.5 6.5a8 8 0 010 11"/></svg></button>
     <a href="#askidakiler">Ürünler</a>
     <a href="#siparis">Sipariş</a>
     <a href="#sorular">Sorular</a>
@@ -37,8 +40,9 @@
 <main>
   <section class="hero" aria-labelledby="hero-title">
     <div class="hero__top">
-      <h1 class="hero__mark" id="hero-title"><img src="/assets/img/site/mavi-boncuk-yazi.webp" srcset="/assets/img/site/mavi-boncuk-yazi-700.webp 700w, /assets/img/site/mavi-boncuk-yazi.webp 1400w" sizes="(min-width: 60em) 40vw, 88vw" alt="Mavi Boncuk" width="1400" height="1004" fetchpriority="high"></h1>
-      <p class="hero__desc">Ortaca’daki dükkânımızda 0 ile 16 yaş arası çocuk kıyafeti var. Beğendiğinizi WhatsApp’tan sorun, bedenini birlikte bulalım.</p>
+      <button class="sky" id="sky" type="button" aria-label="Güneş"></button>
+      <h1 class="hero__mark" id="hero-title"><img src="/assets/img/site/mavi-boncuk-yazi.webp?v=2" srcset="/assets/img/site/mavi-boncuk-yazi-700.webp?v=2 700w, /assets/img/site/mavi-boncuk-yazi.webp?v=2 1400w" sizes="(min-width: 60em) 40vw, 88vw" alt="Mavi Boncuk" width="1400" height="1004" fetchpriority="high"><span class="string" aria-hidden="true"></span></h1>
+      <p class="hero__desc"><span class="hero__hello" id="hello">Merhaba!</span><br>Ortaca’daki dükkânımızda 0 ile 16 yaş arası çocuk kıyafeti var. Beğendiğinizi WhatsApp’tan sorun, bedenini birlikte bulalım.</p>
     </div>
     <div class="hero__stage">
       <div class="hero__names" role="group" aria-label="Ne arıyorsunuz?" id="hero-names"></div>
@@ -76,23 +80,44 @@
 
   <section class="steps" id="siparis" aria-labelledby="steps-title">
     <h2 class="head steps__head" id="steps-title">Sipariş böyle</h2>
-    <ol class="steps__grid" id="steps">
-      <li class="step">
-        <div class="step__tile"><img data-step="0" alt="" loading="lazy" width="800" height="1000"></div>
-        <h3>Önce beğenin</h3>
-        <p>Ürüne dokunun, bütün fotoğraflarına bakın. Aklınıza yatanı seçin.</p>
-      </li>
-      <li class="step">
-        <div class="step__tile"><img data-step="1" alt="" loading="lazy" width="800" height="1000"></div>
-        <h3>Sonra bize yazın</h3>
-        <p>“WhatsApp’tan sor” deyince ürünün adı mesaja kendiliğinden yazılıyor. Siz yaşını ve boyunu ekleyin, fiyatı ve stoğu söyleyelim.</p>
-      </li>
-      <li class="step">
-        <div class="step__tile"><img data-step="2" alt="" loading="lazy" width="800" height="1000"></div>
-        <h3>En son teslim</h3>
-        <p>Ortaca’daysanız gelin, üstünde deneyin. Uzaktaysanız nasıl göndereceğimizi mesajda konuşalım.</p>
-      </li>
-    </ol>
+    <div class="board">
+      <svg class="board__path" viewBox="0 0 1200 380" preserveAspectRatio="none" aria-hidden="true"><path d="M140 110 C 360 40, 380 250, 600 190 S 860 50, 1060 110"/><path class="beam" d="M140 110 C 360 40, 380 250, 600 190 S 860 50, 1060 110"/></svg>
+      <ol class="board__steps">
+        <li class="stop">
+          <button class="stop__token" type="button" data-token="heart" aria-label="Kalbe dokunun"><svg class="heart" viewBox="0 0 100 100" aria-hidden="true"><defs><clipPath id="hc"><path d="M50 86 C 20 64, 8 46, 18 28 C 28 12, 46 16, 50 30 C 54 16, 72 12, 82 28 C 92 46, 80 64, 50 86 Z"/></clipPath></defs><path d="M50 86 C 20 64, 8 46, 18 28 C 28 12, 46 16, 50 30 C 54 16, 72 12, 82 28 C 92 46, 80 64, 50 86 Z" fill="#fff" fill-opacity=".55" stroke="#26357a" stroke-width="4"/><g clip-path="url(#hc)"><path class="liquid" d="M-10 52 Q 15 44 40 52 T 90 52 T 140 52 V 100 H -10 Z" fill="#f28db2"/></g><ellipse cx="34" cy="34" rx="7" ry="4" fill="#fff" opacity=".85" transform="rotate(-30 34 34)"/></svg></button>
+          <div><h3><span class="stop__num">1</span>Önce beğenin</h3><p>Ürüne dokunun, bütün fotoğraflarına bakın. Aklınıza yatanı seçin.</p></div>
+        </li>
+        <li class="stop">
+          <button class="stop__token" type="button" data-token="tape" aria-label="Mezuraya dokunun"><svg class="tape" viewBox="0 0 100 100" aria-hidden="true"><rect class="ribbon" x="58" y="58" width="36" height="12" rx="3" fill="#ffd766" stroke="#26357a" stroke-width="3"/><circle cx="44" cy="52" r="30" fill="#f28db2" stroke="#26357a" stroke-width="4"/><circle cx="44" cy="52" r="14" fill="#fff" stroke="#26357a" stroke-width="3"/><ellipse class="eye" cx="38" cy="49" rx="2.6" ry="4" fill="#26357a"/><ellipse class="eye" cx="50" cy="49" rx="2.6" ry="4" fill="#26357a"/><path d="M39 57 Q 44 61 49 57" stroke="#26357a" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg></button>
+          <div><h3><span class="stop__num">2</span>Sonra bize yazın</h3><p>Beden ölçmeyi dert etmeyin. Yaşını ve boyunu yazın; “WhatsApp’tan sor” deyince ürünün adı mesaja kendiliğinden yazılıyor.</p></div>
+        </li>
+        <li class="stop">
+          <button class="stop__token" type="button" data-token="chute" aria-label="Pakete dokunun"><svg class="chute" viewBox="0 0 100 110" aria-hidden="true"><path d="M14 40 Q 50 -6 86 40 Z" fill="#7fe0dc" stroke="#26357a" stroke-width="3.5"/><path d="M14 40 L 38 70 M86 40 L 62 70 M50 40 L 50 70" stroke="#26357a" stroke-width="2"/><rect x="32" y="68" width="36" height="30" rx="5" fill="#f28db2" stroke="#26357a" stroke-width="3.5"/><path d="M50 68 V 98 M32 80 H 68" stroke="#fff" stroke-width="4"/><g class="tag"><path d="M68 82 L 80 94" stroke="#26357a" stroke-width="1.5"/><rect x="72" y="93" width="26" height="13" rx="3" fill="#fff" stroke="#26357a" stroke-width="2"/></g></svg></button>
+          <div><h3><span class="stop__num">3</span>En son teslim</h3><p>Ortaca’daysanız gelin, üstünde deneyin. Uzaktaysanız paketinizi nasıl göndereceğimizi mesajda konuşalım; Ortaca’dan sevgilerle.</p></div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="sizer" id="beden" aria-labelledby="sizer-title">
+    <div class="sizer__box">
+      <div>
+        <h2 id="sizer-title">Beden bulucu</h2>
+        <p class="sizer__lead">Boyunu ve kilosunu ayarlayın, genel beden tablosuna göre hangi bedene bakmanız gerektiğini söyleyelim. Emin olmak için ölçüleri tek dokunuşla bize gönderebilirsiniz.</p>
+      </div>
+      <div class="sizer__stage">
+        <div class="kid" aria-hidden="true"><svg id="kid" viewBox="0 0 60 120"><path d="M17 13 Q 30 -3 43 13" fill="#5b3a29"/><circle cx="30" cy="17" r="13" fill="#ffd9c2" stroke="#26357a" stroke-width="3"/><circle cx="25" cy="18" r="1.8" fill="#26357a"/><circle cx="35" cy="18" r="1.8" fill="#26357a"/><path d="M25 23 Q 30 27 35 23" stroke="#26357a" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M14 35 Q 30 29 46 35 L 48 72 H 12 Z" fill="#7fe0dc" stroke="#26357a" stroke-width="3"/><path d="M18 74 L 17 112 M42 74 L 43 112" stroke="#26357a" stroke-width="7" stroke-linecap="round"/><path d="M14 39 L 5 62 M46 39 L 55 62" stroke="#26357a" stroke-width="5" stroke-linecap="round"/></svg></div>
+        <div class="sizer__controls">
+          <div class="range"><label for="boy">Boy <output id="boy-o" for="boy">110 cm</output></label><input type="range" id="boy" min="50" max="176" step="1" value="110"></div>
+          <div class="range"><label for="kilo">Kilo <output id="kilo-o" for="kilo">19 kg</output></label><input type="range" id="kilo" min="3" max="70" step="1" value="19"></div>
+          <div class="sizer__result" aria-live="polite">
+            <strong id="sizer-out">5 yaş bedenine bakın</strong>
+            <p class="sizer__note">Genel tablodur, markaya göre bir beden oynayabilir. Kesin bilgi için ölçüleri gönderin, ürünü elimize alıp söyleyelim.</p>
+            <a class="button" id="sizer-wa" href="https://wa.me/905057458364">Ölçüleri WhatsApp’tan gönder</a>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 
   <section class="shop" aria-labelledby="shop-title">
@@ -106,12 +131,13 @@
       <h2 class="head" id="rev-title">Bize yazdıkları</h2>
       <p>Instagram gönderilerimizin altına bırakılan yorumlar, olduğu gibi. Her birine dokunup yazıldığı gönderiyi görebilirsiniz.</p>
     </div>
-    <ul class="reviews__list" id="reviews"></ul>
+    <div class="marquee" id="reviews-marquee"><ul class="marquee__track" id="reviews"></ul></div>
   </section>
 
   <section class="faq" id="sorular" aria-labelledby="faq-title">
     <div class="faq__inner">
       <h2 id="faq-title">Sık sorulanlar</h2>
+      <div class="mascot" id="mascot" aria-hidden="true"><svg viewBox="0 0 120 140"><ellipse cx="60" cy="132" rx="34" ry="6" fill="#26357a" opacity=".12"/><g class="mascot__body"><circle cx="60" cy="64" r="50" fill="#2f6fd6" stroke="#26357a" stroke-width="4"/><circle cx="60" cy="64" r="34" fill="#fff"/><circle cx="60" cy="64" r="22" fill="#7fe0dc"/><circle class="pupil" cx="60" cy="64" r="11" fill="#26357a"/><circle cx="64" cy="60" r="3.5" fill="#fff"/><path d="M44 98 Q 60 108 76 98" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round"/><circle cx="34" cy="92" r="5" fill="#f7a8c4"/><circle cx="86" cy="92" r="5" fill="#f7a8c4"/><ellipse cx="38" cy="30" rx="10" ry="6" fill="#fff" opacity=".5" transform="rotate(-30 38 30)"/></g></svg></div>
       <div class="cards" id="cards">
         <div class="card">
           <span class="card__tab">Beden</span>
@@ -190,6 +216,7 @@
   </div>
 </footer>
 
-<script src="/assets/js/site.js" defer></script>
+<script src="/assets/js/site.js?v=20261017c" defer></script>
+<script src="/assets/js/oyun.js?v=20261017c" defer></script>
 </body>
 </html>

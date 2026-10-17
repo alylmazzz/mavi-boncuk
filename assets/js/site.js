@@ -28,6 +28,18 @@
     okul: 'Okul', bebek: 'Bebek', aksesuar: 'Aksesuar'
   };
 
+  // Ürün türlerinin minik simgeleri (lacivert kenarlı, logo renkleri)
+  const IKON = {
+    hepsi: '<circle cx="12" cy="12" r="9" fill="#2f6fd6"/><circle cx="12" cy="12" r="6" fill="#fff"/><circle cx="12" cy="12" r="3.5" fill="#7fe0dc"/><circle cx="12" cy="12" r="1.8" fill="#26357a"/>',
+    abiye: '<path d="M9 3h6l-1 5 5 13H5l5-13z" fill="#f7a8c4" stroke="#26357a" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 13h8" stroke="#fff" stroke-width="1.4"/>',
+    'takim-elbise': '<path d="M5 6l4-3 3 4 3-4 4 3v15H5z" fill="#a9c8ff" stroke="#26357a" stroke-width="1.6" stroke-linejoin="round"/><path d="M10 9l2 2 2-2-2 4z" fill="#26357a"/>',
+    gunluk: '<path d="M12 5a2 2 0 112 2l-2 2-9 7h18l-9-7" fill="none" stroke="#26357a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 16h18v2H3z" fill="#7fe0dc"/>',
+    okul: '<rect x="5" y="6" width="14" height="15" rx="3" fill="#ffd766" stroke="#26357a" stroke-width="1.6"/><path d="M9 6V4h6v2M5 12h14" stroke="#26357a" stroke-width="1.6"/>',
+    bebek: '<path d="M6 13c0-4 3-7 7-7v7z" fill="#cdb8ff" stroke="#26357a" stroke-width="1.6"/><path d="M13 13h7a7 3 0 01-14 0" fill="#f7a8c4" stroke="#26357a" stroke-width="1.6"/><circle cx="9" cy="19" r="2" fill="#fff" stroke="#26357a" stroke-width="1.4"/><circle cx="17" cy="19" r="2" fill="#fff" stroke="#26357a" stroke-width="1.4"/>',
+    aksesuar: '<path d="M4 10h16v10H4z" fill="#f7a8c4" stroke="#26357a" stroke-width="1.6"/><path d="M12 10v10M4 14h16M12 10c-2-4-6-4-6-1s6 1 6 1 6 2 6-1-4-3-6 1" stroke="#26357a" stroke-width="1.4" fill="none"/>'
+  };
+  const ikon = (k) => { const s = document.createElement('span'); s.innerHTML = `<svg class="ico" viewBox="0 0 24 24" aria-hidden="true">${IKON[k] || IKON.hepsi}</svg>`; return s.firstChild; };
+
   // Yaş aralığı: [min, max]. Bilinmiyorsa her yaşta görünür.
   const yasUyar = (u, y) => {
     if (y.id === 'hepsi' || !u.yas_araligi) return true;
@@ -129,12 +141,12 @@
 
     const mevcutTurler = ['hepsi', ...Object.keys(TURLER).filter((k) => k !== 'hepsi' && urunler.some((u) => u.kategori === k))];
     YASLAR.forEach((y) => {
-      const b = el('button', { type: 'button', class: 'divider', 'aria-pressed': String(y === yas), text: y.ad });
+      const b = el('button', { type: 'button', class: 'divider', 'aria-pressed': String(y === yas), text: y.ad, style: `--n:${YASLAR.indexOf(y)}` });
       b.addEventListener('click', () => { yas = y; shown = PAGE; draw(); });
       dividers.append(b);
     });
     mevcutTurler.forEach((k) => {
-      const b = el('button', { type: 'button', 'aria-pressed': String(k === tur), text: TURLER[k], 'data-k': k });
+      const b = el('button', { type: 'button', 'aria-pressed': String(k === tur), 'data-k': k }, [ikon(k), TURLER[k]]);
       b.addEventListener('click', () => { tur = k; shown = PAGE; draw(); });
       kinds.append(b);
     });
@@ -147,7 +159,7 @@
       grid.replaceChildren(...list.slice(0, shown).map((u, i) => {
         const t = tile(u, i);
         if (i % 7 === 3) t.classList.add('tile--wide');
-        if (i < 16) { t.classList.add('is-new'); t.style.setProperty('--i', i); }
+        if (i < 16) { t.classList.add('is-drop'); t.style.setProperty('--i', i); }
         return t;
       }));
       if (!list.length) grid.append(el('p', { class: 'catalogue__empty', text: 'Bu yaşta bu türden şu an sitede ürün yok. Bize yazın, dükkânda olanı söyleyelim.' }));
@@ -189,12 +201,21 @@
     const ul = $('#reviews');
     if (!ul) return;
     fetch('/data/yorumlar.json').then((r) => r.json()).then((d) => {
-      d.yorumlar.forEach((y) => ul.append(el('li', { class: 'review' }, [
-        el('a', { href: y.instagram, rel: 'noopener' }, [
+      const muhur = '<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 3l6 6 8-2 3 8 8 3-2 8 6 6-6 6 2 8-8 3-3 8-8-2-6 6-6-6-8 2-3-8-8-3 2-8-6-6 6-6-2-8 8-3 3-8 8 2z" fill="#ffcf4a" stroke="#c98a00" stroke-width="2"/><circle cx="32" cy="32" r="15" fill="#ffe08a" stroke="#c98a00" stroke-width="1.5"/><path d="M25 32l5 5 9-10" stroke="#26357a" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path class="shine" d="M50 10l1.5 3.5L55 15l-3.5 1.5L50 20l-1.5-3.5L45 15l3.5-1.5z" fill="#fff"/></svg>';
+      const tek = (y, gizli) => {
+        const li = el('li', { 'aria-hidden': gizli ? 'true' : null });
+        const a = el('a', { class: 'bubble', href: y.instagram, rel: 'noopener', tabindex: gizli ? '-1' : null }, [
           el('blockquote', { text: `“${y.metin}”` }),
-          el('p', { text: y.baglam })
-        ])
-      ])));
+          el('p', { text: `${y.baglam} · Instagram’dan gerçek yorum` })
+        ]);
+        const m = el('span', { class: 'seal', title: 'Instagram’dan gerçek yorum' }); m.innerHTML = muhur; a.append(m);
+        li.append(a);
+        return li;
+      };
+      // kesintisiz kayma için liste iki kez yazılır; ikinci kopya ekran okuyucudan gizli
+      d.yorumlar.forEach((y) => ul.append(tek(y, false)));
+      d.yorumlar.forEach((y) => ul.append(tek(y, true)));
+      ul.style.setProperty('--dur', `${d.yorumlar.length * 8}s`);
     }).catch(() => {});
   }
 
@@ -268,6 +289,7 @@
       facts,
       el('div', { class: 'product__cta' }, [
         el('a', { class: 'button', href: waLink(`Merhaba, “${u.ad}” için yazıyorum (${location.href}). Fiyatı ve bedenleri nedir?`), text: 'WhatsApp’tan sor' }),
+        el('a', { class: 'button button--paper gift-note', href: waLink(`Merhaba, “${u.ad}” ürününü hediye olarak almak istiyorum (${location.href}). Hediye notu eklemek istiyorum: `), text: 'Hediye notu ekle' }),
         u.instagram ? el('a', { class: 'button button--paper', href: u.instagram, rel: 'noopener', text: 'Instagram’da gör' }) : null
       ])
     ]);

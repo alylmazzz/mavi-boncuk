@@ -27,6 +27,12 @@ Göz alıcı ama yormayan (kullanıcı kararı, 2026-10-17):
   hero’da yavaş fotoğraf geçişi, ürün kartında hover’da ikinci fotoğraf, filtre değişince karoların sırayla gelmesi.
 - Fotoğraf büyük ve gerçek. Ürün fotoğrafının yerini kutu veya ikon almaz.
 
+Oyuncak katmanı (kullanıcı kararı, 2026-10-17): `assets/css/oyun.css` + `assets/js/oyun.js`. Clay butonlar/kartlar, boncuk imleç ve iz,
+süzülen arka plan, balon yaş seçici + konfeti, oyun yolu sipariş adımları, beden bulucu (genel boy tablosu),
+kayan yorum balonları, WhatsApp asistanı, hediye modu, titreşim ve isteğe bağlı ses. Bu katman taste-skill’in
+gölge/gradyan yasaklarını bilerek esnetir. Hareketler prefers-reduced-motion ve yavaş bağlantıda kapanır.
+CSS/JS değişince HTML’deki `?v=` sürümünü artır (assets bir yıl önbellekte).
+
 Yorumlar `data/yorumlar.json` içinde ve yalnızca gerçek müşteri yorumlarıdır (Instagram’dan). Uydurma yorum,
 yıldız ya da “mağazada denedik” gibi doğrulanmamış iddia yazılmaz.
 
