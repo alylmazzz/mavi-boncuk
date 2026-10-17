@@ -82,7 +82,9 @@ p { max-width: 62ch; text-wrap: pretty; }
   display: flex; align-items: center; justify-content: space-between; gap: 1rem;
   padding: 1rem var(--margin); position: relative; z-index: 2;
 }
-.bar__brand { font-weight: 600; text-decoration: none; }
+.bar__brand { display: inline-flex; align-items: center; text-decoration: none; }
+.bar__brand img { height: 64px; width: auto; transition: transform var(--t-hover) var(--ease-out); }
+@media (hover: hover) and (pointer: fine) { .bar__brand:hover img { transform: rotate(-4deg) scale(1.05); } }
 .bar__links { display: flex; gap: clamp(0.5rem, 2vw, 2rem); align-items: center; }
 .bar__links a:not(.button) { text-decoration: none; min-height: 44px; display: inline-flex; align-items: center; }
 .bar__links .button { min-height: 2.75rem; padding: 0 1.1rem; }
@@ -91,7 +93,9 @@ p { max-width: 62ch; text-wrap: pretty; }
 /* ---------- hero: tek numune, isim listesi ---------- */
 .hero { padding: clamp(1rem, 3vw, 3.5rem) var(--margin) var(--section); }
 .hero__top { display: grid; grid-template-columns: 1fr; gap: 1rem; align-items: start; }
-.hero__mark { font-size: var(--step-display); line-height: 0.92; letter-spacing: -0.04em; font-weight: 500; color: var(--accent); }
+.hero__mark { margin: 0; line-height: 0; }
+.hero__mark img { width: clamp(240px, 78vw, 420px); height: auto; background: none; }
+@media (min-width: 60em) { .hero__mark img { width: clamp(300px, 26vw, 420px); } }
 .hero__desc { font-size: var(--step-body); max-width: 34ch; }
 .hero__stage { display: grid; gap: 1.25rem; margin-top: clamp(1.5rem, 4vw, 3rem); }
 .hero__names { display: flex; gap: 1.25rem; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding-block: 0.25rem; margin-inline: calc(var(--margin) * -1); padding-inline: var(--margin); }
@@ -322,7 +326,6 @@ p { max-width: 62ch; text-wrap: pretty; }
   .postcard__stamp { position: absolute; top: 0; right: 0; width: 5.5rem; }
   .postcard__addr { padding-top: 0.5rem; padding-right: 7rem; }
 }
-.wordmark-close { font-size: clamp(3.5rem, 1rem + 12vw, 14rem); line-height: 0.9; letter-spacing: -0.045em; color: var(--accent); font-weight: 500; margin-top: 2.5rem; white-space: nowrap; overflow: hidden; }
 
 /* ---------- ürün sayfası ---------- */
 .product { padding: 1rem var(--margin) var(--section); display: grid; gap: 2rem; }
@@ -368,3 +371,32 @@ p { max-width: 62ch; text-wrap: pretty; }
 [data-tilt] { transform-style: preserve-3d; transition: transform 450ms var(--ease-out); will-change: transform; }
 [data-tilt] img { transition: transform 450ms var(--ease-out), opacity 450ms ease; }
 @media (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) { .cursor { display: none; } }
+
+/* ---------- hero kategori adları: logo tadında renkli yazılar ---------- */
+.hero__names button {
+  --fill: #f7a8c4; --edge: #26357a;
+  font-family: "Baloo 2", var(--font); font-weight: 800; letter-spacing: 0.01em; line-height: 1.1;
+  font-size: clamp(1.375rem, 1.1rem + 1vw, 2rem);
+  color: var(--fill); opacity: 1;
+  -webkit-text-stroke: 0.16em var(--edge); paint-order: stroke fill;
+  text-shadow: 0 0.09em 0 var(--edge);
+  padding: 0.15em 0.2em 0.25em;
+  transition: transform 260ms var(--ease-out), filter 260ms ease;
+  filter: saturate(0.85);
+}
+.hero__names button:nth-child(5n+1) { --fill: #f7a8c4; }
+.hero__names button:nth-child(5n+2) { --fill: #7fe0dc; }
+.hero__names button:nth-child(5n+3) { --fill: #a9c8ff; }
+.hero__names button:nth-child(5n+4) { --fill: #ffd766; }
+.hero__names button:nth-child(5n+5) { --fill: #cdb8ff; }
+.hero__names button[aria-pressed="true"] { color: var(--fill); font-size: clamp(1.625rem, 1.2rem + 1.4vw, 2.5rem); filter: saturate(1.15); transform: rotate(-3deg); font-weight: 800; }
+@media (hover: hover) and (pointer: fine) {
+  .hero__names button:not([aria-pressed="true"]):hover { transform: translateY(-3px) rotate(2deg) scale(1.05); filter: saturate(1.1); }
+}
+.hero__names button:active { transform: scale(0.95); }
+@media (min-width: 60em) { .hero__names { gap: 0.5rem; } }
+
+/* fotoğraflar kırpılmasın: çocukların yüzü tam görünsün */
+.tile__frame img, .hero__tile img, .product__main img { object-fit: contain; }
+.showcase__img { object-position: center top; }
+.shop__item img, .step__tile img, .strip__row img, .product__thumbs img { object-position: center top; }
