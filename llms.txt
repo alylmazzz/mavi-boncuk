@@ -1,0 +1,16 @@
+# Mavi Boncuk Bebe Mağazası
+
+> Mavi Boncuk, Muğla’nın Ortaca ilçesinde 0-16 yaş çocuk giyim mağazasıdır. Kız çocuk abiyeleri (mezuniyet, düğün, kına, doğum günü), erkek çocuk takım elbiseleri (smokin, keten, yelekli), bayramlık, okul kıyafetleri, günlük takımlar, bebek kıyafetleri ve bebek arabası, beşik, yürüteç, mama sandalyesi satar. Sipariş ve beden danışmanlığı WhatsApp üzerinden yapılır.
+
+- Adres: Şerifnaz Başoğlu Sokak, Dede Yün karşısı, Ortaca / Muğla
+- Telefon: 0252 282 84 63 · WhatsApp: 0505 745 83 64
+- Instagram: https://www.instagram.com/maviboncuk_ortaca/
+- Pazar günleri 12.00’de açılır.
+
+## Sayfalar
+- [Ana sayfa](https://maviboncukortaca.vercel.app/): ürünler, yaşa göre filtre, beden bulucu
+- [Bütün ürünler](https://maviboncukortaca.vercel.app/urunler): ürün listesi
+- [Blog](https://maviboncukortaca.vercel.app/blog): beden, kumaş bakımı, özel günler, bebek ve okul üzerine günlük yazılar
+- [Hakkımızda ve iletişim](https://maviboncukortaca.vercel.app/iletisim)
+- [Teslimat ve kargo](https://maviboncukortaca.vercel.app/teslimat)
+- [İptal, iade ve değişim](https://maviboncukortaca.vercel.app/iade)

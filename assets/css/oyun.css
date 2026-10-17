@@ -454,3 +454,45 @@ section[id], main [id] { scroll-margin-top: 90px; }
 /* alt bilgideki yasal bağlantılar */
 .legal-links { grid-column: 1 / -1; display: flex; flex-wrap: wrap; justify-content: center; gap: 0.25rem 1rem; font-size: var(--step-small); }
 .legal-links a { min-height: 44px; display: inline-flex; align-items: center; color: var(--muted); }
+
+/* ---------- blog ---------- */
+.bar__links a[href="/blog"] { --fill: #cdb8ff; }
+.shop__about { max-width: 60ch; margin: -1.25rem 0 2rem; }
+.latest { padding: var(--section) var(--margin) 0; content-visibility: auto; contain-intrinsic-size: auto 500px; }
+.latest__head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+.latest__list { display: grid; gap: 1rem; }
+@media (min-width: 60em) { .latest__list { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.latest__list a, .blog__item a { display: block; height: 100%; text-decoration: none; background: #fff; border-radius: 24px; padding: 1.25rem 1.4rem; box-shadow: var(--clay); transition: transform 220ms var(--spring); }
+.latest__list li:nth-child(3n+1) a, .blog__item:nth-child(3n+1) a { background: var(--field-1); }
+.latest__list li:nth-child(3n+2) a, .blog__item:nth-child(3n+2) a { background: var(--field-2); }
+@media (hover: hover) and (pointer: fine) { .latest__list a:hover, .blog__item a:hover { transform: translateY(-4px) rotate(-0.5deg); } }
+.latest__list h3, .blog__item h2 { font-family: "Baloo 2", var(--font); font-weight: 800; color: var(--navy); font-size: var(--step-lead); line-height: 1.15; margin-top: 0.3rem; }
+.latest__list p, .blog__item p { color: var(--muted); margin-top: 0.4rem; font-size: var(--step-small); }
+.latest__date, .blog__meta { font-size: var(--step-small); color: var(--muted); }
+.blog { max-width: 72rem; margin: 0 auto; padding: 1rem var(--margin) var(--section); }
+.blog h1, .post h1 { font-family: "Baloo 2", var(--font); font-weight: 800; color: var(--navy); font-size: clamp(2.25rem, 1.5rem + 3vw, 3.5rem); line-height: 1.05; }
+.blog__lead { margin-top: 0.75rem; max-width: 52ch; }
+.blog__kats { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1.5rem 0 2rem; }
+.blog__kat { min-height: 44px; display: inline-flex; align-items: center; padding: 0 1rem; border-radius: 999px; background: var(--surface); text-decoration: none; font-weight: 500; }
+.blog__kat[aria-current="page"] { background: var(--accent); color: var(--accent-ink); }
+.blog__list { display: grid; gap: 1rem; padding: 0; list-style: none; }
+@media (min-width: 48em) { .blog__list { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 75em) { .blog__list { grid-template-columns: repeat(3, minmax(0, 1fr)); } .blog__item--yeni { grid-column: span 2; } }
+.post { max-width: 44rem; margin: 0 auto; padding: 1rem var(--margin) var(--section); }
+.post__crumb { font-size: var(--step-small); color: var(--muted); margin-bottom: 1rem; }
+.post__crumb a { color: inherit; }
+.post__meta { color: var(--muted); font-size: var(--step-small); margin-top: 0.6rem; }
+.post__body { margin-top: 1.5rem; }
+.post__body p, .post__body li { margin-top: 0.85rem; max-width: 66ch; }
+.post__body h2 { font-size: var(--step-lead); color: var(--navy); margin-top: 2rem; }
+.post__body h3 { font-size: 1.125rem; margin-top: 1.25rem; }
+.post__body ul, .post__body ol { padding-left: 1.25rem; }
+.post__body a { color: var(--accent); }
+.post__cta { margin-top: 2.5rem; background: var(--field-1); border-radius: 28px; padding: 1.5rem; display: grid; gap: 0.75rem; box-shadow: var(--clay); }
+@media (min-width: 48em) { .post__cta { grid-template-columns: 1fr auto auto; align-items: center; } }
+.post__more { margin-top: 2.5rem; }
+.post__more h2 { font-size: var(--step-lead); }
+.post__more ul { padding-left: 1.25rem; }
+.post__more li { margin-top: 0.5rem; }
+.post__pager { display: flex; justify-content: space-between; gap: 1rem; margin-top: 2rem; font-size: var(--step-small); }
+.post__pager a { color: var(--muted); max-width: 48%; }

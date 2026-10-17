@@ -49,7 +49,7 @@
   const yasYazi = (u) => (u.yas_araligi ? `${u.yas_araligi[0]}-${u.yas_araligi[1]} yaş` : '');
 
   function tile(u, i) {
-    const a = el('a', { class: 'tile', href: `/urun?id=${encodeURIComponent(u.id)}` });
+    const a = el('a', { class: 'tile', href: `/urun/${encodeURIComponent(u.id)}` });
     const f = el('div', { class: 'tile__frame' });
     const kucuk = (g) => g.replace(/\.webp$/, '-600.webp');
     f.append(img(kucuk(u.gorseller[0]), u.ad, 600, 750, i > 3));
@@ -122,7 +122,7 @@
         el('div', {}, [el('p', { class: 'showcase__name', text: u.ad }), el('p', { class: 'muted', text: u.kisa || yasYazi(u) })]),
         el('div', { class: 'showcase__actions' }, [
           el('a', { class: 'button', href: waLink(`Merhaba, “${u.ad}” için yazıyorum. Fiyatı ve bedenleri nedir?`), text: 'WhatsApp’tan sor' }),
-          el('a', { class: 'button button--paper', href: `/urun?id=${encodeURIComponent(u.id)}`, text: 'Fotoğraflar' })
+          el('a', { class: 'button button--paper', href: `/urun/${encodeURIComponent(u.id)}`, text: 'Fotoğraflar' })
         ])
       ]);
       p.append(row);
@@ -220,6 +220,19 @@
     }).catch(() => {});
   }
 
+  function sonYazilar() {
+    const ul = $('#latest');
+    if (!ul) return;
+    fetch('/api/blog?format=json&adet=3').then((r) => r.json()).then((list) => {
+      if (!list.length) { ul.closest('section').hidden = true; return; }
+      const AY = ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'];
+      const t = (s) => { const [y, m, d] = s.split('-').map(Number); return `${d} ${AY[m - 1]}`; };
+      list.forEach((y) => ul.append(el('li', {}, [el('a', { href: `/blog/${y.slug}` }, [
+        el('span', { class: 'latest__date', text: t(y.tarih) }), el('h3', { text: y.baslik }), el('p', { text: y.ozet })
+      ])])));
+    }).catch(() => { ul.closest('section').hidden = true; });
+  }
+
   function sorular() {
     const btns = document.querySelectorAll('.card button');
     btns.forEach((b) => b.addEventListener('click', () => {
@@ -250,7 +263,7 @@
   function urunSayfasi(urunler) {
     const root = $('#urun');
     if (!root) return;
-    const id = new URLSearchParams(location.search).get('id');
+    const id = root.dataset.id || new URLSearchParams(location.search).get('id') || (location.pathname.match(/^\/urun\/([^/]+)/) || [])[1];
     const u = urunler.find((x) => x.id === id);
     if (!u) {
       root.replaceChildren(el('div', { class: 'product' }, [el('div', {}, [
@@ -350,6 +363,7 @@
   });
   sorular();
   yorumlar();
+  sonYazilar();
   form();
   hareket();
   data().then(({ urunler, site }) => {

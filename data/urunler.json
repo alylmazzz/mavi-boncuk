@@ -1212,7 +1212,7 @@
       "kumas": null,
       "yikama": null,
       "stok_notu": null,
-      "aciklama": "Göğsünde fiyonk, eteği yere kadar tül. Masal kitabından çıkmış gibi.",
+      "aciklama": "Göğsünde fiyonk, eteği yere kadar tül.",
       "gorseller": [
         "/assets/img/urunler/pembe-prenses-abiye/1.webp"
       ],
@@ -2269,7 +2269,7 @@
     },
     {
       "id": "pembe-katli-prenses-abiye",
-      "ad": "Pembe katlı prenses abiye",
+      "ad": "Pembe katlı tül abiye",
       "kategori": "abiye",
       "yas_araligi": [
         5,

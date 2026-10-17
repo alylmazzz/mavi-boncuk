@@ -17,10 +17,18 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&display=swap" rel="stylesheet">
 <link href="https://api.fontshare.com/v2/css?f[]=roundo@400,500,600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/css/site.css?v=20261017h">
-<link rel="stylesheet" href="/assets/css/oyun.css?v=20261017h">
+<link rel="stylesheet" href="/assets/css/site.css?v=20261017i">
+<link rel="stylesheet" href="/assets/css/oyun.css?v=20261017i">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"ClothingStore","name":"Mavi Boncuk Bebe Mağazası","telephone":"+902522828463","address":{"@type":"PostalAddress","streetAddress":"Şerifnaz Başoğlu Sokak","addressLocality":"Ortaca","addressRegion":"Muğla","addressCountry":"TR"},"sameAs":["https://www.instagram.com/maviboncuk_ortaca/"]}
+{"@context":"https://schema.org","@type":"ClothingStore","@id":"https://maviboncukortaca.vercel.app/#magaza","name":"Mavi Boncuk Bebe Mağazası","alternateName":"Mavi Boncuk Ortaca","description":"Muğla Ortaca’da 0-16 yaş çocuk giyim mağazası: kız çocuk abiyeleri, erkek çocuk takım elbiseleri, bayramlık, okul kıyafetleri, günlük takımlar, bebek kıyafetleri, bebek arabası ve beşik.","url":"https://maviboncukortaca.vercel.app/","image":"https://maviboncukortaca.vercel.app/assets/img/site/og.jpg","logo":"https://maviboncukortaca.vercel.app/assets/img/site/mb-logo-64.png","telephone":"+902522828463","address":{"@type":"PostalAddress","streetAddress":"Şerifnaz Başoğlu Sokak, Dede Yün karşısı","addressLocality":"Ortaca","addressRegion":"Muğla","addressCountry":"TR"},"areaServed":["Ortaca","Dalyan","Köyceğiz","Dalaman","Fethiye","Muğla"],"sameAs":["https://www.instagram.com/maviboncuk_ortaca/"],"contactPoint":{"@type":"ContactPoint","telephone":"+905057458364","contactType":"customer service","availableLanguage":"Turkish"}}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"Hangi bedeni alacağımı bilmiyorum, ne yapmalıyım?","acceptedAnswer":{"@type":"Answer","text":"Çocuğunuzun yaşını, boyunu ve kilosunu WhatsApp’tan yazın. Ürünü elimize alıp ölçüyor, size uyacak bedeni söylüyoruz."}},
+{"@type":"Question","name":"Fiyatlar neden sitede yok?","acceptedAnswer":{"@type":"Answer","text":"Ürünler çabuk dönüyor, aynı model farklı bedende farklı fiyatta olabiliyor. Sorduğunuzda güncel fiyatı söylüyoruz."}},
+{"@type":"Question","name":"Ortaca dışına gönderiyor musunuz?","acceptedAnswer":{"@type":"Answer","text":"Uzaktan alışveriş yapan müşterilerimiz var. Kargo ücretini ve süresini adresinize göre mesajda söylüyoruz."}},
+{"@type":"Question","name":"Mavi Boncuk mağazası nerede?","acceptedAnswer":{"@type":"Answer","text":"Muğla Ortaca’da, Şerifnaz Başoğlu Sokak’ta, Dede Yün karşısında. Pazar günleri 12.00’de açılıyor."}}
+]}
 </script>
 </head>
 <body>
@@ -34,6 +42,7 @@
     <a href="#askidakiler">Ürünler</a>
     <a href="#siparis">Sipariş</a>
     <a href="#sorular">Sorular</a>
+    <a href="/blog">Blog</a>
     <a class="button" data-wa href="https://wa.me/905057458364">WhatsApp</a>
   </nav>
 </header>
@@ -124,6 +133,7 @@
 
   <section class="shop" aria-labelledby="shop-title">
     <h2 id="shop-title">Dükkânda neler var</h2>
+    <p class="shop__about">Mavi Boncuk, Muğla’nın Ortaca ilçesinde 0-16 yaş çocuk giyim mağazası. Kız çocuk abiyeleri, erkek çocuk takım elbiseleri, bayramlık, okul kıyafetleri ve günlük takımların yanında bebek arabası, beşik, yürüteç ve mama sandalyesi de satıyoruz. Bütün ürünlerin listesi <a class="link" href="/urunler">burada</a>.</p>
     <ul class="shop__grid" id="shop"></ul>
     <p class="shop__note">Bebek arabası, karyola, yürüteç ve mama sandalyesi gibi büyük ürünleri sitede tek tek göstermiyoruz. Hangisini aradığınızı yazın, elimizdeki modellerin fotoğrafını atalım.</p>
   </section>
@@ -134,6 +144,11 @@
       <p>Instagram gönderilerimizin altına bırakılan yorumlar, olduğu gibi. Her birine dokunup yazıldığı gönderiyi görebilirsiniz.</p>
     </div>
     <div class="marquee" id="reviews-marquee"><ul class="marquee__track" id="reviews"></ul></div>
+  </section>
+
+  <section class="latest" id="blogdan" aria-labelledby="latest-title">
+    <div class="latest__head"><h2 class="head" id="latest-title">Blogdan</h2><a class="link" href="/blog">Bütün yazılar</a></div>
+    <ul class="latest__list" id="latest"></ul>
   </section>
 
   <section class="faq" id="sorular" aria-labelledby="faq-title">
@@ -205,7 +220,7 @@
   <div class="postcard">
     <div class="postcard__msg">
       <h2>Yolunuz düşerse Mavi Boncuk’a bekleriz</h2>
-      <p>Askıda gördüğünüzü çocuğunuzun üstünde denemek her zaman en iyisi.</p>
+      <p>Çocuğunuzu da getirin, beğendiğinizi üstünde deneyelim.</p>
     </div>
     <address class="postcard__addr" style="font-style:normal">
       <figure class="postcard__stamp"><img src="/assets/img/site/dukkan.jpg" alt="Mavi Boncuk mağazasının vitrini" width="160" height="213" loading="lazy"></figure>
@@ -227,7 +242,7 @@
   </div>
 </footer>
 
-<script src="/assets/js/site.js?v=20261017h" defer></script>
-<script src="/assets/js/oyun.js?v=20261017h" defer></script>
+<script src="/assets/js/site.js?v=20261017i" defer></script>
+<script src="/assets/js/oyun.js?v=20261017i" defer></script>
 </body>
 </html>

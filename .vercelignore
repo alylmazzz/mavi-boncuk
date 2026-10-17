@@ -1,0 +1,5 @@
+tools/
+docs/
+CLAUDE.md
+.taste-skill/
+.env.local
