@@ -45,6 +45,14 @@ yıkama talimatı, stok, kargo süresi, iade koşulu.
 on-bilgilendirme, kvkk, gizlilik (.html). Mağaza bilgileri tek yerde: `data/magaza.json`; sayfalar `assets/js/magaza.js` ile
 doldurur, boş alanlar turuncu [işaret] görünür. Yasal metinler şablondur; yayından önce mali müşavir/avukat kontrolü önerilir.
 
+## Blog ve arama görünürlüğü
+
+365 yazı `api/_lib/yazilar.json` içinde, her biri bir `tarih` ile (2026-10-17 → 2027-10-16). `/blog`, `/blog/:slug`, `/blog/rss.xml`,
+`/sitemap.xml` sunucu fonksiyonları (api/) tarihi gelenleri gösterir; deploy gerekmez. Vercel cron (`/api/indexnow`, her gün 00.10 TR)
+yeni yazıyı IndexNow ile bildirir. Statik ürün sayfaları `urun/<id>.html`, `urunler.html`, `llms.txt`, `robots.txt` ve takvim
+`node tools/derle.js <taslak-klasörü>` ile üretilir; ürün verisi değişince yeniden çalıştır. Taslak denetimi: `node tools/blog-denetim.js`.
+Yazı kuralları: uydurma anekdot/istatistik/politika yok, yapay zekâ kalıpları yok (docs/ses-ve-dil.md).
+
 ## Metin
 
 Tüm metinler `docs/ses-ve-dil.md` kurallarına göre yazılır. Teslimden önce metinleri o dosyadaki
