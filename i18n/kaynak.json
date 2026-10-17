@@ -2546,5 +2546,97 @@
  {
   "metin": "• {0}",
   "nerede": "desen: WhatsApp mesajında liste satırı (ürün adı)"
+ },
+ {
+  "metin": "Dükkânlarımız haritada",
+  "nerede": "harita: harita bölümü başlığı"
+ },
+ {
+  "metin": "Ortaca’da iki dükkânımız var. Haritayı yakınlaştırıp uzaklaştırabilir, bulunduğunuz yerden yolu görebilirsiniz.",
+  "nerede": "harita: harita bölümü açıklaması"
+ },
+ {
+  "metin": "Dükkân seçin",
+  "nerede": "harita: düğme grubu adı"
+ },
+ {
+  "metin": "Mavi Boncuk Çocuk Giyim",
+  "nerede": "harita: dükkân adı (özel ad; Çocuk Giyim = children’s clothing, çevrilebilir: Mavi Boncuk + çeviri)"
+ },
+ {
+  "metin": "Mavi Boncuk Bebe Şube",
+  "nerede": "harita: dükkân adı (özel ad; Bebe Şube = baby branch)"
+ },
+ {
+  "metin": "Cengiz Topel Caddesi No:37 D:39, Terzialiler, Ortaca",
+  "nerede": "harita: adres; sokak ve mahalle adları aynen kalsın, yalnızca Caddesi/No gibi kelimeler gerekiyorsa"
+ },
+ {
+  "metin": "Terzialiler Mahallesi, Ortaca (Google kodu RQQ7+2Q)",
+  "nerede": "harita: adres; RQQ7+2Q bir Google Plus Code"
+ },
+ {
+  "metin": "Mavi Boncuk Çocuk Giyim, Google Haritalar",
+  "nerede": "harita: harita çerçevesinin erişilebilir adı"
+ },
+ {
+  "metin": "{0}, Google Haritalar",
+  "nerede": "harita: harita çerçevesinin erişilebilir adı"
+ },
+ {
+  "metin": "Bulunduğum yerden yolu göster",
+  "nerede": "harita: büyük düğme: konum izni ister, haritada yolu çizer"
+ },
+ {
+  "metin": "Google Haritalar’da yol tarifi aç",
+  "nerede": "harita: bağlantı"
+ },
+ {
+  "metin": "Haritaya dön",
+  "nerede": "harita: düğme"
+ },
+ {
+  "metin": "Konumunuz yalnızca yolu çizmek için kullanılır, kaydedilmez. Yol, OpenStreetMap verisiyle çizilir.",
+  "nerede": "harita: not"
+ },
+ {
+  "metin": "Başka yerden geliyorsanız",
+  "nerede": "harita: bağlantı grubu adı"
+ },
+ {
+  "metin": "Tarayıcınız konum paylaşmayı desteklemiyor. Google Haritalar’da yol tarifini açabilirsiniz.",
+  "nerede": "harita: hata"
+ },
+ {
+  "metin": "Konumunuz soruluyor…",
+  "nerede": "harita: durum"
+ },
+ {
+  "metin": "Yol çiziliyor…",
+  "nerede": "harita: durum"
+ },
+ {
+  "metin": "Yol çizilemedi. Google Haritalar’da yol tarifini açabilirsiniz.",
+  "nerede": "harita: hata"
+ },
+ {
+  "metin": "Konum izni verilmedi. Google Haritalar’da yol tarifini açabilirsiniz.",
+  "nerede": "harita: hata"
+ },
+ {
+  "metin": "{0}: yaklaşık {1} km, arabayla {2}.",
+  "nerede": "harita: rota sonucu: {0} dükkân adı, {1} mesafe (ör. 3,2), {2} süre (ör. 8 dakika)"
+ },
+ {
+  "metin": "{#0} dakika",
+  "nerede": "harita: süre"
+ },
+ {
+  "metin": "{#0} saat {#1} dakika",
+  "nerede": "harita: süre"
+ },
+ {
+  "metin": "Siz",
+  "nerede": "harita: haritada kullanıcının konum işareti"
  }
 ]

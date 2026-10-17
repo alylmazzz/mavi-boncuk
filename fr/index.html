@@ -30,9 +30,11 @@
 <link rel="icon" href="/assets/img/site/mb-logo-64.png" type="image/png">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"ClothingStore","@id":"https://maviboncukortaca.vercel.app/fr#magaza","name":"Mavi Boncuk Bebe Mağazası","alternateName":"Mavi Boncuk Ortaca","description":"Boutique de vêtements pour enfants de 0 à 16 ans à Ortaca, Muğla : robes de cérémonie pour filles, costumes pour garçons, tenues de Bayram, vêtements d’école, ensembles du quotidien, vêtements bébé, poussettes et berceaux.","url":"https://maviboncukortaca.vercel.app/fr","image":"https://maviboncukortaca.vercel.app/assets/img/site/og.jpg","logo":"https://maviboncukortaca.vercel.app/assets/img/site/mb-logo-64.png","telephone":"+902522828463","address":{"@type":"PostalAddress","streetAddress":"Şerifnaz Başoğlu Sokak, Dede Yün karşısı","addressLocality":"Ortaca","addressRegion":"Muğla","addressCountry":"TR"},"areaServed":["Ortaca","Dalyan","Köyceğiz","Dalaman","Fethiye","Muğla"],"sameAs":["https://www.instagram.com/maviboncuk_ortaca/"],"contactPoint":{"@type":"ContactPoint","telephone":"+905057458364","contactType":"customer service","availableLanguage":"Turkish"}}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Je ne sais pas quelle taille prendre, comment faire ?","acceptedAnswer":{"@type":"Answer","text":"Indiquez-nous sur WhatsApp l’âge, la taille et le poids de votre enfant. On prend l’article en main, on le mesure et on vous dit quelle taille lui ira."}},{"@type":"Question","name":"Pourquoi les prix ne sont pas sur le site ?","acceptedAnswer":{"@type":"Answer","text":"Les articles partent vite, et un même modèle peut avoir un prix différent selon la taille. On vous donne le prix du jour quand vous demandez."}},{"@type":"Question","name":"Vous envoyez en dehors d’Ortaca ?","acceptedAnswer":{"@type":"Answer","text":"Certains clients achètent chez nous à distance. On vous indique le prix et le délai de livraison par message, selon votre adresse."}},{"@type":"Question","name":"Où se trouve la boutique Mavi Boncuk ?","acceptedAnswer":{"@type":"Answer","text":"À Ortaca, Muğla, Şerifnaz Başoğlu Sokak, en face de Dede Yün. Le dimanche, nous ouvrons à 12h00."}}]}</script>
+<script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+<script defer src="/_vercel/insights/script.js"></script>
 <link rel="preload" href="/assets/fonts/roundo-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/baloo2-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/assets/css/app.min.css?v=20261020f">
+<link rel="stylesheet" href="/assets/css/app.min.css?v=20261021b">
 </head>
 <body>
 
@@ -86,6 +88,32 @@
     </form>
     <div class="kardes__sonuc" hidden></div>
     <a class="button kardes__sor" href="https://wa.me/905057458364" hidden>Demander sur WhatsApp pour frères et sœurs</a>
+  </section>
+
+  <section class="harita" id="konum" aria-labelledby="harita-title">
+    <div class="harita__head"><h2 class="head" id="harita-title">Nos boutiques sur la carte</h2><p>Nous avons deux boutiques à Ortaca. Vous pouvez zoomer et dézoomer sur la carte et voir le chemin depuis l’endroit où vous êtes.</p></div>
+    <div class="harita__secim" role="group" aria-label="Choisissez une boutique">
+      <button type="button" class="harita__dukkan" aria-pressed="true" data-ad="Mavi Boncuk Çocuk Giyim" data-lat="36.8368452" data-lng="28.7666592">Mavi Boncuk Vêtements enfants</button>
+      <button type="button" class="harita__dukkan" aria-pressed="false" data-ad="Mavi Boncuk Bebe Şube" data-lat="36.8375636" data-lng="28.7644536">Mavi Boncuk Boutique bébé</button>
+    </div>
+    <p class="harita__adres" id="harita-adres">Cengiz Topel Caddesi No:37 D:39, Terzialiler, Ortaca</p>
+    <div class="harita__kutu">
+      <iframe id="harita-google" src="https://www.google.com/maps?q=36.8368452,28.7666592&amp;z=17&amp;hl=tr&amp;output=embed" title="Mavi Boncuk Vêtements enfants, Google Maps" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+      <div class="harita__rota-harita" id="rota-harita" hidden></div>
+    </div>
+    <button type="button" class="button harita__rota" id="rota-ciz"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s7-6.2 7-12a7 7 0 10-14 0c0 5.8 7 12 7 12z" fill="#fff" fill-opacity=".25" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="10" r="2.6" fill="currentColor"/></svg><span>Montrer le chemin depuis ma position</span></button>
+    <p class="harita__bilgi" id="rota-bilgi" aria-live="polite"></p>
+    <div class="harita__alt">
+      <a class="link" id="rota-google" href="https://www.google.com/maps/dir/?api=1&amp;destination=36.8368452%2C28.7666592" rel="noopener">Ouvrir l’itinéraire dans Google Maps</a>
+      <button type="button" class="link harita__geri" id="rota-geri" hidden>Retour à la carte</button>
+    </div>
+    <p class="harita__not">Votre position sert uniquement à tracer le chemin et n’est pas enregistrée. Le chemin est tracé avec les données d’OpenStreetMap.</p>
+    <div class="tarif__liste" aria-label="Si vous venez d’ailleurs">
+      <a class="blog__kat" href="https://www.google.com/maps/dir/?api=1&amp;origin=Dalyan%2C%20Mu%C4%9Fla&amp;destination=36.8368452%2C28.7666592" rel="noopener">Depuis Dalyan</a>
+      <a class="blog__kat" href="https://www.google.com/maps/dir/?api=1&amp;origin=K%C3%B6yce%C4%9Fiz%2C%20Mu%C4%9Fla&amp;destination=36.8368452%2C28.7666592" rel="noopener">Depuis Köyceğiz</a>
+      <a class="blog__kat" href="https://www.google.com/maps/dir/?api=1&amp;origin=Dalaman%20Havaliman%C4%B1&amp;destination=36.8368452%2C28.7666592" rel="noopener">Depuis l’aéroport de Dalaman</a>
+      <a class="blog__kat" href="https://www.google.com/maps/dir/?api=1&amp;origin=Fethiye%2C%20Mu%C4%9Fla&amp;destination=36.8368452%2C28.7666592" rel="noopener">Depuis Fethiye</a>
+    </div>
   </section>
 
   <section class="catalogue" id="askidakiler" aria-labelledby="cat-title">
@@ -250,17 +278,6 @@
       </form>
     </div>
   </section>
-  <section class="tarif" id="yol-tarifi" aria-labelledby="tarif-title">
-    <h2 class="head" id="tarif-title">Itinéraire</h2>
-    <p>La boutique est à Ortaca, Şerifnaz Başoğlu Sokak, en face de Dede Yün. Touchez l’endroit d’où vous venez, Google Maps vous montrera le chemin.</p>
-    <div class="tarif__liste">
-      <a class="blog__kat" href="https://www.google.com/maps/dir/?api=1&amp;origin=Dalyan%2C%20Mu%C4%9Fla&amp;destination=%C5%9Eerifnaz%20Ba%C5%9Fo%C4%9Flu%20Sokak%2C%20Ortaca%2C%20Mu%C4%9Fla" rel="noopener">Depuis Dalyan</a>
-      <a class="blog__kat" href="https://www.google.com/maps/dir/?api=1&amp;origin=K%C3%B6yce%C4%9Fiz%2C%20Mu%C4%9Fla&amp;destination=%C5%9Eerifnaz%20Ba%C5%9Fo%C4%9Flu%20Sokak%2C%20Ortaca%2C%20Mu%C4%9Fla" rel="noopener">Depuis Köyceğiz</a>
-      <a class="blog__kat" href="https://www.google.com/maps/dir/?api=1&amp;origin=Dalaman%20Havaliman%C4%B1&amp;destination=%C5%9Eerifnaz%20Ba%C5%9Fo%C4%9Flu%20Sokak%2C%20Ortaca%2C%20Mu%C4%9Fla" rel="noopener">Depuis l’aéroport de Dalaman</a>
-      <a class="blog__kat" href="https://www.google.com/maps/dir/?api=1&amp;origin=Fethiye%2C%20Mu%C4%9Fla&amp;destination=%C5%9Eerifnaz%20Ba%C5%9Fo%C4%9Flu%20Sokak%2C%20Ortaca%2C%20Mu%C4%9Fla" rel="noopener">Depuis Fethiye</a>
-      <a class="blog__kat" href="https://www.google.com/maps/dir/?api=1&amp;destination=%C5%9Eerifnaz%20Ba%C5%9Fo%C4%9Flu%20Sokak%2C%20Ortaca%2C%20Mu%C4%9Fla" rel="noopener">Depuis ma position</a>
-    </div>
-  </section>
 </main>
 
 <footer class="foot">
@@ -290,9 +307,9 @@
 <p class="dil-not">Les mentions légales et les articles du blog sont en turc. Sous votre message WhatsApp, nous ajoutons aussi la version en turc ; vous pouvez écrire dans votre langue.</p>
 </footer>
 
-<script src="/assets/js/dil.js?v=20261020f" defer></script>
-<script src="/assets/js/site.js?v=20261020f" defer></script>
-<script src="/assets/js/oyun.js?v=20261020f" defer></script>
-<script src="/assets/js/ek.js?v=20261020f" defer></script>
+<script src="/assets/js/dil.js?v=20261021b" defer></script>
+<script src="/assets/js/site.js?v=20261021b" defer></script>
+<script src="/assets/js/oyun.js?v=20261021b" defer></script>
+<script src="/assets/js/ek.js?v=20261021b" defer></script>
 </body>
 </html>

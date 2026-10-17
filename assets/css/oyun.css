@@ -713,3 +713,24 @@ html.has-altbar .dil-oneri { bottom: calc(10rem + env(safe-area-inset-bottom)); 
 html.has-altbar .yigin { bottom: calc(9.5rem + env(safe-area-inset-bottom)); }
 .yigin > * { pointer-events: auto; position: relative !important; left: auto !important; top: auto !important; bottom: auto !important; transform: none !important; width: auto !important; margin: 0 !important; box-shadow: var(--clay); }
 .yigin .konum { background: var(--surface, #fff); }
+
+/* ---------- dükkân haritası ---------- */
+.harita { padding: var(--section) var(--margin) 0; }
+.harita__head p { max-width: 42rem; margin-top: 0.6rem; }
+.harita__secim { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.4rem; }
+.harita__dukkan { min-height: 48px; padding: 0 1.1rem; border-radius: 999px; background: var(--field-3); color: var(--ink); font-weight: 700; }
+.harita__dukkan[aria-pressed="true"] { background: var(--navy, #26357a); color: #fff; }
+html.gece .harita__dukkan[aria-pressed="true"] { background: #0b7a75; }
+.harita__adres { margin-top: 0.8rem; font-weight: 600; }
+.harita__kutu { position: relative; margin-top: 1rem; height: clamp(360px, 62vh, 620px); border-radius: 28px; overflow: hidden; box-shadow: var(--clay); background: var(--field-1); }
+.harita__kutu iframe, .harita__rota-harita { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.harita__kutu iframe[hidden], .harita__rota-harita[hidden] { display: none; }
+.harita__rota { width: 100%; min-height: 64px; margin-top: 1rem; font-size: 1.15rem; display: flex; align-items: center; justify-content: center; gap: 0.6rem; }
+.harita__rota svg { width: 26px; height: 26px; }
+.harita__rota[disabled] { opacity: 0.7; }
+.harita__bilgi { margin-top: 0.8rem; font-weight: 700; min-height: 1.5em; }
+.harita__alt { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; align-items: center; margin-top: 0.4rem; }
+.harita__alt .link, .harita__geri { min-height: 44px; display: inline-flex; align-items: center; }
+.harita__not { font-size: var(--step-small); color: var(--muted); margin-top: 0.4rem; }
+.harita .tarif__liste { margin-top: 1rem; }
+.harita__geri[hidden] { display: none; }

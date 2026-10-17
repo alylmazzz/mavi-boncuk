@@ -11,7 +11,7 @@ const ROOT = path.join(__dirname, '..');
 const SITE = 'https://maviboncukortaca.vercel.app';
 const rd = (f) => fs.readFileSync(path.join(ROOT, f), 'utf8');
 const wr = (f, s) => { fs.mkdirSync(path.dirname(path.join(ROOT, f)), { recursive: true }); fs.writeFileSync(path.join(ROOT, f), s); };
-const ANALITIK = false;
+const ANALITIK = true;
 const DILLER = Object.keys(C.DILLER).filter((d) => d !== 'tr' && fs.existsSync(path.join(ROOT, 'i18n', d + '.json')));
 const kodla = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 

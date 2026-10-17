@@ -100,4 +100,5 @@ assets/i18n/ sözlüklerini üretir; derle.js'ten sonra mutlaka çalıştır).
 - Telegram: `/duyuru <metin>` sitenin üstünde şerit (sabitlenmiş mesaj, `/api/duyuru` okur, 5 dk önbellek), `/duyurukapat`.
   "Gelince haber ver"e basılınca `/api/bildir` mağazaya Telegram bildirimi yollar. Ortak Telegram kodu `api/_lib/tg.js`.
 - PWA: `manifest.webmanifest`, `sw.js` (sayfalar ağ öncelikli, /assets önbellekte, /api ve /yonetim hiç), simgeler assets/img/site/icon-*.png.
-- Vercel Web Analytics betiği tüm sayfalarda (diller.js ekler); Vercel panelinde Analytics açılınca veri gelir.
+- Vercel Web Analytics açık (diller.js ANALITIK = true ile betiği ekler).
+- Dükkân haritası (#konum): iki dükkân (Çocuk Giyim 36.8368452,28.7666592; Bebe Şube 36.8375636,28.7644536), Google Haritalar gömülü; "Bulunduğum yerden yolu göster" konum izniyle Leaflet + OSRM ile kırmızı rota çizer.

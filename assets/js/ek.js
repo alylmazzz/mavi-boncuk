@@ -239,6 +239,65 @@
     f.addEventListener('submit', (e) => { e.preventDefault(); goster(); });
   }
 
+  // ---------- dükkân haritası: Google Haritalar + konum izniyle kırmızı rota ----------
+  const harita = $('#konum');
+  if (harita) {
+    const ADRES = { 'Mavi Boncuk Çocuk Giyim': 'Cengiz Topel Caddesi No:37 D:39, Terzialiler, Ortaca', 'Mavi Boncuk Bebe Şube': 'Terzialiler Mahallesi, Ortaca (Google kodu RQQ7+2Q)' };
+    const ifr = $('#harita-google'), rotaKutu = $('#rota-harita'), bilgi = $('#rota-bilgi'), gLink = $('#rota-google'), geri = $('#rota-geri'), ciz = $('#rota-ciz');
+    let hedef = harita.querySelector('.harita__dukkan[aria-pressed="true"]');
+    let lmap = null, katman = null;
+    const gUrl = (lat, lng) => `https://www.google.com/maps?q=${lat},${lng}&z=17&hl=${document.documentElement.lang || 'tr'}&output=embed`;
+    const dirUrl = (o) => `https://www.google.com/maps/dir/?api=1${o ? `&origin=${o.lat},${o.lng}` : ''}&destination=${hedef.dataset.lat},${hedef.dataset.lng}`;
+    const googleGoster = () => { rotaKutu.hidden = true; ifr.hidden = false; geri.hidden = true; };
+    harita.querySelectorAll('.harita__dukkan').forEach((b) => b.addEventListener('click', () => {
+      harita.querySelectorAll('.harita__dukkan').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+      hedef = b;
+      ifr.src = gUrl(b.dataset.lat, b.dataset.lng); ifr.title = b.dataset.ad + ', Google Haritalar';
+      $('#harita-adres').textContent = ADRES[b.dataset.ad] || '';
+      gLink.href = dirUrl(); bilgi.textContent = ''; googleGoster();
+    }));
+    geri.addEventListener('click', googleGoster);
+    const yukle = (tur, src) => new Promise((ok, hata) => {
+      if (document.querySelector(`[data-yukle="${src}"]`)) return ok();
+      const e = document.createElement(tur === 'css' ? 'link' : 'script');
+      if (tur === 'css') { e.rel = 'stylesheet'; e.href = src; } else { e.src = src; }
+      e.dataset.yukle = src; e.onload = ok; e.onerror = hata; document.head.append(e);
+    });
+    const LEAFLET = 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/';
+    const sure = (sn) => { const d = Math.round(sn / 60); return d < 60 ? `${d} dakika` : `${Math.floor(d / 60)} saat ${d % 60} dakika`; };
+    ciz.addEventListener('click', () => {
+      if (!('geolocation' in navigator)) { bilgi.textContent = 'Tarayıcınız konum paylaşmayı desteklemiyor. Google Haritalar’da yol tarifini açabilirsiniz.'; return; }
+      bilgi.textContent = 'Konumunuz soruluyor…'; ciz.disabled = true;
+      navigator.geolocation.getCurrentPosition(async (k) => {
+        const o = { lat: k.coords.latitude, lng: k.coords.longitude };
+        const h = { lat: Number(hedef.dataset.lat), lng: Number(hedef.dataset.lng) };
+        gLink.href = dirUrl(o);
+        try {
+          bilgi.textContent = 'Yol çiziliyor…';
+          await Promise.all([yukle('css', LEAFLET + 'leaflet.min.css'), yukle('js', LEAFLET + 'leaflet.min.js')]);
+          const r = await fetch(`https://router.project-osrm.org/route/v1/driving/${o.lng},${o.lat};${h.lng},${h.lat}?overview=full&geometries=geojson`).then((x) => x.json());
+          if (!r.routes || !r.routes[0]) throw new Error('rota yok');
+          const L = window.L; const rota = r.routes[0];
+          ifr.hidden = true; rotaKutu.hidden = false; geri.hidden = false;
+          if (!lmap) {
+            lmap = L.map(rotaKutu, { scrollWheelZoom: false });
+            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '&copy; OpenStreetMap' }).addTo(lmap);
+          }
+          if (katman) katman.remove();
+          const cizgi = L.geoJSON(rota.geometry, { style: { color: '#e30a17', weight: 6, opacity: 0.9 } });
+          katman = L.layerGroup([cizgi,
+            L.circleMarker([o.lat, o.lng], { radius: 8, color: '#fff', weight: 3, fillColor: '#1a73e8', fillOpacity: 1 }).bindTooltip('Siz'),
+            L.marker([h.lat, h.lng]).bindTooltip(hedef.dataset.ad, { permanent: true, direction: 'top' })]).addTo(lmap);
+          lmap.invalidateSize(); lmap.fitBounds(cizgi.getBounds(), { padding: [30, 30] });
+          bilgi.textContent = `${hedef.dataset.ad}: yaklaşık ${(rota.distance / 1000).toFixed(1).replace('.', ',')} km, arabayla ${sure(rota.duration)}.`;
+        } catch (e) {
+          bilgi.textContent = 'Yol çizilemedi. Google Haritalar’da yol tarifini açabilirsiniz.';
+        }
+        ciz.disabled = false;
+      }, () => { ciz.disabled = false; bilgi.textContent = 'Konum izni verilmedi. Google Haritalar’da yol tarifini açabilirsiniz.'; }, { enableHighAccuracy: true, timeout: 15000, maximumAge: 60000 });
+    });
+  }
+
   // ---------- gelip denemek için randevu (WhatsApp mesajı hazırlar) ----------
   const randevu = $('#randevu-form');
   if (randevu) {
