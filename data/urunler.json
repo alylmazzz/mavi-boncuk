@@ -1,0 +1,2613 @@
+{
+  "_sema": {
+    "id": "kisa-kebab-case, ör. ribana-tulum-badem",
+    "ad": "Ürün adı",
+    "kategori": "bebek | kiz | erkek | unisex | aksesuar",
+    "fiyat": 0,
+    "indirimli_fiyat": null,
+    "bedenler": [
+      {
+        "beden": "6-9 ay",
+        "stok": 0
+      }
+    ],
+    "renkler": [
+      "badem"
+    ],
+    "kumas": "%100 pamuk ribana",
+    "yikama": "30 °C, ters çevirerek",
+    "aciklama": "ses-ve-dil.md kurallarıyla yazılmış metin",
+    "gorseller": [
+      "assets/img/urunler/<id>/1.webp"
+    ],
+    "instagram": "gönderi bağlantısı",
+    "eksik": [
+      "Instagram'da bulunmayan, mağaza sahibine sorulacak bilgiler"
+    ]
+  },
+  "urunler": [
+    {
+      "id": "gelato-pembe-esofman",
+      "ad": "Gelato baskılı pembe eşofman",
+      "kategori": "gunluk",
+      "yas_araligi": [
+        4,
+        9
+      ],
+      "kisa": "4-9 yaş, yeni sezon",
+      "fiyat": null,
+      "indirimli_fiyat": null,
+      "eski_fiyat": null,
+      "bedenler": [],
+      "renkler": [],
+      "kumas": null,
+      "yikama": null,
+      "stok_notu": null,
+      "aciklama": "Arkasında dondurma baskısı olan, bol paça pembe takım. Okula da giyilir, hafta sonu parka da.",
+      "gorseller": [
+        "/assets/img/urunler/gelato-pembe-esofman/1.webp",
+        "/assets/img/urunler/gelato-pembe-esofman/2.webp"
+      ],
+      "instagram": "https://www.instagram.com/p/DegnZOfDang/",
+      "tarih": "2026-10-15",
+      "vitrin": true,
+      "afis": false,
+      "cocuk_yuzu": false,
+      "eksik": [
+        "fiyat",
+        "bedenler ve stok",
+        "kumaş",
+        "yıkama"
+      ],
+      "yas_tahmini": false
+    },
+    {
+      "id": "kalpli-kazak-sort-etek",
+      "ad": "Kalpli kazak, ekose şort etek",
+      "kategori": "gunluk",
+      "yas_araligi": [
+        3,
+        8
+      ],
+      "kisa": "Yeni sezon, takım",
+      "fiyat": null,
+      "indirimli_fiyat": null,
+      "eski_fiyat": null,
+      "bedenler": [],
+      "renkler": [],
+      "kumas": null,
+      "yikama": null,
+      "stok_notu": null,
+      "aciklama": "Krem kazağın önünde kocaman kırmızı bir kalp var. Altında ekose şort etek var; etek gibi görünür, şort gibi rahattır.",
+      "gorseller": [
+        "/assets/img/urunler/kalpli-kazak-sort-etek/1.webp"
+      ],
+      "instagram": "https://www.instagram.com/p/DeeHNEfNjV1/",
+      "tarih": "2026-10-14",
+      "vitrin": true,
+      "afis": false,
+      "cocuk_yuzu": false,
+      "eksik": [
+        "fiyat",
+        "bedenler ve stok",
+        "kumaş",
+        "yıkama"
+      ],
+      "yas_tahmini": true
+    },
+    {
+      "id": "kahve-yumusak-esofman",
+      "ad": "Kahverengi yumuşak eşofman",
+      "kategori": "gunluk",
+      "yas_araligi": [
+        9,
+        14
+      ],
+      "kisa": "9-14 yaş",
+      "fiyat": null,
+      "indirimli_fiyat": null,
+      "eski_fiyat": null,
+      "bedenler": [],
+      "renkler": [],
+      "kumas": null,
+      "yikama": null,
+      "stok_notu": null,
+      "aciklama": "Kapüşonlu, desenli kahverengi takım. Büyük kızlar için, kasım soğuğunda üstüne bir mont yeter.",
+      "gorseller": [
+        "/assets/img/urunler/kahve-yumusak-esofman/1.webp"
+      ],
+      "instagram": "https://www.instagram.com/p/DebdOy2tddn/",
+      "tarih": "2026-10-13",
+      "vitrin": false,
+      "afis": false,
+      "cocuk_yuzu": false,
+      "eksik": [
+        "fiyat",
+        "bedenler ve stok",
+        "kumaş",
+        "yıkama"
+      ],
+      "yas_tahmini": false
+    },
+    {
+      "id": "pembe-tul-dugun-elbisesi",
+      "ad": "Pembe tül düğün elbisesi",
+      "kategori": "abiye",
+      "yas_araligi": [
+        5,
+        9
+      ],
+      "kisa": "Düğün, nişan",
+      "fiyat": null,
+      "indirimli_fiyat": null,
+      "eski_fiyat": null,
+      "bedenler": [],
+      "renkler": [],
+      "kumas": null,
+      "yikama": null,
+      "stok_notu": null,
+      "aciklama": "Omzu tek taraflı, eteği kat kat tül. Düğün ve nişan için.",
+      "gorseller": [
+        "/assets/img/urunler/pembe-tul-dugun-elbisesi/1.webp"
+      ],
+      "instagram": "https://www.instagram.com/p/DeRbcS5tL9s/",
+      "tarih": "2026-10-09",
+      "vitrin": false,
+      "afis": false,
+      "cocuk_yuzu": true,
+      "eksik": [
+        "fiyat",
+        "bedenler ve stok",
+        "kumaş",
+        "yıkama"
+      ],
+      "yas_tahmini": true
+    },
+    {
+      "id": "fiyonklu-tul-elbise-pudra",
+      "ad": "Sırtı fiyonklu pudra tül elbise",
+      "kategori": "bebek",
+      "yas_araligi": [
+        1,
+        4
+      ],
+      "kisa": "1-4 yaş",
+      "fiyat": null,
+      "indirimli_fiyat": null,
+      "eski_fiyat": null,
+      "bedenler": [],
+      "renkler": [],
+      "kumas": null,
+      "yikama": null,
+      "stok_notu": null,
+      "aciklama": "Kolları gül işlemeli, sırtında büyük tül fiyonk. Doğum günü ve nişan için tatlı bir seçenek.",
+      "gorseller": [
+        "/assets/img/urunler/fiyonklu-tul-elbise-pudra/1.webp",
+        "/assets/img/urunler/fiyonklu-tul-elbise-pudra/2.webp"
+      ],
+      "instagram": "https://www.instagram.com/p/DeJ4YlUjbuZ/",
+      "tarih": "2026-10-06",
+      "vitrin": false,
+      "afis": false,
+      "cocuk_yuzu": false,
+      "eksik": [
+        "fiyat",
+        "bedenler ve stok",
+        "kumaş",
+        "yıkama"
+      ],
+      "yas_tahmini": false
+    },
+    {
+      "id": "lacivert-sweat-baklava-pantolon",
+      "ad": "Lacivert sweatshirt, baklava desenli pantolon",
+      "kategori": "gunluk",
+      "yas_araligi": [
+        4,
+        9
+      ],
+      "kisa": "Erkek, yeni sezon",
+      "fiyat": null,
+      "indirimli_fiyat": null,
+      "eski_fiyat": null,
+      "bedenler": [],
+      "renkler": [],
+      "kumas": null,
+      "yikama": null,
+      "stok_notu": null,
+      "aciklama": "Düz lacivert üst, mavi beyaz baklava desenli rahat pantolon. Ayrı ayrı da kombinlenir.",
+      "gorseller": [
+        "/assets/img/urunler/lacivert-sweat-baklava-pantolon/1.webp"
+      ],
+      "instagram": "https://www.instagram.com/p/DeHNU4JNPVA/",
+      "tarih": "2026-10-05",
+      "vitrin": false,
+      "afis": false,
+      "cocuk_yuzu": false,
+      "eksik": [
+        "fiyat",
+        "bedenler ve stok",
+        "kumaş",
+        "yıkama"
+      ],
+      "yas_tahmini": true
+    },
+    {
+      "id": "cilekli-yesil-esofman",
+      "ad": "Çilekli yeşil eşofman",
+      "kategori": "gunluk",
+      "yas_araligi": [
+        2,
+        6
+      ],
+      "kisa": "Yeni sezon",
+      "fiyat": null,
+      "indirimli_fiyat": null,
+      "eski_fiyat": null,
+      "bedenler": [],
+      "renkler": [],
+      "kumas": null,
+      "yikama": null,
+      "stok_notu": null,
+      "aciklama": "Baştan aşağı çilek desenli yeşil takım.",
+      "gorseller": [
+        "/assets/img/urunler/cilekli-yesil-esofman/1.webp"
+      ],
+      "instagram": "https://www.instagram.com/p/Dd_KrO9twVu/",
+      "tarih": "2026-10-02",
+      "vitrin": false,
+      "afis": false,
+      "cocuk_yuzu": false,
+      "eksik": [
+        "fiyat",
+        "bedenler ve stok",
+        "kumaş",
+        "yıkama"
+      ],
+      "yas_tahmini": true
+    },
+    {
+      "id": "leopar-pantolon-takim",
+      "ad": "Krem sweatshirt, leopar pantolon",
+      "kategori": "gunluk",
+      "yas_araligi": [
+        3,
+        7
+      ],
+      "kisa": "Yeni sezon",
+      "fiyat": null,
+      "indirimli_fiyat": null,
+      "eski_fiyat": null,
+      "bedenler": [],
+      "renkler": [],
+      "kumas": null,
+      "yikama": null,
+      "stok_notu": null,
+      "aciklama": "Önünde kurdele işlemesi olan krem üst, bordo leopar desenli bol pantolon.",
+      "gorseller": [
+        "/assets/img/urunler/leopar-pantolon-takim/1.webp"
+      ],
+      "instagram": "https://www.instagram.com/p/Dd6WIl3t1Za/",
+      "tarih": "2026-09-30",
+      "vitrin": false,
+      "afis": false,
+      "cocuk_yuzu": false,
+      "eksik": [
+        "fiyat",
+        "bedenler ve stok",
+        "kumaş",
+        "yıkama"
+      ],
+      "yas_tahmini": true
+    },
+    {
+      "id": "kopek-baskili-takim",
+      "ad": "Köpek baskılı kahve takım",
+      "kategori": "gunluk",
+      "yas_araligi": [
+        7,
+        12
+      ],
+      "kisa": "Yeni sezon",
+      "fiyat": null,
+      "indirimli_fiyat": null,
+      "eski_fiyat": null,
+      "bedenler": [],
+      "renkler": [],
+      "kumas": null,
+      "yikama": null,
+      "stok_notu": null,
+      "aciklama": "Sırtında sosis köpeği baskısı, altında geniş paça pantolon. Kız da giyer, erkek de.",
+      "gorseller": [
+        "/assets/img/urunler/kopek-baskili-takim/1.webp",
+        "/assets/img/urunler/kopek-baskili-takim/2.webp"
+      ],
+      "instagram": "https://www.instagram.com/p/Dd3yTYGjUIN/",
+      "tarih": "2026-09-29",
+      "vitrin": false,
+      "afis": false,
+      "cocuk_yuzu": false,
+      "eksik": [
+        "fiyat",
+        "bedenler ve stok",
+        "kumaş",
+        "yıkama"
+      ],
+      "yas_tahmini": true
+    },
+    {
+      "id": "cip-baskili-takim",
+      "ad": "Cip baskılı siyah takım",
+      "kategori": "gunluk",
+      "yas_araligi": [
+        7,
+        12
+      ],
+      "kisa": "Erkek, yeni sezon",
+      "fiyat": null,
+      "indirimli_fiyat": null,
+      "eski_fiyat": null,
+      "bedenler": [],
+      "renkler": [],
+      "kumas": null,
+      "yikama": null,
+      "stok_notu": null,
+      "aciklama": "Sırtında arazi aracı baskısı olan siyah üst ve eşofman altı. Uzun kollu katmanlı görünüyor.",
+      "gorseller": [
+        "/assets/img/urunler/cip-baskili-takim/1.webp",
+        "/assets/img/urunler/cip-baskili-takim/2.webp"
+      ],
+      "instagram": "https://www.instagram.com/p/Dd1M573Dbt4/",
+      "tarih": "2026-09-28",
+      "vitrin": false,
+      "afis": false,
+      "cocuk_yuzu": false,
+      "eksik": [
+        "fiyat",
+        "bedenler ve stok",
+        "kumaş",
+        "yıkama"
+      ],
+      "yas_tahmini": true
+    },
+    {
+      "id": "puantiyeli-etek-takim",
+      "ad": "Kahve sweatshirt, puantiyeli etek",
+      "kategori": "gunluk",
+      "yas_araligi": [
+        3,
+        7
+      ],
+      "kisa": "Yeni sezon",
+      "fiyat": null,
+      "indirimli_fiyat": null,
+      "eski_fiyat": null,
+      "bedenler": [],
+      "renkler": [],
+      "kumas": null,
+      "yikama": null,
+      "stok_notu": null,
+      "aciklama": "Kahverengi üst ve mavi zemin üstüne kahve puantiyeli kabarık etek.",
+      "gorseller": [
+        "/assets/img/urunler/puantiyeli-etek-takim/1.webp"
+      ],
+      "instagram": "https://www.instagram.com/p/Ddyl7FzNQY7/",
+      "tarih": "2026-09-27",
+      "vitrin": false,
+      "afis": false,
+      "cocuk_yuzu": false,
+      "eksik": [
+        "fiyat",
+        "bedenler ve stok",
+        "kumaş",
+        "yıkama"
+      ],
+      "yas_tahmini": true
+    },
+    {
+      "id": "okul-polo-sort",
+      "ad": "Okul polo tişört ve şort",
+      "kategori": "okul",
+      "yas_araligi": [
+        4,
+        14
+      ],
+      "kisa": "Okul kıyafeti",
+      "fiyat": null,
+      "indirimli_fiyat": null,
+      "eski_fiyat": null,
+      "bedenler": [],
+      "renkler": [],
+      "kumas": null,
+      "yikama": null,
+      "stok_notu": null,
+      "aciklama": "Beyaz, bordo ve yeşil polo yaka tişört, bej şort. Okul kıyafetlerinin hepsi mağazada, okulunuzu yazın.",
+      "gorseller": [
+        "/assets/img/urunler/okul-polo-sort/1.webp",
+        "/assets/img/urunler/okul-polo-sort/2.webp",
+        "/assets/img/urunler/okul-polo-sort/3.webp"
+      ],
+      "instagram": "https://www.instagram.com/p/DcdNX1wDUAG/",
+      "tarih": "2026-08-25",
+      "vitrin": false,
+      "afis": false,
+      "cocuk_yuzu": false,
+      "eksik": [
+        "fiyat",
+        "bedenler ve stok",
+        "kumaş",
+        "yıkama"
+      ],
+      "yas_tahmini": true
+    },
+    {
+      "id": "beyaz-firfirli-bluz-etek",
+      "ad": "Beyaz fırfırlı bluz ve etek",
+      "kategori": "gunluk",
+      "yas_araligi": [
+        4,
+        8
+      ],
+      "kisa": "Yazlık takım",
+      "fiyat": null,
+      "indirimli_fiyat": null,
+      "eski_fiyat": null,
+      "bedenler": [],
+      "renkler": [],
+      "kumas": null,
+      "yikama": null,
+      "stok_notu": null,
+      "aciklama": "Askıları fırfırlı bluz, pileli krem etek. Sade, düğünde de giyilir okul gösterisinde de.",
+      "gorseller": [
+        "/assets/img/urunler/beyaz-firfirli-bluz-etek/1.webp",
+        "/assets/img/urunler/beyaz-firfirli-bluz-etek/2.webp",
+        "/assets/img/urunler/beyaz-firfirli-bluz-etek/3.webp",
+        "/assets/img/urunler/beyaz-firfirli-bluz-etek/4.webp"
+      ],
+      "instagram": "https://www.instagram.com/p/DcBFVPpjZCM/",
+      "tarih": "2026-08-14",
+      "vitrin": false,
+      "afis": false,
+      "cocuk_yuzu": false,
+      "eksik": [
+        "fiyat",
+        "bedenler ve stok",
+        "kumaş",
+        "yıkama"
+      ],
+      "yas_tahmini": true
+    },
+    {
+      "id": "lacivert-yelekli-takim-elbise",
+      "ad": "Lacivert yelekli takım elbise",
+      "kategori": "takim-elbise",
+      "yas_araligi": [
+        7,
+        12
+      ],
+      "kisa": "Papyonlu, üç parça",
+      "fiyat": null,
+      "indirimli_fiyat": null,
+      "eski_fiyat": null,
+      "bedenler": [],
+      "renkler": [],
+      "kumas": null,
+      "yikama": null,
+      "stok_notu": null,
+      "aciklama": "Lacivert ceket, yelek ve pantolon. Yakasında minik bir broş var.",
+      "gorseller": [
+        "/assets/img/urunler/lacivert-yelekli-takim-elbise/1.webp"
+      ],
+      "instagram": "https://www.instagram.com/p/DZUYdrzN4s4/",
+      "tarih": "2026-06-08",
+      "vitrin": true,
+      "afis": false,
+      "cocuk_yuzu": false,
+      "eksik": [
+        "fiyat",
+        "bedenler ve stok",
+        "kumaş",
+        "yıkama"
+      ],
+      "yas_tahmini": true
+    },
+    {
+      "id": "bej-keten-gomlek-sort",
+      "ad": "Bej gömlek ve şort",
+      "kategori": "gunluk",
+      "yas_araligi": [
+        3,
+        7
+      ],
+      "kisa": "Erkek, yazlık",
+      "fiyat": null,
+      "indirimli_fiyat": null,
+      "eski_fiyat": null,
+      "bedenler": [],
+      "renkler": [],
+      "kumas": null,
+      "yikama": null,
+      "stok_notu": null,
+      "aciklama": "Doğal tonlarda gömlek, baskılı tişört ve şort. Düğünde rahat etsin isteyenlere.",
+      "gorseller": [
+        "/assets/img/urunler/bej-keten-gomlek-sort/1.webp"
+      ],
+      "instagram": "https://www.instagram.com/p/DYucYcUtj4T/",
+      "tarih": "2026-05-24",
+      "vitrin": false,
+      "afis": false,
+      "cocuk_yuzu": false,
+      "eksik": [
+        "fiyat",
+        "bedenler ve stok",
+        "kumaş",
+        "yıkama"
+      ],
+      "yas_tahmini": true
+    },
+    {
+      "id": "beyaz-tisort-batik-sort",
+      "ad": "Beyaz tişört, batik şort",
+      "kategori": "gunluk",
+      "yas_araligi": [
+        6,
+        10
+      ],
+      "kisa": "Erkek, yazlık",
+      "fiyat": null,
+      "indirimli_fiyat": null,
+      "eski_fiyat": null,
+      "bedenler": [],
+      "renkler": [],
+      "kumas": null,
+      "yikama": null,
+      "stok_notu": null,
+      "aciklama": "Sırtı baskılı beyaz tişört, mavi batik desenli şort.",
+      "gorseller": [
+        "/assets/img/urunler/beyaz-tisort-batik-sort/1.webp",
+        "/assets/img/urunler/beyaz-tisort-batik-sort/2.webp"
+      ],
+      "instagram": "https://www.instagram.com/p/DYrXgoljbuV/",
+      "tarih": "2026-05-23",
+      "vitrin": false,
+      "afis": false,
+      "cocuk_yuzu": false,
+      "eksik": [
+        "fiyat",
+        "bedenler ve stok",
+        "kumaş",
+        "yıkama"
+      ],
+      "yas_tahmini": true
+    },
+    {
+      "id": "krem-bluz-firfirli-etek",
+      "ad": "Krem bluz, fırfırlı kahve etek",
+      "kategori": "gunluk",
+      "yas_araligi": [
+        5,
+        9
+      ],
+      "kisa": "Takım",
+      "fiyat": null,
+      "indirimli_fiyat": null,
+      "eski_fiyat": null,
+      "bedenler": [],
+      "renkler": [],
+      "kumas": null,
+      "yikama": null,
+      "stok_notu": null,
+      "aciklama": "Çiçek aplikeli krem bluz, kat kat dantel kahve etek.",
+      "gorseller": [
+        "/assets/img/urunler/krem-bluz-firfirli-etek/1.webp",
+        "/assets/img/urunler/krem-bluz-firfirli-etek/2.webp"
+      ],
+      "instagram": "https://www.instagram.com/p/DYrWyqWjfpi/",
+      "tarih": "2026-05-23",
+      "vitrin": false,
+      "afis": false,
+      "cocuk_yuzu": false,
+      "eksik": [
+        "fiyat",
+        "bedenler ve stok",
+        "kumaş",
+        "yıkama"
+      ],
+      "yas_tahmini": true
+    },
+    {
+      "id": "pudra-fiyonklu-takim",
+      "ad": "Pudra fiyonklu bluz etek",
+      "kategori": "gunluk",
+      "yas_araligi": [
+        3,
+        7
+      ],
+      "kisa": "Takım",
+      "fiyat": null,
+      "indirimli_fiyat": null,
+      "eski_fiyat": null,
+      "bedenler": [],
+      "renkler": [],
+      "kumas": null,
+      "yikama": null,
+      "stok_notu": null,
+      "aciklama": "Yumuşak pudra rengi, üstte ve etekte minik fiyonklar. Sade bir şıklık.",
+      "gorseller": [
+        "/assets/img/urunler/pudra-fiyonklu-takim/1.webp",
+        "/assets/img/urunler/pudra-fiyonklu-takim/2.webp"
+      ],
+      "instagram": "https://www.instagram.com/p/DYnGpsvjfYH/",
+      "tarih": "2026-05-21",
+      "vitrin": false,
+      "afis": false,
+      "cocuk_yuzu": false,
+      "eksik": [
+        "fiyat",
+        "bedenler ve stok",
+        "kumaş",
+        "yıkama"
+      ],
+      "yas_tahmini": true
+    },
+    {
+      "id": "krem-islemeli-yelek-pantolon",
+      "ad": "Krem işlemeli yelek ve pantolon",
+      "kategori": "gunluk",
+      "yas_araligi": [
+        4,
+        8
+      ],
+      "kisa": "Takım",
+      "fiyat": null,
+      "indirimli_fiyat": null,
+      "eski_fiyat": null,
+      "bedenler": [],
+      "renkler": [],
+      "kumas": null,
+      "yikama": null,
+      "stok_notu": null,
+      "aciklama": "Altın sırma işlemeli krem keten görünümlü yelek ve pantolon.",
+      "gorseller": [
+        "/assets/img/urunler/krem-islemeli-yelek-pantolon/1.webp"
+      ],
+      "instagram": "https://www.instagram.com/p/DYnFi5iNwbo/",
+      "tarih": "2026-05-21",
+      "vitrin": false,
+      "afis": false,
+      "cocuk_yuzu": false,
+      "eksik": [
+        "fiyat",
+        "bedenler ve stok",
+        "kumaş",
+        "yıkama"
+      ],
+      "yas_tahmini": true
+    },
+    {
+      "id": "krem-fiyonklu-takim",
+      "ad": "Krem fiyonklu takım",
+      "kategori": "gunluk",
+      "yas_araligi": [
+        3,
+        7
+      ],
+      "kisa": "Takım",
+      "fiyat": null,
+      "indirimli_fiyat": null,
+      "eski_fiyat": null,
+      "bedenler": [],
+      "renkler": [],
+      "kumas": null,
+      "yikama": null,
+      "stok_notu": null,
+      "aciklama": "Saten görünümlü krem üst, fırfırlı şort etek, belinde fiyonk.",
+      "gorseller": [
+        "/assets/img/urunler/krem-fiyonklu-takim/1.webp"
+      ],
+      "instagram": "https://www.instagram.com/p/DYkE8NutE6t/",
+      "tarih": "2026-05-20",
+      "vitrin": false,
+      "afis": false,
+      "cocuk_yuzu": false,
+      "eksik": [
+        "fiyat",
+        "bedenler ve stok",
+        "kumaş",
+        "yıkama"
+      ],
+      "yas_tahmini": true
+    },
+    {
+      "id": "lila-saten-fiyonklu-abiye",
+      "ad": "Lila saten fiyonklu abiye",
+      "kategori": "abiye",
+      "yas_araligi": [
+        7,
+        12
+      ],
+      "kisa": "Mezuniyet, düğün",
+      "fiyat": null,
+      "indirimli_fiyat": null,
+      "eski_fiyat": null,
+      "bedenler": [],
+      "renkler": [],
+      "kumas": null,
+      "yikama": null,
+      "stok_notu": null,
+      "aciklama": "Omuzları fiyonklu, önü kısa arkası uzun saten abiye. Mezuniyet fotoğraflarında çok güzel duruyor.",
+      "gorseller": [
+        "/assets/img/urunler/lila-saten-fiyonklu-abiye/1.webp"
+      ],
+      "instagram": "https://www.instagram.com/p/DYADiTlDe7F/",
+      "tarih": "2026-05-06",
+      "vitrin": true,
+      "afis": false,
+      "cocuk_yuzu": false,
+      "eksik": [
+        "fiyat",
+        "bedenler ve stok",
+        "kumaş",
+        "yıkama"
+      ],
+      "yas_tahmini": true
+    },
+    {
+      "id": "pudra-yelek-pantolon",
+      "ad": "Pudra yelek, bol pantolon",
+      "kategori": "gunluk",
+      "yas_araligi": [
+        6,
+        10
+      ],
+      "kisa": "Takım",
+      "fiyat": null,
+      "indirimli_fiyat": null,
+      "eski_fiyat": null,
+      "bedenler": [],
+      "renkler": [],
+      "kumas": null,
+      "yikama": null,
+      "stok_notu": null,
+      "aciklama": "Dokulu pudra yelek ve geniş paça pantolon. Bayramda da giyilir, okul gösterisinde de.",
+      "gorseller": [
+        "/assets/img/urunler/pudra-yelek-pantolon/1.webp"
+      ],
+      "instagram": "https://www.instagram.com/p/DXtpUUQDSjX/",
+      "tarih": "2026-04-29",
+      "vitrin": false,
+      "afis": false,
+      "cocuk_yuzu": false,
+      "eksik": [
+        "fiyat",
+        "bedenler ve stok",
+        "kumaş",
+        "yıkama"
+      ],
+      "yas_tahmini": true
+    },
+    {
+      "id": "lila-asimetrik-abiye",
+      "ad": "Lila asimetrik saten abiye",
+      "kategori": "abiye",
+      "yas_araligi": [
+        7,
+        12
+      ],
+      "kisa": "Mezuniyet",
+      "fiyat": null,
+      "indirimli_fiyat": null,
+      "eski_fiyat": null,
+      "bedenler": [],
+      "renkler": [],
+      "kumas": null,
+      "yikama": null,
+      "stok_notu": null,
+      "aciklama": "Tek omuzlu, beli büzgülü lila saten. Altına babet de olur topuklu da.",
+      "gorseller": [
+        "/assets/img/urunler/lila-asimetrik-abiye/1.webp"
+      ],
+      "instagram": "https://www.instagram.com/p/DXpEC6jDZQh/",
+      "tarih": "2026-04-27",
+      "vitrin": false,
+      "afis": false,
+      "cocuk_yuzu": false,
+      "eksik": [
+        "fiyat",
+        "bedenler ve stok",
+        "kumaş",
+        "yıkama"
+      ],
+      "yas_tahmini": true
+    },
+    {
+      "id": "gul-bluz-tul-etek",
+      "ad": "Gül işlemeli bluz, tül etek",
+      "kategori": "bebek",
+      "yas_araligi": [
+        2,
+        5
+      ],
+      "kisa": "Takım",
+      "fiyat": null,
+      "indirimli_fiyat": null,
+      "eski_fiyat": null,
+      "bedenler": [],
+      "renkler": [],
+      "kumas": null,
+      "yikama": null,
+      "stok_notu": null,
+      "aciklama": "Üstü pembe gül dokulu, eteği kat kat tül. Yanındaki tavşanlı çanta ayrı.",
+      "gorseller": [
+        "/assets/img/urunler/gul-bluz-tul-etek/1.webp"
+      ],
+      "instagram": "https://www.instagram.com/p/DXpD5AXDeCN/",
+      "tarih": "2026-04-27",
+      "vitrin": false,
+      "afis": false,
+      "cocuk_yuzu": false,
+      "eksik": [
+        "fiyat",
+        "bedenler ve stok",
+        "kumaş",
+        "yıkama"
+      ],
+      "yas_tahmini": true
+    },
+    {
+      "id": "cicekli-gomlek-etek",
+      "ad": "Çiçek desenli gömlek ve etek",
+      "kategori": "gunluk",
+      "yas_araligi": [
+        6,
+        12
+      ],
+      "kisa": "Yazlık takım",
+      "fiyat": null,
+      "indirimli_fiyat": null,
+      "eski_fiyat": null,
+      "bedenler": [],
+      "renkler": [],
+      "kumas": null,
+      "yikama": null,
+      "stok_notu": null,
+      "aciklama": "Renkli çiçekli gömlek ve etek. Kardeşler aynısını giyebilir, iki boyda var.",
+      "gorseller": [
+        "/assets/img/urunler/cicekli-gomlek-etek/1.webp",
+        "/assets/img/urunler/cicekli-gomlek-etek/2.webp"
+      ],
+      "instagram": "https://www.instagram.com/p/DXgmpV_jQlM/",
+      "tarih": "2026-04-24",
+      "vitrin": false,
+      "afis": false,
+      "cocuk_yuzu": false,
+      "eksik": [
+        "fiyat",
+        "bedenler ve stok",
+        "kumaş",
+        "yıkama"
+      ],
+      "yas_tahmini": true
+    },
+    {
+      "id": "erkek-gomlek-sort",
+      "ad": "Erkek gömlek, şort takım",
+      "kategori": "gunluk",
+      "yas_araligi": [
+        3,
+        8
+      ],
+      "kisa": "Erkek, yazlık",
+      "fiyat": null,
+      "indirimli_fiyat": null,
+      "eski_fiyat": null,
+      "bedenler": [],
+      "renkler": [],
+      "kumas": null,
+      "yikama": null,
+      "stok_notu": null,
+      "aciklama": "Haki, bej ve kahve gömlek seçenekleri, altında şort. Yazın bayram için de olur.",
+      "gorseller": [
+        "/assets/img/urunler/erkek-gomlek-sort/1.webp"
+      ],
+      "instagram": "https://www.instagram.com/p/DXgm30nDayO/",
+      "tarih": "2026-04-24",
+      "vitrin": false,
+      "afis": false,
+      "cocuk_yuzu": false,
+      "eksik": [
+        "fiyat",
+        "bedenler ve stok",
+        "kumaş",
+        "yıkama"
+      ],
+      "yas_tahmini": true
+    },
+    {
+      "id": "cicekli-pantolon-dantel-bluz",
+      "ad": "Çiçekli pantolon, dantel bluz",
+      "kategori": "gunluk",
+      "yas_araligi": [
+        3,
+        7
+      ],
+      "kisa": "Yazlık takım",
+      "fiyat": null,
+      "indirimli_fiyat": null,
+      "eski_fiyat": null,
+      "bedenler": [],
+      "renkler": [],
+      "kumas": null,
+      "yikama": null,
+      "stok_notu": null,
+      "aciklama": "Geniş paça çiçekli pantolon, krem dantel bluz. Yaz için.",
+      "gorseller": [
+        "/assets/img/urunler/cicekli-pantolon-dantel-bluz/1.webp"
+      ],
+      "instagram": "https://www.instagram.com/p/DXZTARUjYim/",
+      "tarih": "2026-04-21",
+      "vitrin": false,
+      "afis": false,
+      "cocuk_yuzu": false,
+      "eksik": [
+        "fiyat",
+        "bedenler ve stok",
+        "kumaş",
+        "yıkama"
+      ],
+      "yas_tahmini": true
+    },
+    {
+      "id": "mavi-yelek-sort",
+      "ad": "Mavi yelek ve şort takım",
+      "kategori": "gunluk",
+      "yas_araligi": [
+        7,
+        12
+      ],
+      "kisa": "Yazlık takım",
+      "fiyat": null,
+      "indirimli_fiyat": null,
+      "eski_fiyat": null,
+      "bedenler": [],
+      "renkler": [],
+      "kumas": null,
+      "yikama": null,
+      "stok_notu": null,
+      "aciklama": "Yakalı mavi yelek, aynı kumaştan şort. Altına beyaz spor ayakkabı yakışır.",
+      "gorseller": [
+        "/assets/img/urunler/mavi-yelek-sort/1.webp"
+      ],
+      "instagram": "https://www.instagram.com/p/DXWeWOIjZAX/",
+      "tarih": "2026-04-20",
+      "vitrin": false,
+      "afis": false,
+      "cocuk_yuzu": false,
+      "eksik": [
+        "fiyat",
+        "bedenler ve stok",
+        "kumaş",
+        "yıkama"
+      ],
+      "yas_tahmini": true
+    },
+    {
+      "id": "barbie-tul-etek-takim",
+      "ad": "Barbie tişört, renkli tül etek",
+      "kategori": "gunluk",
+      "yas_araligi": [
+        3,
+        7
+      ],
+      "kisa": "Takım",
+      "fiyat": null,
+      "indirimli_fiyat": null,
+      "eski_fiyat": null,
+      "bedenler": [],
+      "renkler": [],
+      "kumas": null,
+      "yikama": null,
+      "stok_notu": null,
+      "aciklama": "Pembe Barbie yazılı tişört, pastel renkli tül etek. Doğum günü partileri için.",
+      "gorseller": [
+        "/assets/img/urunler/barbie-tul-etek-takim/1.webp"
+      ],
+      "instagram": "https://www.instagram.com/p/DXPB07nDTb8/",
+      "tarih": "2026-04-17",
+      "vitrin": false,
+      "afis": false,
+      "cocuk_yuzu": false,
+      "eksik": [
+        "fiyat",
+        "bedenler ve stok",
+        "kumaş",
+        "yıkama"
+      ],
+      "yas_tahmini": true
+    },
+    {
+      "id": "barbie-tul-elbise",
+      "ad": "Barbie tül elbise",
+      "kategori": "gunluk",
+      "yas_araligi": [
+        3,
+        7
+      ],
+      "kisa": "Elbise",
+      "fiyat": null,
+      "indirimli_fiyat": null,
+      "eski_fiyat": null,
+      "bedenler": [],
+      "renkler": [],
+      "kumas": null,
+      "yikama": null,
+      "stok_notu": null,
+      "aciklama": "Üstü lila Barbie yazılı, eteği gökkuşağı tül. Tek parça, giydirmesi kolay.",
+      "gorseller": [
+        "/assets/img/urunler/barbie-tul-elbise/1.webp"
+      ],
+      "instagram": "https://www.instagram.com/p/DXHIQvRjXXv/",
+      "tarih": "2026-04-14",
+      "vitrin": false,
+      "afis": false,
+      "cocuk_yuzu": false,
+      "eksik": [
+        "fiyat",
+        "bedenler ve stok",
+        "kumaş",
+        "yıkama"
+      ],
+      "yas_tahmini": true
+    },
+    {
+      "id": "mavi-saten-abiye",
+      "ad": "Mavi saten omzu fiyonklu abiye",
+      "kategori": "abiye",
+      "yas_araligi": [
+        10,
+        15
+      ],
+      "kisa": "10-15 yaş",
+      "fiyat": null,
+      "indirimli_fiyat": null,
+      "eski_fiyat": null,
+      "bedenler": [],
+      "renkler": [],
+      "kumas": null,
+      "yikama": null,
+      "stok_notu": null,
+      "aciklama": "Buz mavisi saten, önü kısa arkası uzun. Omuzdaki fiyonk düşük kollu duruyor.",
+      "gorseller": [
+        "/assets/img/urunler/mavi-saten-abiye/1.webp"
+      ],
+      "instagram": "https://www.instagram.com/p/DW_R_4vDdYN/",
+      "tarih": "2026-04-11",
+      "vitrin": false,
+      "afis": false,
+      "cocuk_yuzu": false,
+      "eksik": [
+        "fiyat",
+        "bedenler ve stok",
+        "kumaş",
+        "yıkama"
+      ],
+      "yas_tahmini": false
+    },
+    {
+      "id": "pembe-fiyonk-bluz-beyaz-etek",
+      "ad": "Pembe fiyonklu bluz, beyaz etek",
+      "kategori": "gunluk",
+      "yas_araligi": [
+        3,
+        7
+      ],
+      "kisa": "Yazlık takım",
+      "fiyat": null,
+      "indirimli_fiyat": null,
+      "eski_fiyat": null,
+      "bedenler": [],
+      "renkler": [],
+      "kumas": null,
+      "yikama": null,
+      "stok_notu": null,
+      "aciklama": "Önünde kocaman fiyonk olan pembe crop ve fistolu beyaz etek.",
+      "gorseller": [
+        "/assets/img/urunler/pembe-fiyonk-bluz-beyaz-etek/1.webp"
+      ],
+      "instagram": "https://www.instagram.com/p/DW_R34DjfA9/",
+      "tarih": "2026-04-11",
+      "vitrin": false,
+      "afis": false,
+      "cocuk_yuzu": false,
+      "eksik": [
+        "fiyat",
+        "bedenler ve stok",
+        "kumaş",
+        "yıkama"
+      ],
+      "yas_tahmini": true
+    },
+    {
+      "id": "krem-balon-etek-takim",
+      "ad": "Krem bluz, balon etek",
+      "kategori": "gunluk",
+      "yas_araligi": [
+        3,
+        7
+      ],
+      "kisa": "Yazlık takım",
+      "fiyat": null,
+      "indirimli_fiyat": null,
+      "eski_fiyat": null,
+      "bedenler": [],
+      "renkler": [],
+      "kumas": null,
+      "yikama": null,
+      "stok_notu": null,
+      "aciklama": "Kolları volanlı krem crop, altında kabarık balon etek. Bayram için de düşünülebilir.",
+      "gorseller": [
+        "/assets/img/urunler/krem-balon-etek-takim/1.webp"
+      ],
+      "instagram": "https://www.instagram.com/p/DW6SQJbjYs0/",
+      "tarih": "2026-04-09",
+      "vitrin": false,
+      "afis": false,
+      "cocuk_yuzu": false,
+      "eksik": [
+        "fiyat",
+        "bedenler ve stok",
+        "kumaş",
+        "yıkama"
+      ],
+      "yas_tahmini": true
+    },
+    {
+      "id": "lila-uzun-saten-abiye",
+      "ad": "Lila uzun saten abiye",
+      "kategori": "abiye",
+      "yas_araligi": [
+        10,
+        15
+      ],
+      "kisa": "10-15 yaş",
+      "fiyat": null,
+      "indirimli_fiyat": null,
+      "eski_fiyat": null,
+      "bedenler": [],
+      "renkler": [],
+      "kumas": null,
+      "yikama": null,
+      "stok_notu": null,
+      "aciklama": "Yere kadar uzun, göğsünde büyük fiyonk. Lise mezuniyeti için ablalara.",
+      "gorseller": [
+        "/assets/img/urunler/lila-uzun-saten-abiye/1.webp"
+      ],
+      "instagram": "https://www.instagram.com/p/DWoPnQYjTDp/",
+      "tarih": "2026-04-02",
+      "vitrin": false,
+      "afis": false,
+      "cocuk_yuzu": false,
+      "eksik": [
+        "fiyat",
+        "bedenler ve stok",
+        "kumaş",
+        "yıkama"
+      ],
+      "yas_tahmini": false
+    },
+    {
+      "id": "pembe-prenses-abiye",
+      "ad": "Pembe uzun tül abiye",
+      "kategori": "abiye",
+      "yas_araligi": [
+        7,
+        11
+      ],
+      "kisa": "Düğün, mezuniyet",
+      "fiyat": null,
+      "indirimli_fiyat": null,
+      "eski_fiyat": null,
+      "bedenler": [],
+      "renkler": [],
+      "kumas": null,
+      "yikama": null,
+      "stok_notu": null,
+      "aciklama": "Göğsünde fiyonk, eteği yere kadar tül. Masal kitabından çıkmış gibi.",
+      "gorseller": [
+        "/assets/img/urunler/pembe-prenses-abiye/1.webp"
+      ],
+      "instagram": "https://www.instagram.com/p/DWY4GzvDa-w/",
+      "tarih": "2026-03-27",
+      "vitrin": false,
+      "afis": false,
+      "cocuk_yuzu": true,
+      "eksik": [
+        "fiyat",
+        "bedenler ve stok",
+        "kumaş",
+        "yıkama"
+      ],
+      "yas_tahmini": true
+    },
+    {
+      "id": "mavi-bej-takim-elbise",
+      "ad": "Mavi ve bej takım elbise",
+      "kategori": "takim-elbise",
+      "yas_araligi": [
+        6,
+        12
+      ],
+      "kisa": "İki renk",
+      "fiyat": null,
+      "indirimli_fiyat": null,
+      "eski_fiyat": null,
+      "bedenler": [],
+      "renkler": [],
+      "kumas": null,
+      "yikama": null,
+      "stok_notu": null,
+      "aciklama": "Açık mavi ya da bej. İçine tişört giyilince günlük, gömlekle şık.",
+      "gorseller": [
+        "/assets/img/urunler/mavi-bej-takim-elbise/1.webp"
+      ],
+      "instagram": "https://www.instagram.com/p/DWTqkBjDTSX/",
+      "tarih": "2026-03-25",
+      "vitrin": false,
+      "afis": false,
+      "cocuk_yuzu": true,
+      "eksik": [
+        "fiyat",
+        "bedenler ve stok",
+        "kumaş",
+        "yıkama"
+      ],
+      "yas_tahmini": true
+    },
+    {
+      "id": "bebek-mavi-takim-elbise",
+      "ad": "Bebek mavi takım elbise",
+      "kategori": "takim-elbise",
+      "yas_araligi": [
+        1,
+        3
+      ],
+      "kisa": "Bebek, papyonlu",
+      "fiyat": null,
+      "indirimli_fiyat": null,
+      "eski_fiyat": null,
+      "bedenler": [],
+      "renkler": [],
+      "kumas": null,
+      "yikama": null,
+      "stok_notu": null,
+      "aciklama": "Açık mavi ceket ve pantolon, beyaz gömlek, papyon. Mevlit ve nikâh için.",
+      "gorseller": [
+        "/assets/img/urunler/bebek-mavi-takim-elbise/1.webp",
+        "/assets/img/urunler/bebek-mavi-takim-elbise/2.webp"
+      ],
+      "instagram": "https://www.instagram.com/p/DWROnQCDd4I/",
+      "tarih": "2026-03-24",
+      "vitrin": false,
+      "afis": false,
+      "cocuk_yuzu": true,
+      "eksik": [
+        "fiyat",
+        "bedenler ve stok",
+        "kumaş",
+        "yıkama"
+      ],
+      "yas_tahmini": true
+    },
+    {
+      "id": "kalp-detayli-denim-takim",
+      "ad": "Kalp detaylı denim takım",
+      "kategori": "gunluk",
+      "yas_araligi": [
+        5,
+        10
+      ],
+      "kisa": "Takım",
+      "fiyat": null,
+      "indirimli_fiyat": null,
+      "eski_fiyat": null,
+      "bedenler": [],
+      "renkler": [],
+      "kumas": null,
+      "yikama": null,
+      "stok_notu": null,
+      "aciklama": "Kot ceketin ceplerinde ve paçalarda kalp işlemesi var. Altına düz beyaz tişört yeter.",
+      "gorseller": [
+        "/assets/img/urunler/kalp-detayli-denim-takim/1.webp",
+        "/assets/img/urunler/kalp-detayli-denim-takim/2.webp"
+      ],
+      "instagram": "https://www.instagram.com/p/DWOvjTZjUSL/",
+      "tarih": "2026-03-23",
+      "vitrin": false,
+      "afis": false,
+      "cocuk_yuzu": false,
+      "eksik": [
+        "fiyat",
+        "bedenler ve stok",
+        "kumaş",
+        "yıkama"
+      ],
+      "yas_tahmini": true
+    },
+    {
+      "id": "denim-ceket-etek",
+      "ad": "Kot ceket ve etek",
+      "kategori": "gunluk",
+      "yas_araligi": [
+        3,
+        7
+      ],
+      "kisa": "Takım",
+      "fiyat": null,
+      "indirimli_fiyat": null,
+      "eski_fiyat": null,
+      "bedenler": [],
+      "renkler": [],
+      "kumas": null,
+      "yikama": null,
+      "stok_notu": null,
+      "aciklama": "Açık mavi kot ceket ve aynı kumaştan etek. Bahar havasında hırka yerine.",
+      "gorseller": [
+        "/assets/img/urunler/denim-ceket-etek/1.webp"
+      ],
+      "instagram": "https://www.instagram.com/p/DV2-UlkiB9a/",
+      "tarih": "2026-03-14",
+      "vitrin": false,
+      "afis": false,
+      "cocuk_yuzu": false,
+      "eksik": [
+        "fiyat",
+        "bedenler ve stok",
+        "kumaş",
+        "yıkama"
+      ],
+      "yas_tahmini": true
+    },
+    {
+      "id": "haki-gomlek-ceket-pantolon",
+      "ad": "Haki gömlek ceket, bej pantolon",
+      "kategori": "gunluk",
+      "yas_araligi": [
+        4,
+        8
+      ],
+      "kisa": "Erkek",
+      "fiyat": null,
+      "indirimli_fiyat": null,
+      "eski_fiyat": null,
+      "bedenler": [],
+      "renkler": [],
+      "kumas": null,
+      "yikama": null,
+      "stok_notu": null,
+      "aciklama": "Sırtı işlemeli haki gömlek ceket ve kargo cepli bej pantolon.",
+      "gorseller": [
+        "/assets/img/urunler/haki-gomlek-ceket-pantolon/1.webp"
+      ],
+      "instagram": "https://www.instagram.com/p/DU8DM7XDVBE/",
+      "tarih": "2026-02-19",
+      "vitrin": false,
+      "afis": false,
+      "cocuk_yuzu": false,
+      "eksik": [
+        "fiyat",
+        "bedenler ve stok",
+        "kumaş",
+        "yıkama"
+      ],
+      "yas_tahmini": true
+    },
+    {
+      "id": "mint-takim",
+      "ad": "Mint takım",
+      "kategori": "gunluk",
+      "yas_araligi": [
+        4,
+        8
+      ],
+      "kisa": "Takım",
+      "fiyat": null,
+      "indirimli_fiyat": null,
+      "eski_fiyat": null,
+      "bedenler": [],
+      "renkler": [],
+      "kumas": null,
+      "yikama": null,
+      "stok_notu": null,
+      "aciklama": "Püsküllü dokulu mint ceket ve pantolon. Bu sezon vitrinde.",
+      "gorseller": [
+        "/assets/img/urunler/mint-takim/1.webp"
+      ],
+      "instagram": "https://www.instagram.com/p/DU5QZf5Df1p/",
+      "tarih": "2026-02-18",
+      "vitrin": false,
+      "afis": false,
+      "cocuk_yuzu": false,
+      "eksik": [
+        "fiyat",
+        "bedenler ve stok",
+        "kumaş",
+        "yıkama"
+      ],
+      "yas_tahmini": true
+    },
+    {
+      "id": "pembe-tuvit-ceket-pantolon",
+      "ad": "Pembe tüvit ceket ve pantolon",
+      "kategori": "bebek",
+      "yas_araligi": [
+        1,
+        4
+      ],
+      "kisa": "Bebek takımı",
+      "fiyat": null,
+      "indirimli_fiyat": null,
+      "eski_fiyat": null,
+      "bedenler": [],
+      "renkler": [],
+      "kumas": null,
+      "yikama": null,
+      "stok_notu": null,
+      "aciklama": "Yakası kürklü pembe tüvit ceket, düz pembe pantolon. Kışlık.",
+      "gorseller": [
+        "/assets/img/urunler/pembe-tuvit-ceket-pantolon/1.webp"
+      ],
+      "instagram": "https://www.instagram.com/p/DT-Rh7zjRbJ/",
+      "tarih": "2026-01-26",
+      "vitrin": false,
+      "afis": false,
+      "cocuk_yuzu": false,
+      "eksik": [
+        "fiyat",
+        "bedenler ve stok",
+        "kumaş",
+        "yıkama"
+      ],
+      "yas_tahmini": true
+    },
+    {
+      "id": "fiyonklu-sweat-kadife-etek",
+      "ad": "Fiyonklu sweat, kadife etek",
+      "kategori": "gunluk",
+      "yas_araligi": [
+        3,
+        7
+      ],
+      "kisa": "Takım",
+      "fiyat": null,
+      "indirimli_fiyat": null,
+      "eski_fiyat": null,
+      "bedenler": [],
+      "renkler": [],
+      "kumas": null,
+      "yikama": null,
+      "stok_notu": null,
+      "aciklama": "Beyaz sweatshirt'ün omzunda siyah kadife fiyonk, etek de kadife.",
+      "gorseller": [
+        "/assets/img/urunler/fiyonklu-sweat-kadife-etek/1.webp"
+      ],
+      "instagram": "https://www.instagram.com/p/DT2rocUjY8_/",
+      "tarih": "2026-01-23",
+      "vitrin": false,
+      "afis": false,
+      "cocuk_yuzu": false,
+      "eksik": [
+        "fiyat",
+        "bedenler ve stok",
+        "kumaş",
+        "yıkama"
+      ],
+      "yas_tahmini": true
+    },
+    {
+      "id": "krem-uzun-kollu-elbise",
+      "ad": "Krem uzun kollu elbise",
+      "kategori": "gunluk",
+      "yas_araligi": [
+        8,
+        12
+      ],
+      "kisa": "Elbise",
+      "fiyat": null,
+      "indirimli_fiyat": null,
+      "eski_fiyat": null,
+      "bedenler": [],
+      "renkler": [],
+      "kumas": null,
+      "yikama": null,
+      "stok_notu": null,
+      "aciklama": "Dokulu krem kumaş, kat kat etek. Sade, her yere giyilir.",
+      "gorseller": [
+        "/assets/img/urunler/krem-uzun-kollu-elbise/1.webp"
+      ],
+      "instagram": "https://www.instagram.com/p/DTvAuZZDVme/",
+      "tarih": "2026-01-20",
+      "vitrin": false,
+      "afis": false,
+      "cocuk_yuzu": false,
+      "eksik": [
+        "fiyat",
+        "bedenler ve stok",
+        "kumaş",
+        "yıkama"
+      ],
+      "yas_tahmini": true
+    },
+    {
+      "id": "cicekli-sweat-pembe-pantolon",
+      "ad": "Çiçek işlemeli sweat, pembe pantolon",
+      "kategori": "bebek",
+      "yas_araligi": [
+        1,
+        3
+      ],
+      "kisa": "Bebek takımı",
+      "fiyat": null,
+      "indirimli_fiyat": null,
+      "eski_fiyat": null,
+      "bedenler": [],
+      "renkler": [],
+      "kumas": null,
+      "yikama": null,
+      "stok_notu": null,
+      "aciklama": "Yakası dantelli krem üst, önünde çiçek işlemesi, altında pembe pantolon.",
+      "gorseller": [
+        "/assets/img/urunler/cicekli-sweat-pembe-pantolon/1.webp",
+        "/assets/img/urunler/cicekli-sweat-pembe-pantolon/2.webp"
+      ],
+      "instagram": "https://www.instagram.com/p/DTp1lg7jZ85/",
+      "tarih": "2026-01-18",
+      "vitrin": false,
+      "afis": false,
+      "cocuk_yuzu": false,
+      "eksik": [
+        "fiyat",
+        "bedenler ve stok",
+        "kumaş",
+        "yıkama"
+      ],
+      "yas_tahmini": true
+    },
+    {
+      "id": "beyaz-yaka-bluz-pembe-etek",
+      "ad": "Bebe yakalı bluz, pembe etek",
+      "kategori": "gunluk",
+      "yas_araligi": [
+        4,
+        8
+      ],
+      "kisa": "Takım",
+      "fiyat": null,
+      "indirimli_fiyat": null,
+      "eski_fiyat": null,
+      "bedenler": [],
+      "renkler": [],
+      "kumas": null,
+      "yikama": null,
+      "stok_notu": null,
+      "aciklama": "Beyaz bebe yaka bluz, dokulu pembe şort etek. Kışın külotlu çorapla giyilir.",
+      "gorseller": [
+        "/assets/img/urunler/beyaz-yaka-bluz-pembe-etek/1.webp",
+        "/assets/img/urunler/beyaz-yaka-bluz-pembe-etek/2.webp",
+        "/assets/img/urunler/beyaz-yaka-bluz-pembe-etek/3.webp"
+      ],
+      "instagram": "https://www.instagram.com/p/DTkwCBoDSvy/",
+      "tarih": "2026-01-16",
+      "vitrin": false,
+      "afis": false,
+      "cocuk_yuzu": false,
+      "eksik": [
+        "fiyat",
+        "bedenler ve stok",
+        "kumaş",
+        "yıkama"
+      ],
+      "yas_tahmini": true
+    },
+    {
+      "id": "pembe-payetli-ceket-etek",
+      "ad": "Pembe payetli ceket ve etek",
+      "kategori": "gunluk",
+      "yas_araligi": [
+        4,
+        8
+      ],
+      "kisa": "Takım",
+      "fiyat": null,
+      "indirimli_fiyat": null,
+      "eski_fiyat": null,
+      "bedenler": [],
+      "renkler": [],
+      "kumas": null,
+      "yikama": null,
+      "stok_notu": null,
+      "aciklama": "Payetli pembe ceket ve etek, içinde kalpli tişört. Yılbaşı ve doğum günü için.",
+      "gorseller": [
+        "/assets/img/urunler/pembe-payetli-ceket-etek/1.webp"
+      ],
+      "instagram": "https://www.instagram.com/p/DSmnKOSDZTD/",
+      "tarih": "2025-12-23",
+      "vitrin": false,
+      "afis": false,
+      "cocuk_yuzu": false,
+      "eksik": [
+        "fiyat",
+        "bedenler ve stok",
+        "kumaş",
+        "yıkama"
+      ],
+      "yas_tahmini": true
+    },
+    {
+      "id": "siyah-cicekli-esofman",
+      "ad": "Siyah çiçek desenli eşofman",
+      "kategori": "gunluk",
+      "yas_araligi": [
+        4,
+        10
+      ],
+      "kisa": "Kız ve erkek",
+      "fiyat": null,
+      "indirimli_fiyat": null,
+      "eski_fiyat": null,
+      "bedenler": [],
+      "renkler": [],
+      "kumas": null,
+      "yikama": null,
+      "stok_notu": null,
+      "aciklama": "Siyah zemin, beyaz çiçek baskısı. Hem kız hem erkek giyiyor, kardeşlere aynısı.",
+      "gorseller": [
+        "/assets/img/urunler/siyah-cicekli-esofman/1.webp"
+      ],
+      "instagram": "https://www.instagram.com/p/DSAKbkdDQuI/",
+      "tarih": "2025-12-08",
+      "vitrin": false,
+      "afis": false,
+      "cocuk_yuzu": false,
+      "eksik": [
+        "fiyat",
+        "bedenler ve stok",
+        "kumaş",
+        "yıkama"
+      ],
+      "yas_tahmini": true
+    },
+    {
+      "id": "geyikli-yilbasi-elbise",
+      "ad": "Geyikli yılbaşı elbisesi",
+      "kategori": "gunluk",
+      "yas_araligi": [
+        4,
+        7
+      ],
+      "kisa": "4-7 yaş",
+      "fiyat": null,
+      "indirimli_fiyat": null,
+      "eski_fiyat": null,
+      "bedenler": [],
+      "renkler": [],
+      "kumas": null,
+      "yikama": null,
+      "stok_notu": null,
+      "aciklama": "Kırmızı ve yeşil iki rengi var. Üstü triko, eteği tül, önünde geyik işlemesi.",
+      "gorseller": [
+        "/assets/img/urunler/geyikli-yilbasi-elbise/1.webp"
+      ],
+      "instagram": "https://www.instagram.com/p/DR2CUkZDSgn/",
+      "tarih": "2025-12-04",
+      "vitrin": false,
+      "afis": false,
+      "cocuk_yuzu": false,
+      "eksik": [
+        "fiyat",
+        "bedenler ve stok",
+        "kumaş",
+        "yıkama"
+      ],
+      "yas_tahmini": false
+    },
+    {
+      "id": "ekose-gomlek-pembe-pantolon",
+      "ad": "Ekose gömlek, pembe pantolon",
+      "kategori": "gunluk",
+      "yas_araligi": [
+        4,
+        8
+      ],
+      "kisa": "Takım",
+      "fiyat": null,
+      "indirimli_fiyat": null,
+      "eski_fiyat": null,
+      "bedenler": [],
+      "renkler": [],
+      "kumas": null,
+      "yikama": null,
+      "stok_notu": null,
+      "aciklama": "Kalın ekose gömlek, içinde beyaz tişört, altında fuşya pantolon.",
+      "gorseller": [
+        "/assets/img/urunler/ekose-gomlek-pembe-pantolon/1.webp"
+      ],
+      "instagram": "https://www.instagram.com/p/DRt31b0jZso/",
+      "tarih": "2025-12-01",
+      "vitrin": false,
+      "afis": false,
+      "cocuk_yuzu": false,
+      "eksik": [
+        "fiyat",
+        "bedenler ve stok",
+        "kumaş",
+        "yıkama"
+      ],
+      "yas_tahmini": true
+    },
+    {
+      "id": "kirmizi-tul-yilbasi-elbise",
+      "ad": "Kırmızı tül elbise",
+      "kategori": "gunluk",
+      "yas_araligi": [
+        3,
+        7
+      ],
+      "kisa": "Yılbaşı",
+      "fiyat": null,
+      "indirimli_fiyat": null,
+      "eski_fiyat": null,
+      "bedenler": [],
+      "renkler": [],
+      "kumas": null,
+      "yikama": null,
+      "stok_notu": null,
+      "aciklama": "Kolları tül, beli fiyonklu kırmızı elbise. Yanındaki çanta takımın parçası.",
+      "gorseller": [
+        "/assets/img/urunler/kirmizi-tul-yilbasi-elbise/1.webp"
+      ],
+      "instagram": "https://www.instagram.com/p/DRmdDXRDd6g/",
+      "tarih": "2025-11-28",
+      "vitrin": false,
+      "afis": false,
+      "cocuk_yuzu": false,
+      "eksik": [
+        "fiyat",
+        "bedenler ve stok",
+        "kumaş",
+        "yıkama"
+      ],
+      "yas_tahmini": true
+    },
+    {
+      "id": "ana-kucagi-sallanan",
+      "ad": "Sallanan ana kucağı",
+      "kategori": "bebek",
+      "yas_araligi": [
+        0,
+        1
+      ],
+      "kisa": "Bebek",
+      "fiyat": null,
+      "indirimli_fiyat": null,
+      "eski_fiyat": null,
+      "bedenler": [],
+      "renkler": [],
+      "kumas": null,
+      "yikama": null,
+      "stok_notu": null,
+      "aciklama": "Ahşap ayaklı, sallanan ana kucağı. Fiyat ve renk için yazın.",
+      "gorseller": [
+        "/assets/img/urunler/ana-kucagi-sallanan/1.webp",
+        "/assets/img/urunler/ana-kucagi-sallanan/2.webp",
+        "/assets/img/urunler/ana-kucagi-sallanan/3.webp",
+        "/assets/img/urunler/ana-kucagi-sallanan/4.webp",
+        "/assets/img/urunler/ana-kucagi-sallanan/5.webp"
+      ],
+      "instagram": "https://www.instagram.com/p/DRPbv_XDTIU/",
+      "tarih": "2025-11-19",
+      "vitrin": false,
+      "afis": false,
+      "cocuk_yuzu": false,
+      "eksik": [
+        "fiyat",
+        "bedenler ve stok",
+        "kumaş",
+        "yıkama"
+      ],
+      "yas_tahmini": true
+    },
+    {
+      "id": "pembe-fiyonklu-tul-abiye",
+      "ad": "Pembe fiyonklu tül abiye",
+      "kategori": "abiye",
+      "yas_araligi": [
+        5,
+        9
+      ],
+      "kisa": "Düğün, doğum günü",
+      "fiyat": null,
+      "indirimli_fiyat": null,
+      "eski_fiyat": null,
+      "bedenler": [],
+      "renkler": [],
+      "kumas": null,
+      "yikama": null,
+      "stok_notu": null,
+      "aciklama": "Omuzlarında büyük fiyonklar, eteği bilekte biten tül.",
+      "gorseller": [
+        "/assets/img/urunler/pembe-fiyonklu-tul-abiye/1.webp",
+        "/assets/img/urunler/pembe-fiyonklu-tul-abiye/2.webp"
+      ],
+      "instagram": "https://www.instagram.com/p/DRMjMHGjWix/",
+      "tarih": "2025-11-18",
+      "vitrin": false,
+      "afis": false,
+      "cocuk_yuzu": false,
+      "eksik": [
+        "fiyat",
+        "bedenler ve stok",
+        "kumaş",
+        "yıkama"
+      ],
+      "yas_tahmini": true
+    },
+    {
+      "id": "siyah-smokin-takim",
+      "ad": "Siyah smokin takım elbise",
+      "kategori": "takim-elbise",
+      "yas_araligi": [
+        4,
+        8
+      ],
+      "kisa": "Papyonlu",
+      "fiyat": null,
+      "indirimli_fiyat": null,
+      "eski_fiyat": null,
+      "bedenler": [],
+      "renkler": [],
+      "kumas": null,
+      "yikama": null,
+      "stok_notu": null,
+      "aciklama": "Ceket, pantolon, gömlek ve papyon. Sünnet, düğün ve mezuniyet için.",
+      "gorseller": [
+        "/assets/img/urunler/siyah-smokin-takim/1.webp",
+        "/assets/img/urunler/siyah-smokin-takim/2.webp"
+      ],
+      "instagram": "https://www.instagram.com/p/DRFOdCFDSr2/",
+      "tarih": "2025-11-15",
+      "vitrin": false,
+      "afis": false,
+      "cocuk_yuzu": false,
+      "eksik": [
+        "fiyat",
+        "bedenler ve stok",
+        "kumaş",
+        "yıkama"
+      ],
+      "yas_tahmini": true
+    },
+    {
+      "id": "pelus-yelek-sort-etek",
+      "ad": "Peluş yelek ve şort etek takım",
+      "kategori": "gunluk",
+      "yas_araligi": [
+        2,
+        9
+      ],
+      "kisa": "2-9 yaş",
+      "fiyat": null,
+      "indirimli_fiyat": null,
+      "eski_fiyat": null,
+      "bedenler": [],
+      "renkler": [],
+      "kumas": null,
+      "yikama": null,
+      "stok_notu": null,
+      "aciklama": "Beyaz peluş yelek, gömlek ve kahve şort etek. Üç parça takım.",
+      "gorseller": [
+        "/assets/img/urunler/pelus-yelek-sort-etek/1.webp"
+      ],
+      "instagram": "https://www.instagram.com/p/DQlwj57iKNf/",
+      "tarih": "2025-11-03",
+      "vitrin": false,
+      "afis": false,
+      "cocuk_yuzu": false,
+      "eksik": [
+        "fiyat",
+        "bedenler ve stok",
+        "kumaş",
+        "yıkama"
+      ],
+      "yas_tahmini": false
+    },
+    {
+      "id": "ayicikli-esofman",
+      "ad": "Ayıcıklı krem eşofman",
+      "kategori": "gunluk",
+      "yas_araligi": [
+        3,
+        7
+      ],
+      "kisa": "Takım",
+      "fiyat": null,
+      "indirimli_fiyat": null,
+      "eski_fiyat": null,
+      "bedenler": [],
+      "renkler": [],
+      "kumas": null,
+      "yikama": null,
+      "stok_notu": null,
+      "aciklama": "Ayıcık ve tavşan desenli krem eşofman. Evde de dışarıda da.",
+      "gorseller": [
+        "/assets/img/urunler/ayicikli-esofman/1.webp"
+      ],
+      "instagram": "https://www.instagram.com/p/DQMm9e_DQSq/",
+      "tarih": "2025-10-24",
+      "vitrin": false,
+      "afis": false,
+      "cocuk_yuzu": false,
+      "eksik": [
+        "fiyat",
+        "bedenler ve stok",
+        "kumaş",
+        "yıkama"
+      ],
+      "yas_tahmini": true
+    },
+    {
+      "id": "new-york-kapusonlu-takim",
+      "ad": "New York kapüşonlu takım",
+      "kategori": "gunluk",
+      "yas_araligi": [
+        9,
+        14
+      ],
+      "kisa": "Yeni sezon",
+      "fiyat": null,
+      "indirimli_fiyat": null,
+      "eski_fiyat": null,
+      "bedenler": [],
+      "renkler": [],
+      "kumas": null,
+      "yikama": null,
+      "stok_notu": null,
+      "aciklama": "Taşlı siyah kapüşonlu ve geniş paça eşofman. Büyük kızların favorisi.",
+      "gorseller": [
+        "/assets/img/urunler/new-york-kapusonlu-takim/1.webp"
+      ],
+      "instagram": "https://www.instagram.com/p/DQGvqtEDcqq/",
+      "tarih": "2025-10-22",
+      "vitrin": false,
+      "afis": false,
+      "cocuk_yuzu": false,
+      "eksik": [
+        "fiyat",
+        "bedenler ve stok",
+        "kumaş",
+        "yıkama"
+      ],
+      "yas_tahmini": true
+    },
+    {
+      "id": "siyah-fiyonklu-esofman",
+      "ad": "Siyah fiyonklu eşofman",
+      "kategori": "gunluk",
+      "yas_araligi": [
+        5,
+        10
+      ],
+      "kisa": "Takım",
+      "fiyat": null,
+      "indirimli_fiyat": null,
+      "eski_fiyat": null,
+      "bedenler": [],
+      "renkler": [],
+      "kumas": null,
+      "yikama": null,
+      "stok_notu": null,
+      "aciklama": "Kollarda ve paçalarda beyaz şerit ve fiyonk detayı olan siyah takım.",
+      "gorseller": [
+        "/assets/img/urunler/siyah-fiyonklu-esofman/1.webp",
+        "/assets/img/urunler/siyah-fiyonklu-esofman/2.webp"
+      ],
+      "instagram": "https://www.instagram.com/p/DQBmbGJDOO2/",
+      "tarih": "2025-10-20",
+      "vitrin": false,
+      "afis": false,
+      "cocuk_yuzu": false,
+      "eksik": [
+        "fiyat",
+        "bedenler ve stok",
+        "kumaş",
+        "yıkama"
+      ],
+      "yas_tahmini": true
+    },
+    {
+      "id": "siyah-simli-tul-elbise",
+      "ad": "Siyah simli tül elbise",
+      "kategori": "abiye",
+      "yas_araligi": [
+        4,
+        8
+      ],
+      "kisa": "Özel gün",
+      "fiyat": null,
+      "indirimli_fiyat": null,
+      "eski_fiyat": null,
+      "bedenler": [],
+      "renkler": [],
+      "kumas": null,
+      "yikama": null,
+      "stok_notu": null,
+      "aciklama": "Uzun kollu, simli tül siyah elbise. Yılbaşı ve davetler için.",
+      "gorseller": [
+        "/assets/img/urunler/siyah-simli-tul-elbise/1.webp",
+        "/assets/img/urunler/siyah-simli-tul-elbise/2.webp"
+      ],
+      "instagram": "https://www.instagram.com/p/DP6TmHFDJQ5/",
+      "tarih": "2025-10-17",
+      "vitrin": false,
+      "afis": false,
+      "cocuk_yuzu": false,
+      "eksik": [
+        "fiyat",
+        "bedenler ve stok",
+        "kumaş",
+        "yıkama"
+      ],
+      "yas_tahmini": true
+    },
+    {
+      "id": "payetli-siyah-ceket-takim",
+      "ad": "Payetli siyah ceket takımı",
+      "kategori": "gunluk",
+      "yas_araligi": [
+        8,
+        14
+      ],
+      "kisa": "8-14 yaş",
+      "fiyat": null,
+      "indirimli_fiyat": null,
+      "eski_fiyat": null,
+      "bedenler": [],
+      "renkler": [],
+      "kumas": null,
+      "yikama": null,
+      "stok_notu": null,
+      "aciklama": "Payetli siyah ceket ve şort etek, içinde baskılı tişört.",
+      "gorseller": [
+        "/assets/img/urunler/payetli-siyah-ceket-takim/1.webp"
+      ],
+      "instagram": "https://www.instagram.com/p/DP3IdoljQE9/",
+      "tarih": "2025-10-16",
+      "vitrin": false,
+      "afis": false,
+      "cocuk_yuzu": false,
+      "eksik": [
+        "fiyat",
+        "bedenler ve stok",
+        "kumaş",
+        "yıkama"
+      ],
+      "yas_tahmini": false
+    },
+    {
+      "id": "bej-keten-takim-elbise",
+      "ad": "Üç parça bej keten takım elbise",
+      "kategori": "takim-elbise",
+      "yas_araligi": [
+        5,
+        10
+      ],
+      "kisa": "Yazlık",
+      "fiyat": null,
+      "indirimli_fiyat": null,
+      "eski_fiyat": null,
+      "bedenler": [],
+      "renkler": [],
+      "kumas": null,
+      "yikama": null,
+      "stok_notu": null,
+      "aciklama": "Keten ceket, pantolon ve tişört. Yaz düğünleri için.",
+      "gorseller": [
+        "/assets/img/urunler/bej-keten-takim-elbise/1.webp",
+        "/assets/img/urunler/bej-keten-takim-elbise/2.webp",
+        "/assets/img/urunler/bej-keten-takim-elbise/3.webp"
+      ],
+      "instagram": "https://www.instagram.com/p/DKU4ge3NsUE/",
+      "tarih": "2025-05-31",
+      "vitrin": false,
+      "afis": false,
+      "cocuk_yuzu": false,
+      "eksik": [
+        "fiyat",
+        "bedenler ve stok",
+        "kumaş",
+        "yıkama"
+      ],
+      "yas_tahmini": true
+    },
+    {
+      "id": "krem-omzu-acik-abiye",
+      "ad": "Krem omzu açık abiye",
+      "kategori": "abiye",
+      "yas_araligi": [
+        7,
+        15
+      ],
+      "kisa": "7-15 yaş",
+      "fiyat": null,
+      "indirimli_fiyat": null,
+      "eski_fiyat": null,
+      "bedenler": [],
+      "renkler": [],
+      "kumas": null,
+      "yikama": null,
+      "stok_notu": null,
+      "aciklama": "Omzu açık krem abiye, bele oturan kemer. Nikâh ve kına için.",
+      "gorseller": [
+        "/assets/img/urunler/krem-omzu-acik-abiye/1.webp"
+      ],
+      "instagram": "https://www.instagram.com/p/DKPEgVst1as/",
+      "tarih": "2025-05-29",
+      "vitrin": false,
+      "afis": false,
+      "cocuk_yuzu": false,
+      "eksik": [
+        "fiyat",
+        "bedenler ve stok",
+        "kumaş",
+        "yıkama"
+      ],
+      "yas_tahmini": false
+    },
+    {
+      "id": "lila-cicekli-uzun-abiye",
+      "ad": "Lila çiçekli uzun abiye",
+      "kategori": "abiye",
+      "yas_araligi": [
+        6,
+        10
+      ],
+      "kisa": "Düğün",
+      "fiyat": null,
+      "indirimli_fiyat": null,
+      "eski_fiyat": null,
+      "bedenler": [],
+      "renkler": [],
+      "kumas": null,
+      "yikama": null,
+      "stok_notu": null,
+      "aciklama": "Üstü çiçek aplikeli, eteği yere kadar lila tül.",
+      "gorseller": [
+        "/assets/img/urunler/lila-cicekli-uzun-abiye/1.webp"
+      ],
+      "instagram": "https://www.instagram.com/p/DJ4cf9JtaWh/",
+      "tarih": "2025-05-20",
+      "vitrin": false,
+      "afis": false,
+      "cocuk_yuzu": false,
+      "eksik": [
+        "fiyat",
+        "bedenler ve stok",
+        "kumaş",
+        "yıkama"
+      ],
+      "yas_tahmini": true
+    },
+    {
+      "id": "gece-mavisi-abiye",
+      "ad": "Gece mavisi abiye",
+      "kategori": "abiye",
+      "yas_araligi": [
+        8,
+        12
+      ],
+      "kisa": "Mezuniyet",
+      "fiyat": null,
+      "indirimli_fiyat": null,
+      "eski_fiyat": null,
+      "bedenler": [],
+      "renkler": [],
+      "kumas": null,
+      "yikama": null,
+      "stok_notu": null,
+      "aciklama": "Parlak gece mavisi kumaş, kat kat etek. Bizim adımızın rengi.",
+      "gorseller": [
+        "/assets/img/urunler/gece-mavisi-abiye/1.webp",
+        "/assets/img/urunler/gece-mavisi-abiye/2.webp",
+        "/assets/img/urunler/gece-mavisi-abiye/3.webp"
+      ],
+      "instagram": "https://www.instagram.com/p/DJi9wpxtl_8/",
+      "tarih": "2025-05-12",
+      "vitrin": false,
+      "afis": false,
+      "cocuk_yuzu": false,
+      "eksik": [
+        "fiyat",
+        "bedenler ve stok",
+        "kumaş",
+        "yıkama"
+      ],
+      "yas_tahmini": true
+    },
+    {
+      "id": "mint-asimetrik-abiye",
+      "ad": "Mint asimetrik abiye",
+      "kategori": "abiye",
+      "yas_araligi": [
+        8,
+        12
+      ],
+      "kisa": "Mezuniyet",
+      "fiyat": null,
+      "indirimli_fiyat": null,
+      "eski_fiyat": null,
+      "bedenler": [],
+      "renkler": [],
+      "kumas": null,
+      "yikama": null,
+      "stok_notu": null,
+      "aciklama": "Omzu düşük mint saten, arkası uzun tül etek.",
+      "gorseller": [
+        "/assets/img/urunler/mint-asimetrik-abiye/1.webp",
+        "/assets/img/urunler/mint-asimetrik-abiye/2.webp"
+      ],
+      "instagram": "https://www.instagram.com/p/DJbSwMDNQKC/",
+      "tarih": "2025-05-09",
+      "vitrin": false,
+      "afis": false,
+      "cocuk_yuzu": false,
+      "eksik": [
+        "fiyat",
+        "bedenler ve stok",
+        "kumaş",
+        "yıkama"
+      ],
+      "yas_tahmini": true
+    },
+    {
+      "id": "pembe-katli-prenses-abiye",
+      "ad": "Pembe katlı prenses abiye",
+      "kategori": "abiye",
+      "yas_araligi": [
+        5,
+        9
+      ],
+      "kisa": "Düğün, doğum günü",
+      "fiyat": null,
+      "indirimli_fiyat": null,
+      "eski_fiyat": null,
+      "bedenler": [],
+      "renkler": [],
+      "kumas": null,
+      "yikama": null,
+      "stok_notu": null,
+      "aciklama": "Tek omzu fırfırlı, eteği kat kat pembe tül.",
+      "gorseller": [
+        "/assets/img/urunler/pembe-katli-prenses-abiye/1.webp"
+      ],
+      "instagram": "https://www.instagram.com/p/DJG04IstPiW/",
+      "tarih": "2025-05-01",
+      "vitrin": false,
+      "afis": false,
+      "cocuk_yuzu": false,
+      "eksik": [
+        "fiyat",
+        "bedenler ve stok",
+        "kumaş",
+        "yıkama"
+      ],
+      "yas_tahmini": true
+    },
+    {
+      "id": "buz-mavisi-crop-pantolon",
+      "ad": "Buz mavisi crop ve pantolon",
+      "kategori": "gunluk",
+      "yas_araligi": [
+        9,
+        14
+      ],
+      "kisa": "Takım",
+      "fiyat": null,
+      "indirimli_fiyat": null,
+      "eski_fiyat": null,
+      "bedenler": [],
+      "renkler": [],
+      "kumas": null,
+      "yikama": null,
+      "stok_notu": null,
+      "aciklama": "Çiçek aplikeli crop üst, geniş paça buz mavisi pantolon.",
+      "gorseller": [
+        "/assets/img/urunler/buz-mavisi-crop-pantolon/1.webp"
+      ],
+      "instagram": "https://www.instagram.com/p/DHdz5j0Nbxj/",
+      "tarih": "2025-03-21",
+      "vitrin": false,
+      "afis": false,
+      "cocuk_yuzu": false,
+      "eksik": [
+        "fiyat",
+        "bedenler ve stok",
+        "kumaş",
+        "yıkama"
+      ],
+      "yas_tahmini": true
+    },
+    {
+      "id": "pembe-gomlek-sort",
+      "ad": "Pembe gömlek ve şort",
+      "kategori": "gunluk",
+      "yas_araligi": [
+        8,
+        14
+      ],
+      "kisa": "8-14 yaş",
+      "fiyat": null,
+      "indirimli_fiyat": null,
+      "eski_fiyat": null,
+      "bedenler": [],
+      "renkler": [],
+      "kumas": null,
+      "yikama": null,
+      "stok_notu": null,
+      "aciklama": "Önü bağlamalı pembe gömlek, aynı renk şort.",
+      "gorseller": [
+        "/assets/img/urunler/pembe-gomlek-sort/1.webp"
+      ],
+      "instagram": "https://www.instagram.com/p/DHVviN5sL7S/",
+      "tarih": "2025-03-18",
+      "vitrin": false,
+      "afis": false,
+      "cocuk_yuzu": false,
+      "eksik": [
+        "fiyat",
+        "bedenler ve stok",
+        "kumaş",
+        "yıkama"
+      ],
+      "yas_tahmini": false
+    },
+    {
+      "id": "beyaz-tisort-kot-etek",
+      "ad": "Baskılı tişört, kot etek",
+      "kategori": "gunluk",
+      "yas_araligi": [
+        6,
+        10
+      ],
+      "kisa": "Yazlık",
+      "fiyat": null,
+      "indirimli_fiyat": null,
+      "eski_fiyat": null,
+      "bedenler": [],
+      "renkler": [],
+      "kumas": null,
+      "yikama": null,
+      "stok_notu": null,
+      "aciklama": "Yazılı beyaz tişört, önü işlemeli kot etek.",
+      "gorseller": [
+        "/assets/img/urunler/beyaz-tisort-kot-etek/1.webp",
+        "/assets/img/urunler/beyaz-tisort-kot-etek/2.webp",
+        "/assets/img/urunler/beyaz-tisort-kot-etek/3.webp"
+      ],
+      "instagram": "https://www.instagram.com/p/DG0AMymNHxN/",
+      "tarih": "2025-03-05",
+      "vitrin": false,
+      "afis": false,
+      "cocuk_yuzu": false,
+      "eksik": [
+        "fiyat",
+        "bedenler ve stok",
+        "kumaş",
+        "yıkama"
+      ],
+      "yas_tahmini": true
+    },
+    {
+      "id": "pembe-tisort-cicekli-etek",
+      "ad": "Pembe tişört, çiçekli etek",
+      "kategori": "gunluk",
+      "yas_araligi": [
+        8,
+        12
+      ],
+      "kisa": "Yazlık",
+      "fiyat": null,
+      "indirimli_fiyat": null,
+      "eski_fiyat": null,
+      "bedenler": [],
+      "renkler": [],
+      "kumas": null,
+      "yikama": null,
+      "stok_notu": null,
+      "aciklama": "Pembe fitilli tişört, suluboya çiçekli beyaz etek.",
+      "gorseller": [
+        "/assets/img/urunler/pembe-tisort-cicekli-etek/1.webp"
+      ],
+      "instagram": "https://www.instagram.com/p/DGxZQQ4Ndvx/",
+      "tarih": "2025-03-04",
+      "vitrin": false,
+      "afis": false,
+      "cocuk_yuzu": false,
+      "eksik": [
+        "fiyat",
+        "bedenler ve stok",
+        "kumaş",
+        "yıkama"
+      ],
+      "yas_tahmini": true
+    },
+    {
+      "id": "beyaz-gomlek-denim-etek",
+      "ad": "Beyaz gömlek, kot şort etek",
+      "kategori": "gunluk",
+      "yas_araligi": [
+        8,
+        12
+      ],
+      "kisa": "Yazlık",
+      "fiyat": null,
+      "indirimli_fiyat": null,
+      "eski_fiyat": null,
+      "bedenler": [],
+      "renkler": [],
+      "kumas": null,
+      "yikama": null,
+      "stok_notu": null,
+      "aciklama": "Kısa kollu beyaz gömlek, önü kruvaze kot şort etek.",
+      "gorseller": [
+        "/assets/img/urunler/beyaz-gomlek-denim-etek/1.webp"
+      ],
+      "instagram": "https://www.instagram.com/p/DGvFNkkN53J/",
+      "tarih": "2025-03-03",
+      "vitrin": false,
+      "afis": false,
+      "cocuk_yuzu": false,
+      "eksik": [
+        "fiyat",
+        "bedenler ve stok",
+        "kumaş",
+        "yıkama"
+      ],
+      "yas_tahmini": true
+    },
+    {
+      "id": "mavi-pullu-tul-abiye",
+      "ad": "Mavi pullu tül abiye",
+      "kategori": "abiye",
+      "yas_araligi": [
+        3,
+        7
+      ],
+      "kisa": "Doğum günü",
+      "fiyat": null,
+      "indirimli_fiyat": null,
+      "eski_fiyat": null,
+      "bedenler": [],
+      "renkler": [],
+      "kumas": null,
+      "yikama": null,
+      "stok_notu": null,
+      "aciklama": "Üstü pullu, eteği mavi ve lila kat kat tül.",
+      "gorseller": [
+        "/assets/img/urunler/mavi-pullu-tul-abiye/1.webp",
+        "/assets/img/urunler/mavi-pullu-tul-abiye/2.webp",
+        "/assets/img/urunler/mavi-pullu-tul-abiye/3.webp"
+      ],
+      "instagram": "https://www.instagram.com/p/DGnRVSmtQzU/",
+      "tarih": "2025-02-28",
+      "vitrin": false,
+      "afis": false,
+      "cocuk_yuzu": false,
+      "eksik": [
+        "fiyat",
+        "bedenler ve stok",
+        "kumaş",
+        "yıkama"
+      ],
+      "yas_tahmini": true
+    },
+    {
+      "id": "besik-karyola",
+      "ad": "Cibinlikli beşik",
+      "kategori": "bebek",
+      "yas_araligi": [
+        0,
+        2
+      ],
+      "kisa": "İndirimde: 6.500 TL",
+      "fiyat": 6500,
+      "indirimli_fiyat": null,
+      "eski_fiyat": 10000,
+      "bedenler": [],
+      "renkler": [],
+      "kumas": null,
+      "yikama": null,
+      "stok_notu": null,
+      "aciklama": "Tekerlekli, cibinlikli ahşap beşik. İndirimden önce 10.000 TL idi.",
+      "gorseller": [
+        "/assets/img/urunler/besik-karyola/1.webp"
+      ],
+      "instagram": "https://www.instagram.com/p/Degn3rFtP3q/",
+      "tarih": "2026-10-15",
+      "vitrin": false,
+      "afis": true,
+      "cocuk_yuzu": false,
+      "eksik": [
+        "bedenler ve stok",
+        "kumaş",
+        "yıkama"
+      ],
+      "yas_tahmini": true
+    },
+    {
+      "id": "bebek-arabasi",
+      "ad": "Bebek arabası",
+      "kategori": "bebek",
+      "yas_araligi": [
+        0,
+        3
+      ],
+      "kisa": "İndirimde: 7.500 TL",
+      "fiyat": 7500,
+      "indirimli_fiyat": null,
+      "eski_fiyat": 9000,
+      "bedenler": [],
+      "renkler": [],
+      "kumas": null,
+      "yikama": null,
+      "stok_notu": null,
+      "aciklama": "Çift yönlü oturak, ayarlanabilir tente, geniş sepet. Araç-gereç indirimi devam ediyor, renklerini sorun.",
+      "gorseller": [
+        "/assets/img/urunler/bebek-arabasi/1.webp"
+      ],
+      "instagram": "https://www.instagram.com/p/DebbncPNG7k/",
+      "tarih": "2026-10-13",
+      "vitrin": false,
+      "afis": true,
+      "cocuk_yuzu": false,
+      "eksik": [
+        "bedenler ve stok",
+        "kumaş",
+        "yıkama"
+      ],
+      "yas_tahmini": true
+    },
+    {
+      "id": "pembe-pelus-ceket",
+      "ad": "Pembe peluş ceket",
+      "kategori": "gunluk",
+      "yas_araligi": [
+        2,
+        6
+      ],
+      "kisa": "2-6 yaş",
+      "fiyat": null,
+      "indirimli_fiyat": null,
+      "eski_fiyat": null,
+      "bedenler": [],
+      "renkler": [],
+      "kumas": null,
+      "yikama": null,
+      "stok_notu": null,
+      "aciklama": "Kapüşonlu, fermuarlı peluş ceket. Sonbaharda hırka yerine, kışın montun altına.",
+      "gorseller": [
+        "/assets/img/urunler/pembe-pelus-ceket/1.webp"
+      ],
+      "instagram": "https://www.instagram.com/p/DeZAZNlNte4/",
+      "tarih": "2026-10-12",
+      "vitrin": false,
+      "afis": true,
+      "cocuk_yuzu": false,
+      "eksik": [
+        "fiyat",
+        "bedenler ve stok",
+        "kumaş",
+        "yıkama"
+      ],
+      "yas_tahmini": false
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "_not": "Mağazanın Instagram gönderilerine yazılmış gerçek yorumlar. Metne dokunulmadı (emojiler çıkarıldı). Kullanıcı adları gizlilik için yazılmadı; her yorum kendi gönderisine bağlanır. Yeni yorum eklerken uydurma yorum eklemeyin.",
+  "yorumlar": [
+    { "metin": "Kızlarımız gelinliklerini çok sevdiler. İlginize alakanıza da teşekkürler.", "baglam": "Abiye alan bir aile, Ekim 2025", "instagram": "https://www.instagram.com/p/DQJnGlwjVCh/" },
+    { "metin": "Sıcak sohbetiniz, ilginiz ve güler yüzünüz için biz teşekkür ederiz.", "baglam": "Mağazadan alışveriş yapan bir anne, Temmuz 2025", "instagram": "https://www.instagram.com/p/DMc7LyoN6OV/" },
+    { "metin": "Asıl biz teşekkür ederiz ilginiz alakanız için, iyi ki sizi tercih etmişiz.", "baglam": "Bolu’dan alışveriş yapan bir müşterimiz, Mayıs 2025", "instagram": "https://www.instagram.com/p/DKAHX8Xtydh/" },
+    { "metin": "Şahane abiyeler her zamanki gibi.", "baglam": "Abiye gönderisine yorum, Mayıs 2025", "instagram": "https://www.instagram.com/p/DJ4bWsjNZGZ/" },
+    { "metin": "Şahane modeller.", "baglam": "Abiye askıları gönderisine yorum, Haziran 2026", "instagram": "https://www.instagram.com/p/DZNrycVtZMP/" },
+    { "metin": "Ba-yıl-dım.", "baglam": "Keten takım elbise gönderisine yorum, Haziran 2025", "instagram": "https://www.instagram.com/p/DK41_rXtQs9/" }
+  ]
+}

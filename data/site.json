@@ -1,0 +1,189 @@
+{
+  "hero": [
+    {
+      "ad": "Abiyeler",
+      "not": "Mezuniyet, düğün, kına. 3 yaştan 15 yaşa kadar, askıda onlarca model var.",
+      "alt": "Lila saten fiyonklu abiye",
+      "buton": "Abiyeleri sor",
+      "gorseller": [
+        "/assets/img/site/hero-abiye-1.webp",
+        "/assets/img/site/hero-abiye-2.webp",
+        "/assets/img/site/hero-abiye-3.webp"
+      ]
+    },
+    {
+      "ad": "Günlük takımlar",
+      "not": "Okula, parka, eve. Sonbahar ve kış takımları geldi.",
+      "alt": "Gelato baskılı pembe eşofman takımı",
+      "buton": "Takımları sor",
+      "gorseller": [
+        "/assets/img/site/hero-gunluk-1.webp",
+        "/assets/img/site/hero-gunluk-2.webp",
+        "/assets/img/site/hero-gunluk-3.webp"
+      ]
+    },
+    {
+      "ad": "Takım elbise",
+      "not": "Smokin de var, keten de. Sünnet, düğün ve mezuniyet için.",
+      "alt": "Lacivert yelekli çocuk takım elbisesi",
+      "buton": "Takım elbiseleri sor",
+      "gorseller": [
+        "/assets/img/site/hero-takim-1.webp",
+        "/assets/img/site/hero-takim-2.webp",
+        "/assets/img/site/hero-takim-3.webp"
+      ]
+    },
+    {
+      "ad": "Bebek",
+      "not": "0-3 yaş için elbise, takım ve hırka.",
+      "alt": "Sırtı fiyonklu pudra tül bebek elbisesi",
+      "buton": "Bebek kıyafetlerini sor",
+      "gorseller": [
+        "/assets/img/site/hero-bebek-1.webp",
+        "/assets/img/site/hero-bebek-2.webp",
+        "/assets/img/site/hero-bebek-3.webp"
+      ]
+    },
+    {
+      "ad": "Bebek arabası, beşik",
+      "not": "Bebek arabası, beşik, yürüteç, mama sandalyesi. Araç-gereçte indirim sürüyor.",
+      "alt": "İndirimdeki bebek arabası",
+      "buton": "Araç-gereci sor",
+      "gorseller": [
+        "/assets/img/site/hero-arac-1.webp",
+        "/assets/img/site/hero-arac-2.webp"
+      ]
+    }
+  ],
+  "kareler": [
+    {
+      "src": "/assets/img/site/kare-1.webp",
+      "alt": "Mağazada erkek çocuk reyonu",
+      "instagram": "https://www.instagram.com/p/DUiWehbjfmN/"
+    },
+    {
+      "src": "/assets/img/site/kare-2.webp",
+      "alt": "Askıda bayramlık bebek elbiseleri",
+      "instagram": "https://www.instagram.com/p/DYhSJ2etKwA/"
+    },
+    {
+      "src": "/assets/img/site/kare-3.webp",
+      "alt": "Mağazada abiye askıları",
+      "instagram": "https://www.instagram.com/p/DZNrycVtZMP/"
+    },
+    {
+      "src": "/assets/img/site/kare-4.webp",
+      "alt": "Askıda kot ceket",
+      "instagram": "https://www.instagram.com/p/DVdtTtpDX_F/"
+    },
+    {
+      "src": "/assets/img/site/kare-5.webp",
+      "alt": "Duvarda nazar boncuğu, önünde sweatshirt ve kot",
+      "instagram": "https://www.instagram.com/p/DVlwh8ZDWrv/"
+    },
+    {
+      "src": "/assets/img/site/kare-6.webp",
+      "alt": "Raflarda kot ceketler",
+      "instagram": "https://www.instagram.com/p/DHBHvjVtVw_/"
+    },
+    {
+      "src": "/assets/img/site/kare-7.webp",
+      "alt": "Desenli ceket",
+      "instagram": "https://www.instagram.com/p/DVgU0qxDYLp/"
+    },
+    {
+      "src": "/assets/img/site/kare-8.webp",
+      "alt": "Pembe güllü ceket",
+      "instagram": "https://www.instagram.com/p/DTabwIRDQ7G/"
+    },
+    {
+      "src": "/assets/img/site/kare-9.webp",
+      "alt": "Simli abiye ayakkabısı",
+      "instagram": "https://www.instagram.com/p/DZcS8Tateho/"
+    },
+    {
+      "src": "/assets/img/site/kare-10.webp",
+      "alt": "Askıda siyah eşofmanlar",
+      "instagram": "https://www.instagram.com/p/DRJ3fZfDd1e/"
+    },
+    {
+      "src": "/assets/img/site/kare-11.webp",
+      "alt": "Pembe ve sarı yazlık takımlar",
+      "instagram": "https://www.instagram.com/p/DVqTGLUjXvu/"
+    },
+    {
+      "src": "/assets/img/site/kare-12.webp",
+      "alt": "Mağazanın içi",
+      "instagram": "https://www.instagram.com/p/DXxC5ALNe1h/"
+    },
+    {
+      "src": "/assets/img/site/kare-13.webp",
+      "alt": "Askıda siyah pantolon",
+      "instagram": "https://www.instagram.com/p/DQT1RvcDRzH/"
+    }
+  ],
+  "adimlar": [
+    {
+      "src": "/assets/img/site/adim-1.webp",
+      "alt": "Barbie tişört ve tül etek takımı"
+    },
+    {
+      "src": "/assets/img/site/adim-2.webp",
+      "alt": "Askıdaki ceketin fotoğrafı çekiliyor"
+    },
+    {
+      "src": "/assets/img/site/adim-3.webp",
+      "alt": "Mavi Boncuk mağazasının içi"
+    }
+  ],
+  "dukkan": [
+    {
+      "src": "/assets/img/site/dukkan-1.webp",
+      "alt": "Lacivert saten abiyeler",
+      "ad": "Abiye ve mezuniyet",
+      "not": "3-15 yaş"
+    },
+    {
+      "src": "/assets/img/site/dukkan-2.webp",
+      "alt": "Lacivert takım elbise",
+      "ad": "Takım elbise",
+      "not": "1-14 yaş, smokin ve keten"
+    },
+    {
+      "src": "/assets/img/site/dukkan-3.webp",
+      "alt": "Okul polo tişörtleri ve şortlar",
+      "ad": "Okul kıyafetleri",
+      "not": "Polo tişört, şort, etek"
+    },
+    {
+      "src": "/assets/img/site/dukkan-4.webp",
+      "alt": "Çiçek desenli eşofman takımı",
+      "ad": "Günlük takımlar",
+      "not": "0-16 yaş"
+    },
+    {
+      "src": "/assets/img/site/dukkan-5.webp",
+      "alt": "Çiçek işlemeli bebek takımı",
+      "ad": "Bebek kıyafetleri",
+      "not": "0-3 yaş"
+    },
+    {
+      "src": "/assets/img/site/dukkan-6.webp",
+      "alt": "Bebek arabası",
+      "ad": "Bebek arabası",
+      "not": "İndirimli modeller var"
+    },
+    {
+      "src": "/assets/img/site/dukkan-7.webp",
+      "alt": "Cibinlikli beşik",
+      "ad": "Beşik ve karyola",
+      "not": "Cibinlikli, tekerlekli"
+    },
+    {
+      "src": "/assets/img/site/dukkan-8.webp",
+      "alt": "Sallanan ana kucağı",
+      "ad": "Ana kucağı",
+      "not": "Yürüteç, mama sandalyesi de var"
+    }
+  ]
+}
