@@ -36,6 +36,9 @@ function ortak(h, yol) {
   // Vercel panelinde Web Analytics açılınca ANALITIK = true yapın (kapalıyken betik 404 verir)
   if (ANALITIK && !h.includes('/_vercel/insights/script.js')) h = h.replace('</head>', '<script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>\n<script defer src="/_vercel/insights/script.js"></script>\n</head>');
   if (!ANALITIK) h = h.replace(/<script>window\.va = [^\n]*<\/script>\n<script defer src="\/_vercel\/insights\/script\.js"><\/script>\n/, '');
+  // oyun.js ve ek.js ilk görüntüden sonra: sayfa yüklenince ya da ilk dokunuş/tuş/kaydırmada (hangisi önce olursa)
+  h = h.replace(/<script src="(\/assets\/js\/oyun\.js\?v=\w+)" defer><\/script>\r?\n<script src="(\/assets\/js\/ek\.js\?v=\w+)" defer><\/script>/, (t, a, b) =>
+    `<script>(function(){var y=0;function f(){if(y)return;y=1;['${a}','${b}'].forEach(function(s){var e=document.createElement('script');e.src=s;e.async=false;document.head.appendChild(e)})}if(document.readyState==='complete')f();else addEventListener('load',f,{once:true});['pointerdown','keydown','touchstart','scroll'].forEach(function(t){addEventListener(t,f,{once:true,passive:true})})})();</script>`);
   return h;
 }
 

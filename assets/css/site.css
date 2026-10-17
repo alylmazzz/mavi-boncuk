@@ -295,7 +295,7 @@ p { max-width: 62ch; text-wrap: pretty; }
 .coupon__text h2 { font-size: var(--step-head); }
 .coupon__form { padding: 1.5rem; display: grid; gap: 0.625rem; background-image: radial-gradient(circle, var(--bg) 2.5px, transparent 3px); /* taste-skill-ignore: delik sırası */ background-size: 14px 14px; background-repeat: repeat-x; background-position: 0 0; padding-top: 2rem; }
 .coupon__form label { font-size: var(--step-small); }
-.coupon__form .field { width: 100%; min-height: 3.375rem; padding: 0.75rem 1rem; background: #13908a; color: var(--accent-ink); border: 0; border-radius: 0; font-size: var(--step-body); }
+.coupon__form .field { width: 100%; min-height: 3.375rem; padding: 0.75rem 1rem; background: #096864; color: var(--accent-ink); border: 0; border-radius: 0; font-size: var(--step-body); }
 .coupon__form .field::placeholder { color: #e2f5f3; }
 .coupon__form textarea.field { min-height: 6rem; resize: vertical; }
 .coupon__form .button { background: var(--ink); color: var(--bg); min-height: 3.5rem; width: 100%; margin-top: 0.25rem; }

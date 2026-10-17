@@ -102,3 +102,11 @@ assets/i18n/ sözlüklerini üretir; derle.js'ten sonra mutlaka çalıştır).
 - PWA: `manifest.webmanifest`, `sw.js` (sayfalar ağ öncelikli, /assets önbellekte, /api ve /yonetim hiç), simgeler assets/img/site/icon-*.png.
 - Vercel Web Analytics açık (diller.js ANALITIK = true ile betiği ekler).
 - Dükkân haritası (#konum): iki dükkân (Çocuk Giyim 36.8368452,28.7666592; Bebe Şube 36.8375636,28.7644536), Google Haritalar gömülü; "Bulunduğum yerden yolu göster" konum izniyle Leaflet + OSRM ile kırmızı rota çizer.
+
+## Hız notları (2026-10-18)
+
+- Ana sayfa başlık görseli `<picture>` ile AVIF (mavi-boncuk-yazi-560/700/1400.avif); ilk hero fotoğrafı HTML'de statik (`data-statik`), diğerleri sırası gelince iner (-500/-700/1000 srcset).
+- Google haritası `data-src` ile, bölüme yaklaşınca yüklenir (1,8 MB). Rota haritası (Leaflet) yalnızca düğmeye basınca.
+- oyun.js ve ek.js sayfa yüklenince ya da ilk dokunuş/tuş/kaydırmada yüklenir (diller.js dönüştürür). site.js'te aşağıdaki bölümler requestIdleCallback ile çizilir.
+- Denenip geri alınanlar: kritik CSS gömme (tools/kritik.js, CLS 1,8 yaptı — kullanma), başlık görseli için preload (FCP'yi geciktirdi).
+- Ölçümü yerel Lighthouse ile değil pagespeed.web.dev ile yap; yerel ölçüm bilgisayar yüküne göre 60-95 arası oynuyor.

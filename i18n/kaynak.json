@@ -2638,5 +2638,37 @@
  {
   "metin": "Siz",
   "nerede": "harita: haritada kullanıcının konum işareti"
+ },
+ {
+  "metin": "Konumunuz bulunuyor…",
+  "nerede": "harita: durum"
+ },
+ {
+  "metin": "Konumunuz yaklaşık bulundu (±{0}).",
+  "nerede": "harita: {0} ör. 3,2 km ya da 450 m"
+ },
+ {
+  "metin": "Başlangıç yanlışsa mavi noktayı sürükleyin ya da haritada bulunduğunuz yere dokunun.",
+  "nerede": "harita: ipucu"
+ },
+ {
+  "metin": "Tarayıcınız konum paylaşmayı desteklemiyor. Haritada bulunduğunuz yere dokunarak yolu çizebilirsiniz.",
+  "nerede": "harita: hata"
+ },
+ {
+  "metin": "Konum izni verilmedi. Haritada bulunduğunuz yere dokunarak yolu çizebilir ya da Google Haritalar’da yol tarifini açabilirsiniz.",
+  "nerede": "harita: hata"
+ },
+ {
+  "metin": "Konumunuz bulunamadı. Telefonda konum (GPS) açık mı? Haritada bulunduğunuz yere dokunarak da yolu çizebilirsiniz.",
+  "nerede": "harita: hata"
+ },
+ {
+  "metin": "{0}: yaklaşık {1} km, arabayla {2}. Konumunuz yaklaşık bulundu (±{3}). Başlangıç yanlışsa mavi noktayı sürükleyin ya da haritada bulunduğunuz yere dokunun.",
+  "nerede": "harita: rota sonucu + uyarı + ipucu; {3} ör. 3,2 km"
+ },
+ {
+  "metin": "{0}: yaklaşık {1} km, arabayla {2}. Başlangıç yanlışsa mavi noktayı sürükleyin ya da haritada bulunduğunuz yere dokunun.",
+  "nerede": "harita: rota sonucu + ipucu"
  }
 ]

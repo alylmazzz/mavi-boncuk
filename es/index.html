@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es">
+<html lang="tr" data-beasties-container>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -32,9 +32,12 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"No sé qué talla elegir, ¿qué hago?","acceptedAnswer":{"@type":"Answer","text":"Escríbenos por WhatsApp la edad, la altura y el peso de tu hijo. Medimos la prenda y te decimos qué talla le irá bien."}},{"@type":"Question","name":"¿Por qué no están los precios en la web?","acceptedAnswer":{"@type":"Answer","text":"Los productos se venden rápido y el mismo modelo puede tener precios distintos según la talla. Te decimos el precio actual cuando preguntes."}},{"@type":"Question","name":"¿Hacen envíos fuera de Ortaca?","acceptedAnswer":{"@type":"Answer","text":"Tenemos clientes que nos compran desde lejos. Te decimos por mensaje el coste y el plazo del envío según tu dirección."}},{"@type":"Question","name":"¿Dónde está la tienda Mavi Boncuk?","acceptedAnswer":{"@type":"Answer","text":"En Ortaca, Muğla: Şerifnaz Başoğlu Sokak, Dede Yün karşısı (frente a Dede Yün). Los domingos abrimos a las 12.00."}}]}</script>
 <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
 <script defer src="/_vercel/insights/script.js"></script>
+
+
+
 <link rel="preload" href="/assets/fonts/roundo-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/baloo2-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/assets/css/app.min.css?v=20261021b">
+<link rel="stylesheet" href="/assets/css/app.min.css?v=20261021j">
 </head>
 <body>
 
@@ -56,13 +59,13 @@
   <section class="hero" aria-labelledby="hero-title">
     <div class="hero__top">
       <button class="sky" id="sky" type="button" aria-label="Sol"></button>
-      <h1 class="hero__mark" id="hero-title"><img src="/assets/img/site/mavi-boncuk-yazi.webp?v=3" srcset="/assets/img/site/mavi-boncuk-yazi-700.webp?v=3 700w, /assets/img/site/mavi-boncuk-yazi.webp?v=3 1400w" sizes="(min-width: 60em) 40vw, 88vw" alt="Mavi Boncuk" width="1400" height="1060" fetchpriority="high"><span class="string" aria-hidden="true"></span></h1>
-      <figure class="hero__bead" aria-hidden="true"><img src="/assets/img/site/nazar-boncuk.webp" srcset="/assets/img/site/nazar-boncuk-260.webp 260w, /assets/img/site/nazar-boncuk.webp 377w" sizes="(min-width: 60em) 190px, 130px" alt="" width="377" height="560" decoding="async"></figure>
+      <h1 class="hero__mark" id="hero-title"><picture><source type="image/avif" srcset="/assets/img/site/mavi-boncuk-yazi-560.avif 560w, /assets/img/site/mavi-boncuk-yazi-700.avif 700w, /assets/img/site/mavi-boncuk-yazi-1400.avif 1400w" sizes="(min-width: 60em) 40vw, 82vw"><img src="/assets/img/site/mavi-boncuk-yazi.webp?v=3" srcset="/assets/img/site/mavi-boncuk-yazi-700.webp?v=3 700w, /assets/img/site/mavi-boncuk-yazi.webp?v=3 1400w" sizes="(min-width: 60em) 40vw, 82vw" alt="Mavi Boncuk" width="1400" height="1060" fetchpriority="high"></picture><span class="string" aria-hidden="true"></span></h1>
+      <figure class="hero__bead" aria-hidden="true"><img src="/assets/img/site/nazar-boncuk.webp" srcset="/assets/img/site/nazar-boncuk-260.webp 260w, /assets/img/site/nazar-boncuk.webp 377w" sizes="(min-width: 60em) 190px, 130px" alt width="377" height="560" decoding="async"></figure>
       <p class="hero__desc"><span class="hero__hello" id="hello">¡Hola!</span>En nuestra tienda de Ortaca tenemos ropa para niños de 0 a 16 años. Si algo te gusta, pregúntanos por WhatsApp y buscamos juntos la talla.</p>
     </div>
     <div class="hero__stage">
       <div class="hero__names" role="group" aria-label="¿Qué buscas?" id="hero-names"></div>
-      <div class="hero__tile" id="hero-tile" aria-live="polite"></div>
+      <div class="hero__tile" id="hero-tile" aria-live="polite" style="background-color:var(--field-1)"><img data-statik class="is-on" src="/assets/img/site/hero-abiye-1-700.webp" srcset="/assets/img/site/hero-abiye-1-500.webp 500w, /assets/img/site/hero-abiye-1-700.webp 700w, /assets/img/site/hero-abiye-1.webp 1000w" sizes="(min-width: 60em) 30rem, 90vw" alt="Vestido de fiesta lila de satén con lazo" width="900" height="1125" decoding="async"></div>
       <div class="hero__side">
         <p class="hero__fact" id="hero-fact">Desde vestidos de fiesta hasta faldas del colegio, desde cochecitos hasta tronas.</p>
         <div class="hero__cta">
@@ -82,8 +85,8 @@
   <section class="kardes" id="kardes" aria-labelledby="kardes-title">
     <div class="kardes__head"><h2 class="head" id="kardes-title">Viste juntos a los hermanos</h2><p>Elige la edad de los dos niños y para qué buscas; te mostramos juntas las prendas que les sirven a los dos.</p></div>
     <form class="kardes__form">
-      <label>Niño 1 <select name="yas1"><option value="">Elige la edad</option><option value="0">0 años</option><option value="1">1 años</option><option value="2">2 años</option><option value="3">3 años</option><option value="4">4 años</option><option value="5">5 años</option><option value="6">6 años</option><option value="7">7 años</option><option value="8">8 años</option><option value="9">9 años</option><option value="10">10 años</option><option value="11">11 años</option><option value="12">12 años</option><option value="13">13 años</option><option value="14">14 años</option><option value="15">15 años</option><option value="16">16 años</option></select></label>
-      <label>Niño 2 <select name="yas2"><option value="">Elige la edad</option><option value="0">0 años</option><option value="1">1 años</option><option value="2">2 años</option><option value="3">3 años</option><option value="4">4 años</option><option value="5">5 años</option><option value="6">6 años</option><option value="7">7 años</option><option value="8">8 años</option><option value="9">9 años</option><option value="10">10 años</option><option value="11">11 años</option><option value="12">12 años</option><option value="13">13 años</option><option value="14">14 años</option><option value="15">15 años</option><option value="16">16 años</option></select></label>
+      <label>Niño 1 <select name="yas1"><option value>Elige la edad</option><option value="0">0 años</option><option value="1">1 años</option><option value="2">2 años</option><option value="3">3 años</option><option value="4">4 años</option><option value="5">5 años</option><option value="6">6 años</option><option value="7">7 años</option><option value="8">8 años</option><option value="9">9 años</option><option value="10">10 años</option><option value="11">11 años</option><option value="12">12 años</option><option value="13">13 años</option><option value="14">14 años</option><option value="15">15 años</option><option value="16">16 años</option></select></label>
+      <label>Niño 2 <select name="yas2"><option value>Elige la edad</option><option value="0">0 años</option><option value="1">1 años</option><option value="2">2 años</option><option value="3">3 años</option><option value="4">4 años</option><option value="5">5 años</option><option value="6">6 años</option><option value="7">7 años</option><option value="8">8 años</option><option value="9">9 años</option><option value="10">10 años</option><option value="11">11 años</option><option value="12">12 años</option><option value="13">13 años</option><option value="14">14 años</option><option value="15">15 años</option><option value="16">16 años</option></select></label>
       <label>Para qué <select name="amac"><option value="ozel">Boda y ocasión especial</option><option value="bayram">Bayram</option><option value="okul">Colegio</option><option value="gunluk">De diario</option></select></label>
     </form>
     <div class="kardes__sonuc" hidden></div>
@@ -98,7 +101,7 @@
     </div>
     <p class="harita__adres" id="harita-adres">Cengiz Topel Caddesi No:37 D:39, Terzialiler, Ortaca</p>
     <div class="harita__kutu">
-      <iframe id="harita-google" src="https://www.google.com/maps?q=36.8368452,28.7666592&amp;z=17&amp;hl=tr&amp;output=embed" title="Mavi Boncuk Ropa infantil, Google Maps" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+      <iframe id="harita-google" data-src="https://www.google.com/maps?q=36.8368452,28.7666592&amp;z=17&amp;hl=tr&amp;output=embed" title="Mavi Boncuk Ropa infantil, Google Maps" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
       <div class="harita__rota-harita" id="rota-harita" hidden></div>
     </div>
     <button type="button" class="button harita__rota" id="rota-ciz"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s7-6.2 7-12a7 7 0 10-14 0c0 5.8 7 12 7 12z" fill="#fff" fill-opacity=".25" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="10" r="2.6" fill="currentColor"/></svg><span>Mostrar el camino desde donde estoy</span></button>
@@ -307,9 +310,8 @@
 <p class="dil-not">Los textos legales y los artículos del blog están en turco. Debajo de tu mensaje de WhatsApp añadimos también la versión en turco; puedes escribir en tu idioma.</p>
 </footer>
 
-<script src="/assets/js/dil.js?v=20261021b" defer></script>
-<script src="/assets/js/site.js?v=20261021b" defer></script>
-<script src="/assets/js/oyun.js?v=20261021b" defer></script>
-<script src="/assets/js/ek.js?v=20261021b" defer></script>
+<script src="/assets/js/dil.js?v=20261021j" defer></script>
+<script src="/assets/js/site.js?v=20261021j" defer></script>
+<script>(function(){var y=0;function f(){if(y)return;y=1;['/assets/js/oyun.js?v=20261021j','/assets/js/ek.js?v=20261021j'].forEach(function(s){var e=document.createElement('script');e.src=s;e.async=false;document.head.appendChild(e)})}if(document.readyState==='complete')f();else addEventListener('load',f,{once:true});['pointerdown','keydown','touchstart','scroll'].forEach(function(t){addEventListener(t,f,{once:true,passive:true})})})();</script>
 </body>
 </html>

@@ -43,12 +43,12 @@
   // ---------- yakınlık bildirimi (il düzeyinde, izin istemeden) ----------
   if (!ses.get('mb-konum-kapat') && $('.hero')) {
     fetch('/api/konum').then((r) => r.json()).then((k) => {
-      if (!k || k.ulke !== 'TR') return;
+      // IP'den il tahmini mobil operatörlerde sık yanılır (bağlantı başka şehirden çıkar).
+      // Bu yüzden yalnızca Muğla görünüyorsa gösterilir; "uzaktasınız" gibi bir tahmin hiç yazılmaz.
+      if (!k || k.ulke !== 'TR' || !k.yakin) return;
       const kutu = document.createElement('div');
       kutu.className = 'konum'; kutu.setAttribute('role', 'status');
-      kutu.innerHTML = k.yakin
-        ? `<p>Size yakınız. Ortaca’daki dükkânımıza gelip beğendiğinizi çocuğunuzun üstünde deneyebilirsiniz.</p><a class="link" href="https://www.google.com/maps/search/?api=1&amp;query=Mavi+Boncuk+Bebe+Ma%C4%9Fazas%C4%B1+Ortaca" rel="noopener">Yol tarifi</a>`
-        : `<p>Ortaca dışındaysanız da sipariş alıyoruz. Ürünü seçin, WhatsApp’tan yazın, gönderimi birlikte konuşalım.</p><a class="link" href="/teslimat">Teslimat</a>`;
+      kutu.innerHTML = `<p>Size yakınız. Ortaca’daki dükkânımıza gelip beğendiğinizi çocuğunuzun üstünde deneyebilirsiniz.</p><a class="link" href="#konum">Yol tarifi</a>`;
       const kapat = document.createElement('button');
       kapat.type = 'button'; kapat.className = 'konum__kapat'; kapat.setAttribute('aria-label', 'Bildirimi kapat'); kapat.textContent = '×';
       kapat.addEventListener('click', () => { kutu.remove(); ses.set('mb-konum-kapat', '1'); });
@@ -249,10 +249,16 @@
     const gUrl = (lat, lng) => `https://www.google.com/maps?q=${lat},${lng}&z=17&hl=${document.documentElement.lang || 'tr'}&output=embed`;
     const dirUrl = (o) => `https://www.google.com/maps/dir/?api=1${o ? `&origin=${o.lat},${o.lng}` : ''}&destination=${hedef.dataset.lat},${hedef.dataset.lng}`;
     const googleGoster = () => { rotaKutu.hidden = true; ifr.hidden = false; geri.hidden = true; };
+    // Google haritası ağır (1-2 MB); yalnızca bölüme yaklaşınca yüklenir
+    const haritaYukle = () => { if (ifr.dataset.src) { ifr.src = ifr.dataset.src; delete ifr.dataset.src; } };
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((l) => { if (l.some((e) => e.isIntersecting)) { haritaYukle(); io.disconnect(); } }, { rootMargin: '300px 0px' });
+      io.observe(harita);
+    } else haritaYukle();
     harita.querySelectorAll('.harita__dukkan').forEach((b) => b.addEventListener('click', () => {
       harita.querySelectorAll('.harita__dukkan').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
       hedef = b;
-      ifr.src = gUrl(b.dataset.lat, b.dataset.lng); ifr.title = b.dataset.ad + ', Google Haritalar';
+      delete ifr.dataset.src; ifr.src = gUrl(b.dataset.lat, b.dataset.lng); ifr.title = b.dataset.ad + ', Google Haritalar';
       $('#harita-adres').textContent = ADRES[b.dataset.ad] || '';
       gLink.href = dirUrl(); bilgi.textContent = ''; googleGoster();
     }));
@@ -265,36 +271,76 @@
     });
     const LEAFLET = 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/';
     const sure = (sn) => { const d = Math.round(sn / 60); return d < 60 ? `${d} dakika` : `${Math.floor(d / 60)} saat ${d % 60} dakika`; };
-    ciz.addEventListener('click', () => {
-      if (!('geolocation' in navigator)) { bilgi.textContent = 'Tarayıcınız konum paylaşmayı desteklemiyor. Google Haritalar’da yol tarifini açabilirsiniz.'; return; }
-      bilgi.textContent = 'Konumunuz soruluyor…'; ciz.disabled = true;
-      navigator.geolocation.getCurrentPosition(async (k) => {
-        const o = { lat: k.coords.latitude, lng: k.coords.longitude };
-        const h = { lat: Number(hedef.dataset.lat), lng: Number(hedef.dataset.lng) };
-        gLink.href = dirUrl(o);
-        try {
-          bilgi.textContent = 'Yol çiziliyor…';
-          await Promise.all([yukle('css', LEAFLET + 'leaflet.min.css'), yukle('js', LEAFLET + 'leaflet.min.js')]);
-          const r = await fetch(`https://router.project-osrm.org/route/v1/driving/${o.lng},${o.lat};${h.lng},${h.lat}?overview=full&geometries=geojson`).then((x) => x.json());
-          if (!r.routes || !r.routes[0]) throw new Error('rota yok');
-          const L = window.L; const rota = r.routes[0];
-          ifr.hidden = true; rotaKutu.hidden = false; geri.hidden = false;
-          if (!lmap) {
-            lmap = L.map(rotaKutu, { scrollWheelZoom: false });
-            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '&copy; OpenStreetMap' }).addTo(lmap);
-          }
-          if (katman) katman.remove();
-          const cizgi = L.geoJSON(rota.geometry, { style: { color: '#e30a17', weight: 6, opacity: 0.9 } });
-          katman = L.layerGroup([cizgi,
-            L.circleMarker([o.lat, o.lng], { radius: 8, color: '#fff', weight: 3, fillColor: '#1a73e8', fillOpacity: 1 }).bindTooltip('Siz'),
-            L.marker([h.lat, h.lng]).bindTooltip(hedef.dataset.ad, { permanent: true, direction: 'top' })]).addTo(lmap);
-          lmap.invalidateSize(); lmap.fitBounds(cizgi.getBounds(), { padding: [30, 30] });
-          bilgi.textContent = `${hedef.dataset.ad}: yaklaşık ${(rota.distance / 1000).toFixed(1).replace('.', ',')} km, arabayla ${sure(rota.duration)}.`;
-        } catch (e) {
-          bilgi.textContent = 'Yol çizilemedi. Google Haritalar’da yol tarifini açabilirsiniz.';
-        }
-        ciz.disabled = false;
-      }, () => { ciz.disabled = false; bilgi.textContent = 'Konum izni verilmedi. Google Haritalar’da yol tarifini açabilirsiniz.'; }, { enableHighAccuracy: true, timeout: 15000, maximumAge: 60000 });
+    // Konum: en iyi doğruluğu birkaç saniye bekleyerek al (bilgisayarlarda konum internetten tahmin edilir, km'lerce sapabilir).
+    // Önbellekteki eski konum kullanılmaz. Ziyaretçi mavi noktayı sürükleyerek ya da haritaya dokunarak başlangıcı düzeltebilir.
+    const konumAl = () => new Promise((ok, hata) => {
+      let enIyi = null, bitti = false, ek = null;
+      const bitir = (f) => { if (bitti) return; bitti = true; navigator.geolocation.clearWatch(izle); clearTimeout(zaman); clearTimeout(ek); f(); };
+      const izle = navigator.geolocation.watchPosition((k) => {
+        if (!enIyi || k.coords.accuracy < enIyi.coords.accuracy) enIyi = k;
+        if (k.coords.accuracy <= 50) bitir(() => ok(enIyi));
+        // ilk konum geldikten sonra daha iyisi için en çok 3 saniye bekle
+        else if (!ek) ek = setTimeout(() => bitir(() => ok(enIyi)), 3000);
+      }, (e) => bitir(() => (enIyi ? ok(enIyi) : hata(e))), { enableHighAccuracy: true, maximumAge: 0, timeout: 20000 });
+      const zaman = setTimeout(() => bitir(() => (enIyi ? ok(enIyi) : hata({ code: 3 }))), 15000);
+    });
+    let baslangic = null, dogruluk = 0;
+    const mesafe = (m) => (m >= 1000 ? `${(m / 1000).toFixed(1).replace('.', ',')} km` : `${Math.round(m)} m`);
+    const haritaHazirla = async () => {
+      await Promise.all([yukle('css', LEAFLET + 'leaflet.min.css'), yukle('js', LEAFLET + 'leaflet.min.js')]);
+      const L = window.L;
+      ifr.hidden = true; rotaKutu.hidden = false; geri.hidden = false;
+      if (!lmap) {
+        lmap = L.map(rotaKutu, { scrollWheelZoom: false });
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '&copy; OpenStreetMap' }).addTo(lmap);
+        // haritaya dokunulan yer yeni başlangıç olur
+        lmap.on('click', (e) => { baslangic = { lat: e.latlng.lat, lng: e.latlng.lng }; dogruluk = 0; rotaCiz(); });
+      }
+      lmap.invalidateSize();
+      return L;
+    };
+    async function rotaCiz() {
+      const L = await haritaHazirla();
+      const h = { lat: Number(hedef.dataset.lat), lng: Number(hedef.dataset.lng) };
+      if (katman) katman.remove();
+      const dukkan = L.marker([h.lat, h.lng]).bindTooltip(hedef.dataset.ad, { permanent: true, direction: 'top' });
+      if (!baslangic) { katman = L.layerGroup([dukkan]).addTo(lmap); lmap.setView([h.lat, h.lng], 13); return; }
+      const o = baslangic;
+      gLink.href = dirUrl(o);
+      bilgi.textContent = 'Yol çiziliyor…';
+      try {
+        const r = await fetch(`https://router.project-osrm.org/route/v1/driving/${o.lng},${o.lat};${h.lng},${h.lat}?overview=full&geometries=geojson`).then((x) => x.json());
+        if (!r.routes || !r.routes[0]) throw new Error('rota yok');
+        const rota = r.routes[0];
+        const cizgi = L.geoJSON(rota.geometry, { style: { color: '#e30a17', weight: 6, opacity: 0.9 } });
+        const nokta = L.marker([o.lat, o.lng], { draggable: true, icon: L.divIcon({ className: 'rota-siz', iconSize: [22, 22] }) }).bindTooltip('Siz');
+        nokta.on('dragend', () => { const p = nokta.getLatLng(); baslangic = { lat: p.lat, lng: p.lng }; dogruluk = 0; rotaCiz(); });
+        const parca = [cizgi, nokta, dukkan];
+        if (dogruluk > 100) parca.unshift(L.circle([o.lat, o.lng], { radius: dogruluk, color: '#1a73e8', weight: 1, fillOpacity: 0.08 }));
+        katman = L.layerGroup(parca).addTo(lmap);
+        lmap.fitBounds(cizgi.getBounds(), { padding: [30, 30] });
+        let t = `${hedef.dataset.ad}: yaklaşık ${(rota.distance / 1000).toFixed(1).replace('.', ',')} km, arabayla ${sure(rota.duration)}.`;
+        if (dogruluk > 300) t += ` Konumunuz yaklaşık bulundu (±${mesafe(dogruluk)}).`;
+        bilgi.textContent = t + ' Başlangıç yanlışsa mavi noktayı sürükleyin ya da haritada bulunduğunuz yere dokunun.';
+      } catch (e) {
+        bilgi.textContent = 'Yol çizilemedi. Google Haritalar’da yol tarifini açabilirsiniz.';
+      }
+    }
+    ciz.addEventListener('click', async () => {
+      if (!('geolocation' in navigator)) { bilgi.textContent = 'Tarayıcınız konum paylaşmayı desteklemiyor. Haritada bulunduğunuz yere dokunarak yolu çizebilirsiniz.'; baslangic = null; rotaCiz(); return; }
+      bilgi.textContent = 'Konumunuz bulunuyor…'; ciz.disabled = true;
+      try {
+        const k = await konumAl();
+        baslangic = { lat: k.coords.latitude, lng: k.coords.longitude }; dogruluk = k.coords.accuracy || 0;
+        await rotaCiz();
+      } catch (e) {
+        baslangic = null;
+        bilgi.textContent = e && e.code === 1
+          ? 'Konum izni verilmedi. Haritada bulunduğunuz yere dokunarak yolu çizebilir ya da Google Haritalar’da yol tarifini açabilirsiniz.'
+          : 'Konumunuz bulunamadı. Telefonda konum (GPS) açık mı? Haritada bulunduğunuz yere dokunarak da yolu çizebilirsiniz.';
+        await rotaCiz().catch(() => {});
+      }
+      ciz.disabled = false;
     });
   }
 
@@ -338,11 +384,13 @@
   }
 
   // ---------- telefona “uygulama” olarak eklenebilsin (çevrimdışıyken son görülen sayfalar açılır) ----------
-  if ('serviceWorker' in navigator && location.protocol === 'https:') addEventListener('load', () => navigator.serviceWorker.register('/sw.js').catch(() => {}));
+  // ek.js sayfa yüklendikten sonra da gelebilir; o durumda hemen kaydet
+  const swKaydet = () => navigator.serviceWorker.register('/sw.js').catch(() => {});
+  if ('serviceWorker' in navigator && location.protocol === 'https:') { if (document.readyState === 'complete') swKaydet(); else addEventListener('load', swKaydet); }
 
   // ---------- kaydırınca beliren bölümler (bir kez) ----------
   if (!reduced && 'IntersectionObserver' in window) {
-    const hedefler = document.querySelectorAll('.catalogue__head, .strip__title, .steps__head, .board, .sizer__box, .shop h2, .shop__grid > li, .reviews__head, .latest__head, .faq h2, .coupon, .postcard, .kombinler__head, .kombin');
+    const hedefler = document.querySelectorAll('.catalogue__head, .strip__title, .steps__head, .board, .sizer__box, .shop h2, .shop__grid > li, .reviews__head, .latest__head, .faq h2, .postcard, .kombinler__head, .kombin');
     root.classList.add('js-reveal');
     const io = new IntersectionObserver((list) => list.forEach((en) => { if (en.isIntersecting) { en.target.classList.add('is-in'); io.unobserve(en.target); } }), { rootMargin: '0px 0px -8% 0px' });
     hedefler.forEach((n, i) => { n.classList.add('reveal'); n.style.setProperty('--d', `${(i % 4) * 70}ms`); io.observe(n); });

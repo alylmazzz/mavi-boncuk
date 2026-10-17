@@ -734,3 +734,5 @@ html.gece .harita__dukkan[aria-pressed="true"] { background: #0b7a75; }
 .harita__not { font-size: var(--step-small); color: var(--muted); margin-top: 0.4rem; }
 .harita .tarif__liste { margin-top: 1rem; }
 .harita__geri[hidden] { display: none; }
+/* rotada sürüklenebilir “siz” noktası */
+.rota-siz { width: 22px; height: 22px; border-radius: 50%; background: #1a73e8; border: 3px solid #fff; box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.35), 0 2px 6px rgba(0, 0, 0, 0.3); cursor: grab; }

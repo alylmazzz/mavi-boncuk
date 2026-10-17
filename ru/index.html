@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ru">
+<html lang="tr" data-beasties-container>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -32,9 +32,12 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Не знаю, какой размер взять. Что делать?","acceptedAnswer":{"@type":"Answer","text":"Напишите в WhatsApp возраст, рост и вес ребёнка. Мы возьмём вещь, измерим и скажем, какой размер подойдёт."}},{"@type":"Question","name":"Почему на сайте нет цен?","acceptedAnswer":{"@type":"Answer","text":"Товары быстро меняются, а одна и та же модель в разных размерах может стоить по-разному. Актуальную цену скажем, когда вы спросите."}},{"@type":"Question","name":"Вы отправляете за пределы Ортаджи?","acceptedAnswer":{"@type":"Answer","text":"Многие покупатели берут у нас издалека. Стоимость и сроки доставки скажем в сообщении, в зависимости от вашего адреса."}},{"@type":"Question","name":"Где находится магазин Mavi Boncuk?","acceptedAnswer":{"@type":"Answer","text":"В Ортадже, Мугла, на улице Şerifnaz Başoğlu Sokak, напротив Dede Yün. По воскресеньям открываемся в 12.00."}}]}</script>
 <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
 <script defer src="/_vercel/insights/script.js"></script>
+
+
+
 <link rel="preload" href="/assets/fonts/roundo-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/baloo2-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/assets/css/app.min.css?v=20261021b">
+<link rel="stylesheet" href="/assets/css/app.min.css?v=20261021j">
 </head>
 <body>
 
@@ -56,13 +59,13 @@
   <section class="hero" aria-labelledby="hero-title">
     <div class="hero__top">
       <button class="sky" id="sky" type="button" aria-label="Солнце"></button>
-      <h1 class="hero__mark" id="hero-title"><img src="/assets/img/site/mavi-boncuk-yazi.webp?v=3" srcset="/assets/img/site/mavi-boncuk-yazi-700.webp?v=3 700w, /assets/img/site/mavi-boncuk-yazi.webp?v=3 1400w" sizes="(min-width: 60em) 40vw, 88vw" alt="Mavi Boncuk" width="1400" height="1060" fetchpriority="high"><span class="string" aria-hidden="true"></span></h1>
-      <figure class="hero__bead" aria-hidden="true"><img src="/assets/img/site/nazar-boncuk.webp" srcset="/assets/img/site/nazar-boncuk-260.webp 260w, /assets/img/site/nazar-boncuk.webp 377w" sizes="(min-width: 60em) 190px, 130px" alt="" width="377" height="560" decoding="async"></figure>
+      <h1 class="hero__mark" id="hero-title"><picture><source type="image/avif" srcset="/assets/img/site/mavi-boncuk-yazi-560.avif 560w, /assets/img/site/mavi-boncuk-yazi-700.avif 700w, /assets/img/site/mavi-boncuk-yazi-1400.avif 1400w" sizes="(min-width: 60em) 40vw, 82vw"><img src="/assets/img/site/mavi-boncuk-yazi.webp?v=3" srcset="/assets/img/site/mavi-boncuk-yazi-700.webp?v=3 700w, /assets/img/site/mavi-boncuk-yazi.webp?v=3 1400w" sizes="(min-width: 60em) 40vw, 82vw" alt="Mavi Boncuk" width="1400" height="1060" fetchpriority="high"></picture><span class="string" aria-hidden="true"></span></h1>
+      <figure class="hero__bead" aria-hidden="true"><img src="/assets/img/site/nazar-boncuk.webp" srcset="/assets/img/site/nazar-boncuk-260.webp 260w, /assets/img/site/nazar-boncuk.webp 377w" sizes="(min-width: 60em) 190px, 130px" alt width="377" height="560" decoding="async"></figure>
       <p class="hero__desc"><span class="hero__hello" id="hello">Здравствуйте!</span>В нашем магазине в Ортадже есть одежда для детей от 0 до 16 лет. Понравилось — спросите в WhatsApp, вместе подберём размер.</p>
     </div>
     <div class="hero__stage">
       <div class="hero__names" role="group" aria-label="Что вы ищете?" id="hero-names"></div>
-      <div class="hero__tile" id="hero-tile" aria-live="polite"></div>
+      <div class="hero__tile" id="hero-tile" aria-live="polite" style="background-color:var(--field-1)"><img data-statik class="is-on" src="/assets/img/site/hero-abiye-1-700.webp" srcset="/assets/img/site/hero-abiye-1-500.webp 500w, /assets/img/site/hero-abiye-1-700.webp 700w, /assets/img/site/hero-abiye-1.webp 1000w" sizes="(min-width: 60em) 30rem, 90vw" alt="Сиреневое атласное нарядное платье с бантом" width="900" height="1125" decoding="async"></div>
       <div class="hero__side">
         <p class="hero__fact" id="hero-fact">От нарядного платья до школьной юбки, от коляски до стульчика для кормления.</p>
         <div class="hero__cta">
@@ -82,8 +85,8 @@
   <section class="kardes" id="kardes" aria-labelledby="kardes-title">
     <div class="kardes__head"><h2 class="head" id="kardes-title">Оденьте братьев и сестёр вместе</h2><p>Выберите возраст двух детей и для чего ищете — покажем рядом вещи, которые подойдут обоим.</p></div>
     <form class="kardes__form">
-      <label>1-й ребёнок <select name="yas1"><option value="">Выберите возраст</option><option value="0">возраст 0</option><option value="1">возраст 1</option><option value="2">возраст 2</option><option value="3">возраст 3</option><option value="4">возраст 4</option><option value="5">возраст 5</option><option value="6">возраст 6</option><option value="7">возраст 7</option><option value="8">возраст 8</option><option value="9">возраст 9</option><option value="10">возраст 10</option><option value="11">возраст 11</option><option value="12">возраст 12</option><option value="13">возраст 13</option><option value="14">возраст 14</option><option value="15">возраст 15</option><option value="16">возраст 16</option></select></label>
-      <label>2-й ребёнок <select name="yas2"><option value="">Выберите возраст</option><option value="0">возраст 0</option><option value="1">возраст 1</option><option value="2">возраст 2</option><option value="3">возраст 3</option><option value="4">возраст 4</option><option value="5">возраст 5</option><option value="6">возраст 6</option><option value="7">возраст 7</option><option value="8">возраст 8</option><option value="9">возраст 9</option><option value="10">возраст 10</option><option value="11">возраст 11</option><option value="12">возраст 12</option><option value="13">возраст 13</option><option value="14">возраст 14</option><option value="15">возраст 15</option><option value="16">возраст 16</option></select></label>
+      <label>1-й ребёнок <select name="yas1"><option value>Выберите возраст</option><option value="0">возраст 0</option><option value="1">возраст 1</option><option value="2">возраст 2</option><option value="3">возраст 3</option><option value="4">возраст 4</option><option value="5">возраст 5</option><option value="6">возраст 6</option><option value="7">возраст 7</option><option value="8">возраст 8</option><option value="9">возраст 9</option><option value="10">возраст 10</option><option value="11">возраст 11</option><option value="12">возраст 12</option><option value="13">возраст 13</option><option value="14">возраст 14</option><option value="15">возраст 15</option><option value="16">возраст 16</option></select></label>
+      <label>2-й ребёнок <select name="yas2"><option value>Выберите возраст</option><option value="0">возраст 0</option><option value="1">возраст 1</option><option value="2">возраст 2</option><option value="3">возраст 3</option><option value="4">возраст 4</option><option value="5">возраст 5</option><option value="6">возраст 6</option><option value="7">возраст 7</option><option value="8">возраст 8</option><option value="9">возраст 9</option><option value="10">возраст 10</option><option value="11">возраст 11</option><option value="12">возраст 12</option><option value="13">возраст 13</option><option value="14">возраст 14</option><option value="15">возраст 15</option><option value="16">возраст 16</option></select></label>
       <label>Для чего <select name="amac"><option value="ozel">Свадьба и особый случай</option><option value="bayram">Байрам</option><option value="okul">Школа</option><option value="gunluk">На каждый день</option></select></label>
     </form>
     <div class="kardes__sonuc" hidden></div>
@@ -98,7 +101,7 @@
     </div>
     <p class="harita__adres" id="harita-adres">Cengiz Topel Caddesi No:37 D:39, Terzialiler, Ортаджа</p>
     <div class="harita__kutu">
-      <iframe id="harita-google" src="https://www.google.com/maps?q=36.8368452,28.7666592&amp;z=17&amp;hl=tr&amp;output=embed" title="Mavi Boncuk — детская одежда, Google Карты" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+      <iframe id="harita-google" data-src="https://www.google.com/maps?q=36.8368452,28.7666592&amp;z=17&amp;hl=tr&amp;output=embed" title="Mavi Boncuk — детская одежда, Google Карты" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
       <div class="harita__rota-harita" id="rota-harita" hidden></div>
     </div>
     <button type="button" class="button harita__rota" id="rota-ciz"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s7-6.2 7-12a7 7 0 10-14 0c0 5.8 7 12 7 12z" fill="#fff" fill-opacity=".25" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="10" r="2.6" fill="currentColor"/></svg><span>Показать дорогу от меня</span></button>
@@ -307,9 +310,8 @@
 <p class="dil-not">Юридические тексты и статьи блога на турецком языке. Под вашим сообщением в WhatsApp мы добавляем перевод на турецкий; можете писать на своём языке.</p>
 </footer>
 
-<script src="/assets/js/dil.js?v=20261021b" defer></script>
-<script src="/assets/js/site.js?v=20261021b" defer></script>
-<script src="/assets/js/oyun.js?v=20261021b" defer></script>
-<script src="/assets/js/ek.js?v=20261021b" defer></script>
+<script src="/assets/js/dil.js?v=20261021j" defer></script>
+<script src="/assets/js/site.js?v=20261021j" defer></script>
+<script>(function(){var y=0;function f(){if(y)return;y=1;['/assets/js/oyun.js?v=20261021j','/assets/js/ek.js?v=20261021j'].forEach(function(s){var e=document.createElement('script');e.src=s;e.async=false;document.head.appendChild(e)})}if(document.readyState==='complete')f();else addEventListener('load',f,{once:true});['pointerdown','keydown','touchstart','scroll'].forEach(function(t){addEventListener(t,f,{once:true,passive:true})})})();</script>
 </body>
 </html>

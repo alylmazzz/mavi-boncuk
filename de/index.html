@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="de">
+<html lang="tr" data-beasties-container>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -32,9 +32,12 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Ich weiß nicht, welche Größe ich nehmen soll. Was mache ich?","acceptedAnswer":{"@type":"Answer","text":"Schreiben Sie uns Alter, Körpergröße und Gewicht Ihres Kindes per WhatsApp. Wir messen das Stück nach und sagen Ihnen, welche Größe passt."}},{"@type":"Question","name":"Warum stehen keine Preise auf der Website?","acceptedAnswer":{"@type":"Answer","text":"Die Sachen sind schnell verkauft, und dasselbe Modell kann in verschiedenen Größen unterschiedlich kosten. Wenn Sie fragen, nennen wir Ihnen den aktuellen Preis."}},{"@type":"Question","name":"Verschicken Sie auch außerhalb von Ortaca?","acceptedAnswer":{"@type":"Answer","text":"Einige unserer Kunden kaufen bei uns aus der Ferne ein. Versandkosten und Lieferzeit nennen wir Ihnen per Nachricht, je nach Ihrer Adresse."}},{"@type":"Question","name":"Wo ist der Laden Mavi Boncuk?","acceptedAnswer":{"@type":"Answer","text":"In Ortaca, Muğla: Şerifnaz Başoğlu Sokak, Dede Yün karşısı (gegenüber von Dede Yün). Sonntags öffnen wir um 12.00 Uhr."}}]}</script>
 <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
 <script defer src="/_vercel/insights/script.js"></script>
+
+
+
 <link rel="preload" href="/assets/fonts/roundo-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/baloo2-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/assets/css/app.min.css?v=20261021b">
+<link rel="stylesheet" href="/assets/css/app.min.css?v=20261021j">
 </head>
 <body>
 
@@ -56,13 +59,13 @@
   <section class="hero" aria-labelledby="hero-title">
     <div class="hero__top">
       <button class="sky" id="sky" type="button" aria-label="Sonne"></button>
-      <h1 class="hero__mark" id="hero-title"><img src="/assets/img/site/mavi-boncuk-yazi.webp?v=3" srcset="/assets/img/site/mavi-boncuk-yazi-700.webp?v=3 700w, /assets/img/site/mavi-boncuk-yazi.webp?v=3 1400w" sizes="(min-width: 60em) 40vw, 88vw" alt="Mavi Boncuk" width="1400" height="1060" fetchpriority="high"><span class="string" aria-hidden="true"></span></h1>
-      <figure class="hero__bead" aria-hidden="true"><img src="/assets/img/site/nazar-boncuk.webp" srcset="/assets/img/site/nazar-boncuk-260.webp 260w, /assets/img/site/nazar-boncuk.webp 377w" sizes="(min-width: 60em) 190px, 130px" alt="" width="377" height="560" decoding="async"></figure>
+      <h1 class="hero__mark" id="hero-title"><picture><source type="image/avif" srcset="/assets/img/site/mavi-boncuk-yazi-560.avif 560w, /assets/img/site/mavi-boncuk-yazi-700.avif 700w, /assets/img/site/mavi-boncuk-yazi-1400.avif 1400w" sizes="(min-width: 60em) 40vw, 82vw"><img src="/assets/img/site/mavi-boncuk-yazi.webp?v=3" srcset="/assets/img/site/mavi-boncuk-yazi-700.webp?v=3 700w, /assets/img/site/mavi-boncuk-yazi.webp?v=3 1400w" sizes="(min-width: 60em) 40vw, 82vw" alt="Mavi Boncuk" width="1400" height="1060" fetchpriority="high"></picture><span class="string" aria-hidden="true"></span></h1>
+      <figure class="hero__bead" aria-hidden="true"><img src="/assets/img/site/nazar-boncuk.webp" srcset="/assets/img/site/nazar-boncuk-260.webp 260w, /assets/img/site/nazar-boncuk.webp 377w" sizes="(min-width: 60em) 190px, 130px" alt width="377" height="560" decoding="async"></figure>
       <p class="hero__desc"><span class="hero__hello" id="hello">Hallo!</span>In unserem Laden in Ortaca finden Sie Kinderkleidung für 0 bis 16 Jahre. Fragen Sie per WhatsApp nach, was Ihnen gefällt, und wir finden zusammen die passende Größe.</p>
     </div>
     <div class="hero__stage">
       <div class="hero__names" role="group" aria-label="Was suchen Sie?" id="hero-names"></div>
-      <div class="hero__tile" id="hero-tile" aria-live="polite"></div>
+      <div class="hero__tile" id="hero-tile" aria-live="polite" style="background-color:var(--field-1)"><img data-statik class="is-on" src="/assets/img/site/hero-abiye-1-700.webp" srcset="/assets/img/site/hero-abiye-1-500.webp 500w, /assets/img/site/hero-abiye-1-700.webp 700w, /assets/img/site/hero-abiye-1.webp 1000w" sizes="(min-width: 60em) 30rem, 90vw" alt="Lila Festkleid aus Satin mit Schleife" width="900" height="1125" decoding="async"></div>
       <div class="hero__side">
         <p class="hero__fact" id="hero-fact">Vom Festkleid bis zum Schulrock, vom Kinderwagen bis zum Hochstuhl.</p>
         <div class="hero__cta">
@@ -82,8 +85,8 @@
   <section class="kardes" id="kardes" aria-labelledby="kardes-title">
     <div class="kardes__head"><h2 class="head" id="kardes-title">Geschwister zusammen anziehen</h2><p>Wählen Sie das Alter der beiden Kinder und wofür Sie suchen; wir zeigen Ihnen Teile, die beiden passen, nebeneinander.</p></div>
     <form class="kardes__form">
-      <label>1. Kind <select name="yas1"><option value="">Alter wählen</option><option value="0">0 Jahre</option><option value="1">1 Jahre</option><option value="2">2 Jahre</option><option value="3">3 Jahre</option><option value="4">4 Jahre</option><option value="5">5 Jahre</option><option value="6">6 Jahre</option><option value="7">7 Jahre</option><option value="8">8 Jahre</option><option value="9">9 Jahre</option><option value="10">10 Jahre</option><option value="11">11 Jahre</option><option value="12">12 Jahre</option><option value="13">13 Jahre</option><option value="14">14 Jahre</option><option value="15">15 Jahre</option><option value="16">16 Jahre</option></select></label>
-      <label>2. Kind <select name="yas2"><option value="">Alter wählen</option><option value="0">0 Jahre</option><option value="1">1 Jahre</option><option value="2">2 Jahre</option><option value="3">3 Jahre</option><option value="4">4 Jahre</option><option value="5">5 Jahre</option><option value="6">6 Jahre</option><option value="7">7 Jahre</option><option value="8">8 Jahre</option><option value="9">9 Jahre</option><option value="10">10 Jahre</option><option value="11">11 Jahre</option><option value="12">12 Jahre</option><option value="13">13 Jahre</option><option value="14">14 Jahre</option><option value="15">15 Jahre</option><option value="16">16 Jahre</option></select></label>
+      <label>1. Kind <select name="yas1"><option value>Alter wählen</option><option value="0">0 Jahre</option><option value="1">1 Jahre</option><option value="2">2 Jahre</option><option value="3">3 Jahre</option><option value="4">4 Jahre</option><option value="5">5 Jahre</option><option value="6">6 Jahre</option><option value="7">7 Jahre</option><option value="8">8 Jahre</option><option value="9">9 Jahre</option><option value="10">10 Jahre</option><option value="11">11 Jahre</option><option value="12">12 Jahre</option><option value="13">13 Jahre</option><option value="14">14 Jahre</option><option value="15">15 Jahre</option><option value="16">16 Jahre</option></select></label>
+      <label>2. Kind <select name="yas2"><option value>Alter wählen</option><option value="0">0 Jahre</option><option value="1">1 Jahre</option><option value="2">2 Jahre</option><option value="3">3 Jahre</option><option value="4">4 Jahre</option><option value="5">5 Jahre</option><option value="6">6 Jahre</option><option value="7">7 Jahre</option><option value="8">8 Jahre</option><option value="9">9 Jahre</option><option value="10">10 Jahre</option><option value="11">11 Jahre</option><option value="12">12 Jahre</option><option value="13">13 Jahre</option><option value="14">14 Jahre</option><option value="15">15 Jahre</option><option value="16">16 Jahre</option></select></label>
       <label>Wofür <select name="amac"><option value="ozel">Hochzeit und besondere Anlässe</option><option value="bayram">Bayram</option><option value="okul">Schule</option><option value="gunluk">Alltag</option></select></label>
     </form>
     <div class="kardes__sonuc" hidden></div>
@@ -98,7 +101,7 @@
     </div>
     <p class="harita__adres" id="harita-adres">Cengiz Topel Caddesi No:37 D:39, Terzialiler, Ortaca</p>
     <div class="harita__kutu">
-      <iframe id="harita-google" src="https://www.google.com/maps?q=36.8368452,28.7666592&amp;z=17&amp;hl=tr&amp;output=embed" title="Mavi Boncuk Kinderbekleidung, Google Maps" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+      <iframe id="harita-google" data-src="https://www.google.com/maps?q=36.8368452,28.7666592&amp;z=17&amp;hl=tr&amp;output=embed" title="Mavi Boncuk Kinderbekleidung, Google Maps" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
       <div class="harita__rota-harita" id="rota-harita" hidden></div>
     </div>
     <button type="button" class="button harita__rota" id="rota-ciz"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s7-6.2 7-12a7 7 0 10-14 0c0 5.8 7 12 7 12z" fill="#fff" fill-opacity=".25" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="10" r="2.6" fill="currentColor"/></svg><span>Weg von meinem Standort zeigen</span></button>
@@ -307,9 +310,8 @@
 <p class="dil-not">Rechtstexte und Blogbeiträge sind auf Türkisch. Wir fügen Ihrer WhatsApp-Nachricht unten die türkische Fassung hinzu; Sie können also in Ihrer eigenen Sprache schreiben.</p>
 </footer>
 
-<script src="/assets/js/dil.js?v=20261021b" defer></script>
-<script src="/assets/js/site.js?v=20261021b" defer></script>
-<script src="/assets/js/oyun.js?v=20261021b" defer></script>
-<script src="/assets/js/ek.js?v=20261021b" defer></script>
+<script src="/assets/js/dil.js?v=20261021j" defer></script>
+<script src="/assets/js/site.js?v=20261021j" defer></script>
+<script>(function(){var y=0;function f(){if(y)return;y=1;['/assets/js/oyun.js?v=20261021j','/assets/js/ek.js?v=20261021j'].forEach(function(s){var e=document.createElement('script');e.src=s;e.async=false;document.head.appendChild(e)})}if(document.readyState==='complete')f();else addEventListener('load',f,{once:true});['pointerdown','keydown','touchstart','scroll'].forEach(function(t){addEventListener(t,f,{once:true,passive:true})})})();</script>
 </body>
 </html>

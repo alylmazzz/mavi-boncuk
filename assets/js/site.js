@@ -91,22 +91,29 @@
     const fields = ['var(--field-1)', 'var(--field-2)', 'var(--field-3)', 'var(--surface)'];
     const items = site.hero;
     let cur = 0, timer = null, frame = 0;
+    const yukle = (im) => { if (im && im.dataset.src) { im.srcset = im.dataset.srcset; im.src = im.dataset.src; delete im.dataset.src; } };
+    // sayfa yüklendikten sonra sıradaki fotoğrafı önceden indir
+    const sonraki = () => setTimeout(() => yukle(tileBox.querySelectorAll('img')[1]), 2500);
     const show = (i) => {
       cur = i;
       const it = items[i];
       names.querySelectorAll('button').forEach((b, j) => b.setAttribute('aria-pressed', String(j === i)));
       tileBox.style.backgroundColor = fields[i % fields.length];
+      // ilk fotoğraf hemen, diğerleri sırası gelince iner (açılış hızı)
+      const set = (g) => `${g.replace(/.webp$/, '-500.webp')} 500w, ${g.replace(/.webp$/, '-700.webp')} 700w, ${g} 1000w`;
+      const ilk = tileBox.querySelector('img[data-statik]');
       tileBox.replaceChildren(...it.gorseller.map((g, j) => {
-        const im = img(g, j === 0 ? it.alt : '', 900, 1125, i !== 0 || j !== 0);
-        im.srcset = `${g.replace(/.webp$/, '-500.webp')} 500w, ${g} 1000w`; im.sizes = '(min-width: 60em) 30rem, 90vw';
-        if (i === 0 && j === 0) im.fetchPriority = 'high';
-        if (j === 0) im.classList.add('is-on');
+        if (i === 0 && j === 0 && ilk) { ilk.classList.add('is-on'); return ilk; }
+        const im = img(j === 0 ? g : 'data:image/gif;base64,R0lGODlhAQABAAAAACw=', j === 0 ? it.alt : '', 900, 1125, false);
+        im.sizes = '(min-width: 60em) 30rem, 90vw';
+        if (j === 0) { im.srcset = set(g); im.classList.add('is-on'); } else { im.dataset.src = g; im.dataset.srcset = set(g); }
         return im;
       }));
       fact.textContent = it.not;
       cta.href = waLink(`Merhaba, sitede ${it.ad.toLocaleLowerCase('tr')} bölümüne baktım. Elinizde neler var?${olcu()}`);
       cta.textContent = it.buton || 'WhatsApp’tan sor';
       frame = 0;
+      if (document.readyState === 'complete') sonraki(); else addEventListener('load', sonraki, { once: true });
     };
     items.forEach((it, i) => {
       const b = el('button', { type: 'button', 'aria-pressed': 'false', text: it.ad });
@@ -122,7 +129,7 @@
         if (imgs.length < 2) return;
         imgs[frame].classList.remove('is-on');
         frame = (frame + 1) % imgs.length;
-        imgs[frame].loading = 'eager';
+        yukle(imgs[frame]); yukle(imgs[(frame + 1) % imgs.length]);
         imgs[frame].classList.add('is-on');
       }, 5500);
     }
@@ -407,17 +414,16 @@
   document.querySelectorAll('[data-wa]').forEach((a) => {
     if (!a.href.includes('text=')) a.href = waLink('Merhaba, sitenizden yazıyorum.');
   });
+  // ilk ekran (hero) hemen; aşağıdaki bölümler tarayıcı boşalınca çizilir ki ilk görüntü gecikmesin
+  const sonra = (f) => ('requestIdleCallback' in window ? requestIdleCallback(() => f(), { timeout: 1200 }) : setTimeout(f, 200));
   sorular();
-  yorumlar();
-  sonYazilar();
   form();
   hareket();
+  sonra(() => { yorumlar(); sonYazilar(); });
   data().then(({ urunler, site }) => {
     hero(site);
-    vitrin(urunler);
-    katalog(urunler);
-    seritler(site);
     urunSayfasi(urunler);
+    sonra(() => { vitrin(urunler); katalog(urunler); seritler(site); });
   }).catch(() => {
     const g = $('#grid') || $('#urun');
     if (g) g.append(el('p', { text: 'Ürünler yüklenemedi. Sayfayı yenileyin ya da Instagram’dan bakın: @maviboncuk_ortaca' }));
