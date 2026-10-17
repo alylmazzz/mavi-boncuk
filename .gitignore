@@ -5,3 +5,6 @@ Thumbs.db
 *.log
 ham/
 .taste-skill/
+
+.vercel
+.env*
