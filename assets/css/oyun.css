@@ -579,3 +579,132 @@ html.gece .konum { background: var(--field-1); }
   .altbar__wa { padding: 0 0.75rem; }
   .altbar__btn { padding: 0 0.85rem; }
 }
+
+/* WhatsApp butonunun üstündeki MB logosu ve yönetim girişi */
+.fab__yigin { display: flex; flex-direction: column; align-items: center; gap: 0.6rem; }
+.mb-gizli { width: 48px; height: 48px; padding: 0; border: 0; border-radius: 50%; background: #fff; box-shadow: var(--clay); display: grid; place-items: center; cursor: pointer; -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
+.mb-gizli img { width: 40px; height: 40px; border-radius: 50%; display: block; }
+.mb-gizli:active { transform: scale(0.94); }
+.mb-gizli--altbar { position: fixed; z-index: 43; right: max(14px, env(safe-area-inset-right)); bottom: calc(5.2rem + env(safe-area-inset-bottom)); }
+.mb-giris { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; padding: 16px; background: rgba(20, 30, 60, 0.45); }
+.mb-giris__kutu { width: min(22rem, 100%); display: grid; gap: 0.5rem; background: var(--surface, #fff); color: var(--ink); border-radius: 24px; padding: 1.4rem; box-shadow: var(--clay); }
+.mb-giris__kutu h2 { margin: 0 0 0.3rem; font-size: 1.4rem; }
+.mb-giris__kutu input { min-height: 48px; font-size: 1.1rem; border: 2px solid var(--field-3, #dde3ea); border-radius: 14px; padding: 0 0.9rem; background: var(--bg, #fff); color: var(--ink); letter-spacing: 0.2em; }
+.mb-giris__hata { min-height: 1.4em; margin: 0; color: #b4234a; font-size: var(--step-small); }
+html.gece .mb-giris__hata { color: #ff9fb5; }
+.mb-giris__dugmeler { display: flex; gap: 0.5rem; justify-content: flex-end; flex-wrap: wrap; }
+.mb-giris__vazgec { background: var(--field-3, #eef1f4); color: var(--ink); }
+
+/* ---------- dil seçici ---------- */
+.dil { position: relative; }
+.dil__btn { min-height: 44px; display: inline-flex; align-items: center; gap: 0.3rem; padding: 0 0.6rem; border-radius: 999px; color: var(--muted); font-weight: 700; font-size: 0.9rem; }
+.dil__btn svg { width: 20px; height: 20px; }
+.dil__btn[aria-expanded="true"] { color: var(--accent); background: var(--field-1); }
+.dil__panel { position: absolute; right: 0; top: calc(100% + 6px); z-index: 60; list-style: none; margin: 0; padding: 0.4rem; min-width: 11rem; background: var(--surface, #fff); border-radius: 18px; box-shadow: var(--clay); display: grid; }
+.dil__panel[hidden] { display: none; }
+.dil__panel a { display: flex; align-items: center; min-height: 44px; padding: 0 0.8rem; border-radius: 12px; text-decoration: none; color: var(--ink); font-size: 1rem; }
+.dil__panel a:hover, .dil__panel a:focus-visible { background: var(--field-1); }
+.dil__panel a[aria-current="true"] { font-weight: 700; color: var(--accent); }
+@media (max-width: 59.99em) {
+  .bar__links .dil { order: 13; }
+  .bar__links .dil__btn { height: 52px; font-size: 1rem; color: var(--ink); }
+  .bar__links .dil__panel { position: static; box-shadow: none; padding: 0 0 0.4rem; grid-template-columns: 1fr 1fr; }
+  .bar__links .dil__panel a { font-size: 1rem !important; min-height: 44px !important; }
+}
+.dil-oneri { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1rem; margin: 0.5rem auto 0; padding: 0.6rem 3rem 0.6rem 1rem; max-width: min(60rem, calc(100% - 32px)); background: var(--field-1); border-radius: 22px; position: relative; font-size: var(--step-small); }
+.dil-oneri p { margin: 0; }
+.dil-oneri .button { min-height: 44px; }
+.dil-oneri__kapat { position: absolute; right: 0.3rem; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; border-radius: 50%; font-size: 1.4rem; color: var(--muted); }
+.dil-not { font-size: var(--step-small); color: var(--muted); margin-top: 0.8rem; }
+
+/* telefon menüsündeki CSS etiketleri, dile göre */
+@media (max-width: 59.99em) {
+  html[lang="en"] .bar__links .sound-btn::after { content: "Click sound"; } html[lang="en"] .bar__links .gece-btn::after { content: "Night mode"; }
+  html[lang="de"] .bar__links .sound-btn::after { content: "Klickgeräusch"; } html[lang="de"] .bar__links .gece-btn::after { content: "Nachtmodus"; }
+  html[lang="ru"] .bar__links .sound-btn::after { content: "Звук нажатия"; } html[lang="ru"] .bar__links .gece-btn::after { content: "Ночной режим"; }
+  html[lang="nl"] .bar__links .sound-btn::after { content: "Klikgeluid"; } html[lang="nl"] .bar__links .gece-btn::after { content: "Nachtmodus"; }
+  html[lang="it"] .bar__links .sound-btn::after { content: "Suono del clic"; } html[lang="it"] .bar__links .gece-btn::after { content: "Modalità notte"; }
+  html[lang="es"] .bar__links .sound-btn::after { content: "Sonido al tocar"; } html[lang="es"] .bar__links .gece-btn::after { content: "Modo noche"; }
+  html[lang="fr"] .bar__links .sound-btn::after { content: "Son du clic"; } html[lang="fr"] .bar__links .gece-btn::after { content: "Mode nuit"; }
+  html[lang="pt"] .bar__links .sound-btn::after { content: "Som do toque"; } html[lang="pt"] .bar__links .gece-btn::after { content: "Modo noturno"; }
+  html[lang="ar"] .bar__links .sound-btn::after { content: "صوت النقر"; } html[lang="ar"] .bar__links .gece-btn::after { content: "الوضع الليلي"; }
+}
+/* dil listesindeki bağlantılar menünün renkli harf stilini almasın */
+.bar__links .dil__panel a:not(.button) { font-family: var(--font); font-weight: 600; font-size: 1rem; letter-spacing: 0; color: var(--ink); -webkit-text-stroke: 0; text-shadow: none; padding: 0 0.8rem; transform: none; }
+.bar__links .dil__panel a[aria-current="true"] { color: var(--accent); font-weight: 700; }
+
+/* Arapça: sağdan sola */
+.dil__panel { right: auto; inset-inline-end: 0; }
+html[dir="rtl"] body { line-height: 1.7; }
+html[dir="rtl"] .dil-oneri { padding: 0.6rem 1rem 0.6rem 3rem; }
+html[dir="rtl"] .dil-oneri__kapat { right: auto; left: 0.3rem; }
+html[dir="rtl"] .konum { padding: 0.8rem 1.1rem 0.8rem 3rem; }
+html[dir="rtl"] .konum__kapat { right: auto; left: 0.4rem; }
+/* Arapça harflerde kontur ve gölge okunurluğu bozar */
+html[lang="ar"] .bar__links a:not(.button) { -webkit-text-stroke: 0.07em var(--edge); text-shadow: 0 0.05em 0 var(--edge); }
+html[dir="rtl"] .sky { right: auto !important; left: 0; }
+/* dil bayrakları */
+.dil__bayrak { width: 24px; height: 16px; border-radius: 3px; flex: none; box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.12); }
+.dil__panel a { gap: 0.6rem; }
+.dil-oneri .button .dil__bayrak { margin-inline-end: 0.4rem; }
+
+/* ---------- beğendiklerim ---------- */
+.tile__frame { position: relative; }
+.tile__begen { position: absolute; top: 0.5rem; inset-inline-end: 0.5rem; z-index: 2; width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; background: rgba(255, 255, 255, 0.92); box-shadow: 0 4px 12px -4px rgba(20, 50, 80, 0.35); }
+.tile__begen svg, .kardes__kalp svg, .begen__ac svg { width: 22px; height: 22px; fill: none; stroke: #c2456e; stroke-width: 2; }
+.tile__begen[aria-pressed="true"] svg, .kardes__kalp[aria-pressed="true"] svg, .begen__ac svg { fill: #f28db2; }
+.tile__begen:active, .kardes__kalp:active { transform: scale(0.9); }
+.begen-btn[aria-pressed="true"] { background: var(--field-2); }
+.begen { position: fixed; z-index: 41; inset-inline-start: max(16px, env(safe-area-inset-left)); bottom: max(16px, env(safe-area-inset-bottom)); max-width: min(22rem, calc(100vw - 110px)); }
+html.has-altbar .begen { bottom: calc(5.2rem + env(safe-area-inset-bottom)); }
+.begen__ac { min-height: 48px; display: inline-flex; align-items: center; gap: 0.4rem; padding: 0 1rem; border-radius: 999px; background: #fff; color: var(--ink); font-weight: 700; box-shadow: var(--clay); }
+.begen__ac b { background: #c2456e; color: #fff; border-radius: 999px; min-width: 1.6em; padding: 0 0.4em; font-size: 0.85rem; line-height: 1.6; text-align: center; }
+.begen__panel { position: absolute; bottom: calc(100% + 8px); inset-inline-start: 0; width: min(22rem, calc(100vw - 32px)); max-height: 60vh; overflow: auto; background: var(--surface, #fff); border-radius: 22px; padding: 0.8rem; box-shadow: var(--clay); display: grid; gap: 0.6rem; }
+.begen__panel[hidden] { display: none; }
+.begen__liste { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.4rem; }
+.begen__liste li { display: flex; align-items: center; gap: 0.5rem; }
+.begen__liste a { flex: 1; display: flex; align-items: center; gap: 0.6rem; text-decoration: none; color: var(--ink); font-size: 0.95rem; min-height: 44px; }
+.begen__liste img { width: 40px; height: 50px; object-fit: cover; border-radius: 8px; flex: none; }
+.begen__liste button { width: 44px; height: 44px; border-radius: 50%; font-size: 1.3rem; color: var(--muted); flex: none; }
+.begen__temizle { min-height: 44px; color: var(--muted); text-decoration: underline; font-size: 0.9rem; }
+
+/* ---------- kardeşler ---------- */
+.kardes { padding: var(--section) var(--margin) 0; }
+.kardes__head p { max-width: 40rem; color: var(--muted); margin-top: 0.6rem; }
+.kardes__form { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 1.5rem; }
+.kardes__form label, .randevu__form label { display: grid; gap: 0.3rem; font-weight: 600; font-size: 0.95rem; }
+.kardes__form select, .randevu__form input { min-height: 48px; min-width: 9rem; border-radius: 14px; border: 2px solid var(--field-3); background: var(--bg); color: var(--ink); padding: 0 0.8rem; font: inherit; font-size: 1rem; }
+.kardes__sonuc { display: grid; gap: 1.5rem; margin-top: 1.5rem; }
+@media (min-width: 48em) { .kardes__sonuc { grid-template-columns: 1fr 1fr; } }
+.kardes__kol h3 { font-family: "Baloo 2", var(--font); font-weight: 800; color: var(--navy); font-size: var(--step-lead); }
+.kardes__kol ul { list-style: none; margin: 0.6rem 0 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.8rem; }
+.kardes__kol li { position: relative; }
+.kardes__kart { display: grid; gap: 0.3rem; text-decoration: none; color: var(--ink); font-size: 0.95rem; }
+.kardes__kart img { width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 18px; background: var(--field-1); }
+.kardes__kalp { position: absolute; top: 0.4rem; inset-inline-end: 0.4rem; width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; background: rgba(255, 255, 255, 0.92); }
+.kardes__sor { margin-top: 1.5rem; }
+
+/* ---------- randevu ve yol tarifi ---------- */
+.randevu, .tarif { padding: var(--section) var(--margin) 0; }
+.randevu p, .tarif p { max-width: 42rem; margin-top: 0.6rem; }
+.randevu__form { display: flex; flex-wrap: wrap; align-items: end; gap: 0.8rem; margin-top: 1.5rem; }
+.randevu__form input[name="ne"] { min-width: min(20rem, 100%); }
+.tarif__liste { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1.2rem; }
+.tarif { padding-bottom: var(--section); }
+
+/* ---------- mağaza duyurusu ---------- */
+.duyuru { position: relative; margin: 0.5rem auto 0; max-width: min(60rem, calc(100% - 32px)); padding: 0.7rem 3rem 0.7rem 1rem; background: var(--field-2); border-radius: 22px; font-weight: 600; }
+.duyuru p { margin: 0; }
+.duyuru__kapat { position: absolute; inset-inline-end: 0.3rem; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; border-radius: 50%; font-size: 1.4rem; color: var(--muted); }
+html[dir="rtl"] .duyuru { padding: 0.7rem 1rem 0.7rem 3rem; }
+html.gece .begen__ac, html.gece .tile__begen, html.gece .kardes__kalp { background: var(--surface); color: var(--ink); }
+
+/* gece modunda dolu butonlar koyu turkuaz kalsın (beyaz yazı 4.5:1 üstü) */
+html.gece .button:not([class*="button--"]):not(.mb-giris__vazgec) { background-color: #0b7a75; color: #fff; }
+/* dil önerisi ve duyuru sayfayı itmesin (CLS): altta yüzen kutu */
+.dil-oneri, .duyuru { position: fixed; z-index: 45; left: 50%; transform: translateX(-50%); bottom: calc(max(16px, env(safe-area-inset-bottom)) + 4.5rem); margin: 0; width: min(36rem, calc(100vw - 32px)); max-width: none; box-shadow: var(--clay); }
+.duyuru { top: calc(env(safe-area-inset-top) + 5.25rem); bottom: auto; }
+html.has-altbar .dil-oneri { bottom: calc(10rem + env(safe-area-inset-bottom)); }
+.mb-gizli img { width: 40px; height: auto; border-radius: 0; object-fit: contain; }
+/* selamlama JS ile iki satırlık metne dönüşüyor; yer baştan ayrılsın (CLS) */
+.hero__hello { display: block; min-height: 2.5em; line-height: 1.2; }

@@ -1,6 +1,7 @@
 User-agent: *
 Allow: /
 Disallow: /api/
+Disallow: /yonetim
 
 User-agent: GPTBot
 Allow: /

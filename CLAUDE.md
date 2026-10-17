@@ -71,3 +71,33 @@ yasak listesine göre tara.
 ## İçerik kaynağı
 
 Instagram içerikleri imginn.com üzerinden alınır, süreç `docs/instagram-aktarim.md` içinde.
+
+## Yönetim paneli (2026-10-17)
+
+WhatsApp butonunun üstündeki MB logosuna 3 kez dokununca şifre penceresi açılır (ek.js). Şifre istemcide yok: `api/yonetim.js`
+scrypt ile doğrular (Vercel env: MB_YONETIM_TUZ, MB_YONETIM_HASH, MB_YONETIM_IMZA), imzalı HttpOnly çerez verir, `/yonetim`
+paneli `api/_lib/panel/index.html`'den sunar. Panel: fiş/fatura okuma (GİB karekod → PDF metni → Tesseract), satışlar, kargo Excel,
+aylık Excel, kurallar (Ayarlar'dan), kayıtlar cihazda IndexedDB + JSON yedek. Tasarım ve mevzuat: `docs/muhasebe-sistemi.md`.
+Vergi içeriği yalnızca yasal planlamadır; beyanı SMMM verir.
+Telegram botu (@maviboncukortacabot): `api/telegram.js`. Env: TELEGRAM_BOT_TOKEN, TELEGRAM_IZINLI_TELEFON (virgüllü, kendi numarasını
+paylaşan yetkili olur), CRON_SECRET (09.00 TR sabah özeti). Bağlı sohbetler webhook adresindeki ?s= listesinde. Panel Ayarlar'dan kodla bağlama.
+
+## Diller (2026-10-19)
+
+Türkçe + en, de, ru, nl, it, es, fr, pt, ar (Arapça sağdan sola: dil.js DILLER.ar.yon = rtl, diller.js dir="rtl" ekler; CSS html[dir="rtl"]). Çevrilen sayfalar: ana sayfa, urunler, kategori/*, urun/* → `/<dil>/...` (ör. /en, /de/urunler).
+Blog ve yasal sayfalar yalnızca Türkçe. Sözlükler `i18n/<dil>.json` (anahtar = Türkçe metin; {n} metin, {#n} sayı yer tutucusu),
+kaynak liste `i18n/kaynak.json`, denetim `node tools/dil-dogrula.js <dil>`. Çekirdek + tarayıcı tarafı `assets/js/dil.js`
+(dil seçici, Türkçe sayfada dil önerisi, JS ile gelen metinlerin çevirisi, WhatsApp mesajını ziyaretçinin dilinde + altına Türkçesi).
+Yeni Türkçe metin eklenince: kaynak.json'a ekle, 8 sözlüğe çevirisini yaz. Derleme sırası:
+`node tools/optimize.js <sürüm>` → `node tools/derle.js` → `node tools/diller.js` (son adım /<dil>/ sayfalarını, hreflang'leri ve
+assets/i18n/ sözlüklerini üretir; derle.js'ten sonra mutlaka çalıştır).
+
+## Ek özellikler (2026-10-20)
+
+- Beğendiklerim: ürün kartlarında kalp, sol altta liste, "Hepsini WhatsApp’tan sor" (localStorage `mb-begen`, ek.js).
+- Kardeşleri birlikte giydirin (#kardes), gelip denemek için randevu (#randevu, WhatsApp mesajı), yol tarifi (#yol-tarifi) index.html'de.
+- Özel gün sayfaları `/sezon/<id>` (mezuniyet, sunnet, bayramlik, dugun, okula-donus) derle.js içindeki SEZONLAR'dan üretilir.
+- Telegram: `/duyuru <metin>` sitenin üstünde şerit (sabitlenmiş mesaj, `/api/duyuru` okur, 5 dk önbellek), `/duyurukapat`.
+  "Gelince haber ver"e basılınca `/api/bildir` mağazaya Telegram bildirimi yollar. Ortak Telegram kodu `api/_lib/tg.js`.
+- PWA: `manifest.webmanifest`, `sw.js` (sayfalar ağ öncelikli, /assets önbellekte, /api ve /yonetim hiç), simgeler assets/img/site/icon-*.png.
+- Vercel Web Analytics betiği tüm sayfalarda (diller.js ekler); Vercel panelinde Analytics açılınca veri gelir.

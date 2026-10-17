@@ -346,8 +346,9 @@
       facts,
       el('div', { class: 'product__cta' }, [
         u.durum === 'tükendi'
-          ? el('a', { class: 'button', href: waLink(`Merhaba, “${u.ad}” (${location.href}) tükenmiş görünüyor. Gelince haber verir misiniz?${olcu()}`), text: 'Gelince haber ver' })
+          ? el('a', { class: 'button', 'data-stok-talep': u.id, href: waLink(`Merhaba, “${u.ad}” (${location.href}) tükenmiş görünüyor. Gelince haber verir misiniz?${olcu()}`), text: 'Gelince haber ver' })
           : el('a', { class: 'button', href: waLink(`Merhaba, “${u.ad}” için yazıyorum (${location.href}). Fiyatı ve bedenleri nedir?${olcu()}`), text: 'WhatsApp’tan sor' }),
+        el('button', { class: 'button button--paper begen-btn', type: 'button', 'data-begen': u.id, 'aria-pressed': 'false', text: 'Beğendiklerime ekle' }),
         el('a', { class: 'button button--paper gift-note', href: waLink(`Merhaba, “${u.ad}” ürününü hediye olarak almak istiyorum (${location.href}). Hediye notu eklemek istiyorum: `), text: 'Hediye notu ekle' }),
         u.instagram ? el('a', { class: 'button button--paper', href: u.instagram, rel: 'noopener', text: 'Instagram’da gör' }) : null
       ])

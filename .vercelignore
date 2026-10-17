@@ -1,5 +1,6 @@
 tools/
 docs/
+i18n/
 CLAUDE.md
 .taste-skill/
-.env.local
+ham/

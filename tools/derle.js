@@ -15,7 +15,8 @@ const ver = (urunHtml.match(/\?v=(\w+)/) || [, '1'])[1];
 const header = urunHtml.slice(urunHtml.indexOf('<header'), urunHtml.indexOf('</header>') + 9);
 const footer = urunHtml.slice(urunHtml.indexOf('<footer'), urunHtml.indexOf('</footer>') + 9);
 const headLinks = urunHtml.slice(urunHtml.indexOf('<link rel="icon"'), urunHtml.indexOf('</head>')).split(/\r?\n/).filter((l) => !/rel="canonical"|property="og:|name="robots"/.test(l)).join('\n').trim();
-const scripts = `<script src="/assets/js/site.js?v=${ver}" defer></script>\n<script src="/assets/js/oyun.js?v=${ver}" defer></script>
+const scripts = `<script src="/assets/js/dil.js?v=${ver}" defer></script>
+<script src="/assets/js/site.js?v=${ver}" defer></script>\n<script src="/assets/js/oyun.js?v=${ver}" defer></script>
 <script src="/assets/js/ek.js?v=${ver}" defer></script>`;
 
 // ---------- 1) blog iskeleti ----------
@@ -158,6 +159,78 @@ for (const k of KATEGORILER) {
   wr(`kategori/${k.id}.html`, sabitSayfa({ baslik: k.baslik, aciklama: k.aciklama, yol, govde, jsonld, gorsel: list[0] ? SITE + list[0].gorseller[0] : null }));
 }
 
+// ---------- 2b2) özel gün (sezon) sayfaları ----------
+// Ürünler kategoriye ve kısa nota göre süzülür; büyük bebek eşyaları (araba, beşik, ana kucağı) giyim sayfalarına girmez.
+const ESYA = /arabas|besik|beşik|kucag|kucağ|karyola|yurutec|yürüteç|mama-sandal/;
+const giyim = (u) => !ESYA.test(u.id) && u.kategori !== 'aksesuar';
+const SEZONLAR = [
+  {
+    id: 'mezuniyet', ad: 'Mezuniyet kıyafetleri',
+    baslik: 'Mezuniyet abiyesi ve takım elbise · Mavi Boncuk Ortaca',
+    aciklama: 'Ortaca’da anaokulu, ilkokul ve lise mezuniyeti için kız çocuk abiyeleri ve erkek çocuk takım elbiseleri. 3-15 yaş modeller.',
+    giris: ['Anaokulu, ilkokul ve lise mezuniyetleri için kız çocuk abiyeleri ve erkek çocuk takım elbiseleri. 3 yaştan 15 yaşa kadar modeller askıda.', 'Mezuniyetler çoğunlukla haziranda. Mayıs başında bakarsanız bedeni netleştirmeye, gerekirse kol ve paça boyunu ayarlatmaya vakit kalır.'],
+    suz: (u) => ['abiye', 'takim-elbise'].includes(u.kategori) || /Mezuniyet/i.test(u.kisa || ''),
+    sss: [['Okul belli bir renk istiyorsa?', 'Rengi yazın, elimizde o renkte hangi bedenler olduğunu fotoğrafla gönderelim.'],
+      ['Mezuniyet abiyesine ne zaman bakmalı?', 'Mezuniyetler haziranda olduğu için mayıs başı iyi bir zaman. Bedeni netleştirmeye ve ayakkabıyı denemeye vakit kalır.']]
+  },
+  {
+    id: 'sunnet', ad: 'Sünnet kıyafetleri',
+    baslik: 'Sünnet kıyafeti ve çocuk takım elbise · Mavi Boncuk Ortaca',
+    aciklama: 'Ortaca’da sünnet töreni için 1-14 yaş erkek çocuk takım elbiseleri: smokin, keten ve yelekli üç parça modeller.',
+    giris: ['Sünnet töreni için 1-14 yaş erkek çocuk takım elbiseleri: smokin, keten ve yelekli üç parça modeller, papyonlu olanlar da var.', 'Tarih belli olunca en az iki hafta önceden bakın. Kol ya da paça boyu gerekirse terzide ayarlatmaya vakit kalır.'],
+    suz: (u) => u.kategori === 'takim-elbise',
+    sss: [['Pelerinli, şapkalı sünnet kıyafeti var mı?', 'Elimizde olup olmadığını WhatsApp’tan sorun; varsa fotoğrafını ve bedenlerini gönderelim.'],
+      ['Takım elbiseyi büyük almalı mıyım?', 'Ceketin kolu bileği geçmesin, pantolon paçası ayakkabının üstüne hafifçe değsin. Bir beden büyük ceket fotoğrafta bol görünür; tam bedenini almak daha iyi olur.']]
+  },
+  {
+    id: 'bayramlik', ad: 'Bayramlık çocuk kıyafetleri',
+    baslik: 'Bayramlık çocuk kıyafetleri · Mavi Boncuk Ortaca',
+    aciklama: 'Ortaca’da Ramazan ve Kurban Bayramı için kız ve erkek çocuk bayramlıkları: elbiseler, takımlar, gömlek ve şortlar. 0-16 yaş.',
+    giris: ['Ramazan ve Kurban Bayramı için kız ve erkek çocuklara bayramlık: elbiseler, takımlar, gömlek ve şortlar, küçükler için bebek takımları.', 'Bayramdan birkaç hafta önce yazarsanız istediğiniz bedeni bulma şansınız daha yüksek olur.'],
+    suz: (u) => giyim(u) && u.kategori !== 'okul',
+    sss: [['Kardeşlere aynı renkte bayramlık bulabilir miyim?', 'Çocukların yaşlarını yazın, iki bedende de olan modelleri söyleyelim.']]
+  },
+  {
+    id: 'dugun', ad: 'Düğün ve nişan için çocuk kıyafetleri',
+    baslik: 'Düğün ve nişan için çocuk kıyafetleri · Mavi Boncuk Ortaca',
+    aciklama: 'Ortaca’da düğün, nişan, kına ve nikâh için kız çocuk abiyeleri ve erkek çocuk takım elbiseleri.',
+    giris: ['Düğün, nişan, kına ve nikâh için kız çocuk abiyeleri ve erkek çocuk takım elbiseleri.', 'Yaz düğünleri için keten takımlar ve tül abiyeler daha hafif durur. Kardeşleri birlikte giydirmek isterseniz yaşlarını yazın, uyumlu parçaları birlikte gösterelim.'],
+    suz: (u) => ['abiye', 'takim-elbise'].includes(u.kategori) || /Düğün|Nişan/i.test(u.kisa || ''),
+    sss: [['Abiyeyi denemeden alabilir miyim?', 'Ortaca dışındaysanız boy ve kilo ölçüsüyle WhatsApp’tan sorun, elbiseyi ölçüp söyleyelim. Ortaca’daysanız mağazaya gelip deneyebilirsiniz.']]
+  },
+  {
+    id: 'okula-donus', ad: 'Okula dönüş',
+    baslik: 'Okula dönüş: okul kıyafetleri ve günlük takımlar · Mavi Boncuk Ortaca',
+    aciklama: 'Ortaca’da okul kıyafetleri ve okula giyilecek günlük takımlar: polo tişört, şort, etek, eşofman ve sweatshirt.',
+    giris: ['Okul kıyafetleri ve okula giyilecek günlük takımlar: polo tişört, şort, etek, eşofman ve sweatshirt.', 'Okulunuzun istediği rengi ve modeli yazın, elimizde olan bedenleri söyleyelim.'],
+    suz: (u) => ['okul', 'gunluk'].includes(u.kategori),
+    sss: [['Okul kıyafetinden kaç takım almalı?', 'Her gün yıkamak istemiyorsanız üst için üç, alt için iki parça çoğu ailenin işini görür.']]
+  }
+];
+for (const k of SEZONLAR) {
+  const list = gorunur.filter(k.suz);
+  const yol = `/sezon/${k.id}`;
+  const govde = `<main class="blog">
+  <nav class="post__crumb" aria-label="Konum"><a href="/">Ana sayfa</a> / <a href="/urunler">Ürünler</a> / ${esc(k.ad)}</nav>
+  <h1>${esc(k.ad)}</h1>
+  ${k.giris.map((p) => `<p class="blog__lead">${esc(p)}</p>`).join('\n  ')}
+  <p style="margin-top:1.25rem"><a class="button" href="${wa(`Merhaba, sitede ${k.ad.toLocaleLowerCase('tr')} sayfasına baktım. Elinizde neler var?`)}">WhatsApp’tan sor</a></p>
+  <div class="grid-tiles" style="margin-top:2.5rem">${list.map(kart).join('')}</div>
+  <section class="kat__sss"><h2 class="head" style="margin-top:4rem">Sık sorulanlar</h2>${k.sss.map(([s, c]) => `<h3>${esc(s)}</h3><p>${esc(c)}</p>`).join('')}</section>
+  <nav class="blog__kats" aria-label="Özel günler" style="margin-top:3rem">${SEZONLAR.filter((x) => x.id !== k.id).map((x) => `<a class="blog__kat" href="/sezon/${x.id}">${esc(x.ad)}</a>`).join('')}</nav>
+</main>`;
+  const jsonld = [
+    { '@context': 'https://schema.org', '@type': 'CollectionPage', name: k.ad, description: k.aciklama, url: SITE + yol,
+      isPartOf: { '@type': 'WebSite', name: 'Mavi Boncuk', url: SITE },
+      mainEntity: { '@type': 'ItemList', itemListElement: list.map((u, i) => ({ '@type': 'ListItem', position: i + 1, url: `${SITE}/urun/${u.id}`, name: u.ad })) } },
+    { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: k.sss.map(([s, c]) => ({ '@type': 'Question', name: s, acceptedAnswer: { '@type': 'Answer', text: c } })) },
+    { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Ana sayfa', item: SITE }, { '@type': 'ListItem', position: 2, name: 'Ürünler', item: `${SITE}/urunler` }, { '@type': 'ListItem', position: 3, name: k.ad, item: SITE + yol }] }
+  ];
+  wr(`sezon/${k.id}.html`, sabitSayfa({ baslik: k.baslik, aciklama: k.aciklama, yol, govde, jsonld, gorsel: list[0] ? SITE + list[0].gorseller[0] : null }));
+}
+wr('api/_lib/sezonlar.json', JSON.stringify(SEZONLAR.map((k) => k.id)));
+
 // ---------- 2c) 404 sayfası ----------
 wr('404.html', sabitSayfa({
   baslik: 'Sayfa bulunamadı · Mavi Boncuk', aciklama: 'Aradığınız sayfa bulunamadı.', yol: '/404',
@@ -196,6 +269,7 @@ wr('llms.txt', `# Mavi Boncuk Bebe Mağazası
 wr('robots.txt', `User-agent: *
 Allow: /
 Disallow: /api/
+Disallow: /yonetim
 
 User-agent: GPTBot
 Allow: /
