@@ -363,16 +363,11 @@ p { max-width: 62ch; text-wrap: pretty; }
 }
 
 /* ---------- imleç takibi ve eğilen kartlar ---------- */
-.cursor { position: fixed; left: 0; top: 0; width: 26px; height: 26px; margin: -13px 0 0 -13px; pointer-events: none; z-index: 50; opacity: 0; transition: opacity 150ms ease; will-change: transform; contain: layout style; }
-.cursor.is-on { opacity: 1; }
-.cursor.is-big svg { transform: scale(1.5); }
-.cursor svg { transition: transform 160ms ease-out; }
 /* eğilme: geçiş yalnızca bırakınca; üzerindeyken anında takip eder, katman yalnızca o an açılır */
 .tile__frame, .shop__item figure, .hero__tile, .strip__row a, .showcase__panel, .product__main { transition: transform 380ms var(--ease-out); }
 .tile__frame img, .shop__item img, .strip__row img, .showcase__img, .product__main img { transition: transform 380ms var(--ease-out), opacity 450ms ease; }
 .is-tilting { will-change: transform; transition: transform 80ms linear !important; }
 .is-tilting img { transition: transform 80ms linear, opacity 450ms ease !important; }
-@media (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) { .cursor { display: none; } }
 
 /* ---------- hero kategori adları: logo tadında renkli yazılar ---------- */
 .hero__names button {

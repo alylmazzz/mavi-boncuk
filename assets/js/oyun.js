@@ -142,75 +142,76 @@
     }
   }
 
-  // ---------- boncuk imleç ve iz ----------
-  const dot = $('.cursor');
-  if (dot && motion && finePointer) {
-    dot.innerHTML = '<svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="14" fill="#2f6fd6" stroke="#26357a" stroke-width="2"/><circle cx="16" cy="16" r="9" fill="#fff"/><circle cx="16" cy="16" r="5.5" fill="#7fe0dc"/><circle cx="16" cy="16" r="2.8" fill="#26357a"/><circle cx="11" cy="9" r="2.2" fill="#fff" opacity=".7"/></svg>';
-    document.documentElement.classList.add('has-bead');
+  // ---------- boncuk imleç (CSS, gecikmesiz) ve hafif iz ----------
+  if (finePointer) document.documentElement.classList.add('has-bead');
+  if (motion && finePointer) {
     const trail = document.createElement('canvas');
     trail.className = 'trail'; trail.setAttribute('aria-hidden', 'true');
     document.body.append(trail);
-    const tc = trail.getContext('2d');
+    const tc = trail.getContext('2d', { alpha: true });
     const size = () => { trail.width = innerWidth; trail.height = innerHeight; };
     size(); addEventListener('resize', size);
-    let bits = [], on = false, last = 0;
+    let bits = [], on = false, last = 0, box = null;
     const tick = () => {
-      tc.clearRect(0, 0, innerWidth, innerHeight);
+      // yalnızca parçacıkların olduğu kutuyu temizle
+      if (box) tc.clearRect(box[0] - 12, box[1] - 12, box[2] - box[0] + 24, box[3] - box[1] + 24);
       bits = bits.filter((b) => b.l > 0);
+      if (!bits.length) { on = false; box = null; return; }
+      let x0 = 1e9, y0 = 1e9, x1 = -1e9, y1 = -1e9;
       for (const b of bits) {
         b.l -= 1; b.y += b.vy; b.x += b.vx;
         tc.globalAlpha = (b.l / b.L) * 0.7;
-        if (b.k === 'bubble') { tc.strokeStyle = b.c; tc.lineWidth = 1.2; tc.beginPath(); tc.arc(b.x, b.y, b.s * (1.4 - b.l / b.L * 0.4), 0, 7); tc.stroke(); }
-        else { tc.fillStyle = b.c; tc.save(); tc.translate(b.x, b.y); tc.beginPath(); for (let i = 0; i < 8; i++) { const r = i % 2 ? b.s / 4 : b.s; const a = i * Math.PI / 4; tc.lineTo(Math.cos(a) * r, Math.sin(a) * r); } tc.fill(); tc.restore(); }
+        if (b.k === 'bubble') { tc.strokeStyle = b.c; tc.lineWidth = 1.2; tc.beginPath(); tc.arc(b.x, b.y, b.s * 1.2, 0, 6.3); tc.stroke(); }
+        else { tc.fillStyle = b.c; tc.fillRect(b.x - b.s / 2, b.y - b.s / 2, b.s, b.s); }
+        if (b.x < x0) x0 = b.x; if (b.y < y0) y0 = b.y; if (b.x > x1) x1 = b.x; if (b.y > y1) y1 = b.y;
       }
       tc.globalAlpha = 1;
-      if (bits.length) requestAnimationFrame(tick); else on = false;
+      box = [x0, y0, x1, y1];
+      requestAnimationFrame(tick);
     };
     addEventListener('pointermove', (e) => {
-      const now = performance.now();
-      if (now - last < 60) return;
+      const now = e.timeStamp;
+      if (now - last < 70) return;
       last = now;
-      bits.push({ x: e.clientX + (Math.random() - 0.5) * 8, y: e.clientY + (Math.random() - 0.5) * 8, vx: (Math.random() - 0.5) * 0.4, vy: -0.3 - Math.random() * 0.5, s: 2 + Math.random() * 3, c: COLORS[(Math.random() * 5) | 0], l: 24, L: 24, k: Math.random() < 0.45 ? 'bubble' : 'spark' });
-      if (bits.length > 18) bits.shift();
+      bits.push({ x: e.clientX, y: e.clientY, vx: (Math.random() - 0.5) * 0.4, vy: -0.4 - Math.random() * 0.4, s: 2 + Math.random() * 2.5, c: COLORS[(Math.random() * 5) | 0], l: 22, L: 22, k: Math.random() < 0.5 ? 'bubble' : 'spark' });
+      if (bits.length > 14) bits.shift();
       if (!on) { on = true; requestAnimationFrame(tick); }
     }, { passive: true });
   }
 
-  // ---------- süzülen arka plan ----------
+  // ---------- süzülen arka plan (tek tuval, yalnızca kaydırınca çizilir) ----------
   if (motion) {
-    const SHAPES = {
-      bow: '<svg viewBox="0 0 40 24"><path d="M20 12C14 2 2 0 2 12s12 10 18 0zm0 0c6-10 18-12 18 0s-12 10-18 0z" fill="#f7a8c4"/><circle cx="20" cy="12" r="4" fill="#f28db2"/></svg>',
-      star: '<svg viewBox="0 0 24 24"><path d="M12 2l3 7 7 .6-5.3 4.6L18.4 22 12 18l-6.4 4 1.7-7.8L2 9.6 9 9z" fill="#ffd766"/></svg>',
-      shoe: '<svg viewBox="0 0 40 24"><path d="M4 6c0-3 6-3 7 0 2 5 8 6 14 7 8 1 12 4 11 8H4z" fill="#7fe0dc"/><rect x="4" y="19" width="32" height="3" rx="1.5" fill="#fff"/></svg>',
-      bead: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#2f6fd6"/><circle cx="12" cy="12" r="7" fill="#fff"/><circle cx="12" cy="12" r="4" fill="#7fe0dc"/><circle cx="12" cy="12" r="2" fill="#26357a"/></svg>'
-    };
-    const kinds = ['bow', 'star', 'shoe', 'bead', 'star', 'bow', 'shoe'];
-    const layer = document.createElement('div');
+    const layer = document.createElement('canvas');
     layer.className = 'floaties'; layer.setAttribute('aria-hidden', 'true');
-    const items = kinds.map((k, i) => {
-      const s = document.createElement('span');
-      const w = 34 + ((i * 37) % 40);
-      s.style.width = `${w}px`; s.style.height = `${w}px`;
-      s.style.left = `${(i * 97 + 13) % 92}vw`;
-      s.innerHTML = SHAPES[k];
-      layer.append(s);
-      return { el: s, y: ((i * 61) % 100) / 100, f: 0.15 + (i % 4) * 0.12, r: (i * 47) % 360 };
-    });
     document.body.prepend(layer);
-    let lastY = scrollY, vel = 0, ticking = false;
-    const place = () => {
+    const lc = layer.getContext('2d');
+    const names = ['bow', 'star', 'shoe', 'bead', 'star', 'bow', 'shoe'];
+    const pics = {};
+    let ready = 0;
+    for (const n of new Set(names)) { const im = new Image(); im.onload = () => { ready++; draw(); }; im.src = `/assets/img/site/suzulen-${n}.png`; pics[n] = im; }
+    const items = names.map((n, i) => ({ n, x: ((i * 97 + 13) % 92) / 100, y: ((i * 61) % 100) / 100, f: 0.15 + (i % 4) * 0.12, w: 34 + ((i * 37) % 40), r: ((i * 47) % 360) * Math.PI / 180 }));
+    const mobile = !finePointer;
+    let vel = 0, lastY = scrollY, queued = false;
+    const size = () => { layer.width = innerWidth; layer.height = innerHeight; draw(); };
+    function draw() {
+      queued = false;
+      lc.clearRect(0, 0, layer.width, layer.height);
+      lc.globalAlpha = mobile ? 0.28 : 0.36;
       const H = innerHeight * 1.3;
       for (const it of items) {
+        const im = pics[it.n]; if (!im || !im.complete) continue;
         let y = (it.y * H - scrollY * it.f) % H; if (y < 0) y += H;
-        it.el.style.transform = `translate3d(0, ${y - innerHeight * 0.15}px, 0) rotate(${it.r + vel * 2}deg)`;
+        const h = it.w * (im.height / im.width);
+        lc.save(); lc.translate(it.x * innerWidth, y - innerHeight * 0.15); lc.rotate(it.r + vel * 0.03);
+        lc.drawImage(im, -it.w / 2, -h / 2, it.w, h); lc.restore();
       }
-      ticking = false;
-    };
-    place();
+    }
+    addEventListener('resize', size);
     addEventListener('scroll', () => {
       vel = Math.max(-12, Math.min(12, scrollY - lastY)); lastY = scrollY;
-      if (!ticking) { ticking = true; requestAnimationFrame(place); }
+      if (!queued) { queued = true; requestAnimationFrame(draw); }
     }, { passive: true });
+    size();
   }
 
   // ---------- yaş balonları: patla, konfeti, büyüyen sıra ----------

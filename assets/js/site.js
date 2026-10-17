@@ -309,20 +309,18 @@
 
   // imleç takibi ve imlece göre eğilen kartlar (yalnızca fareyle, hareket azaltılmamışsa)
   function hareket() {
+    // İmleç tarayıcının kendi imleci (CSS, gecikmesiz). Burada yalnızca kartların imlece göre eğilmesi var:
+    // tek pointermove dinleyicisi, kare başına tek yazma, ölçüm kart başına bir kez.
     if (reduced || !matchMedia("(hover: hover) and (pointer: fine)").matches) return;
-    // İmleç doğrudan farenin olduğu yere çizilir (gecikmesiz). Tek pointermove dinleyicisi, kare başına tek yazma.
-    const dot = el("div", { class: "cursor", "aria-hidden": "true" });
-    document.body.append(dot);
     const SEL = ".tile__frame, .shop__item figure, .hero__tile, .strip__row a, .showcase__panel, .product__main";
-    let x = -100, y = -100, queued = false, cur = null, rect = null, imgs = [], big = 8;
+    let x = 0, y = 0, queued = false, cur = null, rect = null, imgs = [], big = 8;
     const reset = (n) => {
       n.classList.remove("is-tilting");
       n.style.transform = "";
-      n.querySelectorAll("img").forEach((i) => (i.style.transform = ""));
+      for (const i of n.querySelectorAll("img")) i.style.transform = "";
     };
     const paint = () => {
       queued = false;
-      dot.style.transform = `translate3d(${x}px, ${y}px, 0)`;
       if (!cur) return;
       if (!rect) { rect = cur.getBoundingClientRect(); big = rect.width > 700 ? 3 : 8; }
       const px = (x - rect.left) / rect.width - 0.5, py = (y - rect.top) / rect.height - 0.5;
@@ -331,15 +329,14 @@
       const t = `translate3d(${(-px * 12).toFixed(1)}px, ${(-py * 12).toFixed(1)}px, 0) scale(1.05)`;
       for (const i of imgs) i.style.transform = t;
     };
-    const queue = () => { if (!queued) { queued = true; requestAnimationFrame(paint); } };
-    addEventListener("pointermove", (e) => { x = e.clientX; y = e.clientY; queue(); }, { passive: true });
-    document.addEventListener("pointerenter", () => dot.classList.add("is-on"));
-    document.documentElement.addEventListener("pointerleave", () => dot.classList.remove("is-on"));
-    dot.classList.add("is-on");
+    addEventListener("pointermove", (e) => {
+      if (!cur) return;
+      x = e.clientX; y = e.clientY;
+      if (!queued) { queued = true; requestAnimationFrame(paint); }
+    }, { passive: true });
     addEventListener("scroll", () => { rect = null; }, { passive: true });
     document.addEventListener("pointerover", (e) => {
       const n = e.target.closest(SEL);
-      dot.classList.toggle("is-big", !!(n || e.target.closest("a, button")));
       if (n === cur) return;
       if (cur) reset(cur);
       cur = n; rect = null;

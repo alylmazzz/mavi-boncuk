@@ -75,16 +75,14 @@
 @keyframes zzz { 0% { opacity: 0; transform: translate(0, 0); } 40% { opacity: 1; } 100% { opacity: 0; transform: translate(10px, -16px); } }
 
 /* ---------- arka plan parçacıkları ve imleç izi ---------- */
-.floaties { position: fixed; inset: 0; pointer-events: none; z-index: -1; overflow: hidden; }
-.floaties span { position: absolute; top: 0; display: block; opacity: 0.32; will-change: transform; contain: strict; }
-.floaties svg { width: 100%; height: 100%; }
+.floaties { position: fixed; inset: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: -1; }
 body { position: relative; isolation: isolate; }
 .trail { position: fixed; inset: 0; pointer-events: none; z-index: 60; }
 
-.cursor svg { width: 100%; height: 100%; display: block; }
-@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
-  html.has-bead, html.has-bead a, html.has-bead button, html.has-bead input, html.has-bead textarea { cursor: none; }
-}
+/* boncuk imleç: tarayıcının kendi imleci, gecikme yok */
+html.has-bead, html.has-bead body { cursor: url("/assets/img/site/imlec.png") 14 14, auto; }
+html.has-bead a, html.has-bead button, html.has-bead label, html.has-bead .tile, html.has-bead [role="button"] { cursor: url("/assets/img/site/imlec-buyuk.png") 20 20, pointer; }
+html.has-bead input, html.has-bead textarea { cursor: text; }
 
 /* ---------- yaş balonları ---------- */
 .dividers { gap: 0.9rem; padding: 0.5rem 0 3.5rem; align-items: flex-end; overflow: visible; }
@@ -198,7 +196,7 @@ body { position: relative; isolation: isolate; }
 
 /* ---------- yorumlar: kayan konuşma balonları ---------- */
 .reviews { overflow: hidden; }
-.marquee { overflow: hidden; margin-inline: calc(var(--margin) * -1); padding-block: 1rem 2rem; -webkit-mask: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); mask: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); /* taste-skill-ignore: kenar solması */ }
+.marquee { overflow: hidden; margin-inline: calc(var(--margin) * -1); padding-block: 1rem 2rem; }
 .marquee__track { display: flex; gap: 1.5rem; width: max-content; padding-inline: 1rem; }
 @media (prefers-reduced-motion: no-preference) {
   .marquee__track { animation: slide var(--dur, 50s) linear infinite; }
@@ -284,3 +282,22 @@ html.gift-on .product__cta .button:first-child { background: var(--pink); }
 @keyframes bead { 0%, 100% { transform: translateY(0) rotate(-4deg); } 50% { transform: translateY(-14px) rotate(4deg); } }
 @keyframes beadshadow { 0%, 100% { transform: scaleX(1); opacity: 1; } 50% { transform: scaleX(0.8); opacity: 0.6; } }
 @media (max-width: 59.99em) { .hero__mark img { width: clamp(200px, 60vw, 420px); } }
+
+/* ---------- üst menü: kategori yazıları gibi renkli, kenarlı, kalın ---------- */
+.bar__links a:not(.button) {
+  --fill: #f7a8c4; --edge: #26357a;
+  font-family: "Baloo 2", var(--font); font-weight: 800; font-size: clamp(1.125rem, 1rem + 0.4vw, 1.375rem); letter-spacing: 0.01em;
+  color: var(--fill); -webkit-text-stroke: 0.16em var(--edge); paint-order: stroke fill; text-shadow: 0 0.09em 0 var(--edge);
+  padding: 0 0.15em; transition: transform 240ms var(--spring);
+}
+.bar__links a[href$="askidakiler"] { --fill: #f7a8c4; }
+.bar__links a[href$="siparis"] { --fill: #7fe0dc; }
+.bar__links a[href$="sorular"] { --fill: #ffd766; }
+@media (hover: hover) and (pointer: fine) {
+  .bar__links a:not(.button):hover { transform: translateY(-3px) rotate(-3deg) scale(1.08); }
+  .bar__links a[href$="siparis"]:hover { transform: translateY(-3px) rotate(3deg) scale(1.08); }
+}
+.bar__links a:not(.button):active { transform: scale(0.94); }
+
+/* ---------- ekran dışındaki bölümler görünene kadar çizilmez ---------- */
+.strip, .steps, .sizer, .shop, .reviews, .faq, .coupon-wrap, .foot { content-visibility: auto; contain-intrinsic-size: auto 900px; }
