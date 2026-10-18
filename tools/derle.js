@@ -57,7 +57,8 @@ const gorunur = urunler.filter((u) => !u.gizle);
 for (const u of gorunur) {
   const yol = `/urun/${u.id}`;
   const satir = (k, v) => `<div><dt>${k}</dt><dd>${esc(v)}</dd></div>`;
-  const fiyat = u.fiyat ? `${u.fiyat.toLocaleString('tr-TR', { minimumFractionDigits: 2 })} TL` : 'Yazın, bakıp söyleyelim';
+  // fiyatlar şimdilik gösterilmiyor (sitede yönetici modunda girilir)
+  const fiyat = '-';
   const govde = `<a class="back link" href="/#askidakiler">← Bütün ürünler</a>
 <main id="urun" data-id="${u.id}"><div class="product">
   <div class="product__media"><div class="product__main"><img src="${u.gorseller[0]}" alt="${esc(u.ad)}" width="1200" height="1500"></div></div>
@@ -73,8 +74,7 @@ for (const u of gorunur) {
   const jsonld = {
     '@context': 'https://schema.org', '@type': 'Product', name: u.ad, description: u.aciklama,
     image: u.gorseller.map((g) => SITE + g), category: TUR[u.kategori] || 'Çocuk giyim', url: SITE + yol,
-    brand: { '@type': 'Brand', name: 'Mavi Boncuk' },
-    ...(u.fiyat ? { offers: { '@type': 'Offer', price: u.fiyat, priceCurrency: 'TRY', availability: 'https://schema.org/InStock', url: SITE + yol, seller: { '@type': 'Organization', name: 'Mavi Boncuk Bebe Mağazası' } } } : {})
+    brand: { '@type': 'Brand', name: 'Mavi Boncuk' }
   };
   const kirinti = { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Ana sayfa', item: SITE }, { '@type': 'ListItem', position: 2, name: TUR[u.kategori] || 'Ürünler', item: `${SITE}/kategori/${u.kategori}` }, { '@type': 'ListItem', position: 3, name: u.ad, item: SITE + yol }] };
   wr(`urun/${u.id}.html`, sabitSayfa({ baslik: `${u.ad} · Mavi Boncuk, Ortaca`, aciklama: `${u.aciklama} ${yasYazi(u)}. Ortaca’daki Mavi Boncuk’ta; fiyat ve beden için WhatsApp’tan sorun.`.slice(0, 300), yol, govde, jsonld: [jsonld, kirinti], gorsel: SITE + u.gorseller[0] }));

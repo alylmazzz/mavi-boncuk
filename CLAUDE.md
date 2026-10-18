@@ -82,9 +82,9 @@ paneli `api/_lib/panel/index.html`'den sunar.
 
 Yönetici modu (2026-10-18): `assets/js/duzen.js` (girişten sonra ek.js yükler; localStorage `mb-admin`). Kartta fiyata dokun-değiştir,
 Sil, Gizle/Göster; ürün sayfasında tüm yazılar yerinde düzenlenir + kategori, yaş, stok, indirim (eski_fiyat), vitrin, gizle, fotoğraf
-ekle/çıkar; üst çubukta Ürün ekle, Fiyat ayarı (varsayılan fiyat, istenirse hepsine), Silinenler (geri al). Değişiklikler Vercel Blob
+ekle/çıkar; üst çubukta Ürün ekle, Fiyat ayarı (ortak fiyat, boşsa "-"; istenirse hepsine), Silinenler (geri al). Değişiklikler Vercel Blob
 `urunler/duzen.json` (`api/urunler.js`; {guncel, yeni, silinen, varsayilan_fiyat, hepsi_varsayilan}), site.js açılışta
-data/urunler.json üstüne uygular; ziyaretçiye en geç ~1-2 dk'da yansır. Yeni ürünlerin sayfası `/urun?id=<id>`. Varsayılan fiyat 300 TL.
+data/urunler.json üstüne uygular; ziyaretçiye en geç ~1-2 dk'da yansır. Yeni ürünlerin sayfası `/urun?id=<id>`. Fiyat yalnızca yönetici modunda girilir; girilmemişse kartta ve ürün sayfasında "-" yazar (urunler.json ve E-Tablo fiyatları kullanılmaz, statik sayfalarda da "-").
 Statik SEO sayfaları/llms.txt bu değişiklikleri içermez. Deploy dosya sınırına takılırsa: `npx vercel deploy --prod --yes --archive=tgz`. Panel: fiş/fatura okuma (GİB karekod → PDF metni → Tesseract), satışlar, kargo Excel,
 aylık Excel, kurallar (Ayarlar'dan), kayıtlar cihazda IndexedDB + JSON yedek. Tasarım ve mevzuat: `docs/muhasebe-sistemi.md`.
 Vergi içeriği yalnızca yasal planlamadır; beyanı SMMM verir.

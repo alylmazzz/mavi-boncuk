@@ -14,11 +14,11 @@
   const waLink = (text) => `https://wa.me/${WA}?text=${encodeURIComponent(text)}`;
   // Beden bulucuda girilen ölçü varsa ürün mesajına eklenir
   const olcu = () => { try { const o = JSON.parse(localStorage.getItem('mb-olcu') || 'null'); return o ? ` Çocuğumun boyu ${o.boy} cm, kilosu ${o.kilo} kg.` : ''; } catch (e) { return ''; } };
-  const tl = (n) => `${Number(n).toLocaleString('tr-TR', { minimumFractionDigits: n % 1 ? 2 : 0, maximumFractionDigits: 2 })} TL`;
+  // fiyatı henüz belli olmayan ürünlerde "-" yazar
+  const tl = (n) => !n ? '-' : `${Number(n).toLocaleString('tr-TR', { minimumFractionDigits: n % 1 ? 2 : 0, maximumFractionDigits: 2 })} TL`;
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
   // yerel fotoğrafların küçük boyları var (-400/-600.webp); yönetici modunda yüklenenlerin yok
   const boyut = (g, n) => (g.startsWith('/assets/') ? g.replace(/\.webp$/, `-${n}.webp`) : g);
-  const VARSAYILAN_FIYAT = 300;
   const yonetici = (() => { try { return localStorage.getItem('mb-admin') === '1'; } catch (e) { return false; } })();
   const img = (src, alt, w = 800, h = 1000, lazy = true) =>
     el('img', { src, alt, width: w, height: h, loading: lazy ? 'lazy' : null, decoding: 'async' });
@@ -95,16 +95,17 @@
       clearTimeout(t);
     } catch (e) { stok = {}; }
     const dz = d || { guncel: {}, yeni: [], silinen: [] };
-    const varsayilan = dz.varsayilan_fiyat || VARSAYILAN_FIYAT;
+    const ortak = dz.ortak_fiyat || null;
     const silinen = dz.silinen || [];
     const birles = [...(dz.yeni || []).map((x) => ({ ...x, yeni: true })), ...u.urunler].filter((x) => !silinen.includes(x.id)).map((x) => {
       const s2 = stok[x.id];
       const y = s2 ? { ...x, fiyat: s2.fiyat || x.fiyat, durum: s2.durum || x.durum, stok_notu: s2.not || x.stok_notu, gizle: x.gizle || s2.durum === 'gizle' } : x;
-      // "tüm fiyatlar aynı" seçildiyse yalnızca yönetici modunda tek tek girilen fiyat geçerli
+      // fiyat yalnızca yönetici modunda girilir (tek tek ya da "Fiyat ayarı"ndan hepsine); yoksa "-" görünür
       const g = (dz.guncel || {})[x.id] || {};
       const z = { ...y, ...g };
-      if (dz.hepsi_varsayilan && !(x.yeni ? x.fiyat : g.fiyat)) { z.fiyat = null; z.eski_fiyat = null; }
-      return { ...z, fiyat: z.fiyat || varsayilan };
+      const kendi = x.yeni ? x.fiyat : g.fiyat;
+      if (!kendi) z.eski_fiyat = null;
+      return { ...z, fiyat: kendi || ortak };
     });
     // yönetici gizlenen ürünleri de görür (soluk ve "Gizli" etiketli)
     return { urunler: birles.filter((x) => yonetici || !x.gizle), site: s };

@@ -1,5 +1,5 @@
 // Sitedeki yönetici modunun ürün değişiklikleri (Vercel Blob: urunler/duzen.json).
-// GET  /api/urunler              -> {guncel:{id:{alan}}, yeni:[ürün], silinen:[id], varsayilan_fiyat, hepsi_varsayilan}
+// GET  /api/urunler              -> {guncel:{id:{alan}}, yeni:[ürün], silinen:[id], ortak_fiyat}
 //                                   (herkese açık, 1 dk önbellek)
 // GET  /api/urunler?taze=1       -> aynısı önbelleksiz (yalnızca yönetici çereziyle)
 // POST /api/urunler {islem, ...} -> guncelle {id, alanlar} | sil {id} | geri {id} | ekle {urun}
@@ -12,7 +12,7 @@ const { oturumGecerli } = require('./_lib/oturum');
 
 const BLOB = 'https://dzq8aevittl4dwp1.public.blob.vercel-storage.com';
 const DOSYA = 'urunler/duzen.json';
-const BOS = () => ({ guncel: {}, yeni: [], silinen: [], varsayilan_fiyat: 300, hepsi_varsayilan: false });
+const BOS = () => ({ guncel: {}, yeni: [], silinen: [], ortak_fiyat: null });
 const METIN = ['ad', 'kisa', 'aciklama', 'kumas', 'yikama', 'stok_notu', 'teslim', 'degisim', 'yas_yazi'];
 const KATEGORI = ['abiye', 'takim-elbise', 'gunluk', 'okul', 'bebek', 'aksesuar'];
 
@@ -86,14 +86,13 @@ module.exports = async (req, res) => {
     const d = await oku(true);
 
     if (g.islem === 'varsayilan') {
-      const n = tutar(g.fiyat);
-      if (!n) return hata(res, 400);
-      d.varsayilan_fiyat = n;
-      // "hepsine uygula": tek tek girilmiş fiyatlar (tablodakiler dahil) bırakılır, her ürün bu fiyatla görünür
+      // ortak fiyat: tek tek fiyatı girilmemiş ürünler bununla görünür; boşsa "-"
+      d.ortak_fiyat = tutar(g.fiyat);
+      delete d.varsayilan_fiyat; delete d.hepsi_varsayilan;
+      // "hepsine uygula": tek tek girilmiş fiyatlar bırakılır
       if (g.sifirla) {
         for (const k of Object.keys(d.guncel)) { delete d.guncel[k].fiyat; delete d.guncel[k].eski_fiyat; }
         d.yeni.forEach((u) => { u.fiyat = null; u.eski_fiyat = null; });
-        d.hepsi_varsayilan = true;
       }
       await yaz(d);
       return res.end(JSON.stringify({ ok: true, veri: d }));

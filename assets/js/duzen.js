@@ -14,7 +14,7 @@
     for (const k of [].concat(kids)) if (k) n.append(k);
     return n;
   };
-  const tl = (n) => `${Number(n).toLocaleString('tr-TR', { minimumFractionDigits: n % 1 ? 2 : 0, maximumFractionDigits: 2 })} TL`;
+  const tl = (n) => !n ? '-' : `${Number(n).toLocaleString('tr-TR', { minimumFractionDigits: n % 1 ? 2 : 0, maximumFractionDigits: 2 })} TL`;
   const sayi = (t) => { const s = String(t || '').replace(/[^\d,.]/g, ''); const n = Number(s.includes(',') ? s.replace(/\./g, '').replace(',', '.') : s); return Number.isFinite(n) && n > 0 ? n : null; };
   const TR = document.documentElement.lang === 'tr';
   const KATEGORI = { gunluk: 'Günlük takımlar', abiye: 'Abiye', 'takim-elbise': 'Takım elbise', okul: 'Okul', bebek: 'Bebek', aksesuar: 'Aksesuar' };
@@ -63,7 +63,7 @@
     $('.duzen-pop') && $('.duzen-pop').remove();
     const r = hedef.getBoundingClientRect();
     const f = el('form', { class: 'duzen-pop' });
-    const inp = el('input', { type: 'text', inputmode: 'decimal', value: deger, 'aria-label': 'Fiyat (TL)' });
+    const inp = el('input', { type: 'text', inputmode: 'decimal', value: deger, placeholder: 'Belli değilse boş', 'aria-label': 'Fiyat (TL)' });
     const tamam = el('button', { type: 'submit', class: 'duzen-btn', text: 'Kaydet' });
     const vaz = el('button', { type: 'button', class: 'duzen-btn duzen-btn--acik', text: 'Vazgeç' });
     f.append(inp, el('span', { text: 'TL' }), tamam, vaz);
@@ -75,7 +75,8 @@
     f.addEventListener('submit', async (e) => {
       e.preventDefault();
       const n = sayi(inp.value);
-      if (!n) { inp.focus(); bildir('Geçerli bir fiyat yazın.', true); return; }
+      // boş ya da "-" bırakılırsa fiyat belirsiz kalır
+      if (!n && /d/.test(inp.value)) { inp.focus(); bildir('Geçerli bir fiyat yazın.', true); return; }
       tamam.disabled = true;
       try { await kaydet(n); kapat(); } catch (err) { bildir(err.message, true); tamam.disabled = false; }
     });
@@ -103,7 +104,7 @@
     e.preventDefault(); e.stopPropagation();
     const a = ui.closest('a.tile'), id = a.dataset.id;
     if (ui.classList.contains('tile__fiyat')) {
-      kutuAc(ui, String(sayi(ui.textContent) || 300), async (n) => { await gonder({ islem: 'guncelle', id, alanlar: { fiyat: n } }); ui.textContent = tl(n); bildir('Fiyat kaydedildi.'); });
+      kutuAc(ui, String(sayi(ui.textContent) || ''), async (n) => { await gonder({ islem: 'guncelle', id, alanlar: { fiyat: n } }); ui.textContent = tl(n); bildir('Fiyat kaydedildi.'); });
     } else if (ui.classList.contains('tile__gizle')) {
       const gizli = !a.classList.contains('is-gizli');
       ui.disabled = true;
@@ -137,6 +138,13 @@
     alanlar.forEach((n) => {
       ilk.set(n, n.textContent.trim());
       n.contentEditable = 'true';
+      // fiyat: sayı klavyesi açılır, yalnızca rakam ve virgül yazılır; boş bırakılırsa "-"
+      if (n.dataset.alan === 'fiyat') {
+        n.inputMode = 'decimal';
+        n.addEventListener('focus', () => { if (!sayi(n.textContent)) n.textContent = ''; });
+        n.addEventListener('beforeinput', (e) => { if (e.data && /[^d,.]/.test(e.data)) e.preventDefault(); });
+        n.addEventListener('blur', () => { const f = sayi(n.textContent); n.textContent = tl(f); });
+      }
       n.spellcheck = true;
       n.classList.add('duzen-alan');
       n.addEventListener('keydown', (e) => { if (e.key === 'Enter' && n.dataset.alan !== 'aciklama') { e.preventDefault(); n.blur(); } });
@@ -197,15 +205,15 @@
         const t = n.textContent.replace(/\s+\n/g, '\n').trim();
         if (t === ilk.get(n)) return;
         const k = n.dataset.alan;
-        if (k === 'fiyat') { const f = sayi(t); if (f) a.fiyat = f; return; }
+        if (k === 'fiyat') { a.fiyat = sayi(t); return; }
         a[k] = t === BOS ? null : t;
       });
       if (a.ad === null) { bildir('Ürün adı boş olamaz.', true); return; }
       if ((kisa.value || '') !== (u.kisa || '')) a.kisa = kisa.value;
       if (kat.value !== u.kategori) a.kategori = kat.value;
       const y1 = yas1.value === '' ? null : Number(yas1.value), y2 = yas2.value === '' ? null : Number(yas2.value);
-      const eski = u.yas_araligi || [null, null];
-      if (y1 !== eski[0] || y2 !== eski[1]) a.yas_araligi = y1 == null || y2 == null ? null : [Math.min(y1, y2), Math.max(y1, y2)];
+      const eskiYas = u.yas_araligi || [null, null];
+      if (y1 !== eskiYas[0] || y2 !== eskiYas[1]) a.yas_araligi = y1 == null || y2 == null ? null : [Math.min(y1, y2), Math.max(y1, y2)];
       if (durum.value !== (u.durum === 'tükendi' ? 'tükendi' : '')) a.durum = durum.value || null;
       if (fotolar.join() !== u.gorseller.join()) a.gorseller = fotolar;
       if ((sayi(eski.value) || null) !== (u.eski_fiyat || null)) a.eski_fiyat = sayi(eski.value);
@@ -249,19 +257,19 @@
   // ---------- fiyat ayarı: fiyatı girilmemiş ürünler bu fiyatla görünür; istenirse hepsine ----------
   async function fiyatAyarAc() {
     const d = await tazeVeri().catch(() => ({}));
-    const inp = el('input', { type: 'text', inputmode: 'decimal', value: String(d.varsayilan_fiyat || 300), required: true });
+    const inp = el('input', { type: 'text', inputmode: 'decimal', value: d.ortak_fiyat ? String(d.ortak_fiyat) : '', placeholder: 'Boş: fiyat belli değil (-)' });
     const hepsi = el('input', { type: 'checkbox' });
     const btn = el('button', { type: 'submit', class: 'button', text: 'Kaydet' });
     const f = el('form', { class: 'duzen-urun', style: 'margin:0' }, [
-      el('label', { class: 'duzen-satir' }, [el('span', { text: 'Varsayılan fiyat (TL)' }), inp]),
-      el('p', { class: 'muted', text: 'Fiyatı ayrıca girilmemiş her ürün bu fiyatla görünür.' }),
+      el('label', { class: 'duzen-satir' }, [el('span', { text: 'Ortak fiyat (TL)' }), inp]),
+      el('p', { class: 'muted', text: 'Fiyatı ayrıca girilmemiş her ürün bu fiyatla görünür. Boş bırakılırsa "-" yazar.' }),
       el('label', { class: 'duzen-isaret' }, [hepsi, el('span', { text: 'Tek tek girilmiş fiyatlar dahil, tüm ürünler bu fiyat olsun' })]),
       btn
     ]);
     f.addEventListener('submit', async (e) => {
       e.preventDefault();
       const n = sayi(inp.value);
-      if (!n) { bildir('Geçerli bir fiyat yazın.', true); return; }
+      if (!n && /d/.test(inp.value)) { bildir('Geçerli bir fiyat yazın.', true); return; }
       btn.disabled = true;
       try { await gonder({ islem: 'varsayilan', fiyat: n, sifirla: hepsi.checked }); bildir('Fiyatlar güncellendi.'); setTimeout(() => location.reload(), 600); }
       catch (err) { bildir(err.message, true); btn.disabled = false; }
@@ -302,7 +310,7 @@
     f.append(
       el('h2', { id: 'duzen-ekle-baslik', text: 'Yeni ürün' }),
       g('ad', 'Ürün adı', el('input', { type: 'text', required: true, maxlength: '120' })),
-      g('fiyat', 'Fiyat (TL)', el('input', { type: 'text', inputmode: 'decimal', value: '300', required: true })),
+      g('fiyat', 'Fiyat (TL)', el('input', { type: 'text', inputmode: 'decimal', value: '', placeholder: 'Belli değilse boş' })),
       g('kategori', 'Tür', el('select', {}, Object.entries(KATEGORI).map(([k, v]) => el('option', { value: k, text: v })))),
       el('div', { class: 'duzen-ikili' }, [
         g('yas1', 'En küçük yaş', el('input', { type: 'number', min: '0', max: '18', inputmode: 'numeric' })),
@@ -335,7 +343,7 @@
         btn.textContent = 'Kaydediliyor…';
         const y1 = d.yas1 === '' ? null : Number(d.yas1), y2 = d.yas2 === '' ? null : Number(d.yas2);
         await gonder({ islem: 'ekle', urun: {
-          id, ad: d.ad, fiyat: sayi(d.fiyat) || 300, kategori: d.kategori, kisa: d.kisa, aciklama: d.aciklama, kumas: d.kumas, yikama: d.yikama, gorseller,
+          id, ad: d.ad, fiyat: sayi(d.fiyat), kategori: d.kategori, kisa: d.kisa, aciklama: d.aciklama, kumas: d.kumas, yikama: d.yikama, gorseller,
           yas_araligi: y1 == null || y2 == null ? null : [Math.min(y1, y2), Math.max(y1, y2)]
         } });
         location.href = `/urun?id=${encodeURIComponent(id)}`;
