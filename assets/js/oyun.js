@@ -136,11 +136,12 @@
     sky.innerHTML = gece
       ? '<svg viewBox="0 0 100 100" aria-hidden="true"><g class="moon"><path d="M62 14a36 36 0 1 0 24 56A30 30 0 0 1 62 14z" fill="#ffe08a" stroke="#26357a" stroke-width="3.5"/><path d="M44 52q5 4 10 0" stroke="#26357a" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M36 64q8 6 16 0" stroke="#26357a" stroke-width="3" fill="none" stroke-linecap="round"/><circle cx="34" cy="58" r="4" fill="#f7a8c4"/></g><text class="zzz" x="74" y="22" font-family="Baloo 2, sans-serif" font-weight="800" font-size="16" fill="#26357a">z</text></svg>'
       : '<svg viewBox="0 0 100 100" aria-hidden="true"><g class="sun-rays">' + Array.from({ length: 10 }, (_, i) => `<rect x="47" y="2" width="6" height="16" rx="3" fill="#ffc93c" transform="rotate(${i * 36} 50 50)"/>`).join('') + '</g><circle cx="50" cy="50" r="27" fill="#ffd766" stroke="#26357a" stroke-width="3.5"/><circle cx="42" cy="47" r="3" fill="#26357a"/><circle cx="58" cy="47" r="3" fill="#26357a"/><path d="M41 57q9 8 18 0" stroke="#26357a" stroke-width="3" fill="none" stroke-linecap="round"/><circle cx="35" cy="56" r="4" fill="#f7a8c4"/><circle cx="65" cy="56" r="4" fill="#f7a8c4"/></svg>';
-    // sürpriz: art arda üç dokunuşta ekran balonla dolar
-    let taps = [];
+    // sürpriz: tek dokunuşta ekran balonla dolar (uçuş sürerken yeni dokunuş beklenir)
+    let son = 0;
     sky.addEventListener('click', () => {
-      const now = Date.now(); taps = taps.filter((t) => now - t < 1500); taps.push(now);
-      if (taps.length >= 3) { taps = []; balloons(); }
+      const now = Date.now();
+      if (now - son < 1500) return;
+      son = now; balloons();
     });
   }
   function balloons() {
