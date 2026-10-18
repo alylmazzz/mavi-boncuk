@@ -736,3 +736,53 @@ html.gece .harita__dukkan[aria-pressed="true"] { background: #0b7a75; }
 .harita__geri[hidden] { display: none; }
 /* rotada sürüklenebilir “siz” noktası */
 .rota-siz { width: 22px; height: 22px; border-radius: 50%; background: #1a73e8; border: 3px solid #fff; box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.35), 0 2px 6px rgba(0, 0, 0, 0.3); cursor: grab; }
+
+/* ---------- kart fiyatı: fotoğrafın dışında, kartın sağ üst köşesinde ---------- */
+.tile__ust { display: flex; justify-content: flex-end; margin-bottom: 0.35rem; min-height: 1.9rem; }
+.tile__fiyat { display: inline-flex; align-items: center; min-height: 1.9rem; padding: 0 0.75rem; border-radius: 999px; background: var(--accent); color: var(--accent-ink); font-weight: 700; font-size: var(--step-small); font-variant-numeric: tabular-nums; line-height: 1; white-space: nowrap; }
+html.gece .tile__fiyat { background: #6fe0d8; color: #0d1f22; }
+
+/* ---------- yönetici modu (duzen.js) ---------- */
+.duzen-cubuk { position: fixed; z-index: 95; top: max(8px, env(safe-area-inset-top)); left: 50%; transform: translateX(-50%); display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 0.4rem; max-width: calc(100vw - 16px); padding: 0.4rem 0.5rem 0.4rem 0.9rem; border-radius: 999px; background: #1d2426; color: #fff; box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25); font-size: var(--step-small); }
+.duzen-cubuk strong { margin-right: 0.3rem; color: #7fe0dc; }
+.duzen-btn { min-height: 44px; padding: 0 0.9rem; border: 0; border-radius: 999px; background: var(--accent); color: #fff; font: inherit; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; cursor: pointer; }
+.duzen-cubuk .duzen-btn { min-height: 36px; background: rgba(255, 255, 255, 0.12); }
+.duzen-btn--acik { background: var(--surface); color: var(--ink); }
+.duzen-not { position: fixed; z-index: 120; left: 50%; bottom: calc(1.2rem + env(safe-area-inset-bottom)); transform: translate(-50%, 1rem); opacity: 0; pointer-events: none; padding: 0.7rem 1.1rem; border-radius: 14px; background: #1d2426; color: #fff; transition: opacity 200ms, transform 200ms; max-width: calc(100vw - 32px); }
+.duzen-not.is-on { opacity: 1; transform: translate(-50%, 0); }
+.duzen-not.is-hata { background: #b4234a; }
+.tile__fiyat.is-duzen { cursor: pointer; outline: 2px dashed #ffd766; outline-offset: 2px; }
+.tile__yonetim { position: absolute; z-index: 3; left: 0.5rem; bottom: 0.5rem; display: flex; gap: 0.35rem; }
+.tile__sil, .tile__gizle { min-height: 40px; padding: 0 0.9rem; border: 0; border-radius: 999px; background: #b4234a; color: #fff; font: inherit; font-size: var(--step-small); font-weight: 700; cursor: pointer; }
+.tile__sil.is-emin { background: #7a0f2c; }
+.duzen-pop { position: fixed; z-index: 110; display: flex; align-items: center; gap: 0.4rem; width: 280px; padding: 0.5rem; border-radius: 16px; background: var(--bg); color: var(--ink); box-shadow: 0 8px 28px rgba(0, 0, 0, 0.25); }
+.duzen-pop input { width: 5.5rem; min-height: 44px; font-size: 1rem; padding: 0 0.6rem; border: 2px solid var(--accent); border-radius: 12px; background: #fff; color: #1d2426; }
+.duzen-pop .duzen-btn { padding: 0 0.7rem; }
+.duzen-alan { outline: 2px dashed #f7a8c4; outline-offset: 3px; border-radius: 4px; cursor: text; }
+.duzen-alan:focus { outline: 2px solid var(--accent); background: rgba(127, 224, 220, 0.15); }
+.duzen-urun { margin-top: 2rem; padding: 1.2rem; border: 2px dashed var(--accent); border-radius: 20px; display: grid; gap: 0.8rem; }
+.duzen-urun h2 { margin: 0; font-size: 1.3rem; }
+.duzen-satir { display: grid; gap: 0.25rem; font-size: var(--step-small); font-weight: 600; }
+.duzen-satir input, .duzen-satir select, .duzen-satir textarea { min-height: 44px; font: inherit; font-size: 1rem; font-weight: 400; padding: 0.4rem 0.7rem; border: 2px solid var(--field-3); border-radius: 12px; background: var(--bg); color: var(--ink); letter-spacing: normal; }
+.duzen-ikili { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; }
+.duzen-baslik { margin: 0; font-size: var(--step-small); font-weight: 600; }
+.duzen-fotolar { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.duzen-fotolar li { position: relative; }
+.duzen-fotolar img { width: 64px; height: 80px; object-fit: cover; border-radius: 10px; display: block; }
+.duzen-fotolar button { position: absolute; top: -10px; right: -10px; width: 30px; height: 30px; border: 0; border-radius: 50%; background: #b4234a; color: #fff; font-size: 1.1rem; line-height: 1; cursor: pointer; }
+.duzen-fotoekle { justify-self: start; cursor: pointer; }
+.duzen-dugmeler { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+.duzen-sil { color: #b4234a; }
+.duzen-sil.is-emin { background: #b4234a; color: #fff; }
+.duzen-form { width: min(30rem, 100%); max-height: calc(100dvh - 32px); overflow-y: auto; }
+.duzen-form .duzen-satir input { letter-spacing: normal; }
+.tile__gizle { background: #1d2426; }
+.tile.is-gizli .tile__frame img { opacity: 0.45; }
+.tile__badge--gizli { background: #5a6466; }
+.tile__ust { gap: 0.4rem; align-items: center; }
+.tile__eski, .eski-fiyat { color: var(--muted); font-size: var(--step-small); font-weight: 500; }
+.duzen-isaret { display: flex; align-items: center; gap: 0.6rem; min-height: 44px; font-size: var(--step-small); cursor: pointer; }
+.duzen-isaret input { width: 22px; height: 22px; accent-color: var(--accent); flex: none; }
+.duzen-silinen { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.5rem; }
+.duzen-silinen li { display: grid; grid-template-columns: 48px 1fr auto; align-items: center; gap: 0.6rem; }
+.duzen-silinen img { width: 48px; height: 60px; object-fit: cover; border-radius: 8px; }

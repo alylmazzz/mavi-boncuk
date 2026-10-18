@@ -75,9 +75,17 @@ Instagram içerikleri imginn.com üzerinden alınır, süreç `docs/instagram-ak
 
 ## Yönetim paneli (2026-10-17)
 
-WhatsApp butonunun üstündeki MB logosuna 3 kez dokununca şifre penceresi açılır (ek.js). Şifre istemcide yok: `api/yonetim.js`
-scrypt ile doğrular (Vercel env: MB_YONETIM_TUZ, MB_YONETIM_HASH, MB_YONETIM_IMZA), imzalı HttpOnly çerez verir, `/yonetim`
-paneli `api/_lib/panel/index.html`'den sunar. Panel: fiş/fatura okuma (GİB karekod → PDF metni → Tesseract), satışlar, kargo Excel,
+WhatsApp butonunun üstündeki MB logosu (ek.js): 3 dokunuş → muhasebe paneli girişi, 5 dokunuş → sitede yönetici modu girişi.
+Şifreler istemcide yok: `api/yonetim.js` role göre scrypt ile doğrular (panel: MB_YONETIM_TUZ/HASH, admin: MB_ADMIN_TUZ/HASH,
+ortak imza MB_YONETIM_IMZA), role ait imzalı HttpOnly çerez verir (mb_yon / mb_adm, `api/_lib/oturum.js`). `/yonetim`
+paneli `api/_lib/panel/index.html`'den sunar.
+
+Yönetici modu (2026-10-18): `assets/js/duzen.js` (girişten sonra ek.js yükler; localStorage `mb-admin`). Kartta fiyata dokun-değiştir,
+Sil, Gizle/Göster; ürün sayfasında tüm yazılar yerinde düzenlenir + kategori, yaş, stok, indirim (eski_fiyat), vitrin, gizle, fotoğraf
+ekle/çıkar; üst çubukta Ürün ekle, Fiyat ayarı (varsayılan fiyat, istenirse hepsine), Silinenler (geri al). Değişiklikler Vercel Blob
+`urunler/duzen.json` (`api/urunler.js`; {guncel, yeni, silinen, varsayilan_fiyat, hepsi_varsayilan}), site.js açılışta
+data/urunler.json üstüne uygular; ziyaretçiye en geç ~1-2 dk'da yansır. Yeni ürünlerin sayfası `/urun?id=<id>`. Varsayılan fiyat 300 TL.
+Statik SEO sayfaları/llms.txt bu değişiklikleri içermez. Deploy dosya sınırına takılırsa: `npx vercel deploy --prod --yes --archive=tgz`. Panel: fiş/fatura okuma (GİB karekod → PDF metni → Tesseract), satışlar, kargo Excel,
 aylık Excel, kurallar (Ayarlar'dan), kayıtlar cihazda IndexedDB + JSON yedek. Tasarım ve mevzuat: `docs/muhasebe-sistemi.md`.
 Vergi içeriği yalnızca yasal planlamadır; beyanı SMMM verir.
 Telegram botu (@maviboncukortacabot): `api/telegram.js`. Env: TELEGRAM_BOT_TOKEN, TELEGRAM_IZINLI_TELEFON (virgüllü, kendi numarasını

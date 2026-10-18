@@ -16,6 +16,10 @@
   const olcu = () => { try { const o = JSON.parse(localStorage.getItem('mb-olcu') || 'null'); return o ? ` Çocuğumun boyu ${o.boy} cm, kilosu ${o.kilo} kg.` : ''; } catch (e) { return ''; } };
   const tl = (n) => `${Number(n).toLocaleString('tr-TR', { minimumFractionDigits: n % 1 ? 2 : 0, maximumFractionDigits: 2 })} TL`;
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // yerel fotoğrafların küçük boyları var (-400/-600.webp); yönetici modunda yüklenenlerin yok
+  const boyut = (g, n) => (g.startsWith('/assets/') ? g.replace(/\.webp$/, `-${n}.webp`) : g);
+  const VARSAYILAN_FIYAT = 300;
+  const yonetici = (() => { try { return localStorage.getItem('mb-admin') === '1'; } catch (e) { return false; } })();
   const img = (src, alt, w = 800, h = 1000, lazy = true) =>
     el('img', { src, alt, width: w, height: h, loading: lazy ? 'lazy' : null, decoding: 'async' });
 
@@ -49,26 +53,39 @@
     const [a, b] = u.yas_araligi;
     return a <= y.max && b >= y.min;
   };
-  const yasYazi = (u) => (u.yas_araligi ? `${u.yas_araligi[0]}-${u.yas_araligi[1]} yaş` : '');
+  const yasYazi = (u) => u.yas_yazi || (u.yas_araligi ? `${u.yas_araligi[0]}-${u.yas_araligi[1]} yaş` : '');
+  const urunLink = (u) => (u.yeni ? `/urun?id=${encodeURIComponent(u.id)}` : `/urun/${encodeURIComponent(u.id)}`);
 
   function tile(u, i) {
-    const a = el('a', { class: 'tile', href: `/urun/${encodeURIComponent(u.id)}` });
+    const a = el('a', { class: 'tile', href: urunLink(u), 'data-id': u.id });
     const f = el('div', { class: 'tile__frame' });
-    const kucuk = (g) => g.replace(/\.webp$/, '-600.webp');
-    const kucukSet = (g) => { const im = img(kucuk(g), '', 600, 750, true); im.srcset = `${g.replace(/.webp$/, '-400.webp')} 400w, ${kucuk(g)} 600w`; im.sizes = '(min-width: 75em) 22vw, (min-width: 48em) 31vw, 48vw'; return im; };
+    const kucukSet = (g) => {
+      const im = img(boyut(g, 600), '', 600, 750, true);
+      if (g.startsWith('/assets/')) { im.srcset = `${boyut(g, 400)} 400w, ${boyut(g, 600)} 600w`; im.sizes = '(min-width: 75em) 22vw, (min-width: 48em) 31vw, 48vw'; }
+      return im;
+    };
     const ilk = kucukSet(u.gorseller[0]); ilk.alt = u.ad; if (i <= 3) ilk.removeAttribute('loading');
     f.append(ilk);
     if (u.gorseller[1]) f.append(kucukSet(u.gorseller[1]));
     if (u.durum === 'tükendi') { a.classList.add('is-tukendi'); f.append(el('span', { class: 'tile__badge', text: 'Tükendi' })); }
-    const bilgi = [u.fiyat ? tl(u.fiyat) : '', u.kisa || yasYazi(u) || TURLER[u.kategori]].filter(Boolean).join(' · ');
-    a.append(f, el('span', { class: 'tile__name', text: u.ad }), el('span', { class: 'tile__fact', text: bilgi }));
+    // fiyat fotoğrafın üstünde değil, kartın sağ üst köşesinde kendi satırında: ürünü ya da çocuğu kapatmaz
+    if (u.gizle) { a.classList.add('is-gizli'); f.append(el('span', { class: 'tile__badge tile__badge--gizli', text: 'Gizli' })); }
+    const ust = el('span', { class: 'tile__ust' }, [
+      u.eski_fiyat > u.fiyat ? el('s', { class: 'tile__eski', text: tl(u.eski_fiyat) }) : null,
+      el('span', { class: 'tile__fiyat', 'data-alan': 'fiyat', text: tl(u.fiyat) })
+    ]);
+    a.append(ust, f, el('span', { class: 'tile__name', text: u.ad }), el('span', { class: 'tile__fact', text: u.kisa || yasYazi(u) || TURLER[u.kategori] || '' }));
     return a;
   }
 
   async function data() {
-    const [u, s] = await Promise.all([
+    // yönetici modundaki değişiklikler (eklenen, silinen, düzenlenen ürünler); gelmezse temel liste kullanılır
+    const duzen = fetch(`/api/urunler${yonetici ? `?taze=${Date.now()}` : ''}`, yonetici ? { cache: 'no-store', credentials: 'same-origin' } : {})
+      .then((r) => (r.ok ? r.json() : null)).catch(() => null);
+    const [u, s, d] = await Promise.all([
       fetch('/data/urunler.json').then((r) => r.json()),
-      fetch('/data/site.json').then((r) => r.json())
+      fetch('/data/site.json').then((r) => r.json()),
+      duzen
     ]);
     // Mağazanın stok tablosu (Google E-Tablolar) varsa fiyat ve durum oradan gelir; yoksa sessizce atlanır
     let stok = {};
@@ -77,11 +94,20 @@
       stok = await fetch('/api/stok', { signal: c.signal }).then((r) => (r.ok ? r.json() : {}));
       clearTimeout(t);
     } catch (e) { stok = {}; }
-    const birles = u.urunler.map((x) => {
-      const s2 = stok[x.id]; if (!s2) return x;
-      return { ...x, fiyat: s2.fiyat || x.fiyat, durum: s2.durum || x.durum, stok_notu: s2.not || x.stok_notu, gizle: x.gizle || s2.durum === 'gizle' };
+    const dz = d || { guncel: {}, yeni: [], silinen: [] };
+    const varsayilan = dz.varsayilan_fiyat || VARSAYILAN_FIYAT;
+    const silinen = dz.silinen || [];
+    const birles = [...(dz.yeni || []).map((x) => ({ ...x, yeni: true })), ...u.urunler].filter((x) => !silinen.includes(x.id)).map((x) => {
+      const s2 = stok[x.id];
+      const y = s2 ? { ...x, fiyat: s2.fiyat || x.fiyat, durum: s2.durum || x.durum, stok_notu: s2.not || x.stok_notu, gizle: x.gizle || s2.durum === 'gizle' } : x;
+      // "tüm fiyatlar aynı" seçildiyse yalnızca yönetici modunda tek tek girilen fiyat geçerli
+      const g = (dz.guncel || {})[x.id] || {};
+      const z = { ...y, ...g };
+      if (dz.hepsi_varsayilan && !(x.yeni ? x.fiyat : g.fiyat)) { z.fiyat = null; z.eski_fiyat = null; }
+      return { ...z, fiyat: z.fiyat || varsayilan };
     });
-    return { urunler: birles.filter((x) => !x.gizle), site: s };
+    // yönetici gizlenen ürünleri de görür (soluk ve "Gizli" etiketli)
+    return { urunler: birles.filter((x) => yonetici || !x.gizle), site: s };
   }
 
   // ---------- ana sayfa ----------
@@ -144,13 +170,13 @@
       const p = el('article', { class: 'showcase__panel' });
       if (i === 0) p.append(el('h2', { class: 'showcase__title', text: 'Bu hafta askıda' }));
       p.append(img(u.gorseller[0], u.ad, 1200, 1500, true));
-      p.lastChild.srcset = `${u.gorseller[0].replace(/.webp$/, '-600.webp')} 600w, ${u.gorseller[0]} 1200w`; p.lastChild.sizes = '(min-width: 60em) 50vw, 100vw';
+      if (u.gorseller[0].startsWith('/assets/')) { p.lastChild.srcset = `${boyut(u.gorseller[0], 600)} 600w, ${u.gorseller[0]} 1200w`; p.lastChild.sizes = '(min-width: 60em) 50vw, 100vw'; }
       p.lastChild.className = 'showcase__img';
       const row = el('div', { class: 'showcase__row' }, [
         el('div', {}, [el('p', { class: 'showcase__name', text: u.ad }), el('p', { class: 'muted', text: u.kisa || yasYazi(u) })]),
         el('div', { class: 'showcase__actions' }, [
           el('a', { class: 'button', href: waLink(`Merhaba, “${u.ad}” için yazıyorum. Fiyatı ve bedenleri nedir?${olcu()}`), text: 'WhatsApp’tan sor' }),
-          el('a', { class: 'button button--paper', href: `/urun/${encodeURIComponent(u.id)}`, text: 'Fotoğraflar' })
+          el('a', { class: 'button button--paper', href: urunLink(u), text: 'Fotoğraflar' })
         ])
       ]);
       p.append(row);
@@ -335,21 +361,23 @@
       thumbs.append(b);
     });
     const bilinmiyor = 'Yazın, bakıp söyleyelim';
-    const satir = (k, v) => el('div', {}, [el('dt', { text: k }), el('dd', { text: v || bilinmiyor })]);
-    const fiyat = u.fiyat ? tl(u.fiyat) : null;
+    // data-alan: yönetici modunda (duzen.js) bu metinler yerinde düzenlenir
+    const satir = (k, v, alan) => el('div', {}, [el('dt', { text: k }), el('dd', { 'data-alan': alan, text: v || bilinmiyor })]);
     const facts = el('dl', { class: 'facts' }, [
-      satir('Yaş', (u.yas_tahmini && u.yas_araligi ? 'Yaklaşık ' : '') + yasYazi(u) || (u.bedenler && u.bedenler.length ? u.bedenler.map((b) => b.beden).join(', ') : null)),
-      satir('Fiyat', fiyat),
-      satir('Kumaş', u.kumas),
-      satir('Yıkama', u.yikama),
-      satir('Stok', u.durum === 'tükendi' ? 'Şu an tükendi, gelince haber verelim' : u.stok_notu),
-      satir('Teslim', 'Mağazadan alabilir ya da gönderim için yazabilirsiniz'),
-      satir('Değişim', 'Almadan önce sorun, ürüne göre söylüyoruz')
+      satir('Yaş', u.yas_yazi || ((u.yas_tahmini && u.yas_araligi ? 'Yaklaşık ' : '') + yasYazi(u)) || (u.bedenler && u.bedenler.length ? u.bedenler.map((b) => b.beden).join(', ') : null), 'yas_yazi'),
+      satir('Fiyat', tl(u.fiyat), 'fiyat'),
+      satir('Kumaş', u.kumas, 'kumas'),
+      satir('Yıkama', u.yikama, 'yikama'),
+      satir('Stok', u.durum === 'tükendi' ? 'Şu an tükendi, gelince haber verelim' : u.stok_notu, 'stok_notu'),
+      satir('Teslim', u.teslim || 'Mağazadan alabilir ya da gönderim için yazabilirsiniz', 'teslim'),
+      satir('Değişim', u.degisim || 'Almadan önce sorun, ürüne göre söylüyoruz', 'degisim')
     ]);
-    if (fiyat) facts.children[1].lastChild.className = 'price';
+    facts.children[1].lastChild.className = 'price';
+    // indirim: eski fiyat düzenlenen alanın dışında (başlığın yanında) üstü çizili durur
+    if (u.eski_fiyat > u.fiyat) facts.children[1].firstChild.append(' ', el('s', { class: 'eski-fiyat', text: tl(u.eski_fiyat) }));
     const info = el('div', { class: 'product__info' }, [
-      el('h1', { text: u.ad }),
-      el('p', { class: 'lead', text: u.aciklama }),
+      el('h1', { 'data-alan': 'ad', text: u.ad }),
+      el('p', { class: 'lead', 'data-alan': 'aciklama', text: u.aciklama || '' }),
       facts,
       el('div', { class: 'product__cta' }, [
         u.durum === 'tükendi'
@@ -361,6 +389,9 @@
       ])
     ]);
     root.replaceChildren(el('div', { class: 'product' }, [el('div', { class: 'product__media' }, [main, thumbs]), info]));
+    // duzen.js sonradan yüklenirse ürünü buradan alır
+    window.mbUrun = u;
+    document.dispatchEvent(new CustomEvent('mb:urun', { detail: u }));
 
     const benzer = urunler.filter((x) => x.id !== u.id && x.kategori === u.kategori).slice(0, 8);
     if (benzer.length) {
@@ -420,7 +451,10 @@
   form();
   hareket();
   sonra(() => { yorumlar(); sonYazilar(); });
-  data().then(({ urunler, site }) => {
+  const veri = data();
+  // ek.js (beğendiklerim, kombinler) ve duzen.js aynı birleşik listeyi kullanır
+  window.mbUrunler = veri.then((v) => v.urunler);
+  veri.then(({ urunler, site }) => {
     hero(site);
     urunSayfasi(urunler);
     sonra(() => { vitrin(urunler); katalog(urunler); seritler(site); });

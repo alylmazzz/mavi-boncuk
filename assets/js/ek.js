@@ -60,14 +60,14 @@
   // ---------- haftanın kombinleri ----------
   const kombinKutu = $('#kombinler');
   if (kombinKutu) {
-    Promise.all([fetch('/data/kombinler.json').then((r) => r.json()), fetch('/data/urunler.json').then((r) => r.json())]).then(([k, u]) => {
-      const bul = (id) => u.urunler.find((x) => x.id === id && !x.gizle);
+    Promise.all([fetch('/data/kombinler.json').then((r) => r.json()), window.mbUrunler || fetch('/data/urunler.json').then((r) => r.json()).then((d) => d.urunler)]).then(([k, u]) => {
+      const bul = (id) => u.find((x) => x.id === id && !x.gizle);
       k.kombinler.forEach((c) => {
         const parcalar = c.urunler.map(bul).filter(Boolean);
         if (parcalar.length < 2) return;
         const li = document.createElement('li'); li.className = 'kombin';
-        const foto = parcalar.map((p) => `<a href="/urun/${p.id}" class="kombin__foto"><img src="${p.gorseller[0].replace(/\.webp$/, '-400.webp')}" alt="${p.ad}" width="400" height="500" loading="lazy" decoding="async"></a>`).join('');
-        const adlar = parcalar.map((p) => `<li><a class="link" href="/urun/${p.id}">${p.ad}</a></li>`).join('');
+        const foto = parcalar.map((p) => `<a href="/urun/${p.id}" class="kombin__foto"><img src="${kucukGorsel(p)}" alt="${esc(p.ad)}" width="400" height="500" loading="lazy" decoding="async"></a>`).join('');
+        const adlar = parcalar.map((p) => `<li><a class="link" href="/urun/${p.id}">${esc(p.ad)}</a></li>`).join('');
         const mesaj = `Merhaba, sitedeki “${c.ad}” kombinini soruyorum: ${parcalar.map((p) => p.ad).join(' ve ')}. Fiyat ve bedenleri nedir?${olcu()}`;
         li.innerHTML = `<div class="kombin__fotolar">${foto}</div><h3>${c.ad}</h3><p>${c.not}</p><ul>${adlar}</ul><a class="button" href="${waLink(mesaj)}">Tüm kombini sor</a>`;
         kombinKutu.append(li);
@@ -88,25 +88,27 @@
     bar.querySelector('select').addEventListener('change', (e) => { if (e.target.value && window.mbYasSec) window.mbYasSec(e.target.value); });
   }
 
-  // ---------- WhatsApp butonunun üstünde MB logosu: üç kez üst üste dokununca yönetim girişi ----------
-  // Şifre burada yok; sunucuda (api/yonetim.js) doğrulanır.
+  // ---------- WhatsApp butonunun üstünde MB logosu: gizli girişler ----------
+  // 3 dokunuş: muhasebe paneli, 5 dokunuş: sitede yönetici modu. Dokunuşlar bitince (0,7 sn) sayılır.
+  // Şifreler burada yok; sunucuda (api/yonetim.js) role göre doğrulanır.
   const gizliLogo = () => {
     const b = document.createElement('button');
     b.type = 'button'; b.className = 'mb-gizli'; b.setAttribute('aria-label', 'Mavi Boncuk');
     b.innerHTML = '<img src="/assets/img/site/mb-logo-64.png" alt="" width="85" height="64" decoding="async">';
-    let n = 0, zaman = 0;
+    let n = 0, bekleme;
     b.addEventListener('click', () => {
-      const s = Date.now(); n = s - zaman < 700 ? n + 1 : 1; zaman = s;
-      if (n >= 3) { n = 0; girisAc(); }
+      n += 1; clearTimeout(bekleme);
+      if (n >= 5) { n = 0; girisAc('admin'); return; }
+      bekleme = setTimeout(() => { if (n === 3) girisAc('panel'); n = 0; }, 700);
     });
     return b;
   };
-  const girisAc = () => {
+  const girisAc = (rol) => {
     if ($('.mb-giris')) return;
     const d = document.createElement('div');
     d.className = 'mb-giris'; d.setAttribute('role', 'dialog'); d.setAttribute('aria-modal', 'true'); d.setAttribute('aria-labelledby', 'mb-giris-baslik');
     d.innerHTML = `<form class="mb-giris__kutu">
-      <h2 id="mb-giris-baslik">Yönetim</h2>
+      <h2 id="mb-giris-baslik">${rol === 'admin' ? 'Yönetici modu' : 'Muhasebe paneli'}</h2>
       <label for="mb-giris-sifre">Şifre</label>
       <input id="mb-giris-sifre" type="password" inputmode="numeric" autocomplete="current-password" required maxlength="64">
       <p class="mb-giris__hata" role="alert"></p>
@@ -120,8 +122,12 @@
     f.addEventListener('submit', async (e) => {
       e.preventDefault(); gir.disabled = true; hata.textContent = '';
       try {
-        const r = await fetch('/api/yonetim', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ sifre: f.querySelector('input').value }), credentials: 'same-origin' });
-        if (r.ok) { location.href = '/yonetim' + (/^#tg=/.test(location.hash) ? location.hash : ''); return; }
+        const r = await fetch('/api/yonetim', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ sifre: f.querySelector('input').value, rol }), credentials: 'same-origin' });
+        // panel: muhasebe paneline (Telegram bağlama bağlantısı korunur); admin: sayfa yönetici moduyla yenilenir
+        if (r.ok) {
+          if (rol === 'panel') { location.href = '/yonetim' + (/^#tg=/.test(location.hash) ? location.hash : ''); return; }
+          store.set('mb-admin', '1'); location.reload(); return;
+        }
         hata.textContent = r.status === 429 ? 'Çok fazla deneme. 15 dakika sonra tekrar deneyin.' : 'Şifre yanlış.';
       } catch (err) { hata.textContent = 'Bağlantı kurulamadı.'; }
       gir.disabled = false; f.querySelector('input').select();
@@ -140,10 +146,12 @@
 
   // ---------- ürün verisi (bir kez indirilir) ----------
   let urunVeri = null;
-  const urunler = () => urunVeri || (urunVeri = fetch('/data/urunler.json').then((r) => r.json()).then((d) => d.urunler.filter((u) => !u.gizle)));
+  // site.js yönetici değişiklikleri uygulanmış listeyi window.mbUrunler'de verir; yoksa temel liste
+  const urunler = () => urunVeri || (urunVeri = window.mbUrunler || fetch('/data/urunler.json').then((r) => r.json()).then((d) => d.urunler.filter((u) => !u.gizle)));
   const DIL = (document.documentElement.lang || 'tr') === 'tr' ? '' : '/' + document.documentElement.lang;
   const ESYA = /arabas|besik|beşik|kucag|kucağ|karyola|yurutec|yürüteç|mama-sandal/;
-  const kucukGorsel = (u) => u.gorseller[0].replace(/\.webp$/, '-400.webp');
+  const kucukGorsel = (u) => (u.gorseller[0].startsWith('/assets/') ? u.gorseller[0].replace(/\.webp$/, '-400.webp') : u.gorseller[0]);
+  const esc = (t) => String(t == null ? '' : t).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
   const KALP = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 017-2.6A4 4 0 0119 10c0 5.6-7 10-7 10z"/></svg>';
 
   // ---------- beğendiklerim: kalple işaretle, hepsini tek mesajla sor ----------
@@ -151,7 +159,7 @@
   const begenler = () => { try { const l = JSON.parse(localStorage.getItem(BEGEN) || '[]'); return Array.isArray(l) ? l : []; } catch (e) { return []; } };
   const begenYaz = (l) => { store.set(BEGEN, JSON.stringify(l)); begenGuncelle(); };
   const begenDegistir = (id) => { const l = begenler(); const i = l.indexOf(id); i < 0 ? l.push(id) : l.splice(i, 1); begenYaz(l); };
-  const tileId = (a) => ((a.getAttribute('href') || '').match(/\/urun\/([^/?#]+)/) || [])[1];
+  const tileId = (a) => a.dataset.id || ((a.getAttribute('href') || '').match(/\/urun\/([^/?#]+)/) || [])[1];
 
   function kalpEkle(kok) {
     kok.querySelectorAll('a.tile:not([data-kalp])').forEach((a) => {
@@ -187,7 +195,7 @@
     const ul = cubuk.querySelector('.begen__liste'); ul.replaceChildren();
     for (const u of secili) {
       const li = document.createElement('li');
-      li.innerHTML = `<a href="${DIL}/urun/${u.id}"><img src="${kucukGorsel(u)}" alt="" width="48" height="60" loading="lazy"><span></span></a><button type="button" data-cikar="${u.id}" aria-label="Listeden çıkar">×</button>`;
+      li.innerHTML = `<a href="${u.yeni ? `/urun?id=${u.id}` : `${DIL}/urun/${u.id}`}"><img src="${kucukGorsel(u)}" alt="" width="48" height="60" loading="lazy"><span></span></a><button type="button" data-cikar="${u.id}" aria-label="Listeden çıkar">×</button>`;
       li.querySelector('span').textContent = u.ad;
       ul.append(li);
     }
@@ -387,6 +395,15 @@
   // ek.js sayfa yüklendikten sonra da gelebilir; o durumda hemen kaydet
   const swKaydet = () => navigator.serviceWorker.register('/sw.js').catch(() => {});
   if ('serviceWorker' in navigator && location.protocol === 'https:') { if (document.readyState === 'complete') swKaydet(); else addEventListener('load', swKaydet); }
+
+  // ---------- yönetici modu: girişten sonra duzen.js gelir (oturum sunucuda doğrulanır) ----------
+  if (store.get('mb-admin') === '1') {
+    fetch('/api/yonetim?durum=1', { credentials: 'same-origin', cache: 'no-store' }).then((r) => r.json()).then((d) => {
+      if (!d.yonetici) { try { localStorage.removeItem('mb-admin'); } catch (e) { /* yok */ } location.reload(); return; }
+      const v = ((document.querySelector('script[src*="/assets/js/ek.js"]') || {}).src || '').split('?v=')[1] || '1';
+      const s = document.createElement('script'); s.src = `/assets/js/duzen.js?v=${v}`; document.head.append(s);
+    }).catch(() => {});
+  }
 
   // ---------- kaydırınca beliren bölümler (bir kez) ----------
   if (!reduced && 'IntersectionObserver' in window) {
