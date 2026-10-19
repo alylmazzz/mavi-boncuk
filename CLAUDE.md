@@ -28,6 +28,14 @@ Instagram üzerinden satış yapan bir çocuk giyim butiğinin web sitesi. Hedef
   Boncuk imleç, iz, süzülen arka plan ve yaş balonu konfetisi oyun.js'ten kaldırıldı. Gece modu artık yalnızca ay düğmesiyle açılır.
 - Yeni metinlerin çevirileri `tools/_ceviri-vitrin.js` içinde; yeni metin eklenirse oraya satır ekleyip çalıştır, sonra derle sırası.
 
+## WhatsApp site asistanı (2026-10-19)
+
+Ege Hanım "Mavi Boncuk Site" WhatsApp grubuna yazılı/sesli/fotoğraflı istek gönderir; mindcorplab sunucusunda 7/24 çalışan ajan
+(pm2 `mb-ajan`, kullanıcı `mbajan`, kod `/opt/mb-ajan`, veri `/mnt/HC_Volume_105946305/mb-ajan`) Claude Code ile (model claude-opus-5)
+önce plan yazıp onay ister, onay gelince bu depoda uygular, derler, denetler, main'e push eder ve Vercel'e yayınlar.
+Ajan her işe `origin/main`'den başlar. **Bu depoda elle çalışmadan önce `git pull`**; ajanın kayıtları "Site asistanı (WhatsApp):" ile başlar.
+Grupta "geri al" son ajan kaydını geri alır. Kaynak: WSL `~/work/mb-ajan-src`.
+
 ## Tasarım kuralları (öncelik sırasıyla)
 
 1. `ui-ux-pro-max`: erişilebilirlik ve dokunma kuralları kesin. Kontrast 4.5:1, dokunma alanı 44px,
