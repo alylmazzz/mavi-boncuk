@@ -81,7 +81,7 @@
   const C = window.mbCeviri;
   const root = document.documentElement;
   const DIL = C.DILLER[root.lang] ? root.lang : 'tr';
-  const SURUM = ((document.currentScript && document.currentScript.src.match(/[?&]v=(w+)/)) || [])[1] || '1';
+  const SURUM = ((document.currentScript && document.currentScript.src.match(/[?&]v=(\w+)/)) || [])[1] || '1';
   const store = {
     get: (k) => { try { return localStorage.getItem(k); } catch (e) { return null; } },
     set: (k, v) => { try { localStorage.setItem(k, v); } catch (e) { /* gizli pencere */ } }

@@ -129,6 +129,10 @@ assets/i18n/ sözlüklerini üretir; derle.js'ten sonra mutlaka çalıştır).
 ## Ek özellikler (2026-10-20)
 
 - Beğendiklerim: ürün kartlarında kalp, sol altta liste, "Hepsini WhatsApp’tan sor" (localStorage `mb-begen`, ek.js).
+- Tek ürünü WhatsApp’tan sor (vitrin.js `waSorAc`): kart fotoğrafının sağ altında `.tile__wa`, ürün sayfasında `data-wa-urun` taşıyan
+  "WhatsApp’tan sor". Çekmecede beden (ürünün `bedenler`i varsa çip + serbest yazı), hazır sorular, not; mesaja ürün adı ve
+  `/urun/<id>` bağlantısı girer, WhatsApp statik sayfanın og:image'ı ile fotoğraflı önizleme gösterir (müşteri ekran görüntüsü atmaz).
+- `.vercelignore` içinde `/i18n/` kökle sınırlı kalmalı; `i18n/` yazılırsa `assets/i18n/` sözlükleri de yayına çıkmaz.
 - Kardeşleri birlikte giydirin (#kardes), gelip denemek için randevu (#randevu, WhatsApp mesajı), yol tarifi (#yol-tarifi) index.html'de.
 - Özel gün sayfaları `/sezon/<id>` (mezuniyet, sunnet, bayramlik, dugun, okula-donus) derle.js içindeki SEZONLAR'dan üretilir.
 - Telegram: `/duyuru <metin>` sitenin üstünde şerit (sabitlenmiş mesaj, `/api/duyuru` okur, 5 dk önbellek), `/duyurukapat`.
