@@ -16,7 +16,8 @@ const header = urunHtml.slice(urunHtml.indexOf('<header'), urunHtml.indexOf('</h
 const footer = urunHtml.slice(urunHtml.indexOf('<footer'), urunHtml.indexOf('</footer>') + 9);
 const headLinks = urunHtml.slice(urunHtml.indexOf('<link rel="icon"'), urunHtml.indexOf('</head>')).split(/\r?\n/).filter((l) => !/rel="canonical"|property="og:|name="robots"/.test(l)).join('\n').trim();
 const scripts = `<script src="/assets/js/dil.js?v=${ver}" defer></script>
-<script src="/assets/js/site.js?v=${ver}" defer></script>\n<script src="/assets/js/oyun.js?v=${ver}" defer></script>
+<script src="/assets/js/site.js?v=${ver}" defer></script>
+<script src="/assets/js/vitrin.js?v=${ver}" defer></script>\n<script src="/assets/js/oyun.js?v=${ver}" defer></script>
 <script src="/assets/js/ek.js?v=${ver}" defer></script>`;
 
 // ---------- 1) blog iskeleti ----------
@@ -58,8 +59,8 @@ for (const u of gorunur) {
   const yol = `/urun/${u.id}`;
   const satir = (k, v) => `<div><dt>${k}</dt><dd>${esc(v)}</dd></div>`;
   // fiyatlar şimdilik gösterilmiyor (sitede yönetici modunda girilir)
-  const fiyat = '-';
-  const govde = `<a class="back link" href="/#askidakiler">← Bütün ürünler</a>
+  const fiyat = '- TL';
+  const govde = `<a class="back link vt" href="/#askidakiler">← Bütün ürünler</a>
 <main id="urun" data-id="${u.id}"><div class="product">
   <div class="product__media"><div class="product__main"><img src="${u.gorseller[0]}" alt="${esc(u.ad)}" width="1200" height="1500"></div></div>
   <div class="product__info">
@@ -68,7 +69,7 @@ for (const u of gorunur) {
     <dl class="facts">
       ${satir('Yaş', yasYazi(u))}<div><dt>Tür</dt><dd><a class="link" href="/kategori/${u.kategori}">${TUR[u.kategori] || ''}</a></dd></div>${satir('Fiyat', fiyat)}${satir('Kumaş', u.kumas || 'Yazın, bakıp söyleyelim')}${satir('Teslim', 'Mağazadan alabilir ya da gönderim için yazabilirsiniz')}
     </dl>
-    <div class="product__cta"><a class="button" href="${wa(`Merhaba, “${u.ad}” için yazıyorum (${SITE}${yol}). Fiyatı ve bedenleri nedir?`)}">WhatsApp’tan sor</a></div>
+    <div class="product__cta"><button class="button sepete-ekle" type="button" data-sepet="${u.id}">Sepete ekle</button><a class="button button--paper" href="${wa(`Merhaba, “${u.ad}” için yazıyorum (${SITE}${yol}). Fiyatı ve bedenleri nedir?`)}">WhatsApp’tan sor</a></div>
   </div>
 </div></main>`;
   const jsonld = {
@@ -134,8 +135,9 @@ const KATEGORILER = [
       ['Bebek arabası fiyatları ne kadar?', 'Fiyat modele göre değişiyor. Elimizdeki modellerin fotoğrafını ve güncel fiyatını WhatsApp’tan gönderiyoruz.']]
   }
 ];
+const SEPET_IKON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4h2l2.4 10.2a1 1 0 001 .8h8.9a1 1 0 001-.8L20 7H6"/><circle cx="9" cy="19" r="1.5"/><circle cx="17" cy="19" r="1.5"/></svg>';
 const kart = (u) => { const g = u.gorseller[0]; const k = g.replace(/\.webp$/, '-400.webp'), o = g.replace(/\.webp$/, '-600.webp');
-  return `<a class="tile" href="/urun/${u.id}"><div class="tile__frame"><img src="${o}" srcset="${k} 400w, ${o} 600w" sizes="(min-width: 75em) 22vw, (min-width: 48em) 31vw, 48vw" alt="${esc(u.ad)}" width="600" height="750" loading="lazy" decoding="async"></div><span class="tile__name">${esc(u.ad)}</span><span class="tile__fact">${esc(yasYazi(u))}</span></a>`; };
+  return `<div class="kart"><a class="tile" href="/urun/${u.id}" data-id="${u.id}"><div class="tile__frame"><img src="${o}" srcset="${k} 400w, ${o} 600w" sizes="(min-width: 75em) 22vw, (min-width: 48em) 31vw, 48vw" alt="${esc(u.ad)}" width="600" height="750" loading="lazy" decoding="async"></div><span class="tile__name">${esc(u.ad)}</span><span class="tile__fact">${esc(yasYazi(u))}</span><span class="tile__ust"><span class="tile__fiyat" data-alan="fiyat">- TL</span></span></a><button class="sepete-ekle" type="button" data-sepet="${u.id}">${SEPET_IKON}Sepete Ekle</button></div>`; };
 for (const k of KATEGORILER) {
   const list = gorunur.filter((u) => u.kategori === k.id);
   const yol = `/kategori/${k.id}`;
@@ -241,8 +243,12 @@ wr('404.html', sabitSayfa({
 }));
 
 // ---------- 2d) canonical ve paylaşım etiketleri (elle yazılan sayfalar) ----------
+// başlık ve alt bilgi tek kaynaktan gelir (urun.html); ana sayfa ve yasal sayfalar da aynısını taşır
 for (const f of fs.readdirSync(ROOT).filter((x) => x.endsWith('.html') && x !== '404.html' && x !== 'urun.html')) {
   let h = rd(f);
+  if (h.includes('<header') && h.includes('</header>')) h = h.slice(0, h.indexOf('<header')) + header + h.slice(h.indexOf('</header>') + 9);
+  if (h.includes('<footer') && h.includes('</footer>')) h = h.slice(0, h.indexOf('<footer')) + footer + h.slice(h.indexOf('</footer>') + 9);
+  if (h.includes('/assets/js/site.js') && !h.includes('/assets/js/vitrin.js')) h = h.replace(/(<script src="\/assets\/js\/site\.js\?v=(\w+)" defer><\/script>)/, '$1\n<script src="/assets/js/vitrin.js?v=$2" defer></script>');
   const yol = f === 'index.html' ? '/' : '/' + f.replace(/\.html$/, '');
   if (!h.includes('rel="canonical"')) h = h.replace('<meta name="theme-color"', `<link rel="canonical" href="${SITE}${yol}">\n<meta property="og:url" content="${SITE}${yol}">\n<meta name="theme-color"`);
   wr(f, h);

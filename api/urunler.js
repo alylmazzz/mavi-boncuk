@@ -37,6 +37,7 @@ function temizle(a) {
   for (const k of ['fiyat', 'eski_fiyat']) if (k in a) o[k] = tutar(a[k]);
   for (const k of ['gizle', 'vitrin']) if (k in a) o[k] = !!a[k];
   if ('kategori' in a && KATEGORI.includes(a.kategori)) o.kategori = a.kategori;
+  if ('cinsiyet' in a && ['kiz', 'erkek', 'unisex'].includes(a.cinsiyet)) o.cinsiyet = a.cinsiyet;
   if ('durum' in a) o.durum = a.durum === 'tükendi' ? 'tükendi' : null;
   if ('yas_araligi' in a) {
     const [x, y] = Array.isArray(a.yas_araligi) ? a.yas_araligi.map(Number) : [];

@@ -88,7 +88,8 @@ for (const dil of DILLER) {
     let h = rd(dosya);
     h = htmlGez(h, (t) => { const c = C.cevirKoru(t, sz); if (c == null && /\p{L}{3,}/u.test(t) && !/^(Mavi Boncuk|WhatsApp|Instagram|Blog|Instagram: @maviboncuk_ortaca)$/.test(t.trim())) eksik.add(t.trim()); return c; });
     h = jsonldCevir(h, sz, dil);
-    h = h.replace('<html lang="tr">', `<html lang="${dil}"${C.DILLER[dil].yon ? ` dir="${C.DILLER[dil].yon}"` : ''}>`)
+    // <html lang="tr" ...> başka öznitelik taşısa da (ör. data-beasties-container) dil değişir
+    h = h.replace(/<html lang="tr"([^>]*)>/, (t, ek) => `<html lang="${dil}"${C.DILLER[dil].yon ? ` dir="${C.DILLER[dil].yon}"` : ''}${ek}>`)
       .replace(/(<link rel="canonical" href=")[^"]*(")/, `$1${url(dil, yol)}$2`)
       .replace(/(<meta property="og:url" content=")[^"]*(")/, `$1${url(dil, yol)}$2`)
       .replace(/(<meta property="og:locale" content=")[^"]*(")/, `$1${C.DILLER[dil].locale}$2`)

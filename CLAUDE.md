@@ -11,6 +11,23 @@ Instagram üzerinden satış yapan bir çocuk giyim butiğinin web sitesi. Hedef
 - Dağıtım: GitHub reposu → Vercel (main dalına push = canlı yayın).
 - Sipariş: şimdilik WhatsApp / Instagram DM bağlantısı (ödeme altyapısı kararı bekliyor).
 
+## Mağaza görünümü (2026-10-19, mağaza sahibinin gönderdiği tasarım görseli; aşağıdaki eski renk/oyuncak kurallarının önüne geçer)
+
+- Palet açık mavi + bej + lacivert, tokenlar `assets/css/vitrin.css` başında (site.css ve oyun.css'ten sonra yüklenir, ezer).
+  Yazı tipleri sitede: Nunito (gövde), Caveat (el yazısı başlıklar), Playpen Sans (afiş başlığı), Dancing Script (logo).
+- Başlık ve alt bilgi tek kaynak: `urun.html`. derle.js bunları üretilen sayfalara, blog kabuğuna, ana sayfaya ve yasal sayfalara kopyalar.
+  Üstte duyuru şeridi, arama (öneri listesi), logo, Hesabım / Favorilerim / Sepetim; altında kategori menüsü (#menu, telefonda hamburger).
+- Menü süzgeçleri `/#bebek`, `/#kiz`, `/#erkek`, `/#genc`, `/#yeni`, `/#indirim` (site.js OZEL). Kız/Erkek için ürünlerde `cinsiyet`
+  (kiz | erkek | unisex) alanı var; yönetici modunda "Kimin için" seçilir.
+- `assets/js/vitrin.js`: kayan afiş, Çok Satanlar (vitrin işaretliler, sonra en yeniler; afiş görselli ürünler hariç), sepet (mb-sepet,
+  siparişi WhatsApp mesajıyla gönderir, mb-siparisler'e yazar), favoriler (ek.js'teki mb-begen ile ortak), Hesabım (üyelik yok, cihazdaki
+  kayıtlar), bülten (e-posta `/api/bildir` tur=bulten ile Telegram'dan mağazaya gider).
+- Fiyat girilmemişse her yerde "- TL" yazar; fiyat yalnızca yönetici modunda girilir. Ücretsiz kargo eşiği 300 TL (vitrin.js KARGO_ESIK
+  ve data/magaza.json).
+- Ana sayfadan çıkarılanlar: eski hero, "Bu hafta askıda", kardeşler, dükkândan kareler, sipariş yolu, "Dükkânda neler var", mesaj formu.
+  Boncuk imleç, iz, süzülen arka plan ve yaş balonu konfetisi oyun.js'ten kaldırıldı. Gece modu artık yalnızca ay düğmesiyle açılır.
+- Yeni metinlerin çevirileri `tools/_ceviri-vitrin.js` içinde; yeni metin eklenirse oraya satır ekleyip çalıştır, sonra derle sırası.
+
 ## Tasarım kuralları (öncelik sırasıyla)
 
 1. `ui-ux-pro-max`: erişilebilirlik ve dokunma kuralları kesin. Kontrast 4.5:1, dokunma alanı 44px,

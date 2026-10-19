@@ -29,65 +29,105 @@
 <link rel="icon" href="/assets/img/site/mb-logo-64.png" type="image/png">
 <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
 <script defer src="/_vercel/insights/script.js"></script>
-<link rel="preload" href="/assets/fonts/roundo-400.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/assets/fonts/baloo2-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/assets/css/app.min.css?v=20261021o">
+<link rel="preload" href="/assets/fonts/nunito-latin-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/dancing-script-latin-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/app.min.css?v=20261019j">
 <script type="application/ld+json">[{"@context":"https://schema.org","@type":"Product","name":"Vestido de festa azul de cetim com laço no ombro","description":"Cetim azul-gelo, curto na frente e longo atrás. O laço no ombro fica como uma manga caída.","image":["https://maviboncukortaca.vercel.app/assets/img/urunler/mavi-saten-abiye/1.webp"],"category":"Abiye","url":"https://maviboncukortaca.vercel.app/pt/urun/mavi-saten-abiye","brand":{"@type":"Brand","name":"Mavi Boncuk"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Página inicial","item":"https://maviboncukortaca.vercel.app/pt"},{"@type":"ListItem","position":2,"name":"Vestido de festa","item":"https://maviboncukortaca.vercel.app/pt/kategori/abiye"},{"@type":"ListItem","position":3,"name":"Vestido de festa azul de cetim com laço no ombro","item":"https://maviboncukortaca.vercel.app/pt/urun/mavi-saten-abiye"}]}]</script>
 </head>
 <body>
-<header class="bar">
-  <a class="bar__brand" href="/pt" aria-label="Página inicial da Mavi Boncuk"><img src="/assets/img/site/mb-logo.webp" alt="Mavi Boncuk" width="213" height="160"></a>
-  <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="menu" aria-label="Abrir menu"><span></span><span></span><span></span></button>
-  <nav class="bar__links" id="menu" aria-label="Menu principal">
-    <button class="toy-switch" id="gift" type="button" aria-pressed="false"><span class="toy-switch__track"><span class="toy-switch__knob"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12c-2-3-6-5-7.5-3.5S6 13 12 12zm0 0c2-3 6-5 7.5-3.5S18 13 12 12z" fill="#f28db2" stroke="#26357a" stroke-width="1.4"/><circle cx="12" cy="12" r="2" fill="#26357a"/><path d="M11 13l-3 6m5-6l3 6" stroke="#26357a" stroke-width="1.6" stroke-linecap="round"/></svg></span></span><span class="toy-switch__label">Estou comprando um presente</span></button>
-    <button class="sound-btn" id="sound" type="button" aria-pressed="false" aria-label="Ativar som de clique"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor" fill-opacity=".15"/><path d="M16 9a4 4 0 010 6M18.5 6.5a8 8 0 010 11"/></svg></button>
-    <a href="/pt#askidakiler">Produtos</a>
-    <a href="/pt#siparis">Pedido</a>
-    <a href="/pt#sorular">Perguntas</a>
-    <a href="/blog">Blog</a>
-    <a class="button" data-wa href="https://wa.me/905057458364">WhatsApp</a>
+<header class="ust">
+  <div class="serit" role="region" aria-label="Avisos">
+    <div class="serit__ic">
+      <p><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h11v10H3zM14 9h4l3 3v4h-7"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/></svg>Envio rápido para toda a Turquia</p>
+      <p class="serit__ana"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 017-2.6A4 4 0 0119 10c0 5.6-7 10-7 10z" fill="currentColor"/></svg>Grandes alegrias para os pequenos</p>
+      <p><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9h16v11H4zM3 6h18v3H3zM12 6v14"/><path d="M12 6c-1.5-3-5-3-5-1s5 1 5 1 5 1 5-1-3.5-2-5 1"/></svg>Envio grátis a partir de 300 TL</p>
+    </div>
+  </div>
+  <div class="ust__ic">
+    <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="menu" aria-label="Abrir menu"><span></span><span></span><span></span></button>
+    <form class="ust__ara" role="search" action="/" method="get" data-ara>
+      <label class="sr-only" for="ust-ara-q">Buscar produto</label>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      <input id="ust-ara-q" name="q" type="search" placeholder="Pesquise produtos, categorias ou idades…" autocomplete="off" enterkeyhint="search" aria-controls="ust-oneri" aria-autocomplete="list">
+      <ul class="ust__oneri" id="ust-oneri" role="listbox" aria-label="Sugestões" hidden></ul>
+    </form>
+    <a class="logo" href="/pt" aria-label="Página inicial da Mavi Boncuk"><svg class="logo__boncuk" viewBox="0 0 64 64" aria-hidden="true"><defs><radialGradient id="lb-ust" cx="38%" cy="32%" r="72%"><stop offset="0" stop-color="#78aee6"/><stop offset="1" stop-color="#2c5e9c"/></radialGradient></defs><path d="M32 15c-4.5-6.5-14-7.5-14-2 0 4.5 8 4.5 14 2zm0 0c4.5-6.5 14-7.5 14-2 0 4.5-8 4.5-14 2z" fill="#eef2f7" stroke="#9fb3cc" stroke-width="1.4"/><path d="M29.5 17l-5 7.5M34.5 17l5 7.5" stroke="#9fb3cc" stroke-width="1.6" stroke-linecap="round"/><circle cx="32" cy="39" r="21" fill="url(#lb-ust)"/><circle cx="32" cy="39" r="13.5" fill="#fff"/><circle cx="32" cy="39" r="9" fill="#8cc4ee"/><circle cx="32" cy="39" r="5" fill="#1f3a5f"/><ellipse cx="23.5" cy="28" rx="5" ry="2.6" fill="#fff" opacity=".5" transform="rotate(-35 23.5 28)"/><circle cx="30" cy="37" r="1.6" fill="#fff"/><circle cx="32" cy="15.6" r="2.5" fill="#dfe7f1" stroke="#9fb3cc" stroke-width="1.2"/></svg><span class="logo__yazi"><span class="logo__ad">Mavi Boncuk</span><span class="logo__alt">Roupa de bebé e criança</span></span></a>
+    <div class="ust__islem">
+      <button class="islem" type="button" data-cekmece="hesap" aria-label="A minha conta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 20c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg><span>A minha conta</span></button>
+      <button class="islem" type="button" data-cekmece="favori" aria-label="Favoritos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 017-2.6A4 4 0 0119 10c0 5.6-7 10-7 10z"/></svg><span>Favoritos</span><b class="islem__sayi" data-sayi="favori" hidden>0</b></button>
+      <button class="islem" type="button" data-cekmece="sepet" aria-label="Cesto"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1 12H6z"/><path d="M9 8V6a3 3 0 016 0v2"/></svg><span>Cesto</span><b class="islem__sayi" data-sayi="sepet">0</b></button>
+    </div>
+  </div>
+  <nav class="kat-nav" id="menu" aria-label="Categorias">
+    <a href="/pt"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11.2l9-7.2 9 7.2V20a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1z" fill="currentColor"/></svg>Início</a>
+    <a href="/pt#bebek" data-filtre="bebek">Bebé 0-2 anos</a>
+    <a href="/pt#kiz" data-filtre="kiz">Menina</a>
+    <a href="/pt#erkek" data-filtre="erkek">Menino</a>
+    <a href="/pt#genc" data-filtre="genc">Jovens 10-16 anos</a>
+    <a href="/pt#yeni" data-filtre="yeni">Novidades</a>
+    <a href="/pt#indirim" data-filtre="indirim">Saldos</a>
+    <a href="/pt#kombinler">Conjuntos</a>
+    <span class="kat-nav__ek" id="ust-ekstra"></span>
   </nav>
 </header>
-<a class="back link" href="/pt#askidakiler">← Todos os produtos</a>
+<a class="back link vt" href="/pt#askidakiler">← Todos os produtos</a>
 <main id="urun" data-id="mavi-saten-abiye"><div class="product">
   <div class="product__media"><div class="product__main"><img src="/assets/img/urunler/mavi-saten-abiye/1.webp" alt="Vestido de festa azul de cetim com laço no ombro" width="1200" height="1500"></div></div>
   <div class="product__info">
     <h1>Vestido de festa azul de cetim com laço no ombro</h1>
     <p class="lead">Cetim azul-gelo, curto na frente e longo atrás. O laço no ombro fica como uma manga caída.</p>
     <dl class="facts">
-      <div><dt>Idade</dt><dd>10-15 anos</dd></div><div><dt>Tipo</dt><dd><a class="link" href="/pt/kategori/abiye">Vestido de festa</a></dd></div><div><dt>Preço</dt><dd>-</dd></div><div><dt>Tecido</dt><dd>Escreva, a gente olha e diz</dd></div><div><dt>Entrega</dt><dd>Você pode retirar na loja ou escrever para combinar o envio</dd></div>
+      <div><dt>Idade</dt><dd>10-15 anos</dd></div><div><dt>Tipo</dt><dd><a class="link" href="/pt/kategori/abiye">Vestido de festa</a></dd></div><div><dt>Preço</dt><dd>- TL</dd></div><div><dt>Tecido</dt><dd>Escreva, a gente olha e diz</dd></div><div><dt>Entrega</dt><dd>Você pode retirar na loja ou escrever para combinar o envio</dd></div>
     </dl>
-    <div class="product__cta"><a class="button" href="https://wa.me/905057458364?text=Merhaba%2C%20%E2%80%9CMavi%20saten%20omzu%20fiyonklu%20abiye%E2%80%9D%20i%C3%A7in%20yaz%C4%B1yorum%20(https%3A%2F%2Fmaviboncukortaca.vercel.app%2Furun%2Fmavi-saten-abiye).%20Fiyat%C4%B1%20ve%20bedenleri%20nedir%3F">Pergunte pelo WhatsApp</a></div>
+    <div class="product__cta"><button class="button sepete-ekle" type="button" data-sepet="mavi-saten-abiye">Adicionar ao cesto</button><a class="button button--paper" href="https://wa.me/905057458364?text=Merhaba%2C%20%E2%80%9CMavi%20saten%20omzu%20fiyonklu%20abiye%E2%80%9D%20i%C3%A7in%20yaz%C4%B1yorum%20(https%3A%2F%2Fmaviboncukortaca.vercel.app%2Furun%2Fmavi-saten-abiye).%20Fiyat%C4%B1%20ve%20bedenleri%20nedir%3F">Pergunte pelo WhatsApp</a></div>
   </div>
 </div></main>
-<footer class="foot">
-  <div class="postcard">
-    <div class="postcard__msg">
-      <h2>Se passar por aqui, esperamos você na Mavi Boncuk</h2>
-      <p>Traga a criança também, para provar o que você gostou.</p>
+<footer class="alt">
+  <div class="alt__ic">
+    <div>
+      <a class="logo" href="/pt" aria-label="Página inicial da Mavi Boncuk"><svg class="logo__boncuk" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 15c-4.5-6.5-14-7.5-14-2 0 4.5 8 4.5 14 2zm0 0c4.5-6.5 14-7.5 14-2 0 4.5-8 4.5-14 2z" fill="#eef2f7" stroke="#9fb3cc" stroke-width="1.4"/><path d="M29.5 17l-5 7.5M34.5 17l5 7.5" stroke="#9fb3cc" stroke-width="1.6" stroke-linecap="round"/><circle cx="32" cy="39" r="21" fill="#4a83c4"/><circle cx="32" cy="39" r="13.5" fill="#fff"/><circle cx="32" cy="39" r="9" fill="#8cc4ee"/><circle cx="32" cy="39" r="5" fill="#1f3a5f"/><circle cx="30" cy="37" r="1.6" fill="#fff"/><circle cx="32" cy="15.6" r="2.5" fill="#dfe7f1" stroke="#9fb3cc" stroke-width="1.2"/></svg><span class="logo__yazi"><span class="logo__ad">Mavi Boncuk</span><span class="logo__alt">Roupa de bebé e criança</span></span></a>
+      <p class="alt__hakkinda">Nas nossas duas lojas em Ortaca há roupa dos 0 aos 16 anos, vestidos de festa, fatos e artigos de bebé. Pergunte pelo WhatsApp e encontramos o tamanho juntos.</p>
     </div>
-    <address class="postcard__addr" style="font-style:normal">
-      <figure class="postcard__stamp"><img src="/assets/img/site/dukkan.jpg" alt="Vitrine da loja Mavi Boncuk" width="160" height="213" loading="lazy"></figure>
-      <a class="link" data-wa href="https://wa.me/905057458364">WhatsApp: 0505 745 83 64</a>
-      <a class="link" href="tel:+902522828463">Loja: 0252 282 84 63</a>
-      <a class="link" href="https://www.google.com/maps/search/?api=1&amp;query=Mavi+Boncuk+Bebe+Ma%C4%9Fazas%C4%B1+Ortaca" rel="noopener">Şerifnaz Başoğlu Sokak, Dede Yün karşısı, Ortaca / Muğla</a>
-      <a class="link" href="https://www.instagram.com/maviboncuk_ortaca/" rel="noopener">Instagram: @maviboncuk_ortaca</a>
-    </address>
-    <nav class="legal-links" aria-label="Informações legais">
-      <a class="link" href="/iletisim">Sobre nós e contato</a>
-      <a class="link" href="/teslimat">Entrega e frete</a>
-      <a class="link" href="/iade">Cancelamento, devolução e troca</a>
-      <a class="link" href="/mesafeli-satis">Contrato de venda à distância</a>
-      <a class="link" href="/on-bilgilendirme">Formulário de informações prévias</a>
-      <a class="link" href="/kvkk">Aviso de privacidade (KVKK)</a>
-      <a class="link" href="/gizlilik">Privacidade e cookies</a>
+    <nav aria-label="Categorias">
+      <h2>Categorias</h2>
+      <ul>
+        <li><a href="/pt/kategori/abiye">Vestidos de festa infantis</a></li>
+        <li><a href="/pt/kategori/takim-elbise">Ternos</a></li>
+        <li><a href="/pt/kategori/gunluk">Conjuntos do dia a dia</a></li>
+        <li><a href="/pt/kategori/okul">Roupas escolares</a></li>
+        <li><a href="/pt/kategori/bebek">Bebê e carrinho de bebê</a></li>
+        <li><a href="/pt/urunler">Todos os produtos</a></li>
+        <li><a href="/blog">Blog</a></li>
+      </ul>
     </nav>
-    <p class="postcard__imprint">© 2026 Mavi Boncuk Bebe Mağazası, Ortaca. Fotos dos produtos tiradas da conta da loja no Instagram.</p>
+    <nav aria-label="Informações legais">
+      <h2>Ajuda</h2>
+      <ul>
+        <li><a href="/iletisim">Sobre nós e contato</a></li>
+        <li><a href="/teslimat">Entrega e frete</a></li>
+        <li><a href="/iade">Cancelamento, devolução e troca</a></li>
+        <li><a href="/mesafeli-satis">Contrato de venda à distância</a></li>
+        <li><a href="/on-bilgilendirme">Formulário de informações prévias</a></li>
+        <li><a href="/kvkk">Aviso de privacidade (KVKK)</a></li>
+        <li><a href="/gizlilik">Privacidade e cookies</a></li>
+      </ul>
+    </nav>
+    <div>
+      <h2>Contacto</h2>
+      <address>
+        <a data-wa href="https://wa.me/905057458364">WhatsApp: 0505 745 83 64</a>
+        <a href="tel:+902522828463">Loja: 0252 282 84 63</a>
+        <a href="https://www.google.com/maps/search/?api=1&amp;query=Mavi+Boncuk+Bebe+Ma%C4%9Fazas%C4%B1+Ortaca" rel="noopener">Şerifnaz Başoğlu Sokak, Dede Yün karşısı, Ortaca / Muğla</a>
+        <a href="https://www.instagram.com/maviboncuk_ortaca/" rel="noopener">Instagram: @maviboncuk_ortaca</a>
+      </address>
+    </div>
   </div>
+  <div class="alt__alt"><p>© 2026 Mavi Boncuk Bebe Mağazası, Ortaca. Fotos dos produtos tiradas da conta da loja no Instagram.</p></div>
 <p class="dil-not">Os textos legais e do blog estão em turco. Colocamos a versão em turco embaixo da sua mensagem no WhatsApp; você pode escrever no seu idioma.</p>
 </footer>
-<script src="/assets/js/dil.js?v=20261021o" defer></script>
-<script src="/assets/js/site.js?v=20261021o" defer></script>
-<script>(function(){var y=0;function f(){if(y)return;y=1;['/assets/js/oyun.js?v=20261021o','/assets/js/ek.js?v=20261021o'].forEach(function(s){var e=document.createElement('script');e.src=s;e.async=false;document.head.appendChild(e)})}if(document.readyState==='complete')f();else addEventListener('load',f,{once:true});['pointerdown','keydown','touchstart','scroll'].forEach(function(t){addEventListener(t,f,{once:true,passive:true})})})();</script>
+<script src="/assets/js/dil.js?v=20261019j" defer></script>
+<script src="/assets/js/site.js?v=20261019j" defer></script>
+<script src="/assets/js/vitrin.js?v=20261019j" defer></script>
+<script>(function(){var y=0;function f(){if(y)return;y=1;['/assets/js/oyun.js?v=20261019j','/assets/js/ek.js?v=20261019j'].forEach(function(s){var e=document.createElement('script');e.src=s;e.async=false;document.head.appendChild(e)})}if(document.readyState==='complete')f();else addEventListener('load',f,{once:true});['pointerdown','keydown','touchstart','scroll'].forEach(function(t){addEventListener(t,f,{once:true,passive:true})})})();</script>
 </body>
 </html>

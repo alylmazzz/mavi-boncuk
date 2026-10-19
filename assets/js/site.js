@@ -15,7 +15,7 @@
   // Beden bulucuda girilen ölçü varsa ürün mesajına eklenir
   const olcu = () => { try { const o = JSON.parse(localStorage.getItem('mb-olcu') || 'null'); return o ? ` Çocuğumun boyu ${o.boy} cm, kilosu ${o.kilo} kg.` : ''; } catch (e) { return ''; } };
   // fiyatı henüz belli olmayan ürünlerde "-" yazar
-  const tl = (n) => !n ? '-' : `${Number(n).toLocaleString('tr-TR', { minimumFractionDigits: n % 1 ? 2 : 0, maximumFractionDigits: 2 })} TL`;
+  const tl = (n) => !n ? '- TL' : `${Number(n).toLocaleString('tr-TR', { minimumFractionDigits: n % 1 ? 2 : 0, maximumFractionDigits: 2 })} TL`;
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
   // yerel fotoğrafların küçük boyları var (-400/-600.webp); yönetici modunda yüklenenlerin yok
   const boyut = (g, n) => (g.startsWith('/assets/') ? g.replace(/\.webp$/, `-${n}.webp`) : g);
@@ -56,6 +56,27 @@
   const yasYazi = (u) => u.yas_yazi || (u.yas_araligi ? `${u.yas_araligi[0]}-${u.yas_araligi[1]} yaş` : '');
   const urunLink = (u) => (u.yeni ? `/urun?id=${encodeURIComponent(u.id)}` : `/urun/${encodeURIComponent(u.id)}`);
 
+  // menüdeki ve kategori dairelerindeki süzgeçler (/#kiz gibi bağlantılarla gelir)
+  const ESYA = /arabas|besik|beşik|kucag|kucağ|karyola|yurutec|yürüteç|mama-sandal/;
+  const kesisir = (u, a, b) => !u.yas_araligi || (u.yas_araligi[0] <= b && u.yas_araligi[1] >= a);
+  const indirimde = (u) => u.fiyat && u.eski_fiyat > u.fiyat;
+  const OZEL = {
+    bebek: { ad: 'Bebek 0-2 Yaş', f: (u) => u.kategori === 'bebek' || (!!u.yas_araligi && u.yas_araligi[0] <= 2) },
+    kiz: { ad: 'Kız Çocuk', f: (u) => u.cinsiyet !== 'erkek' && !ESYA.test(u.id) && kesisir(u, 2, 10) },
+    erkek: { ad: 'Erkek Çocuk', f: (u) => u.cinsiyet !== 'kiz' && !ESYA.test(u.id) && kesisir(u, 2, 10) },
+    genc: { ad: 'Genç 10-16 Yaş', f: (u) => !!u.yas_araligi && u.yas_araligi[1] >= 10 && !ESYA.test(u.id) },
+    yeni: { ad: 'Yeni Gelenler', f: () => true },
+    indirim: { ad: 'İndirim', f: indirimde }
+  };
+  // son 30 günde eklenenler "Yeni" rozeti alır
+  const yeniMi = (u) => !!u.tarih && Date.now() - Date.parse(u.tarih) < 30 * 864e5;
+  const SEPET_IKON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4h2l2.4 10.2a1 1 0 001 .8h8.9a1 1 0 001-.8L20 7H6"/><circle cx="9" cy="19" r="1.5"/><circle cx="17" cy="19" r="1.5"/></svg>';
+  const sepetBtn = (u, metin) => {
+    const b = el('button', { type: 'button', class: 'sepete-ekle', 'data-sepet': u.id, disabled: u.durum === 'tükendi' });
+    b.innerHTML = SEPET_IKON; b.append(u.durum === 'tükendi' ? 'Tükendi' : metin);
+    return b;
+  };
+
   function tile(u, i) {
     const a = el('a', { class: 'tile', href: urunLink(u), 'data-id': u.id });
     const f = el('div', { class: 'tile__frame' });
@@ -67,16 +88,19 @@
     const ilk = kucukSet(u.gorseller[0]); ilk.alt = u.ad; if (i <= 3) ilk.removeAttribute('loading');
     f.append(ilk);
     if (u.gorseller[1]) f.append(kucukSet(u.gorseller[1]));
+    // tek rozet, sol üstte: tükendi > indirim > yeni (sağ üst köşe beğen kalbinin)
     if (u.durum === 'tükendi') { a.classList.add('is-tukendi'); f.append(el('span', { class: 'tile__badge', text: 'Tükendi' })); }
-    // fiyat fotoğrafın üstünde değil, kartın sağ üst köşesinde kendi satırında: ürünü ya da çocuğu kapatmaz
+    else if (indirimde(u)) f.append(el('span', { class: 'rozet rozet--indirim', text: 'İndirim' }));
+    else if (yeniMi(u)) f.append(el('span', { class: 'rozet rozet--yeni', text: 'Yeni' }));
     if (u.gizle) { a.classList.add('is-gizli'); f.append(el('span', { class: 'tile__badge tile__badge--gizli', text: 'Gizli' })); }
     const ust = el('span', { class: 'tile__ust' }, [
       u.eski_fiyat > u.fiyat ? el('s', { class: 'tile__eski', text: tl(u.eski_fiyat) }) : null,
       el('span', { class: 'tile__fiyat', 'data-alan': 'fiyat', text: tl(u.fiyat) })
     ]);
-    a.append(ust, f, el('span', { class: 'tile__name', text: u.ad }), el('span', { class: 'tile__fact', text: u.kisa || yasYazi(u) || TURLER[u.kategori] || '' }));
-    return a;
+    a.append(f, el('span', { class: 'tile__name', text: u.ad }), el('span', { class: 'tile__fact', text: yasYazi(u) || u.kisa || TURLER[u.kategori] || '' }), ust);
+    return el('div', { class: 'kart', 'data-id': u.id }, [a, sepetBtn(u, 'Sepete Ekle')]);
   }
+  window.mbKart = tile;
 
   async function data() {
     // yönetici modundaki değişiklikler (eklenen, silinen, düzenlenen ürünler); gelmezse temel liste kullanılır
@@ -190,10 +214,28 @@
     if (!grid) return;
     const dividers = $('#dividers'), kinds = $('#kinds'), count = $('#cat-count'), more = $('#more');
     const PAGE = 24;
-    let yas = YASLAR[0], tur = 'hepsi', shown = PAGE;
+    let yas = YASLAR[0], tur = 'hepsi', shown = PAGE, ozel = null;
     const params = new URLSearchParams(location.search);
     if (params.get('yas')) yas = YASLAR.find((y) => y.id === params.get('yas')) || yas;
     if (params.get('tur') && TURLER[params.get('tur')]) tur = params.get('tur');
+    const hashOzel = () => { const h = decodeURIComponent(location.hash.slice(1)); return OZEL[h] ? h : null; };
+    ozel = hashOzel();
+    const cip = $('#filtre-cip');
+    const kaydir = () => $('#askidakiler').scrollIntoView({ behavior: reduced ? 'auto' : 'smooth' });
+    // menü, daireler ve koleksiyon kartları buradan süzer; aynı sayfada kalır
+    window.mbFiltre = (k, git = true) => {
+      ozel = OZEL[k] ? k : null;
+      if (ozel) { yas = YASLAR[0]; tur = 'hepsi'; q = ''; if (ara) ara.value = ''; }
+      shown = PAGE; draw();
+      if (git) kaydir();
+    };
+    document.addEventListener('click', (e) => {
+      const a = e.target.closest('a[data-filtre]');
+      if (!a || e.ctrlKey || e.metaKey || e.shiftKey) return;
+      e.preventDefault();
+      window.mbFiltre(a.dataset.filtre);
+    });
+    addEventListener('hashchange', () => { const h = hashOzel(); if (h) window.mbFiltre(h); });
 
     const mevcutTurler = ['hepsi', ...Object.keys(TURLER).filter((k) => k !== 'hepsi' && urunler.some((u) => u.kategori === k))];
     YASLAR.forEach((y) => {
@@ -211,6 +253,8 @@
     const ara = $('#ara');
     const norm = (s) => String(s || '').toLocaleLowerCase('tr').normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/ı/g, 'i');
     let q = '';
+    // üstteki arama kutusundan /?q= ile gelinir
+    if (ara && params.get('q')) { ara.value = params.get('q'); q = norm(ara.value.trim()); ozel = null; }
     if (ara) {
       let zam;
       ara.addEventListener('input', () => { clearTimeout(zam); zam = setTimeout(() => { q = norm(ara.value.trim()); shown = PAGE; draw(); }, 160); });
@@ -226,29 +270,48 @@
       dividers.querySelectorAll('button').forEach((b, i) => b.setAttribute('aria-pressed', String(YASLAR[i] === yas)));
       kinds.querySelectorAll('button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.k === tur)));
       const kelimeler = q ? q.split(/\s+/) : [];
-      const list = urunler.filter((u) => yasUyar(u, yas) && (tur === 'hepsi' || u.kategori === tur) &&
+      let list = urunler.filter((u) => yasUyar(u, yas) && (tur === 'hepsi' || u.kategori === tur) && (!ozel || OZEL[ozel].f(u)) &&
         (!kelimeler.length || kelimeler.every((k) => norm(`${u.ad} ${u.aciklama} ${TURLER[u.kategori]} ${u.kisa}`).includes(k))));
+      if (ozel === 'yeni') list = list.filter((u) => u.tarih || u.yeni).sort((p, r) => String(r.tarih || '9').localeCompare(String(p.tarih || '9'))).slice(0, 12);
       grid.replaceChildren(...list.slice(0, shown).map((u, i) => {
         const t = tile(u, i);
-        if (i % 7 === 3) t.classList.add('tile--wide');
         if (i < 16) { t.classList.add('is-drop'); t.style.setProperty('--i', i); }
         return t;
       }));
       if (!list.length) {
         const aranan = ara && ara.value.trim();
+        const metin = aranan ? `“${aranan}” şu an sitede yok, ama dükkânda olabilir. Sitede her ürünü göstermiyoruz.`
+          : ozel === 'indirim' ? 'Şu an indirimde ürün yok. İndirim başlayınca sitenin üstündeki duyuruda ve Instagram’da yazıyoruz.'
+          : 'Bu yaşta bu türden şu an sitede ürün yok. Bize yazın, dükkânda olanı söyleyelim.';
         grid.append(el('div', { class: 'catalogue__empty' }, [
-          el('p', { text: aranan ? `“${aranan}” şu an sitede yok, ama dükkânda olabilir. Sitede her ürünü göstermiyoruz.` : 'Bu yaşta bu türden şu an sitede ürün yok. Bize yazın, dükkânda olanı söyleyelim.' }),
-          el('a', { class: 'button', style: 'margin-top:1rem', href: waLink(aranan ? `Merhaba, sitede “${aranan}” aradım, bulamadım. Elinizde var mı?${olcu()}` : `Merhaba, ${yas.ad} için elinizde neler var?${olcu()}`), text: 'WhatsApp’tan sor' })
+          el('p', { text: metin }),
+          el('a', { class: 'button', style: 'margin-top:1rem', href: waLink(aranan ? `Merhaba, sitede “${aranan}” aradım, bulamadım. Elinizde var mı?${olcu()}` : `Merhaba, ${ozel ? OZEL[ozel].ad : yas.ad} için elinizde neler var?${olcu()}`), text: 'WhatsApp’tan sor' })
         ]));
       }
       count.textContent = `${list.length} ürün` + (yas.id !== 'hepsi' ? `, ${yas.ad}` : '');
       more.hidden = list.length <= shown;
+      if (cip) {
+        cip.replaceChildren();
+        if (ozel) {
+          const b = el('button', { type: 'button', class: 'filtre-cip', 'aria-label': `${OZEL[ozel].ad} süzgecini kaldır` }, [OZEL[ozel].ad, el('span', { 'aria-hidden': 'true', text: '×' })]);
+          b.addEventListener('click', () => window.mbFiltre(null, false));
+          cip.append(b);
+        }
+      }
+      document.querySelectorAll('.kat-nav a[data-filtre]').forEach((a) => (a.dataset.filtre === ozel ? a.setAttribute('aria-current', 'page') : a.removeAttribute('aria-current')));
       const u = new URL(location.href);
       yas.id === 'hepsi' ? u.searchParams.delete('yas') : u.searchParams.set('yas', yas.id);
       tur === 'hepsi' ? u.searchParams.delete('tur') : u.searchParams.set('tur', tur);
+      if (!q) u.searchParams.delete('q');
+      u.hash = ozel ? ozel : (OZEL[u.hash.slice(1)] ? '' : u.hash);
       history.replaceState(null, '', u);
     }
     draw();
+    // başka sayfadan /#kiz ya da /?q= ile gelindiyse: üstteki görseller yerleşince listeye in (yumuşak kaydırma yükleme sırasında kesiliyor)
+    if (ozel || params.get('q')) {
+      const in_ = () => $('#askidakiler').scrollIntoView({ behavior: 'auto' });
+      if (document.readyState === 'complete') setTimeout(in_, 60); else addEventListener('load', () => setTimeout(in_, 60), { once: true });
+    }
   }
 
   function seritler(site) {
@@ -383,8 +446,9 @@
       el('div', { class: 'product__cta' }, [
         u.durum === 'tükendi'
           ? el('a', { class: 'button', 'data-stok-talep': u.id, href: waLink(`Merhaba, “${u.ad}” (${location.href}) tükenmiş görünüyor. Gelince haber verir misiniz?${olcu()}`), text: 'Gelince haber ver' })
-          : el('a', { class: 'button', href: waLink(`Merhaba, “${u.ad}” için yazıyorum (${location.href}). Fiyatı ve bedenleri nedir?${olcu()}`), text: 'WhatsApp’tan sor' }),
-        el('button', { class: 'button button--paper begen-btn', type: 'button', 'data-begen': u.id, 'aria-pressed': 'false', text: 'Beğendiklerime ekle' }),
+          : (() => { const b = sepetBtn(u, 'Sepete ekle'); b.classList.add('button'); return b; })(),
+        u.durum === 'tükendi' ? null : el('a', { class: 'button button--paper', href: waLink(`Merhaba, “${u.ad}” için yazıyorum (${location.href}). Fiyatı ve bedenleri nedir?${olcu()}`), text: 'WhatsApp’tan sor' }),
+        el('button', { class: 'button button--paper begen-btn', type: 'button', 'data-begen': u.id, 'aria-pressed': 'false', text: 'Favorilere ekle' }),
         el('a', { class: 'button button--paper gift-note', href: waLink(`Merhaba, “${u.ad}” ürününü hediye olarak almak istiyorum (${location.href}). Hediye notu eklemek istiyorum: `), text: 'Hediye notu ekle' }),
         u.instagram ? el('a', { class: 'button button--paper', href: u.instagram, rel: 'noopener', text: 'Instagram’da gör' }) : null
       ])
@@ -398,7 +462,7 @@
     if (benzer.length) {
       const sec = el('section', { class: 'catalogue', style: 'padding-top:0' }, [
         el('h2', { class: 'head', text: 'Yanında bunlar da var', style: 'margin-bottom:2rem' }),
-        el('div', { class: 'grid-tiles' }, benzer.map(tile))
+        el('div', { class: 'grid-tiles' }, benzer.map((x, i) => tile(x, i + 4)))
       ]);
       root.append(sec);
     }
@@ -410,7 +474,8 @@
     // İmleç tarayıcının kendi imleci (CSS, gecikmesiz). Burada yalnızca kartların imlece göre eğilmesi var:
     // tek pointermove dinleyicisi, kare başına tek yazma, ölçüm kart başına bir kez.
     if (reduced || !matchMedia("(hover: hover) and (pointer: fine)").matches) return;
-    const SEL = ".tile__frame, .shop__item figure, .hero__tile, .strip__row a, .showcase__panel, .product__main";
+    // mağaza görünümünde (2026-10-19) ürün kartları eğilmez; yalnızca eski bölümler
+    const SEL = ".shop__item figure, .hero__tile, .strip__row a, .showcase__panel";
     let x = 0, y = 0, queued = false, cur = null, rect = null, imgs = [], big = 8;
     const reset = (n) => {
       n.classList.remove("is-tilting");
@@ -458,6 +523,11 @@
   veri.then(({ urunler, site }) => {
     hero(site);
     urunSayfasi(urunler);
+    // hazır (statik) kategori ve özel gün sayfalarındaki kartlarda da yönetici modunda girilen fiyat görünsün
+    document.querySelectorAll('a.tile[data-id] .tile__fiyat').forEach((f) => {
+      const u = urunler.find((x) => x.id === f.closest('a.tile').dataset.id);
+      if (u) f.textContent = tl(u.fiyat);
+    });
     sonra(() => { vitrin(urunler); katalog(urunler); seritler(site); });
   }).catch(() => {
     const g = $('#grid') || $('#urun');

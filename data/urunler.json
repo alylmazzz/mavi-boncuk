@@ -3,6 +3,7 @@
     "id": "kisa-kebab-case, ör. ribana-tulum-badem",
     "ad": "Ürün adı",
     "kategori": "bebek | kiz | erkek | unisex | aksesuar",
+    "cinsiyet": "kiz | erkek | unisex (menüdeki Kız Çocuk / Erkek Çocuk süzgeçleri)",
     "fiyat": 0,
     "indirimli_fiyat": null,
     "bedenler": [
@@ -30,6 +31,7 @@
       "id": "gelato-pembe-esofman",
       "ad": "Gelato baskılı pembe eşofman",
       "kategori": "gunluk",
+      "cinsiyet": "kiz",
       "yas_araligi": [
         4,
         9
@@ -65,6 +67,7 @@
       "id": "kalpli-kazak-sort-etek",
       "ad": "Kalpli kazak, ekose şort etek",
       "kategori": "gunluk",
+      "cinsiyet": "kiz",
       "yas_araligi": [
         3,
         8
@@ -99,6 +102,7 @@
       "id": "kahve-yumusak-esofman",
       "ad": "Kahverengi yumuşak eşofman",
       "kategori": "gunluk",
+      "cinsiyet": "kiz",
       "yas_araligi": [
         9,
         14
@@ -133,6 +137,7 @@
       "id": "pembe-tul-dugun-elbisesi",
       "ad": "Pembe tül düğün elbisesi",
       "kategori": "abiye",
+      "cinsiyet": "kiz",
       "yas_araligi": [
         5,
         9
@@ -167,6 +172,7 @@
       "id": "fiyonklu-tul-elbise-pudra",
       "ad": "Sırtı fiyonklu pudra tül elbise",
       "kategori": "bebek",
+      "cinsiyet": "kiz",
       "yas_araligi": [
         1,
         4
@@ -202,6 +208,7 @@
       "id": "lacivert-sweat-baklava-pantolon",
       "ad": "Lacivert sweatshirt, baklava desenli pantolon",
       "kategori": "gunluk",
+      "cinsiyet": "erkek",
       "yas_araligi": [
         4,
         9
@@ -236,6 +243,7 @@
       "id": "cilekli-yesil-esofman",
       "ad": "Çilekli yeşil eşofman",
       "kategori": "gunluk",
+      "cinsiyet": "kiz",
       "yas_araligi": [
         2,
         6
@@ -270,6 +278,7 @@
       "id": "leopar-pantolon-takim",
       "ad": "Krem sweatshirt, leopar pantolon",
       "kategori": "gunluk",
+      "cinsiyet": "kiz",
       "yas_araligi": [
         3,
         7
@@ -304,6 +313,7 @@
       "id": "kopek-baskili-takim",
       "ad": "Köpek baskılı kahve takım",
       "kategori": "gunluk",
+      "cinsiyet": "unisex",
       "yas_araligi": [
         7,
         12
@@ -339,6 +349,7 @@
       "id": "cip-baskili-takim",
       "ad": "Cip baskılı siyah takım",
       "kategori": "gunluk",
+      "cinsiyet": "erkek",
       "yas_araligi": [
         7,
         12
@@ -374,6 +385,7 @@
       "id": "puantiyeli-etek-takim",
       "ad": "Kahve sweatshirt, puantiyeli etek",
       "kategori": "gunluk",
+      "cinsiyet": "kiz",
       "yas_araligi": [
         3,
         7
@@ -408,6 +420,7 @@
       "id": "okul-polo-sort",
       "ad": "Okul polo tişört ve şort",
       "kategori": "okul",
+      "cinsiyet": "unisex",
       "yas_araligi": [
         4,
         14
@@ -444,6 +457,7 @@
       "id": "beyaz-firfirli-bluz-etek",
       "ad": "Beyaz fırfırlı bluz ve etek",
       "kategori": "gunluk",
+      "cinsiyet": "kiz",
       "yas_araligi": [
         4,
         8
@@ -481,6 +495,7 @@
       "id": "lacivert-yelekli-takim-elbise",
       "ad": "Lacivert yelekli takım elbise",
       "kategori": "takim-elbise",
+      "cinsiyet": "erkek",
       "yas_araligi": [
         7,
         12
@@ -515,6 +530,7 @@
       "id": "bej-keten-gomlek-sort",
       "ad": "Bej gömlek ve şort",
       "kategori": "gunluk",
+      "cinsiyet": "erkek",
       "yas_araligi": [
         3,
         7
@@ -549,6 +565,7 @@
       "id": "beyaz-tisort-batik-sort",
       "ad": "Beyaz tişört, batik şort",
       "kategori": "gunluk",
+      "cinsiyet": "erkek",
       "yas_araligi": [
         6,
         10
@@ -584,6 +601,7 @@
       "id": "krem-bluz-firfirli-etek",
       "ad": "Krem bluz, fırfırlı kahve etek",
       "kategori": "gunluk",
+      "cinsiyet": "kiz",
       "yas_araligi": [
         5,
         9
@@ -619,6 +637,7 @@
       "id": "pudra-fiyonklu-takim",
       "ad": "Pudra fiyonklu bluz etek",
       "kategori": "gunluk",
+      "cinsiyet": "kiz",
       "yas_araligi": [
         3,
         7
@@ -654,6 +673,7 @@
       "id": "krem-islemeli-yelek-pantolon",
       "ad": "Krem işlemeli yelek ve pantolon",
       "kategori": "gunluk",
+      "cinsiyet": "kiz",
       "yas_araligi": [
         4,
         8
@@ -688,6 +708,7 @@
       "id": "krem-fiyonklu-takim",
       "ad": "Krem fiyonklu takım",
       "kategori": "gunluk",
+      "cinsiyet": "kiz",
       "yas_araligi": [
         3,
         7
@@ -722,6 +743,7 @@
       "id": "lila-saten-fiyonklu-abiye",
       "ad": "Lila saten fiyonklu abiye",
       "kategori": "abiye",
+      "cinsiyet": "kiz",
       "yas_araligi": [
         7,
         12
@@ -756,6 +778,7 @@
       "id": "pudra-yelek-pantolon",
       "ad": "Pudra yelek, bol pantolon",
       "kategori": "gunluk",
+      "cinsiyet": "kiz",
       "yas_araligi": [
         6,
         10
@@ -790,6 +813,7 @@
       "id": "lila-asimetrik-abiye",
       "ad": "Lila asimetrik saten abiye",
       "kategori": "abiye",
+      "cinsiyet": "kiz",
       "yas_araligi": [
         7,
         12
@@ -824,6 +848,7 @@
       "id": "gul-bluz-tul-etek",
       "ad": "Gül işlemeli bluz, tül etek",
       "kategori": "bebek",
+      "cinsiyet": "kiz",
       "yas_araligi": [
         2,
         5
@@ -858,6 +883,7 @@
       "id": "cicekli-gomlek-etek",
       "ad": "Çiçek desenli gömlek ve etek",
       "kategori": "gunluk",
+      "cinsiyet": "kiz",
       "yas_araligi": [
         6,
         12
@@ -893,6 +919,7 @@
       "id": "erkek-gomlek-sort",
       "ad": "Erkek gömlek, şort takım",
       "kategori": "gunluk",
+      "cinsiyet": "erkek",
       "yas_araligi": [
         3,
         8
@@ -927,6 +954,7 @@
       "id": "cicekli-pantolon-dantel-bluz",
       "ad": "Çiçekli pantolon, dantel bluz",
       "kategori": "gunluk",
+      "cinsiyet": "kiz",
       "yas_araligi": [
         3,
         7
@@ -961,6 +989,7 @@
       "id": "mavi-yelek-sort",
       "ad": "Mavi yelek ve şort takım",
       "kategori": "gunluk",
+      "cinsiyet": "kiz",
       "yas_araligi": [
         7,
         12
@@ -995,6 +1024,7 @@
       "id": "barbie-tul-etek-takim",
       "ad": "Barbie tişört, renkli tül etek",
       "kategori": "gunluk",
+      "cinsiyet": "kiz",
       "yas_araligi": [
         3,
         7
@@ -1029,6 +1059,7 @@
       "id": "barbie-tul-elbise",
       "ad": "Barbie tül elbise",
       "kategori": "gunluk",
+      "cinsiyet": "kiz",
       "yas_araligi": [
         3,
         7
@@ -1063,6 +1094,7 @@
       "id": "mavi-saten-abiye",
       "ad": "Mavi saten omzu fiyonklu abiye",
       "kategori": "abiye",
+      "cinsiyet": "kiz",
       "yas_araligi": [
         10,
         15
@@ -1097,6 +1129,7 @@
       "id": "pembe-fiyonk-bluz-beyaz-etek",
       "ad": "Pembe fiyonklu bluz, beyaz etek",
       "kategori": "gunluk",
+      "cinsiyet": "kiz",
       "yas_araligi": [
         3,
         7
@@ -1131,6 +1164,7 @@
       "id": "krem-balon-etek-takim",
       "ad": "Krem bluz, balon etek",
       "kategori": "gunluk",
+      "cinsiyet": "kiz",
       "yas_araligi": [
         3,
         7
@@ -1165,6 +1199,7 @@
       "id": "lila-uzun-saten-abiye",
       "ad": "Lila uzun saten abiye",
       "kategori": "abiye",
+      "cinsiyet": "kiz",
       "yas_araligi": [
         10,
         15
@@ -1199,6 +1234,7 @@
       "id": "pembe-prenses-abiye",
       "ad": "Pembe uzun tül abiye",
       "kategori": "abiye",
+      "cinsiyet": "kiz",
       "yas_araligi": [
         7,
         11
@@ -1233,6 +1269,7 @@
       "id": "mavi-bej-takim-elbise",
       "ad": "Mavi ve bej takım elbise",
       "kategori": "takim-elbise",
+      "cinsiyet": "erkek",
       "yas_araligi": [
         6,
         12
@@ -1267,6 +1304,7 @@
       "id": "bebek-mavi-takim-elbise",
       "ad": "Bebek mavi takım elbise",
       "kategori": "takim-elbise",
+      "cinsiyet": "erkek",
       "yas_araligi": [
         1,
         3
@@ -1302,6 +1340,7 @@
       "id": "kalp-detayli-denim-takim",
       "ad": "Kalp detaylı denim takım",
       "kategori": "gunluk",
+      "cinsiyet": "kiz",
       "yas_araligi": [
         5,
         10
@@ -1337,6 +1376,7 @@
       "id": "denim-ceket-etek",
       "ad": "Kot ceket ve etek",
       "kategori": "gunluk",
+      "cinsiyet": "kiz",
       "yas_araligi": [
         3,
         7
@@ -1371,6 +1411,7 @@
       "id": "haki-gomlek-ceket-pantolon",
       "ad": "Haki gömlek ceket, bej pantolon",
       "kategori": "gunluk",
+      "cinsiyet": "erkek",
       "yas_araligi": [
         4,
         8
@@ -1405,6 +1446,7 @@
       "id": "mint-takim",
       "ad": "Mint takım",
       "kategori": "gunluk",
+      "cinsiyet": "kiz",
       "yas_araligi": [
         4,
         8
@@ -1439,6 +1481,7 @@
       "id": "pembe-tuvit-ceket-pantolon",
       "ad": "Pembe tüvit ceket ve pantolon",
       "kategori": "bebek",
+      "cinsiyet": "kiz",
       "yas_araligi": [
         1,
         4
@@ -1473,6 +1516,7 @@
       "id": "fiyonklu-sweat-kadife-etek",
       "ad": "Fiyonklu sweat, kadife etek",
       "kategori": "gunluk",
+      "cinsiyet": "kiz",
       "yas_araligi": [
         3,
         7
@@ -1507,6 +1551,7 @@
       "id": "krem-uzun-kollu-elbise",
       "ad": "Krem uzun kollu elbise",
       "kategori": "gunluk",
+      "cinsiyet": "kiz",
       "yas_araligi": [
         8,
         12
@@ -1541,6 +1586,7 @@
       "id": "cicekli-sweat-pembe-pantolon",
       "ad": "Çiçek işlemeli sweat, pembe pantolon",
       "kategori": "bebek",
+      "cinsiyet": "kiz",
       "yas_araligi": [
         1,
         3
@@ -1576,6 +1622,7 @@
       "id": "beyaz-yaka-bluz-pembe-etek",
       "ad": "Bebe yakalı bluz, pembe etek",
       "kategori": "gunluk",
+      "cinsiyet": "kiz",
       "yas_araligi": [
         4,
         8
@@ -1612,6 +1659,7 @@
       "id": "pembe-payetli-ceket-etek",
       "ad": "Pembe payetli ceket ve etek",
       "kategori": "gunluk",
+      "cinsiyet": "kiz",
       "yas_araligi": [
         4,
         8
@@ -1646,6 +1694,7 @@
       "id": "siyah-cicekli-esofman",
       "ad": "Siyah çiçek desenli eşofman",
       "kategori": "gunluk",
+      "cinsiyet": "unisex",
       "yas_araligi": [
         4,
         10
@@ -1680,6 +1729,7 @@
       "id": "geyikli-yilbasi-elbise",
       "ad": "Geyikli yılbaşı elbisesi",
       "kategori": "gunluk",
+      "cinsiyet": "kiz",
       "yas_araligi": [
         4,
         7
@@ -1714,6 +1764,7 @@
       "id": "ekose-gomlek-pembe-pantolon",
       "ad": "Ekose gömlek, pembe pantolon",
       "kategori": "gunluk",
+      "cinsiyet": "kiz",
       "yas_araligi": [
         4,
         8
@@ -1748,6 +1799,7 @@
       "id": "kirmizi-tul-yilbasi-elbise",
       "ad": "Kırmızı tül elbise",
       "kategori": "gunluk",
+      "cinsiyet": "kiz",
       "yas_araligi": [
         3,
         7
@@ -1782,6 +1834,7 @@
       "id": "ana-kucagi-sallanan",
       "ad": "Sallanan ana kucağı",
       "kategori": "bebek",
+      "cinsiyet": "unisex",
       "yas_araligi": [
         0,
         1
@@ -1820,6 +1873,7 @@
       "id": "pembe-fiyonklu-tul-abiye",
       "ad": "Pembe fiyonklu tül abiye",
       "kategori": "abiye",
+      "cinsiyet": "kiz",
       "yas_araligi": [
         5,
         9
@@ -1855,6 +1909,7 @@
       "id": "siyah-smokin-takim",
       "ad": "Siyah smokin takım elbise",
       "kategori": "takim-elbise",
+      "cinsiyet": "erkek",
       "yas_araligi": [
         4,
         8
@@ -1890,6 +1945,7 @@
       "id": "pelus-yelek-sort-etek",
       "ad": "Peluş yelek ve şort etek takım",
       "kategori": "gunluk",
+      "cinsiyet": "kiz",
       "yas_araligi": [
         2,
         9
@@ -1924,6 +1980,7 @@
       "id": "ayicikli-esofman",
       "ad": "Ayıcıklı krem eşofman",
       "kategori": "gunluk",
+      "cinsiyet": "kiz",
       "yas_araligi": [
         3,
         7
@@ -1958,6 +2015,7 @@
       "id": "new-york-kapusonlu-takim",
       "ad": "New York kapüşonlu takım",
       "kategori": "gunluk",
+      "cinsiyet": "unisex",
       "yas_araligi": [
         9,
         14
@@ -1992,6 +2050,7 @@
       "id": "siyah-fiyonklu-esofman",
       "ad": "Siyah fiyonklu eşofman",
       "kategori": "gunluk",
+      "cinsiyet": "kiz",
       "yas_araligi": [
         5,
         10
@@ -2027,6 +2086,7 @@
       "id": "siyah-simli-tul-elbise",
       "ad": "Siyah simli tül elbise",
       "kategori": "abiye",
+      "cinsiyet": "kiz",
       "yas_araligi": [
         4,
         8
@@ -2062,6 +2122,7 @@
       "id": "payetli-siyah-ceket-takim",
       "ad": "Payetli siyah ceket takımı",
       "kategori": "gunluk",
+      "cinsiyet": "kiz",
       "yas_araligi": [
         8,
         14
@@ -2096,6 +2157,7 @@
       "id": "bej-keten-takim-elbise",
       "ad": "Üç parça bej keten takım elbise",
       "kategori": "takim-elbise",
+      "cinsiyet": "erkek",
       "yas_araligi": [
         5,
         10
@@ -2132,6 +2194,7 @@
       "id": "krem-omzu-acik-abiye",
       "ad": "Krem omzu açık abiye",
       "kategori": "abiye",
+      "cinsiyet": "kiz",
       "yas_araligi": [
         7,
         15
@@ -2166,6 +2229,7 @@
       "id": "lila-cicekli-uzun-abiye",
       "ad": "Lila çiçekli uzun abiye",
       "kategori": "abiye",
+      "cinsiyet": "kiz",
       "yas_araligi": [
         6,
         10
@@ -2200,6 +2264,7 @@
       "id": "gece-mavisi-abiye",
       "ad": "Gece mavisi abiye",
       "kategori": "abiye",
+      "cinsiyet": "kiz",
       "yas_araligi": [
         8,
         12
@@ -2236,6 +2301,7 @@
       "id": "mint-asimetrik-abiye",
       "ad": "Mint asimetrik abiye",
       "kategori": "abiye",
+      "cinsiyet": "kiz",
       "yas_araligi": [
         8,
         12
@@ -2271,6 +2337,7 @@
       "id": "pembe-katli-prenses-abiye",
       "ad": "Pembe katlı tül abiye",
       "kategori": "abiye",
+      "cinsiyet": "kiz",
       "yas_araligi": [
         5,
         9
@@ -2305,6 +2372,7 @@
       "id": "buz-mavisi-crop-pantolon",
       "ad": "Buz mavisi crop ve pantolon",
       "kategori": "gunluk",
+      "cinsiyet": "kiz",
       "yas_araligi": [
         9,
         14
@@ -2339,6 +2407,7 @@
       "id": "pembe-gomlek-sort",
       "ad": "Pembe gömlek ve şort",
       "kategori": "gunluk",
+      "cinsiyet": "kiz",
       "yas_araligi": [
         8,
         14
@@ -2373,6 +2442,7 @@
       "id": "beyaz-tisort-kot-etek",
       "ad": "Baskılı tişört, kot etek",
       "kategori": "gunluk",
+      "cinsiyet": "kiz",
       "yas_araligi": [
         6,
         10
@@ -2409,6 +2479,7 @@
       "id": "pembe-tisort-cicekli-etek",
       "ad": "Pembe tişört, çiçekli etek",
       "kategori": "gunluk",
+      "cinsiyet": "kiz",
       "yas_araligi": [
         8,
         12
@@ -2443,6 +2514,7 @@
       "id": "beyaz-gomlek-denim-etek",
       "ad": "Beyaz gömlek, kot şort etek",
       "kategori": "gunluk",
+      "cinsiyet": "kiz",
       "yas_araligi": [
         8,
         12
@@ -2477,6 +2549,7 @@
       "id": "mavi-pullu-tul-abiye",
       "ad": "Mavi pullu tül abiye",
       "kategori": "abiye",
+      "cinsiyet": "kiz",
       "yas_araligi": [
         3,
         7
@@ -2513,6 +2586,7 @@
       "id": "besik-karyola",
       "ad": "Cibinlikli beşik",
       "kategori": "bebek",
+      "cinsiyet": "unisex",
       "yas_araligi": [
         0,
         2
@@ -2546,6 +2620,7 @@
       "id": "bebek-arabasi",
       "ad": "Bebek arabası",
       "kategori": "bebek",
+      "cinsiyet": "unisex",
       "yas_araligi": [
         0,
         3
@@ -2579,6 +2654,7 @@
       "id": "pembe-pelus-ceket",
       "ad": "Pembe peluş ceket",
       "kategori": "gunluk",
+      "cinsiyet": "kiz",
       "yas_araligi": [
         2,
         6

@@ -44,62 +44,194 @@
 
 
 
-<link rel="preload" href="/assets/fonts/roundo-400.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/assets/fonts/baloo2-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/assets/css/app.min.css?v=20261021o">
+<link rel="preload" href="/assets/fonts/nunito-latin-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/dancing-script-latin-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/app.min.css?v=20261019j">
 </head>
 <body>
-
-<header class="bar">
-  <a class="bar__brand" href="/" aria-label="Mavi Boncuk ana sayfa"><img src="/assets/img/site/mb-logo.webp" alt="Mavi Boncuk" width="213" height="160"></a>
-  <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="menu" aria-label="Menüyü aç"><span></span><span></span><span></span></button>
-  <nav class="bar__links" id="menu" aria-label="Ana menü">
-    <button class="toy-switch" id="gift" type="button" aria-pressed="false"><span class="toy-switch__track"><span class="toy-switch__knob"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12c-2-3-6-5-7.5-3.5S6 13 12 12zm0 0c2-3 6-5 7.5-3.5S18 13 12 12z" fill="#f28db2" stroke="#26357a" stroke-width="1.4"/><circle cx="12" cy="12" r="2" fill="#26357a"/><path d="M11 13l-3 6m5-6l3 6" stroke="#26357a" stroke-width="1.6" stroke-linecap="round"/></svg></span></span><span class="toy-switch__label">Hediye alıyorum</span></button>
-    <button class="sound-btn" id="sound" type="button" aria-pressed="false" aria-label="Tıklama sesini aç"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor" fill-opacity=".15"/><path d="M16 9a4 4 0 010 6M18.5 6.5a8 8 0 010 11"/></svg></button>
-    <a href="#askidakiler">Ürünler</a>
-    <a href="#siparis">Sipariş</a>
-    <a href="#sorular">Sorular</a>
-    <a href="/blog">Blog</a>
-    <a class="button" data-wa href="https://wa.me/905057458364">WhatsApp</a>
+<header class="ust">
+  <div class="serit" role="region" aria-label="Duyurular">
+    <div class="serit__ic">
+      <p><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h11v10H3zM14 9h4l3 3v4h-7"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/></svg>Türkiye’nin her yerine hızlı kargo</p>
+      <p class="serit__ana"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 017-2.6A4 4 0 0119 10c0 5.6-7 10-7 10z" fill="currentColor"/></svg>Miniklere kocaman mutluluklar</p>
+      <p><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9h16v11H4zM3 6h18v3H3zM12 6v14"/><path d="M12 6c-1.5-3-5-3-5-1s5 1 5 1 5 1 5-1-3.5-2-5 1"/></svg>300 TL ve üzeri ücretsiz kargo</p>
+    </div>
+  </div>
+  <div class="ust__ic">
+    <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="menu" aria-label="Menüyü aç"><span></span><span></span><span></span></button>
+    <form class="ust__ara" role="search" action="/" method="get" data-ara>
+      <label class="sr-only" for="ust-ara-q">Ürün ara</label>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      <input id="ust-ara-q" name="q" type="search" placeholder="Ürün, kategori veya yaş ara…" autocomplete="off" enterkeyhint="search" aria-controls="ust-oneri" aria-autocomplete="list">
+      <ul class="ust__oneri" id="ust-oneri" role="listbox" aria-label="Öneriler" hidden></ul>
+    </form>
+    <a class="logo" href="/" aria-label="Mavi Boncuk ana sayfa"><svg class="logo__boncuk" viewBox="0 0 64 64" aria-hidden="true"><defs><radialGradient id="lb-ust" cx="38%" cy="32%" r="72%"><stop offset="0" stop-color="#78aee6"/><stop offset="1" stop-color="#2c5e9c"/></radialGradient></defs><path d="M32 15c-4.5-6.5-14-7.5-14-2 0 4.5 8 4.5 14 2zm0 0c4.5-6.5 14-7.5 14-2 0 4.5-8 4.5-14 2z" fill="#eef2f7" stroke="#9fb3cc" stroke-width="1.4"/><path d="M29.5 17l-5 7.5M34.5 17l5 7.5" stroke="#9fb3cc" stroke-width="1.6" stroke-linecap="round"/><circle cx="32" cy="39" r="21" fill="url(#lb-ust)"/><circle cx="32" cy="39" r="13.5" fill="#fff"/><circle cx="32" cy="39" r="9" fill="#8cc4ee"/><circle cx="32" cy="39" r="5" fill="#1f3a5f"/><ellipse cx="23.5" cy="28" rx="5" ry="2.6" fill="#fff" opacity=".5" transform="rotate(-35 23.5 28)"/><circle cx="30" cy="37" r="1.6" fill="#fff"/><circle cx="32" cy="15.6" r="2.5" fill="#dfe7f1" stroke="#9fb3cc" stroke-width="1.2"/></svg><span class="logo__yazi"><span class="logo__ad">Mavi Boncuk</span><span class="logo__alt">Bebek &amp; Çocuk Giyim</span></span></a>
+    <div class="ust__islem">
+      <button class="islem" type="button" data-cekmece="hesap" aria-label="Hesabım"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 20c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg><span>Hesabım</span></button>
+      <button class="islem" type="button" data-cekmece="favori" aria-label="Favorilerim"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 017-2.6A4 4 0 0119 10c0 5.6-7 10-7 10z"/></svg><span>Favorilerim</span><b class="islem__sayi" data-sayi="favori" hidden>0</b></button>
+      <button class="islem" type="button" data-cekmece="sepet" aria-label="Sepetim"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1 12H6z"/><path d="M9 8V6a3 3 0 016 0v2"/></svg><span>Sepetim</span><b class="islem__sayi" data-sayi="sepet">0</b></button>
+    </div>
+  </div>
+  <nav class="kat-nav" id="menu" aria-label="Kategoriler">
+    <a href="/"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11.2l9-7.2 9 7.2V20a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1z" fill="currentColor"/></svg>Ana Sayfa</a>
+    <a href="/#bebek" data-filtre="bebek">Bebek 0-2 Yaş</a>
+    <a href="/#kiz" data-filtre="kiz">Kız Çocuk</a>
+    <a href="/#erkek" data-filtre="erkek">Erkek Çocuk</a>
+    <a href="/#genc" data-filtre="genc">Genç 10-16 Yaş</a>
+    <a href="/#yeni" data-filtre="yeni">Yeni Gelenler</a>
+    <a href="/#indirim" data-filtre="indirim">İndirim</a>
+    <a href="/#kombinler">Kombinler</a>
+    <span class="kat-nav__ek" id="ust-ekstra"></span>
   </nav>
 </header>
 
 <main>
-  <section class="hero" aria-labelledby="hero-title">
-    <div class="hero__top">
-      <button class="sky" id="sky" type="button" aria-label="Güneş"></button>
-      <h1 class="hero__mark" id="hero-title"><picture><source type="image/avif" srcset="/assets/img/site/mavi-boncuk-yazi-560.avif 560w, /assets/img/site/mavi-boncuk-yazi-700.avif 700w, /assets/img/site/mavi-boncuk-yazi-1400.avif 1400w" sizes="(min-width: 60em) 40vw, 82vw"><img src="/assets/img/site/mavi-boncuk-yazi.webp?v=3" srcset="/assets/img/site/mavi-boncuk-yazi-700.webp?v=3 700w, /assets/img/site/mavi-boncuk-yazi.webp?v=3 1400w" sizes="(min-width: 60em) 40vw, 82vw" alt="Mavi Boncuk" width="1400" height="1060" fetchpriority="high"></picture><span class="string" aria-hidden="true"></span></h1>
-      <figure class="hero__bead" aria-hidden="true"><img src="/assets/img/site/nazar-boncuk.webp" srcset="/assets/img/site/nazar-boncuk-260.webp 260w, /assets/img/site/nazar-boncuk.webp 377w" sizes="(min-width: 60em) 190px, 130px" alt width="377" height="560" decoding="async"></figure>
-      <p class="hero__desc"><span class="hero__hello" id="hello">Merhaba!</span>Ortaca’daki dükkânımızda 0 ile 16 yaş arası çocuk kıyafetleri bulunmakta. Beğendiğinizi WhatsApp’tan sorun, bedenini birlikte bulalım.</p>
-    </div>
-    <div class="hero__stage">
-      <div class="hero__names" role="group" aria-label="Ne arıyorsunuz?" id="hero-names"></div>
-      <div class="hero__tile" id="hero-tile" aria-live="polite" style="background-color:var(--field-1)"><img data-statik class="is-on" src="/assets/img/site/hero-abiye-1-700.webp" srcset="/assets/img/site/hero-abiye-1-500.webp 500w, /assets/img/site/hero-abiye-1-700.webp 700w, /assets/img/site/hero-abiye-1.webp 1000w" sizes="(min-width: 60em) 30rem, 90vw" alt="Lila saten fiyonklu abiye" width="900" height="1125" decoding="async"></div>
-      <div class="hero__side">
-        <p class="hero__fact" id="hero-fact">Abiyeden okul eteğine, bebek arabasından mama sandalyesine.</p>
-        <div class="hero__cta">
-          <a class="button" id="hero-cta" data-wa href="https://wa.me/905057458364">WhatsApp’tan sor</a>
+  <section class="afis" aria-roledescription="carousel" aria-label="Öne çıkanlar" id="afis">
+    <div class="afis__kayit">
+      <div class="afis__slayt is-on" role="group" aria-roledescription="slide" aria-label="1 / 5">
+        <div class="afis__foto"><img src="/assets/img/urunler/cicekli-gomlek-etek/1-600.webp" srcset="/assets/img/urunler/cicekli-gomlek-etek/1-600.webp 600w, /assets/img/urunler/cicekli-gomlek-etek/1.webp 720w" sizes="(min-width: 48em) 62vw, 100vw" alt="Çiçekli gömlek ve etek giymiş iki kız çocuğu" width="720" height="960" fetchpriority="high"></div>
+        <div class="afis__metin">
+          <p class="afis__ust">Miniklere</p>
+          <h1 class="afis__baslik">Kocaman<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 017-2.6A4 4 0 0119 10c0 5.6-7 10-7 10z"/></svg> Mutluluklar</h1>
+          <p class="afis__not">0-16 yaş, kaliteli ve sevimli çocuk giyim koleksiyonları</p>
+          <a class="button" href="#askidakiler">Alışverişe Başla <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </div>
+      <div class="afis__slayt" role="group" aria-roledescription="slide" aria-label="2 / 5" aria-hidden="true">
+        <div class="afis__foto"><img src="/assets/img/site/hero-abiye-1-700.webp" srcset="/assets/img/site/hero-abiye-1-500.webp 500w, /assets/img/site/hero-abiye-1-700.webp 700w, /assets/img/site/hero-abiye-1.webp 1000w" sizes="(min-width: 48em) 62vw, 100vw" alt="Lila saten fiyonklu abiye" width="1000" height="1333" loading="lazy"></div>
+        <div class="afis__metin">
+          <p class="afis__ust">Mezuniyet, düğün, kına</p>
+          <h2 class="afis__baslik">Abiyeler</h2>
+          <p class="afis__not">3 yaştan 15 yaşa kadar, askıda onlarca model var.</p>
+          <a class="button" href="/kategori/abiye" tabindex="-1">Abiyeleri gör <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </div>
+      <div class="afis__slayt" role="group" aria-roledescription="slide" aria-label="3 / 5" aria-hidden="true">
+        <div class="afis__foto"><img src="/assets/img/site/hero-gunluk-2-700.webp" srcset="/assets/img/site/hero-gunluk-2-500.webp 500w, /assets/img/site/hero-gunluk-2-700.webp 700w, /assets/img/site/hero-gunluk-2.webp 1000w" sizes="(min-width: 48em) 62vw, 100vw" alt="Çilekli yeşil eşofman takımı" width="1000" height="1333" loading="lazy"></div>
+        <div class="afis__metin">
+          <p class="afis__ust">Okula, parka, eve</p>
+          <h2 class="afis__baslik">Günlük takımlar</h2>
+          <p class="afis__not">Sonbahar ve kış takımları geldi.</p>
+          <a class="button" href="/kategori/gunluk" tabindex="-1">Takımları gör <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </div>
+      <div class="afis__slayt" role="group" aria-roledescription="slide" aria-label="4 / 5" aria-hidden="true">
+        <div class="afis__foto"><img src="/assets/img/site/hero-takim-2-700.webp" srcset="/assets/img/site/hero-takim-2-500.webp 500w, /assets/img/site/hero-takim-2-700.webp 700w, /assets/img/site/hero-takim-2.webp 720w" sizes="(min-width: 48em) 62vw, 100vw" alt="Bej keten takım elbise giymiş erkek çocuk" width="720" height="900" loading="lazy"></div>
+        <div class="afis__metin">
+          <p class="afis__ust">Sünnet, düğün, mezuniyet</p>
+          <h2 class="afis__baslik">Takım elbise</h2>
+          <p class="afis__not">Smokin de var, keten de.</p>
+          <a class="button" href="/kategori/takim-elbise" tabindex="-1">Takım elbiseleri gör <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </div>
+      <div class="afis__slayt" role="group" aria-roledescription="slide" aria-label="5 / 5" aria-hidden="true">
+        <div class="afis__foto"><img src="/assets/img/site/hero-bebek-1-700.webp" srcset="/assets/img/site/hero-bebek-1-500.webp 500w, /assets/img/site/hero-bebek-1-700.webp 700w, /assets/img/site/hero-bebek-1.webp 720w" sizes="(min-width: 48em) 62vw, 100vw" alt="Sırtı fiyonklu pudra tül bebek elbisesi" width="720" height="957" loading="lazy"></div>
+        <div class="afis__metin">
+          <p class="afis__ust">0-3 yaş</p>
+          <h2 class="afis__baslik">Bebek</h2>
+          <p class="afis__not">Elbise, takım ve hırka. Bebek arabası ve beşik de var.</p>
+          <a class="button" href="/kategori/bebek" tabindex="-1">Bebek ürünlerini gör <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
         </div>
       </div>
     </div>
+    <a class="afis__rozet" href="/#yeni" data-filtre="yeni">Yeni<br>Sezon<small>Keşfet ♡</small></a>
+    <button class="afis__ok afis__ok--geri" type="button" aria-label="Önceki" data-afis="-1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>
+    <button class="afis__ok afis__ok--ileri" type="button" aria-label="Sonraki" data-afis="1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
+    <div class="afis__noktalar" role="group" aria-label="Afiş seçin"><button type="button" aria-label="1. afiş" aria-current="true"></button><button type="button" aria-label="2. afiş"></button><button type="button" aria-label="3. afiş"></button><button type="button" aria-label="4. afiş"></button><button type="button" aria-label="5. afiş"></button></div>
   </section>
 
-  <section class="showcase" aria-label="Bu hafta askıda" id="vitrin"></section>
+  <div class="vt">
+    <ul class="daireler" aria-label="Kategoriler">
+      <li class="daire"><a href="/#bebek" data-filtre="bebek"><span class="daire__foto"><img src="/assets/img/urunler/bebek-mavi-takim-elbise/1-400.webp" alt="" width="400" height="500" loading="lazy" decoding="async"></span><span><b>Bebek</b><small>0-2 Yaş</small></span></a></li>
+      <li class="daire"><a href="/#kiz" data-filtre="kiz"><span class="daire__foto"><img src="/assets/img/urunler/barbie-tul-elbise/1-400.webp" alt="" width="400" height="500" loading="lazy" decoding="async"></span><span><b>Kız Çocuk</b><small>2-10 Yaş</small></span></a></li>
+      <li class="daire"><a href="/#erkek" data-filtre="erkek"><span class="daire__foto"><img src="/assets/img/urunler/bej-keten-gomlek-sort/1-400.webp" alt="" width="400" height="500" loading="lazy" decoding="async"></span><span><b>Erkek Çocuk</b><small>2-10 Yaş</small></span></a></li>
+      <li class="daire"><a href="/#genc" data-filtre="genc"><span class="daire__foto"><img src="/assets/img/urunler/kahve-yumusak-esofman/1-400.webp" alt="" width="400" height="500" loading="lazy" decoding="async"></span><span><b>Genç</b><small>10-16 Yaş</small></span></a></li>
+      <li class="daire"><a href="/#yeni" data-filtre="yeni"><span class="daire__foto"><img src="/assets/img/urunler/cicekli-sweat-pembe-pantolon/1-400.webp" alt="" width="400" height="500" loading="lazy" decoding="async"></span><span><b>Yeni Gelenler</b></span></a></li>
+      <li class="daire"><a href="/#indirim" data-filtre="indirim"><span class="daire__foto daire__foto--ikon"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M30 8h22a4 4 0 014 4v22L31 59a4 4 0 01-5.7 0L5 38.7a4 4 0 010-5.7z" fill="#fff" stroke="#b9987a" stroke-width="2"/><circle cx="45" cy="19" r="3.5" fill="none" stroke="#b9987a" stroke-width="2"/><path d="M45 15.5c3-6 9-8 12-5" fill="none" stroke="#b9987a" stroke-width="2" stroke-linecap="round"/><text x="29" y="44" text-anchor="middle" font-family="Nunito, sans-serif" font-weight="800" font-size="20" fill="#8a6a50" transform="rotate(-45 29 38)">%</text></svg></span><span><b>İndirim</b></span></a></li>
+      <li class="daire"><a href="/#kombinler"><span class="daire__foto"><img src="/assets/img/urunler/siyah-cicekli-esofman/1-400.webp" alt="" width="400" height="500" loading="lazy" decoding="async"></span><span><b>Kombinler</b></span></a></li>
+    </ul>
+
+    <ul class="koleksiyonlar" aria-label="Koleksiyonlar">
+      <li class="koleksiyon"><a href="/kategori/bebek"><img src="/assets/img/site/hero-bebek-3-500.webp" alt="" width="500" height="500" loading="lazy" decoding="async"><span class="koleksiyon__metin"><b>Bebek</b><span>Koleksiyonu</span><i>Keşfet <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></span></a></li>
+      <li class="koleksiyon"><a href="/#kiz" data-filtre="kiz"><img src="/assets/img/site/hero-abiye-1-500.webp" alt="" width="500" height="667" loading="lazy" decoding="async"><span class="koleksiyon__metin"><b>Kız Çocuk</b><span>Koleksiyonu</span><i>Keşfet <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></span></a></li>
+      <li class="koleksiyon"><a href="/#erkek" data-filtre="erkek"><img src="/assets/img/site/hero-takim-2-500.webp" alt="" width="500" height="625" loading="lazy" decoding="async"><span class="koleksiyon__metin"><b>Erkek Çocuk</b><span>Koleksiyonu</span><i>Keşfet <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></span></a></li>
+    </ul>
+
+    <section class="bolum" aria-labelledby="satan-baslik">
+      <div class="bolum__bas"><h2 id="satan-baslik">Çok Satanlar</h2><a href="#askidakiler">Tümünü Gör <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+      <div class="satanlar" id="satanlar"></div>
+    </section>
+  </div>
+
+  <section class="guven" aria-label="Alışveriş bilgileri">
+    <ul>
+      <li><span class="guven__ikon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h11v10H3zM14 9h4l3 3v4h-7"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/></svg></span><span><b>Hızlı Kargo</b><span>Türkiye’nin her yerine</span></span></li>
+      <li><span class="guven__ikon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7.5l9-4 9 4v9l-9 4-9-4z"/><path d="M3 7.5l9 4 9-4M12 11.5v9M7.5 5.5l9 4"/></svg></span><span><b>Ücretsiz Kargo</b><span>300 TL ve üzeri</span></span></li>
+      <li><span class="guven__ikon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg></span><span><b>Güvenli Alışveriş</b><span>SSL ile şifreli bağlantı</span></span></li>
+      <li><span class="guven__ikon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 14v-2a8 8 0 0116 0v2"/><rect x="3" y="13" width="4" height="6" rx="1.5"/><rect x="17" y="13" width="4" height="6" rx="1.5"/></svg></span><span><b>Destek Hattı</b><span>WhatsApp’tan yazın</span></span></li>
+      <li><span class="guven__ikon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7.5l9-4 9 4v9l-9 4-9-4z"/><path d="M3 7.5l9 4 9-4M12 11.5v9"/><path d="M16 14.5h-3.5l1.2-1.2M12.5 14.5l1.2 1.2"/></svg></span><span><b>Kolay İade</b><span>14 gün içinde</span></span></li>
+    </ul>
+  </section>
+
+  <section class="bulten vt" aria-labelledby="bulten-baslik">
+    <div class="bulten__ic">
+      <h2 class="bulten__yazi" id="bulten-baslik">Özel indirimler ve yeniliklerden ilk sen haberdar ol!<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 017-2.6A4 4 0 0119 10c0 5.6-7 10-7 10z"/></svg></h2>
+      <form class="bulten__form" id="bulten-form" novalidate>
+        <div class="bulten__satir">
+          <label class="sr-only" for="bulten-eposta">E-posta adresiniz</label>
+          <input id="bulten-eposta" name="eposta" type="email" placeholder="E-posta adresini yaz…" autocomplete="email" required maxlength="120">
+          <button type="submit" aria-label="Kaydol"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 3L10 14M21 3l-7 18-4-7-7-4z"/></svg></button>
+        </div>
+        <p class="bulten__durum" role="status" aria-live="polite"></p>
+        <p class="bulten__not">E-postanız yalnızca kampanya ve yeni ürün duyurusu için mağazaya iletilir. Ayrıntı: <a class="link" href="/kvkk">KVKK aydınlatma metni</a></p>
+      </form>
+      <svg class="bulten__ayi" viewBox="0 0 140 150" aria-hidden="true"><g fill="none" stroke="#7fa7d6" stroke-width="2" stroke-linecap="round"><path d="M14 30c-4-6 2-11 6-6 4-5 10 0 6 6l-6 6z" fill="#dbe8f6"/><path d="M118 104c-3-5 2-9 5-5 3-4 8 0 5 5l-5 5z" fill="#dbe8f6"/><path d="M10 92c-2-4 2-7 4-4 2-3 6 0 4 4l-4 4z"/></g><ellipse cx="70" cy="140" rx="34" ry="5" fill="#1f3a5f" opacity=".08"/><circle cx="44" cy="36" r="13" fill="#c9a07a"/><circle cx="96" cy="36" r="13" fill="#c9a07a"/><circle cx="44" cy="36" r="7" fill="#e8cdb2"/><circle cx="96" cy="36" r="7" fill="#e8cdb2"/><ellipse cx="70" cy="112" rx="30" ry="27" fill="#c9a07a"/><ellipse cx="70" cy="116" rx="17" ry="16" fill="#e8cdb2"/><ellipse cx="42" cy="132" rx="11" ry="8" fill="#c09370"/><ellipse cx="98" cy="132" rx="11" ry="8" fill="#c09370"/><ellipse cx="42" cy="133" rx="6" ry="4" fill="#e8cdb2"/><ellipse cx="98" cy="133" rx="6" ry="4" fill="#e8cdb2"/><ellipse cx="40" cy="104" rx="9" ry="14" fill="#c09370" transform="rotate(25 40 104)"/><ellipse cx="100" cy="104" rx="9" ry="14" fill="#c09370" transform="rotate(-25 100 104)"/><circle cx="70" cy="58" r="30" fill="#d2ab86"/><ellipse cx="70" cy="68" rx="13" ry="10" fill="#efdcc6"/><ellipse cx="70" cy="63" rx="4.5" ry="3.2" fill="#4a3426"/><path d="M70 66v4m-4 1q4 3 8 0" stroke="#4a3426" stroke-width="1.8" fill="none" stroke-linecap="round"/><circle cx="58" cy="52" r="3.2" fill="#2b1f17"/><circle cx="82" cy="52" r="3.2" fill="#2b1f17"/><circle cx="59" cy="51" r="1" fill="#fff"/><circle cx="83" cy="51" r="1" fill="#fff"/><circle cx="52" cy="64" r="4" fill="#e9a3a3" opacity=".6"/><circle cx="88" cy="64" r="4" fill="#e9a3a3" opacity=".6"/><path d="M70 89l-15-8v16zM70 89l15-8v16z" fill="#8fb6e3" stroke="#5b8dc8" stroke-width="1.5" stroke-linejoin="round"/><circle cx="70" cy="89" r="4" fill="#5b8dc8"/></svg>
+    </div>
+  </section>
+
+  <section class="catalogue" id="askidakiler" aria-labelledby="cat-title">
+    <div class="catalogue__head">
+      <h2 class="head" id="cat-title">Tüm ürünler</h2>
+      <p>Çocuğunuzun yaşına ya da aradığınız türe dokunun, uyanlar kalsın. Beden ve fiyat için ürüne girip bize yazın.</p>
+      <label class="sr-only" for="ara">Ürün ara</label>
+      <input class="ara" id="ara" type="search" placeholder="Ürün ara: abiye, eşofman, bebek arabası…" autocomplete="off" enterkeyhint="search">
+      <div class="filtre-cipler" id="filtre-cip" aria-live="polite"></div>
+      <div class="dividers" role="group" aria-label="Yaş" id="dividers"></div>
+      <div class="kinds" role="group" aria-label="Ürün türü" id="kinds"></div>
+      <p class="catalogue__count" id="cat-count" aria-live="polite"></p>
+    </div>
+    <div class="grid-tiles" id="grid"></div>
+    <div class="catalogue__more">
+      <button class="button button--ink" id="more" type="button" hidden>Daha çok ürün göster</button>
+      <a class="link" href="https://www.instagram.com/maviboncuk_ortaca/" rel="noopener">Her gün yenileri Instagram’da: @maviboncuk_ortaca</a>
+    </div>
+  </section>
 
   <section class="kombinler" aria-labelledby="kombin-title">
     <div class="kombinler__head"><h2 class="head" id="kombin-title">Haftanın kombinleri</h2><p>Birlikte iyi duran parçalar. Kardeşler için de uygun; tek mesajla hepsini sorabilirsiniz.</p></div>
     <ul class="kombinler__list" id="kombinler"></ul>
   </section>
 
-  <section class="kardes" id="kardes" aria-labelledby="kardes-title">
-    <div class="kardes__head"><h2 class="head" id="kardes-title">Kardeşleri birlikte giydirin</h2><p>İki çocuğun yaşını ve ne için aradığınızı seçin; ikisine de uyan parçaları yan yana gösterelim.</p></div>
-    <form class="kardes__form">
-      <label>1. çocuk <select name="yas1"><option value>Yaş seçin</option><option value="0">0 yaş</option><option value="1">1 yaş</option><option value="2">2 yaş</option><option value="3">3 yaş</option><option value="4">4 yaş</option><option value="5">5 yaş</option><option value="6">6 yaş</option><option value="7">7 yaş</option><option value="8">8 yaş</option><option value="9">9 yaş</option><option value="10">10 yaş</option><option value="11">11 yaş</option><option value="12">12 yaş</option><option value="13">13 yaş</option><option value="14">14 yaş</option><option value="15">15 yaş</option><option value="16">16 yaş</option></select></label>
-      <label>2. çocuk <select name="yas2"><option value>Yaş seçin</option><option value="0">0 yaş</option><option value="1">1 yaş</option><option value="2">2 yaş</option><option value="3">3 yaş</option><option value="4">4 yaş</option><option value="5">5 yaş</option><option value="6">6 yaş</option><option value="7">7 yaş</option><option value="8">8 yaş</option><option value="9">9 yaş</option><option value="10">10 yaş</option><option value="11">11 yaş</option><option value="12">12 yaş</option><option value="13">13 yaş</option><option value="14">14 yaş</option><option value="15">15 yaş</option><option value="16">16 yaş</option></select></label>
-      <label>Ne için <select name="amac"><option value="ozel">Düğün ve özel gün</option><option value="bayram">Bayram</option><option value="okul">Okul</option><option value="gunluk">Günlük</option></select></label>
-    </form>
-    <div class="kardes__sonuc" hidden></div>
-    <a class="button kardes__sor" href="https://wa.me/905057458364" hidden>Kardeşler için WhatsApp’tan sor</a>
+  <section class="sizer" id="beden" aria-labelledby="sizer-title">
+    <div class="sizer__box">
+      <div>
+        <h2 id="sizer-title">Beden bulucu</h2>
+        <p class="sizer__lead">Boyunu ve kilosunu ayarlayın, genel beden tablosuna göre hangi bedene bakmanız gerektiğini söyleyelim. Emin olmak için ölçüleri tek dokunuşla bize gönderebilirsiniz.</p>
+      </div>
+      <div class="sizer__stage">
+        <div class="kid" aria-hidden="true"><svg id="kid" viewBox="0 0 60 120"><path d="M17 13 Q 30 -3 43 13" fill="#5b3a29"/><circle cx="30" cy="17" r="13" fill="#ffd9c2" stroke="#26357a" stroke-width="3"/><circle cx="25" cy="18" r="1.8" fill="#26357a"/><circle cx="35" cy="18" r="1.8" fill="#26357a"/><path d="M25 23 Q 30 27 35 23" stroke="#26357a" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M14 35 Q 30 29 46 35 L 48 72 H 12 Z" fill="#7fe0dc" stroke="#26357a" stroke-width="3"/><path d="M18 74 L 17 112 M42 74 L 43 112" stroke="#26357a" stroke-width="7" stroke-linecap="round"/><path d="M14 39 L 5 62 M46 39 L 55 62" stroke="#26357a" stroke-width="5" stroke-linecap="round"/></svg></div>
+        <div class="sizer__controls">
+          <div class="range"><label for="boy">Boy <output id="boy-o" for="boy">110 cm</output></label><input type="range" id="boy" min="50" max="176" step="1" value="110"></div>
+          <div class="range"><label for="kilo">Kilo <output id="kilo-o" for="kilo">19 kg</output></label><input type="range" id="kilo" min="3" max="70" step="1" value="19"></div>
+          <div class="sizer__result" aria-live="polite">
+            <strong id="sizer-out">5 yaş bedenine bakın</strong>
+            <p class="sizer__note">Genel tablodur, markaya göre bir beden oynayabilir. Kesin bilgi için ölçüleri gönderin, ürünü elimize alıp söyleyelim.</p>
+            <a class="button" id="sizer-wa" href="https://wa.me/905057458364">Ölçüleri WhatsApp’tan gönder</a>
+            <button class="button button--paper" id="sizer-goster" type="button" data-yas="4-8">4-8 yaş ürünlerini göster</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 
   <section class="harita" id="konum" aria-labelledby="harita-title">
@@ -128,49 +260,6 @@
     </div>
   </section>
 
-  <section class="catalogue" id="askidakiler" aria-labelledby="cat-title">
-    <div class="catalogue__head">
-      <h2 class="head" id="cat-title">Askıdakiler</h2>
-      <p>Askıdaki yaş ayırıcıları gibi: çocuğunuzun yaşına dokunun, o yaşa uyanlar kalsın. Fiyat ve beden için ürüne girip bize yazın.</p>
-      <label class="sr-only" for="ara">Ürün ara</label>
-      <input class="ara" id="ara" type="search" placeholder="Ürün ara: abiye, eşofman, bebek arabası…" autocomplete="off" enterkeyhint="search">
-      <div class="dividers" role="group" aria-label="Yaş" id="dividers"></div>
-      <div class="kinds" role="group" aria-label="Ürün türü" id="kinds"></div>
-      <p class="catalogue__count" id="cat-count" aria-live="polite"></p>
-    </div>
-    <div class="grid-tiles" id="grid"></div>
-    <div class="catalogue__more">
-      <button class="button button--ink" id="more" type="button" hidden>Daha çok ürün göster</button>
-      <a class="link" href="https://www.instagram.com/maviboncuk_ortaca/" rel="noopener">Her gün yenileri Instagram’da: @maviboncuk_ortaca</a>
-    </div>
-  </section>
-
-  <section class="strip" aria-labelledby="strip-title">
-    <h2 class="strip__title" id="strip-title">Dükkândan kareler <span id="strip-count"></span></h2>
-    <div class="strip__row" id="strip"></div>
-  </section>
-
-  <section class="steps" id="siparis" aria-labelledby="steps-title">
-    <h2 class="head steps__head" id="steps-title">Sipariş böyle</h2>
-    <div class="board">
-      <svg class="board__path" viewBox="0 0 1200 380" preserveAspectRatio="none" aria-hidden="true"><path d="M140 110 C 360 40, 380 250, 600 190 S 860 50, 1060 110"/><path class="beam" d="M140 110 C 360 40, 380 250, 600 190 S 860 50, 1060 110"/></svg>
-      <ol class="board__steps">
-        <li class="stop">
-          <button class="stop__token" type="button" data-token="heart" aria-label="Kalbe dokunun"><svg class="heart" viewBox="0 0 100 100" aria-hidden="true"><defs><clipPath id="hc"><path d="M50 86 C 20 64, 8 46, 18 28 C 28 12, 46 16, 50 30 C 54 16, 72 12, 82 28 C 92 46, 80 64, 50 86 Z"/></clipPath></defs><path d="M50 86 C 20 64, 8 46, 18 28 C 28 12, 46 16, 50 30 C 54 16, 72 12, 82 28 C 92 46, 80 64, 50 86 Z" fill="#fff" fill-opacity=".55" stroke="#26357a" stroke-width="4"/><g clip-path="url(#hc)"><path class="liquid" d="M-10 52 Q 15 44 40 52 T 90 52 T 140 52 V 100 H -10 Z" fill="#f28db2"/></g><ellipse cx="34" cy="34" rx="7" ry="4" fill="#fff" opacity=".85" transform="rotate(-30 34 34)"/></svg></button>
-          <div><h3><span class="stop__num">1</span>Önce beğenin</h3><p>Ürüne dokunun, bütün fotoğraflarına bakın. Aklınıza yatanı seçin.</p></div>
-        </li>
-        <li class="stop">
-          <button class="stop__token" type="button" data-token="tape" aria-label="Mezuraya dokunun"><svg class="tape" viewBox="0 0 100 100" aria-hidden="true"><rect class="ribbon" x="58" y="58" width="36" height="12" rx="3" fill="#ffd766" stroke="#26357a" stroke-width="3"/><circle cx="44" cy="52" r="30" fill="#f28db2" stroke="#26357a" stroke-width="4"/><circle cx="44" cy="52" r="14" fill="#fff" stroke="#26357a" stroke-width="3"/><ellipse class="eye" cx="38" cy="49" rx="2.6" ry="4" fill="#26357a"/><ellipse class="eye" cx="50" cy="49" rx="2.6" ry="4" fill="#26357a"/><path d="M39 57 Q 44 61 49 57" stroke="#26357a" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg></button>
-          <div><h3><span class="stop__num">2</span>Sonra bize yazın</h3><p>Beden ölçmeyi dert etmeyin. Yaşını ve boyunu yazın; “WhatsApp’tan sor” deyince ürünün adı mesaja kendiliğinden yazılıyor.</p></div>
-        </li>
-        <li class="stop">
-          <button class="stop__token" type="button" data-token="chute" aria-label="Pakete dokunun"><svg class="chute" viewBox="0 0 100 110" aria-hidden="true"><path d="M14 40 Q 50 -6 86 40 Z" fill="#7fe0dc" stroke="#26357a" stroke-width="3.5"/><path d="M14 40 L 38 70 M86 40 L 62 70 M50 40 L 50 70" stroke="#26357a" stroke-width="2"/><rect x="32" y="68" width="36" height="30" rx="5" fill="#f28db2" stroke="#26357a" stroke-width="3.5"/><path d="M50 68 V 98 M32 80 H 68" stroke="#fff" stroke-width="4"/><g class="tag"><path d="M68 82 L 80 94" stroke="#26357a" stroke-width="1.5"/><rect x="72" y="93" width="26" height="13" rx="3" fill="#fff" stroke="#26357a" stroke-width="2"/></g></svg></button>
-          <div><h3><span class="stop__num">3</span>En son teslim</h3><p>Ortaca’daysanız gelin, üstünde deneyin. Uzaktaysanız paketinizi nasıl göndereceğimizi mesajda konuşalım; Ortaca’dan sevgilerle.</p></div>
-        </li>
-      </ol>
-    </div>
-  </section>
-
   <section class="randevu" id="randevu" aria-labelledby="randevu-title">
     <h2 class="head" id="randevu-title">Gelip denemek isterseniz</h2>
     <p>Abiye ya da takım elbise gibi denenmesi gereken bir şey için gelecekseniz günü ve saati yazın, aradığınız bedenin olup olmadığına önceden bakalım. Pazar günleri de 12.00’den itibaren açığız.</p>
@@ -181,37 +270,6 @@
       <label>Çocuğun yaşı <input type="text" name="yas" placeholder="ör. 7 yaş" maxlength="30"></label>
       <button class="button" type="submit">Randevu için WhatsApp’tan yaz</button>
     </form>
-  </section>
-
-  <section class="sizer" id="beden" aria-labelledby="sizer-title">
-    <div class="sizer__box">
-      <div>
-        <h2 id="sizer-title">Beden bulucu</h2>
-        <p class="sizer__lead">Boyunu ve kilosunu ayarlayın, genel beden tablosuna göre hangi bedene bakmanız gerektiğini söyleyelim. Emin olmak için ölçüleri tek dokunuşla bize gönderebilirsiniz.</p>
-      </div>
-      <div class="sizer__stage">
-        <div class="kid" aria-hidden="true"><svg id="kid" viewBox="0 0 60 120"><path d="M17 13 Q 30 -3 43 13" fill="#5b3a29"/><circle cx="30" cy="17" r="13" fill="#ffd9c2" stroke="#26357a" stroke-width="3"/><circle cx="25" cy="18" r="1.8" fill="#26357a"/><circle cx="35" cy="18" r="1.8" fill="#26357a"/><path d="M25 23 Q 30 27 35 23" stroke="#26357a" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M14 35 Q 30 29 46 35 L 48 72 H 12 Z" fill="#7fe0dc" stroke="#26357a" stroke-width="3"/><path d="M18 74 L 17 112 M42 74 L 43 112" stroke="#26357a" stroke-width="7" stroke-linecap="round"/><path d="M14 39 L 5 62 M46 39 L 55 62" stroke="#26357a" stroke-width="5" stroke-linecap="round"/></svg></div>
-        <div class="sizer__controls">
-          <div class="range"><label for="boy">Boy <output id="boy-o" for="boy">110 cm</output></label><input type="range" id="boy" min="50" max="176" step="1" value="110"></div>
-          <div class="range"><label for="kilo">Kilo <output id="kilo-o" for="kilo">19 kg</output></label><input type="range" id="kilo" min="3" max="70" step="1" value="19"></div>
-          <div class="sizer__result" aria-live="polite">
-            <strong id="sizer-out">5 yaş bedenine bakın</strong>
-            <p class="sizer__note">Genel tablodur, markaya göre bir beden oynayabilir. Kesin bilgi için ölçüleri gönderin, ürünü elimize alıp söyleyelim.</p>
-            <a class="button" id="sizer-wa" href="https://wa.me/905057458364">Ölçüleri WhatsApp’tan gönder</a>
-            <button class="button button--paper" id="sizer-goster" type="button" data-yas="4-8">4-8 yaş ürünlerini göster</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="shop" aria-labelledby="shop-title">
-    <h2 id="shop-title">Dükkânda neler var</h2>
-    <p class="shop__about">Mavi Boncuk, Muğla’nın Ortaca ilçesinde 0-16 yaş çocuk giyim mağazası. Kız çocuk abiyeleri, erkek çocuk takım elbiseleri, bayramlık, okul kıyafetleri ve günlük takımların yanında bebek arabası, beşik, yürüteç ve mama sandalyesi de satıyoruz. Bütün ürünlerin listesi <a class="link" href="/urunler">burada</a>.</p>
-    <nav class="blog__kats shop__cats" aria-label="Kategoriler"><a class="blog__kat" href="/kategori/abiye">Çocuk abiyeleri</a><a class="blog__kat" href="/kategori/takim-elbise">Takım elbiseler</a><a class="blog__kat" href="/kategori/gunluk">Günlük takımlar</a><a class="blog__kat" href="/kategori/okul">Okul kıyafetleri</a><a class="blog__kat" href="/kategori/bebek">Bebek ve bebek arabası</a></nav>
-    <nav class="blog__kats shop__cats" aria-label="Özel günler"><a class="blog__kat" href="/sezon/mezuniyet">Mezuniyet kıyafetleri</a><a class="blog__kat" href="/sezon/sunnet">Sünnet kıyafetleri</a><a class="blog__kat" href="/sezon/bayramlik">Bayramlık çocuk kıyafetleri</a><a class="blog__kat" href="/sezon/dugun">Düğün ve nişan için çocuk kıyafetleri</a><a class="blog__kat" href="/sezon/okula-donus">Okula dönüş</a></nav>
-    <ul class="shop__grid" id="shop"></ul>
-    <p class="shop__note">Bebek arabası, karyola, yürüteç ve mama sandalyesi gibi büyük ürünleri sitede tek tek göstermiyoruz. Hangisini aradığınızı yazın, elimizdeki modellerin fotoğrafını atalım.</p>
   </section>
 
   <section class="reviews" id="yorumlar" aria-labelledby="rev-title">
@@ -230,7 +288,6 @@
   <section class="faq" id="sorular" aria-labelledby="faq-title">
     <div class="faq__inner">
       <h2 id="faq-title">Sık sorulanlar</h2>
-      <div class="mascot" id="mascot" aria-hidden="true"><svg viewBox="0 0 120 140"><ellipse cx="60" cy="132" rx="34" ry="6" fill="#26357a" opacity=".12"/><g class="mascot__body"><circle cx="60" cy="64" r="50" fill="#2f6fd6" stroke="#26357a" stroke-width="4"/><circle cx="60" cy="64" r="34" fill="#fff"/><circle cx="60" cy="64" r="22" fill="#7fe0dc"/><circle class="pupil" cx="60" cy="64" r="11" fill="#26357a"/><circle cx="64" cy="60" r="3.5" fill="#fff"/><path d="M44 98 Q 60 108 76 98" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round"/><circle cx="34" cy="92" r="5" fill="#f7a8c4"/><circle cx="86" cy="92" r="5" fill="#f7a8c4"/><ellipse cx="38" cy="30" rx="10" ry="6" fill="#fff" opacity=".5" transform="rotate(-30 38 30)"/></g></svg></div>
       <div class="cards" id="cards">
         <div class="card">
           <span class="card__tab">Beden</span>
@@ -270,56 +327,54 @@
       </div>
     </div>
   </section>
-
-  <section class="coupon-wrap" id="yaz" aria-labelledby="coupon-title">
-    <div class="coupon">
-      <div class="coupon__text">
-        <h2 id="coupon-title">Ne aradığınızı yazın</h2>
-        <p>Formu doldurun, mesaj WhatsApp’ta hazır açılsın. Göndermeden önce istediğiniz gibi değiştirebilirsiniz.</p>
-      </div>
-      <form class="coupon__form" id="wa-form">
-        <label class="sr-only" for="f-ad">Adınız</label>
-        <input class="field" id="f-ad" name="ad" placeholder="Adınız" autocomplete="given-name">
-        <label class="sr-only" for="f-yas">Çocuğun yaşı</label>
-        <input class="field" id="f-yas" name="yas" placeholder="Çocuğun yaşı (ör. 5 yaş)">
-        <label class="sr-only" for="f-boy">Boyu ve kilosu</label>
-        <input class="field" id="f-boy" name="boy" placeholder="Boyu ve kilosu (biliyorsanız)">
-        <label class="sr-only" for="f-ne">Ne arıyorsunuz</label>
-        <textarea class="field" id="f-ne" name="ne" placeholder="Ne arıyorsunuz? (ör. mezuniyet için lacivert abiye)"></textarea>
-        <button class="button" type="submit">WhatsApp’ta aç</button>
-      </form>
-    </div>
-  </section>
 </main>
 
-<footer class="foot">
-  <div class="postcard">
-    <div class="postcard__msg">
-      <h2>Yolunuz düşerse Mavi Boncuk’a bekleriz</h2>
-      <p>Çocuğunuzu da getirin, beğendiğinizi üstünde deneyelim.</p>
+<footer class="alt">
+  <div class="alt__ic">
+    <div>
+      <a class="logo" href="/" aria-label="Mavi Boncuk ana sayfa"><svg class="logo__boncuk" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 15c-4.5-6.5-14-7.5-14-2 0 4.5 8 4.5 14 2zm0 0c4.5-6.5 14-7.5 14-2 0 4.5-8 4.5-14 2z" fill="#eef2f7" stroke="#9fb3cc" stroke-width="1.4"/><path d="M29.5 17l-5 7.5M34.5 17l5 7.5" stroke="#9fb3cc" stroke-width="1.6" stroke-linecap="round"/><circle cx="32" cy="39" r="21" fill="#4a83c4"/><circle cx="32" cy="39" r="13.5" fill="#fff"/><circle cx="32" cy="39" r="9" fill="#8cc4ee"/><circle cx="32" cy="39" r="5" fill="#1f3a5f"/><circle cx="30" cy="37" r="1.6" fill="#fff"/><circle cx="32" cy="15.6" r="2.5" fill="#dfe7f1" stroke="#9fb3cc" stroke-width="1.2"/></svg><span class="logo__yazi"><span class="logo__ad">Mavi Boncuk</span><span class="logo__alt">Bebek &amp; Çocuk Giyim</span></span></a>
+      <p class="alt__hakkinda">Ortaca’daki iki dükkânımızda 0-16 yaş çocuk kıyafetleri, abiye, takım elbise ve bebek ürünleri var. Beğendiğinizi WhatsApp’tan sorun, bedenini birlikte bulalım.</p>
     </div>
-    <address class="postcard__addr" style="font-style:normal">
-      <figure class="postcard__stamp"><img src="/assets/img/site/dukkan.jpg" alt="Mavi Boncuk mağazasının vitrini" width="160" height="213" loading="lazy"></figure>
-      <a class="link" data-wa href="https://wa.me/905057458364">WhatsApp: 0505 745 83 64</a>
-      <a class="link" href="tel:+902522828463">Mağaza: 0252 282 84 63</a>
-      <a class="link" href="https://www.google.com/maps/search/?api=1&amp;query=Mavi+Boncuk+Bebe+Ma%C4%9Fazas%C4%B1+Ortaca" rel="noopener">Şerifnaz Başoğlu Sokak, Dede Yün karşısı, Ortaca / Muğla</a>
-      <a class="link" href="https://www.instagram.com/maviboncuk_ortaca/" rel="noopener">Instagram: @maviboncuk_ortaca</a>
-    </address>
-    <nav class="legal-links" aria-label="Yasal">
-      <a class="link" href="/iletisim">Hakkımızda ve iletişim</a>
-      <a class="link" href="/teslimat">Teslimat ve kargo</a>
-      <a class="link" href="/iade">İptal, iade ve değişim</a>
-      <a class="link" href="/mesafeli-satis">Mesafeli satış sözleşmesi</a>
-      <a class="link" href="/on-bilgilendirme">Ön bilgilendirme formu</a>
-      <a class="link" href="/kvkk">KVKK aydınlatma metni</a>
-      <a class="link" href="/gizlilik">Gizlilik ve çerezler</a>
+    <nav aria-label="Kategoriler">
+      <h2>Kategoriler</h2>
+      <ul>
+        <li><a href="/kategori/abiye">Çocuk abiyeleri</a></li>
+        <li><a href="/kategori/takim-elbise">Takım elbiseler</a></li>
+        <li><a href="/kategori/gunluk">Günlük takımlar</a></li>
+        <li><a href="/kategori/okul">Okul kıyafetleri</a></li>
+        <li><a href="/kategori/bebek">Bebek ve bebek arabası</a></li>
+        <li><a href="/urunler">Bütün ürünler</a></li>
+        <li><a href="/blog">Blog</a></li>
+      </ul>
     </nav>
-    <p class="postcard__imprint">© 2026 Mavi Boncuk Bebe Mağazası, Ortaca. Ürün fotoğrafları mağazanın Instagram hesabından.</p>
+    <nav aria-label="Yasal">
+      <h2>Yardım</h2>
+      <ul>
+        <li><a href="/iletisim">Hakkımızda ve iletişim</a></li>
+        <li><a href="/teslimat">Teslimat ve kargo</a></li>
+        <li><a href="/iade">İptal, iade ve değişim</a></li>
+        <li><a href="/mesafeli-satis">Mesafeli satış sözleşmesi</a></li>
+        <li><a href="/on-bilgilendirme">Ön bilgilendirme formu</a></li>
+        <li><a href="/kvkk">KVKK aydınlatma metni</a></li>
+        <li><a href="/gizlilik">Gizlilik ve çerezler</a></li>
+      </ul>
+    </nav>
+    <div>
+      <h2>İletişim</h2>
+      <address>
+        <a data-wa href="https://wa.me/905057458364">WhatsApp: 0505 745 83 64</a>
+        <a href="tel:+902522828463">Mağaza: 0252 282 84 63</a>
+        <a href="https://www.google.com/maps/search/?api=1&amp;query=Mavi+Boncuk+Bebe+Ma%C4%9Fazas%C4%B1+Ortaca" rel="noopener">Şerifnaz Başoğlu Sokak, Dede Yün karşısı, Ortaca / Muğla</a>
+        <a href="https://www.instagram.com/maviboncuk_ortaca/" rel="noopener">Instagram: @maviboncuk_ortaca</a>
+      </address>
+    </div>
   </div>
+  <div class="alt__alt"><p>© 2026 Mavi Boncuk Bebe Mağazası, Ortaca. Ürün fotoğrafları mağazanın Instagram hesabından.</p></div>
 </footer>
 
-<script src="/assets/js/dil.js?v=20261021o" defer></script>
-<script src="/assets/js/site.js?v=20261021o" defer></script>
-<script>(function(){var y=0;function f(){if(y)return;y=1;['/assets/js/oyun.js?v=20261021o','/assets/js/ek.js?v=20261021o'].forEach(function(s){var e=document.createElement('script');e.src=s;e.async=false;document.head.appendChild(e)})}if(document.readyState==='complete')f();else addEventListener('load',f,{once:true});['pointerdown','keydown','touchstart','scroll'].forEach(function(t){addEventListener(t,f,{once:true,passive:true})})})();</script>
+<script src="/assets/js/dil.js?v=20261019j" defer></script>
+<script src="/assets/js/site.js?v=20261019j" defer></script>
+<script src="/assets/js/vitrin.js?v=20261019j" defer></script>
+<script>(function(){var y=0;function f(){if(y)return;y=1;['/assets/js/oyun.js?v=20261019j','/assets/js/ek.js?v=20261019j'].forEach(function(s){var e=document.createElement('script');e.src=s;e.async=false;document.head.appendChild(e)})}if(document.readyState==='complete')f();else addEventListener('load',f,{once:true});['pointerdown','keydown','touchstart','scroll'].forEach(function(t){addEventListener(t,f,{once:true,passive:true})})})();</script>
 </body>
 </html>

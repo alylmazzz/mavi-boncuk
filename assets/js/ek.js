@@ -16,12 +16,11 @@
   const olcu = () => { try { const o = JSON.parse(localStorage.getItem('mb-olcu') || 'null'); return o ? ` Çocuğumun boyu ${o.boy} cm, kilosu ${o.kilo} kg.` : ''; } catch (e) { return ''; } };
   const root = document.documentElement;
 
-  // ---------- gece modu: 21.00-06.00 arası kendiliğinden; menüden açılıp kapanır ----------
-  const geceSaati = () => { const h = new Date().getHours(); return h >= 21 || h < 6; };
-  const tercih = () => store.get('mb-gece'); // 'acik' | 'kapali' | null (otomatik)
+  // ---------- gece modu: yalnızca menüdeki ay düğmesiyle açılır ----------
+  // (2026-10-19: mağaza sahibinin onayladığı tasarım açık renkli; saate göre kendiliğinden geçiş kaldırıldı)
+  const tercih = () => store.get('mb-gece'); // 'acik' | 'kapali' | null (kapalı)
   const uygula = () => {
-    const t = tercih();
-    const acik = t === 'acik' || (t !== 'kapali' && geceSaati());
+    const acik = tercih() === 'acik';
     root.classList.toggle('gece', acik);
     const m = document.querySelector('meta[name="theme-color"]'); if (m) m.content = acik ? '#141a33' : '#fbfbfb';
     const b = $('#gece-btn'); if (b) { b.setAttribute('aria-pressed', String(acik)); b.setAttribute('aria-label', acik ? 'Gündüz moduna geç' : 'Gece moduna geç'); }
@@ -32,7 +31,8 @@
     b.className = 'sound-btn gece-btn'; b.id = 'gece-btn'; b.type = 'button';
     b.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z" fill="currentColor" fill-opacity=".15"/></svg>';
     b.addEventListener('click', () => { store.set('mb-gece', root.classList.contains('gece') ? 'kapali' : 'acik'); uygula(); });
-    const sesBtn = $('#sound'); sesBtn ? sesBtn.after(b) : menu.prepend(b);
+    const sesBtn = $('#sound'), yer = $('#ust-ekstra');
+    if (yer) yer.append(b); else if (sesBtn) sesBtn.after(b); else menu.prepend(b);
   }
   uygula();
   setInterval(uygula, 10 * 60 * 1000);
@@ -157,7 +157,8 @@
   // ---------- beğendiklerim: kalple işaretle, hepsini tek mesajla sor ----------
   const BEGEN = 'mb-begen';
   const begenler = () => { try { const l = JSON.parse(localStorage.getItem(BEGEN) || '[]'); return Array.isArray(l) ? l : []; } catch (e) { return []; } };
-  const begenYaz = (l) => { store.set(BEGEN, JSON.stringify(l)); begenGuncelle(); };
+  // üstteki "Favorilerim" sayacı (vitrin.js) mb:begen ile güncellenir; oradan silinince mb:begen-yenile gelir
+  const begenYaz = (l) => { store.set(BEGEN, JSON.stringify(l)); begenGuncelle(); document.dispatchEvent(new Event('mb:begen')); };
   const begenDegistir = (id) => { const l = begenler(); const i = l.indexOf(id); i < 0 ? l.push(id) : l.splice(i, 1); begenYaz(l); };
   const tileId = (a) => a.dataset.id || ((a.getAttribute('href') || '').match(/\/urun\/([^/?#]+)/) || [])[1];
 
@@ -207,8 +208,8 @@
     document.querySelectorAll('[data-begen]').forEach((b) => {
       const var_ = l.includes(b.dataset.begen);
       b.setAttribute('aria-pressed', String(var_));
-      if (b.classList.contains('begen-btn')) b.textContent = var_ ? 'Beğendiklerimden çıkar' : 'Beğendiklerime ekle';
-      else b.setAttribute('aria-label', var_ ? 'Beğendiklerimden çıkar' : 'Beğendiklerime ekle');
+      if (b.classList.contains('begen-btn')) b.textContent = var_ ? 'Favorilerden çıkar' : 'Favorilere ekle';
+      else b.setAttribute('aria-label', var_ ? 'Favorilerden çıkar' : 'Favorilere ekle');
     });
     cubuk.hidden = !l.length;
     cubuk.querySelector('b').textContent = l.length;
@@ -218,6 +219,7 @@
   new MutationObserver((ml) => { for (const m of ml) for (const n of m.addedNodes) if (n.nodeType === 1) { if (n.matches('a.tile') || n.querySelector('a.tile')) kalpEkle(n.parentElement || n); if (n.querySelector('[data-begen]') || n.matches('[data-begen]')) begenGuncelle(); } })
     .observe(document.body, { childList: true, subtree: true });
   addEventListener('storage', (e) => { if (e.key === BEGEN) begenGuncelle(); });
+  document.addEventListener('mb:begen-yenile', begenGuncelle);
 
   // ---------- kardeşler: iki yaş ve amaç seçilince uyan parçalar ----------
   const kardes = $('#kardes');

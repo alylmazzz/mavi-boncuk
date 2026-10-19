@@ -14,10 +14,11 @@
     for (const k of [].concat(kids)) if (k) n.append(k);
     return n;
   };
-  const tl = (n) => !n ? '-' : `${Number(n).toLocaleString('tr-TR', { minimumFractionDigits: n % 1 ? 2 : 0, maximumFractionDigits: 2 })} TL`;
+  const tl = (n) => !n ? '- TL' : `${Number(n).toLocaleString('tr-TR', { minimumFractionDigits: n % 1 ? 2 : 0, maximumFractionDigits: 2 })} TL`;
   const sayi = (t) => { const s = String(t || '').replace(/[^\d,.]/g, ''); const n = Number(s.includes(',') ? s.replace(/\./g, '').replace(',', '.') : s); return Number.isFinite(n) && n > 0 ? n : null; };
   const TR = document.documentElement.lang === 'tr';
   const KATEGORI = { gunluk: 'Günlük takımlar', abiye: 'Abiye', 'takim-elbise': 'Takım elbise', okul: 'Okul', bebek: 'Bebek', aksesuar: 'Aksesuar' };
+  const CINSIYET = { kiz: 'Kız', erkek: 'Erkek', unisex: 'İkisi de' };
   const BOS = 'Yazın, bakıp söyleyelim';
 
   // ---------- sunucu ----------
@@ -76,7 +77,7 @@
       e.preventDefault();
       const n = sayi(inp.value);
       // boş ya da "-" bırakılırsa fiyat belirsiz kalır
-      if (!n && /d/.test(inp.value)) { inp.focus(); bildir('Geçerli bir fiyat yazın.', true); return; }
+      if (!n && /\d/.test(inp.value)) { inp.focus(); bildir('Geçerli bir fiyat yazın.', true); return; }
       tamam.disabled = true;
       try { await kaydet(n); kapat(); } catch (err) { bildir(err.message, true); tamam.disabled = false; }
     });
@@ -122,7 +123,7 @@
         return;
       }
       ui.disabled = true;
-      gonder({ islem: 'sil', id }).then(() => { document.querySelectorAll(`a.tile[data-id="${CSS.escape(id)}"]`).forEach((t) => t.remove()); bildir('Ürün silindi. “Silinenler”den geri alabilirsiniz.'); })
+      gonder({ islem: 'sil', id }).then(() => { document.querySelectorAll(`a.tile[data-id="${CSS.escape(id)}"]`).forEach((t) => (t.closest('.kart') || t).remove()); bildir('Ürün silindi. “Silinenler”den geri alabilirsiniz.'); })
         .catch((err) => { ui.disabled = false; bildir(err.message, true); });
     }
   }, true);
@@ -142,7 +143,7 @@
       if (n.dataset.alan === 'fiyat') {
         n.inputMode = 'decimal';
         n.addEventListener('focus', () => { if (!sayi(n.textContent)) n.textContent = ''; });
-        n.addEventListener('beforeinput', (e) => { if (e.data && /[^d,.]/.test(e.data)) e.preventDefault(); });
+        n.addEventListener('beforeinput', (e) => { if (e.data && /[^\d,.]/.test(e.data)) e.preventDefault(); });
         n.addEventListener('blur', () => { const f = sayi(n.textContent); n.textContent = tl(f); });
       }
       n.spellcheck = true;
@@ -158,6 +159,7 @@
     const satir = (etiket, girdi) => el('label', { class: 'duzen-satir' }, [el('span', { text: etiket }), girdi]);
     const kisa = el('input', { type: 'text', value: u.kisa || '', maxlength: '120', placeholder: 'ör. 4-9 yaş, yeni sezon' });
     const kat = el('select', {}, Object.entries(KATEGORI).map(([k, v]) => el('option', { value: k, text: v, selected: u.kategori === k })));
+    const cins = el('select', {}, Object.entries(CINSIYET).map(([k, v]) => el('option', { value: k, text: v, selected: (u.cinsiyet || 'unisex') === k })));
     const yas1 = el('input', { type: 'number', min: '0', max: '18', value: u.yas_araligi ? u.yas_araligi[0] : '', inputmode: 'numeric' });
     const yas2 = el('input', { type: 'number', min: '0', max: '18', value: u.yas_araligi ? u.yas_araligi[1] : '', inputmode: 'numeric' });
     const durum = el('select', {}, [el('option', { value: '', text: 'Stokta', selected: u.durum !== 'tükendi' }), el('option', { value: 'tükendi', text: 'Tükendi', selected: u.durum === 'tükendi' })]);
@@ -188,7 +190,7 @@
     kutu.append(
       el('h2', { text: 'Ürünü düzenle' }),
       el('p', { class: 'muted', text: 'Yukarıdaki yazılara dokunup değiştirebilirsiniz. Bitince kaydedin.' }),
-      satir('Kart yazısı', kisa), satir('Tür', kat),
+      satir('Kart yazısı', kisa), satir('Tür', kat), satir('Kimin için (menüde Kız / Erkek Çocuk)', cins),
       el('div', { class: 'duzen-ikili' }, [satir('En küçük yaş', yas1), satir('En büyük yaş', yas2)]),
       satir('Stok durumu', durum),
       satir('İndirimden önceki fiyat (üstü çizili görünür)', eski),
@@ -211,6 +213,7 @@
       if (a.ad === null) { bildir('Ürün adı boş olamaz.', true); return; }
       if ((kisa.value || '') !== (u.kisa || '')) a.kisa = kisa.value;
       if (kat.value !== u.kategori) a.kategori = kat.value;
+      if (cins.value !== (u.cinsiyet || 'unisex')) a.cinsiyet = cins.value;
       const y1 = yas1.value === '' ? null : Number(yas1.value), y2 = yas2.value === '' ? null : Number(yas2.value);
       const eskiYas = u.yas_araligi || [null, null];
       if (y1 !== eskiYas[0] || y2 !== eskiYas[1]) a.yas_araligi = y1 == null || y2 == null ? null : [Math.min(y1, y2), Math.max(y1, y2)];
@@ -269,7 +272,7 @@
     f.addEventListener('submit', async (e) => {
       e.preventDefault();
       const n = sayi(inp.value);
-      if (!n && /d/.test(inp.value)) { bildir('Geçerli bir fiyat yazın.', true); return; }
+      if (!n && /\d/.test(inp.value)) { bildir('Geçerli bir fiyat yazın.', true); return; }
       btn.disabled = true;
       try { await gonder({ islem: 'varsayilan', fiyat: n, sifirla: hepsi.checked }); bildir('Fiyatlar güncellendi.'); setTimeout(() => location.reload(), 600); }
       catch (err) { bildir(err.message, true); btn.disabled = false; }
@@ -312,6 +315,7 @@
       g('ad', 'Ürün adı', el('input', { type: 'text', required: true, maxlength: '120' })),
       g('fiyat', 'Fiyat (TL)', el('input', { type: 'text', inputmode: 'decimal', value: '', placeholder: 'Belli değilse boş' })),
       g('kategori', 'Tür', el('select', {}, Object.entries(KATEGORI).map(([k, v]) => el('option', { value: k, text: v })))),
+      g('cinsiyet', 'Kimin için', el('select', {}, Object.entries(CINSIYET).map(([k, v]) => el('option', { value: k, text: v })))),
       el('div', { class: 'duzen-ikili' }, [
         g('yas1', 'En küçük yaş', el('input', { type: 'number', min: '0', max: '18', inputmode: 'numeric' })),
         g('yas2', 'En büyük yaş', el('input', { type: 'number', min: '0', max: '18', inputmode: 'numeric' }))
@@ -343,7 +347,7 @@
         btn.textContent = 'Kaydediliyor…';
         const y1 = d.yas1 === '' ? null : Number(d.yas1), y2 = d.yas2 === '' ? null : Number(d.yas2);
         await gonder({ islem: 'ekle', urun: {
-          id, ad: d.ad, fiyat: sayi(d.fiyat), kategori: d.kategori, kisa: d.kisa, aciklama: d.aciklama, kumas: d.kumas, yikama: d.yikama, gorseller,
+          id, ad: d.ad, fiyat: sayi(d.fiyat), kategori: d.kategori, cinsiyet: d.cinsiyet, kisa: d.kisa, aciklama: d.aciklama, kumas: d.kumas, yikama: d.yikama, gorseller,
           yas_araligi: y1 == null || y2 == null ? null : [Math.min(y1, y2), Math.max(y1, y2)]
         } });
         location.href = `/urun?id=${encodeURIComponent(id)}`;

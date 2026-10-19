@@ -29,65 +29,105 @@
 <link rel="icon" href="/assets/img/site/mb-logo-64.png" type="image/png">
 <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
 <script defer src="/_vercel/insights/script.js"></script>
-<link rel="preload" href="/assets/fonts/roundo-400.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/assets/fonts/baloo2-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/assets/css/app.min.css?v=20261021o">
+<link rel="preload" href="/assets/fonts/nunito-latin-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/dancing-script-latin-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/app.min.css?v=20261019j">
 <script type="application/ld+json">[{"@context":"https://schema.org","@type":"Product","name":"Soft brown tracksuit","description":"Hooded brown patterned set. For older girls; in the November cold, a coat on top is enough.","image":["https://maviboncukortaca.vercel.app/assets/img/urunler/kahve-yumusak-esofman/1.webp"],"category":"Günlük takımlar","url":"https://maviboncukortaca.vercel.app/en/urun/kahve-yumusak-esofman","brand":{"@type":"Brand","name":"Mavi Boncuk"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://maviboncukortaca.vercel.app/en"},{"@type":"ListItem","position":2,"name":"Everyday sets","item":"https://maviboncukortaca.vercel.app/en/kategori/gunluk"},{"@type":"ListItem","position":3,"name":"Soft brown tracksuit","item":"https://maviboncukortaca.vercel.app/en/urun/kahve-yumusak-esofman"}]}]</script>
 </head>
 <body>
-<header class="bar">
-  <a class="bar__brand" href="/en" aria-label="Mavi Boncuk home page"><img src="/assets/img/site/mb-logo.webp" alt="Mavi Boncuk" width="213" height="160"></a>
-  <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="menu" aria-label="Open menu"><span></span><span></span><span></span></button>
-  <nav class="bar__links" id="menu" aria-label="Main menu">
-    <button class="toy-switch" id="gift" type="button" aria-pressed="false"><span class="toy-switch__track"><span class="toy-switch__knob"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12c-2-3-6-5-7.5-3.5S6 13 12 12zm0 0c2-3 6-5 7.5-3.5S18 13 12 12z" fill="#f28db2" stroke="#26357a" stroke-width="1.4"/><circle cx="12" cy="12" r="2" fill="#26357a"/><path d="M11 13l-3 6m5-6l3 6" stroke="#26357a" stroke-width="1.6" stroke-linecap="round"/></svg></span></span><span class="toy-switch__label">I'm buying a gift</span></button>
-    <button class="sound-btn" id="sound" type="button" aria-pressed="false" aria-label="Turn click sound on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor" fill-opacity=".15"/><path d="M16 9a4 4 0 010 6M18.5 6.5a8 8 0 010 11"/></svg></button>
-    <a href="/en#askidakiler">Products</a>
-    <a href="/en#siparis">Ordering</a>
-    <a href="/en#sorular">Questions</a>
-    <a href="/blog">Blog</a>
-    <a class="button" data-wa href="https://wa.me/905057458364">WhatsApp</a>
+<header class="ust">
+  <div class="serit" role="region" aria-label="Announcements">
+    <div class="serit__ic">
+      <p><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h11v10H3zM14 9h4l3 3v4h-7"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/></svg>Fast shipping across Türkiye</p>
+      <p class="serit__ana"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 017-2.6A4 4 0 0119 10c0 5.6-7 10-7 10z" fill="currentColor"/></svg>Big smiles for little ones</p>
+      <p><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9h16v11H4zM3 6h18v3H3zM12 6v14"/><path d="M12 6c-1.5-3-5-3-5-1s5 1 5 1 5 1 5-1-3.5-2-5 1"/></svg>Free shipping on orders of 300 TL and over</p>
+    </div>
+  </div>
+  <div class="ust__ic">
+    <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="menu" aria-label="Open menu"><span></span><span></span><span></span></button>
+    <form class="ust__ara" role="search" action="/" method="get" data-ara>
+      <label class="sr-only" for="ust-ara-q">Search products</label>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      <input id="ust-ara-q" name="q" type="search" placeholder="Search products, categories or ages…" autocomplete="off" enterkeyhint="search" aria-controls="ust-oneri" aria-autocomplete="list">
+      <ul class="ust__oneri" id="ust-oneri" role="listbox" aria-label="Suggestions" hidden></ul>
+    </form>
+    <a class="logo" href="/en" aria-label="Mavi Boncuk home page"><svg class="logo__boncuk" viewBox="0 0 64 64" aria-hidden="true"><defs><radialGradient id="lb-ust" cx="38%" cy="32%" r="72%"><stop offset="0" stop-color="#78aee6"/><stop offset="1" stop-color="#2c5e9c"/></radialGradient></defs><path d="M32 15c-4.5-6.5-14-7.5-14-2 0 4.5 8 4.5 14 2zm0 0c4.5-6.5 14-7.5 14-2 0 4.5-8 4.5-14 2z" fill="#eef2f7" stroke="#9fb3cc" stroke-width="1.4"/><path d="M29.5 17l-5 7.5M34.5 17l5 7.5" stroke="#9fb3cc" stroke-width="1.6" stroke-linecap="round"/><circle cx="32" cy="39" r="21" fill="url(#lb-ust)"/><circle cx="32" cy="39" r="13.5" fill="#fff"/><circle cx="32" cy="39" r="9" fill="#8cc4ee"/><circle cx="32" cy="39" r="5" fill="#1f3a5f"/><ellipse cx="23.5" cy="28" rx="5" ry="2.6" fill="#fff" opacity=".5" transform="rotate(-35 23.5 28)"/><circle cx="30" cy="37" r="1.6" fill="#fff"/><circle cx="32" cy="15.6" r="2.5" fill="#dfe7f1" stroke="#9fb3cc" stroke-width="1.2"/></svg><span class="logo__yazi"><span class="logo__ad">Mavi Boncuk</span><span class="logo__alt">Baby &amp; Kids Clothing</span></span></a>
+    <div class="ust__islem">
+      <button class="islem" type="button" data-cekmece="hesap" aria-label="My account"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 20c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg><span>My account</span></button>
+      <button class="islem" type="button" data-cekmece="favori" aria-label="Favourites"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 017-2.6A4 4 0 0119 10c0 5.6-7 10-7 10z"/></svg><span>Favourites</span><b class="islem__sayi" data-sayi="favori" hidden>0</b></button>
+      <button class="islem" type="button" data-cekmece="sepet" aria-label="Basket"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1 12H6z"/><path d="M9 8V6a3 3 0 016 0v2"/></svg><span>Basket</span><b class="islem__sayi" data-sayi="sepet">0</b></button>
+    </div>
+  </div>
+  <nav class="kat-nav" id="menu" aria-label="Categories">
+    <a href="/en"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11.2l9-7.2 9 7.2V20a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1z" fill="currentColor"/></svg>Home</a>
+    <a href="/en#bebek" data-filtre="bebek">Baby 0-2 yrs</a>
+    <a href="/en#kiz" data-filtre="kiz">Girls</a>
+    <a href="/en#erkek" data-filtre="erkek">Boys</a>
+    <a href="/en#genc" data-filtre="genc">Teens 10-16 yrs</a>
+    <a href="/en#yeni" data-filtre="yeni">New in</a>
+    <a href="/en#indirim" data-filtre="indirim">Sale</a>
+    <a href="/en#kombinler">Outfits</a>
+    <span class="kat-nav__ek" id="ust-ekstra"></span>
   </nav>
 </header>
-<a class="back link" href="/en#askidakiler">← All products</a>
+<a class="back link vt" href="/en#askidakiler">← All products</a>
 <main id="urun" data-id="kahve-yumusak-esofman"><div class="product">
   <div class="product__media"><div class="product__main"><img src="/assets/img/urunler/kahve-yumusak-esofman/1.webp" alt="Soft brown tracksuit" width="1200" height="1500"></div></div>
   <div class="product__info">
     <h1>Soft brown tracksuit</h1>
     <p class="lead">Hooded brown patterned set. For older girls; in the November cold, a coat on top is enough.</p>
     <dl class="facts">
-      <div><dt>Age</dt><dd>ages 9-14</dd></div><div><dt>Type</dt><dd><a class="link" href="/en/kategori/gunluk">Everyday sets</a></dd></div><div><dt>Price</dt><dd>-</dd></div><div><dt>Fabric</dt><dd>Write to us and we'll check and tell you</dd></div><div><dt>Delivery</dt><dd>You can pick it up from the shop or write to us about sending it</dd></div>
+      <div><dt>Age</dt><dd>ages 9-14</dd></div><div><dt>Type</dt><dd><a class="link" href="/en/kategori/gunluk">Everyday sets</a></dd></div><div><dt>Price</dt><dd>- TL</dd></div><div><dt>Fabric</dt><dd>Write to us and we'll check and tell you</dd></div><div><dt>Delivery</dt><dd>You can pick it up from the shop or write to us about sending it</dd></div>
     </dl>
-    <div class="product__cta"><a class="button" href="https://wa.me/905057458364?text=Merhaba%2C%20%E2%80%9CKahverengi%20yumu%C5%9Fak%20e%C5%9Fofman%E2%80%9D%20i%C3%A7in%20yaz%C4%B1yorum%20(https%3A%2F%2Fmaviboncukortaca.vercel.app%2Furun%2Fkahve-yumusak-esofman).%20Fiyat%C4%B1%20ve%20bedenleri%20nedir%3F">Ask on WhatsApp</a></div>
+    <div class="product__cta"><button class="button sepete-ekle" type="button" data-sepet="kahve-yumusak-esofman">Add to basket</button><a class="button button--paper" href="https://wa.me/905057458364?text=Merhaba%2C%20%E2%80%9CKahverengi%20yumu%C5%9Fak%20e%C5%9Fofman%E2%80%9D%20i%C3%A7in%20yaz%C4%B1yorum%20(https%3A%2F%2Fmaviboncukortaca.vercel.app%2Furun%2Fkahve-yumusak-esofman).%20Fiyat%C4%B1%20ve%20bedenleri%20nedir%3F">Ask on WhatsApp</a></div>
   </div>
 </div></main>
-<footer class="foot">
-  <div class="postcard">
-    <div class="postcard__msg">
-      <h2>If you're passing by, come and see us at Mavi Boncuk</h2>
-      <p>Bring your child too, and they can try on what you like.</p>
+<footer class="alt">
+  <div class="alt__ic">
+    <div>
+      <a class="logo" href="/en" aria-label="Mavi Boncuk home page"><svg class="logo__boncuk" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 15c-4.5-6.5-14-7.5-14-2 0 4.5 8 4.5 14 2zm0 0c4.5-6.5 14-7.5 14-2 0 4.5-8 4.5-14 2z" fill="#eef2f7" stroke="#9fb3cc" stroke-width="1.4"/><path d="M29.5 17l-5 7.5M34.5 17l5 7.5" stroke="#9fb3cc" stroke-width="1.6" stroke-linecap="round"/><circle cx="32" cy="39" r="21" fill="#4a83c4"/><circle cx="32" cy="39" r="13.5" fill="#fff"/><circle cx="32" cy="39" r="9" fill="#8cc4ee"/><circle cx="32" cy="39" r="5" fill="#1f3a5f"/><circle cx="30" cy="37" r="1.6" fill="#fff"/><circle cx="32" cy="15.6" r="2.5" fill="#dfe7f1" stroke="#9fb3cc" stroke-width="1.2"/></svg><span class="logo__yazi"><span class="logo__ad">Mavi Boncuk</span><span class="logo__alt">Baby &amp; Kids Clothing</span></span></a>
+      <p class="alt__hakkinda">Our two shops in Ortaca carry clothes for ages 0-16, party dresses, suits and baby items. Ask about anything you like on WhatsApp and we’ll find the size together.</p>
     </div>
-    <address class="postcard__addr" style="font-style:normal">
-      <figure class="postcard__stamp"><img src="/assets/img/site/dukkan.jpg" alt="Mavi Boncuk shop window" width="160" height="213" loading="lazy"></figure>
-      <a class="link" data-wa href="https://wa.me/905057458364">WhatsApp: 0505 745 83 64</a>
-      <a class="link" href="tel:+902522828463">Shop: 0252 282 84 63</a>
-      <a class="link" href="https://www.google.com/maps/search/?api=1&amp;query=Mavi+Boncuk+Bebe+Ma%C4%9Fazas%C4%B1+Ortaca" rel="noopener">Şerifnaz Başoğlu Sokak, Dede Yün karşısı, Ortaca / Muğla</a>
-      <a class="link" href="https://www.instagram.com/maviboncuk_ortaca/" rel="noopener">Instagram: @maviboncuk_ortaca</a>
-    </address>
-    <nav class="legal-links" aria-label="Legal">
-      <a class="link" href="/iletisim">About us and contact</a>
-      <a class="link" href="/teslimat">Delivery and shipping</a>
-      <a class="link" href="/iade">Cancellations, returns and exchanges</a>
-      <a class="link" href="/mesafeli-satis">Distance sales agreement</a>
-      <a class="link" href="/on-bilgilendirme">Pre-information form</a>
-      <a class="link" href="/kvkk">KVKK privacy notice</a>
-      <a class="link" href="/gizlilik">Privacy and cookies</a>
+    <nav aria-label="Categories">
+      <h2>Categories</h2>
+      <ul>
+        <li><a href="/en/kategori/abiye">Girls' party dresses</a></li>
+        <li><a href="/en/kategori/takim-elbise">Suits</a></li>
+        <li><a href="/en/kategori/gunluk">Everyday sets</a></li>
+        <li><a href="/en/kategori/okul">School clothes</a></li>
+        <li><a href="/en/kategori/bebek">Baby and pushchairs</a></li>
+        <li><a href="/en/urunler">All products</a></li>
+        <li><a href="/blog">Blog</a></li>
+      </ul>
     </nav>
-    <p class="postcard__imprint">© 2026 Mavi Boncuk Bebe Mağazası, Ortaca. Product photos are from the shop's Instagram account.</p>
+    <nav aria-label="Legal">
+      <h2>Help</h2>
+      <ul>
+        <li><a href="/iletisim">About us and contact</a></li>
+        <li><a href="/teslimat">Delivery and shipping</a></li>
+        <li><a href="/iade">Cancellations, returns and exchanges</a></li>
+        <li><a href="/mesafeli-satis">Distance sales agreement</a></li>
+        <li><a href="/on-bilgilendirme">Pre-information form</a></li>
+        <li><a href="/kvkk">KVKK privacy notice</a></li>
+        <li><a href="/gizlilik">Privacy and cookies</a></li>
+      </ul>
+    </nav>
+    <div>
+      <h2>Contact</h2>
+      <address>
+        <a data-wa href="https://wa.me/905057458364">WhatsApp: 0505 745 83 64</a>
+        <a href="tel:+902522828463">Shop: 0252 282 84 63</a>
+        <a href="https://www.google.com/maps/search/?api=1&amp;query=Mavi+Boncuk+Bebe+Ma%C4%9Fazas%C4%B1+Ortaca" rel="noopener">Şerifnaz Başoğlu Sokak, Dede Yün karşısı, Ortaca / Muğla</a>
+        <a href="https://www.instagram.com/maviboncuk_ortaca/" rel="noopener">Instagram: @maviboncuk_ortaca</a>
+      </address>
+    </div>
   </div>
+  <div class="alt__alt"><p>© 2026 Mavi Boncuk Bebe Mağazası, Ortaca. Product photos are from the shop's Instagram account.</p></div>
 <p class="dil-not">Legal texts and blog posts are in Turkish. We add a Turkish version under your WhatsApp message, so you can write in your own language.</p>
 </footer>
-<script src="/assets/js/dil.js?v=20261021o" defer></script>
-<script src="/assets/js/site.js?v=20261021o" defer></script>
-<script>(function(){var y=0;function f(){if(y)return;y=1;['/assets/js/oyun.js?v=20261021o','/assets/js/ek.js?v=20261021o'].forEach(function(s){var e=document.createElement('script');e.src=s;e.async=false;document.head.appendChild(e)})}if(document.readyState==='complete')f();else addEventListener('load',f,{once:true});['pointerdown','keydown','touchstart','scroll'].forEach(function(t){addEventListener(t,f,{once:true,passive:true})})})();</script>
+<script src="/assets/js/dil.js?v=20261019j" defer></script>
+<script src="/assets/js/site.js?v=20261019j" defer></script>
+<script src="/assets/js/vitrin.js?v=20261019j" defer></script>
+<script>(function(){var y=0;function f(){if(y)return;y=1;['/assets/js/oyun.js?v=20261019j','/assets/js/ek.js?v=20261019j'].forEach(function(s){var e=document.createElement('script');e.src=s;e.async=false;document.head.appendChild(e)})}if(document.readyState==='complete')f();else addEventListener('load',f,{once:true});['pointerdown','keydown','touchstart','scroll'].forEach(function(t){addEventListener(t,f,{once:true,passive:true})})})();</script>
 </body>
 </html>

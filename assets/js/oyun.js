@@ -160,102 +160,7 @@
     }
   }
 
-  // ---------- boncuk imleç (CSS, gecikmesiz) ve hafif iz ----------
-  if (finePointer) document.documentElement.classList.add('has-bead');
-  if (motion && finePointer) {
-    const trail = document.createElement('canvas');
-    trail.className = 'trail'; trail.setAttribute('aria-hidden', 'true');
-    document.body.append(trail);
-    const tc = trail.getContext('2d', { alpha: true });
-    const size = () => { trail.width = innerWidth; trail.height = innerHeight; };
-    size(); addEventListener('resize', size);
-    let bits = [], on = false, last = 0, box = null;
-    const tick = () => {
-      // yalnızca parçacıkların olduğu kutuyu temizle
-      if (box) tc.clearRect(box[0] - 12, box[1] - 12, box[2] - box[0] + 24, box[3] - box[1] + 24);
-      bits = bits.filter((b) => b.l > 0);
-      if (!bits.length) { on = false; box = null; return; }
-      let x0 = 1e9, y0 = 1e9, x1 = -1e9, y1 = -1e9;
-      for (const b of bits) {
-        b.l -= 1; b.y += b.vy; b.x += b.vx;
-        tc.globalAlpha = (b.l / b.L) * 0.7;
-        if (b.k === 'bubble') { tc.strokeStyle = b.c; tc.lineWidth = 1.2; tc.beginPath(); tc.arc(b.x, b.y, b.s * 1.2, 0, 6.3); tc.stroke(); }
-        else { tc.fillStyle = b.c; tc.fillRect(b.x - b.s / 2, b.y - b.s / 2, b.s, b.s); }
-        if (b.x < x0) x0 = b.x; if (b.y < y0) y0 = b.y; if (b.x > x1) x1 = b.x; if (b.y > y1) y1 = b.y;
-      }
-      tc.globalAlpha = 1;
-      box = [x0, y0, x1, y1];
-      requestAnimationFrame(tick);
-    };
-    addEventListener('pointermove', (e) => {
-      const now = e.timeStamp;
-      if (now - last < 70) return;
-      last = now;
-      bits.push({ x: e.clientX, y: e.clientY, vx: (Math.random() - 0.5) * 0.4, vy: -0.4 - Math.random() * 0.4, s: 2 + Math.random() * 2.5, c: COLORS[(Math.random() * 5) | 0], l: 22, L: 22, k: Math.random() < 0.5 ? 'bubble' : 'spark' });
-      if (bits.length > 14) bits.shift();
-      if (!on) { on = true; requestAnimationFrame(tick); }
-    }, { passive: true });
-  }
-
-  // ---------- süzülen arka plan (tek tuval, yalnızca kaydırınca çizilir) ----------
-  const weak = (navigator.deviceMemory && navigator.deviceMemory <= 2) || (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 2);
-  if (motion && !weak) {
-    const layer = document.createElement('canvas');
-    layer.className = 'floaties'; layer.setAttribute('aria-hidden', 'true');
-    document.body.prepend(layer);
-    const lc = layer.getContext('2d');
-    const names = ['bow', 'star', 'shoe', 'bead', 'star', 'bow', 'shoe'];
-    const pics = {};
-    let ready = 0;
-    for (const n of new Set(names)) { const im = new Image(); im.onload = () => { ready++; draw(); }; im.src = `/assets/img/site/suzulen-${n}.png`; pics[n] = im; }
-    const items = names.map((n, i) => ({ n, x: ((i * 97 + 13) % 92) / 100, y: ((i * 61) % 100) / 100, f: 0.15 + (i % 4) * 0.12, w: 34 + ((i * 37) % 40), r: ((i * 47) % 360) * Math.PI / 180 }));
-    const mobile = !finePointer;
-    let vel = 0, lastY = scrollY, queued = false;
-    const size = () => { layer.width = innerWidth; layer.height = innerHeight; draw(); };
-    function draw() {
-      queued = false;
-      lc.clearRect(0, 0, layer.width, layer.height);
-      lc.globalAlpha = mobile ? 0.2 : 0.36;
-      const H = innerHeight * 1.3;
-      for (const it of items) {
-        const im = pics[it.n]; if (!im || !im.complete) continue;
-        let y = (it.y * H - scrollY * it.f) % H; if (y < 0) y += H;
-        const h = it.w * (im.height / im.width);
-        lc.save(); lc.translate(it.x * innerWidth, y - innerHeight * 0.15); lc.rotate(it.r + vel * 0.03);
-        lc.drawImage(im, -it.w / 2, -h / 2, it.w, h); lc.restore();
-      }
-    }
-    addEventListener('resize', size);
-    addEventListener('scroll', () => {
-      vel = Math.max(-12, Math.min(12, scrollY - lastY)); lastY = scrollY;
-      if (!queued) { queued = true; requestAnimationFrame(draw); }
-    }, { passive: true });
-    size();
-  }
-
-  // ---------- yaş balonları: patla, konfeti, büyüyen sıra ----------
-  const dividers = $('#dividers');
-  if (dividers) {
-    dividers.addEventListener('click', (e) => {
-      const b = e.target.closest('.divider');
-      if (!b) return;
-      const r = b.getBoundingClientRect();
-      b.classList.remove('is-pop'); void b.offsetWidth; b.classList.add('is-pop');
-      confetti(r.left + r.width / 2, r.top + r.height / 2, 60, 0.9);
-    });
-    if (motion && finePointer) {
-      let centers = null, mx = 0, q = false;
-      const draw = () => {
-        q = false;
-        const list = dividers.querySelectorAll('.divider');
-        if (!centers) centers = [...list].map((d) => { const r = d.getBoundingClientRect(); return r.left + r.width / 2; });
-        list.forEach((d, k) => { const sc = 1 + Math.max(0, 1 - Math.abs(mx - centers[k]) / 160) * 0.28; d.style.transform = `scale(${sc.toFixed(3)})`; });
-      };
-      dividers.addEventListener('pointerenter', () => { centers = null; });
-      dividers.addEventListener('pointermove', (e) => { mx = e.clientX; if (!q) { q = true; requestAnimationFrame(draw); } }, { passive: true });
-      dividers.addEventListener('pointerleave', () => { centers = null; dividers.querySelectorAll('.divider').forEach((d) => (d.style.transform = '')); });
-    }
-  }
+  // Boncuk imleç, imleç izi ve süzülen arka plan mağaza görünümünde (2026-10-19) kaldırıldı.
 
   // ---------- oyun yolu jetonları ----------
   document.querySelectorAll('.stop__token').forEach((t) => {
@@ -275,7 +180,8 @@
       [134, '9 yaş', 30], [140, '10 yaş', 33.5], [146, '11 yaş', 37.5], [152, '12 yaş', 42], [158, '13 yaş', 47], [164, '14 yaş', 52], [170, '15 yaş', 57], [176, '16 yaş', 61]
     ];
     const out = $('#sizer-out'), wa = $('#sizer-wa'), kid = $('#kid');
-    const calc = () => {
+    // ölçü yalnızca ziyaretçi kaydırıcıya dokununca saklanır; açılıştaki varsayılan (110 cm, 19 kg) mesajlara girmesin
+    const calc = (e) => {
       const b = +boy.value, k = +kilo.value;
       $('#boy-o').textContent = `${b} cm`; $('#kilo-o').textContent = `${k} kg`;
       let i = TABLO.findIndex((r) => b <= r[0]); if (i < 0) i = TABLO.length - 1;
@@ -284,7 +190,7 @@
       const sonuc = agir ? `${row[1]} bedenine, bir de ${TABLO[i + 1][1]} bedenine bakın` : `${row[1]} bedenine bakın`;
       out.textContent = sonuc;
       // ölçüyü hatırla (ürün mesajlarına eklenir) ve süzme için yaş grubunu hesapla
-      try { localStorage.setItem('mb-olcu', JSON.stringify({ boy: b, kilo: k, beden: row[1] })); } catch (e) { /* gizli pencere */ }
+      if (e) try { localStorage.setItem('mb-olcu', JSON.stringify({ boy: b, kilo: k, beden: row[1] })); } catch (err) { /* gizli pencere */ }
       const yasNo = /yaş/.test(row[1]) ? parseInt(row[1], 10) : 0;
       const grup = yasNo <= 3 ? '0-3' : yasNo <= 8 ? '4-8' : yasNo <= 12 ? '9-12' : '13-16';
       const goster = $('#sizer-goster');

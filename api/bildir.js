@@ -1,10 +1,13 @@
-// /api/bildir — sitede "Gelince haber ver"e basılınca mağazaya Telegram'dan haber verir.
-// Kişisel bilgi alınmaz; yalnızca hangi ürün olduğu gider. Aynı IP'den saatte en fazla 5 bildirim.
+// /api/bildir — mağazaya Telegram'dan haber verir:
+// - "Gelince haber ver"e basılınca hangi ürün olduğu (kişisel bilgi yok)
+// - ana sayfadaki bültene yazılan e-posta adresi (yalnızca kampanya duyurusu için; KVKK metninde yazılı)
+// Aynı IP'den saatte en fazla 5 bildirim.
 const { esc, sahipler, gonder } = require('./_lib/tg');
 const URUNLER = require('../data/urunler.json').urunler;
 const { SITE } = require('./_lib/blog');
 
 const sayac = new Map(); // ip -> [zamanlar]
+const EPOSTA = /^[^\s@<>"']{1,64}@[^\s@<>"']{1,180}\.[a-z]{2,24}$/i;
 
 module.exports = async (req, res) => {
   res.setHeader('Cache-Control', 'no-store');
@@ -18,11 +21,19 @@ module.exports = async (req, res) => {
   for await (const p of req) { govde += p; if (govde.length > 500) break; }
   let v = {};
   try { v = JSON.parse(govde); } catch (e) { v = {}; }
-  const u = URUNLER.find((x) => x.id === v.id);
-  if (v.tur !== 'stok' || !u || !process.env.TELEGRAM_BOT_TOKEN) { res.statusCode = 204; return res.end(); }
+  let metin = null;
+  if (v.tur === 'stok') {
+    const u = URUNLER.find((x) => x.id === v.id);
+    if (u) metin = `🔔 Sitede <a href="${SITE}/urun/${u.id}">${esc(u.ad)}</a> için “Gelince haber ver”e basıldı. Müşteri WhatsApp’tan yazmış olabilir; ürün gelince haber vermeyi unutmayın.`;
+  } else if (v.tur === 'bulten') {
+    const ep = String(v.eposta || '').trim();
+    if (!EPOSTA.test(ep)) { res.statusCode = 400; return res.end(); }
+    metin = `📩 Sitede bültene kayıt: ${esc(ep)}\nKampanya ve yeni ürün duyurusu için listeye ekleyin.`;
+  }
+  if (!metin || !process.env.TELEGRAM_BOT_TOKEN) { res.statusCode = 204; return res.end(); }
   try {
     const { ids } = await sahipler();
-    for (const id of ids) await gonder(id, `🔔 Sitede <a href="${SITE}/urun/${u.id}">${esc(u.ad)}</a> için “Gelince haber ver”e basıldı. Müşteri WhatsApp’tan yazmış olabilir; ürün gelince haber vermeyi unutmayın.`).catch(() => {});
+    for (const id of ids) await gonder(id, metin).catch(() => {});
   } catch (e) { /* bildirim gitmese de site çalışır */ }
   res.statusCode = 204; res.end();
 };
