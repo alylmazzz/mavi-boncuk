@@ -447,7 +447,8 @@
         u.durum === 'tükendi'
           ? el('a', { class: 'button', 'data-stok-talep': u.id, href: waLink(`Merhaba, “${u.ad}” (${location.href}) tükenmiş görünüyor. Gelince haber verir misiniz?${olcu()}`), text: 'Gelince haber ver' })
           : (() => { const b = sepetBtn(u, 'Sepete ekle'); b.classList.add('button'); return b; })(),
-        u.durum === 'tükendi' ? null : el('a', { class: 'button button--paper', href: waLink(`Merhaba, “${u.ad}” için yazıyorum (${location.href}). Fiyatı ve bedenleri nedir?${olcu()}`), text: 'WhatsApp’tan sor' }),
+        // data-wa-urun: vitrin.js beden/soru seçeneklerini açar; o yüklenmeden dokunulursa doğrudan WhatsApp açılır
+        u.durum === 'tükendi' ? null : el('a', { class: 'button button--paper', 'data-wa-urun': u.id, href: waLink(`Merhaba, “${u.ad}” için yazıyorum (${location.href}). Fiyatı ve bedenleri nedir?${olcu()}`), text: 'WhatsApp’tan sor' }),
         el('button', { class: 'button button--paper begen-btn', type: 'button', 'data-begen': u.id, 'aria-pressed': 'false', text: 'Favorilere ekle' }),
         el('a', { class: 'button button--paper gift-note', href: waLink(`Merhaba, “${u.ad}” ürününü hediye olarak almak istiyorum (${location.href}). Hediye notu eklemek istiyorum: `), text: 'Hediye notu ekle' }),
         u.instagram ? el('a', { class: 'button button--paper', href: u.instagram, rel: 'noopener', text: 'Instagram’da gör' }) : null

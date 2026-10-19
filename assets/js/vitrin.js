@@ -31,7 +31,8 @@
   const IKON = {
     sepet: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1 12H6z"/><path d="M9 8V6a3 3 0 016 0v2"/></svg>',
     kalp: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 017-2.6A4 4 0 0119 10c0 5.6-7 10-7 10z"/></svg>',
-    kisi: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 20c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>'
+    kisi: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 20c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>',
+    wa: '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3a13 13 0 0 0-11.2 19.6L3 29l6.6-1.7A13 13 0 1 0 16 3z" fill="#25d366"/><path d="M12.2 10.2c-.3-.6-.6-.6-.9-.6h-.7c-.3 0-.7.1-1 .5-.4.4-1.3 1.3-1.3 3.1s1.3 3.6 1.5 3.8c.2.3 2.6 4.1 6.3 5.6 3.1 1.2 3.7 1 4.4.9.7-.1 2.2-.9 2.5-1.8.3-.9.3-1.6.2-1.8-.1-.2-.3-.3-.7-.5l-2.3-1.1c-.3-.1-.6-.2-.8.2-.2.4-.9 1.1-1.1 1.4-.2.2-.4.3-.8.1-.4-.2-1.5-.6-2.9-1.8-1.1-1-1.8-2.1-2-2.5-.2-.4 0-.6.2-.8l.6-.7c.2-.2.3-.4.4-.7.1-.3 0-.5 0-.7l-1-2.4z" fill="#fff"/></svg>'
   };
 
   // ürün listesi: site.js yönetici değişiklikleri uygulanmış listeyi verir
@@ -234,6 +235,90 @@
     });
     c.tur = 'favori';
   }
+
+  // ---------- tek ürünü WhatsApp'tan sor: ekran görüntüsü yerine ürünün bağlantısı gider ----------
+  // Bağlantı ürünün statik sayfasına gider; WhatsApp oradaki og:image ile fotoğraflı önizleme gösterir.
+  const SORULAR = ['Fiyatı nedir?', 'Bu beden var mı?', 'Başka rengi var mı?', 'Kargoyla gönderiyor musunuz?'];
+  function waSorAc(id) {
+    const c = cekmece('WhatsApp’tan sor', IKON.wa, async (c) => {
+      const u = bul(await urunler(), id);
+      c.govde.replaceChildren(); c.alt.replaceChildren();
+      if (!u) { c.govde.append(bos(IKON.wa, 'Bu ürün artık askıda değil.')); return; }
+      const link = location.origin + (u.yeni ? `/urun?id=${encodeURIComponent(u.id)}` : `/urun/${encodeURIComponent(u.id)}`);
+      let beden = '';
+      const sorular = new Set();
+      const bedenAlan = el('input', { id: 'wa-beden', type: 'text', maxlength: '40', autocomplete: 'off', placeholder: 'ör. 5 yaş ya da 110 cm' });
+      const notAlan = el('textarea', { id: 'wa-not', maxlength: '300', placeholder: 'ör. lacivert olsun, hediye paketi' });
+      const gonder = el('a', { class: 'button wa-sor__gonder', target: '_blank', rel: 'noopener', html: IKON.wa }, ['WhatsApp’a gönder']);
+      const mesaj = () => {
+        const satir = ['Merhaba, bu ürünle ilgili bilgi almak istiyorum:', u.ad, link];
+        const b = bedenAlan.value.trim() || beden;
+        if (b) satir.push(`Beden: ${b}`);
+        satir.push(...SORULAR.filter((s) => sorular.has(s)));
+        if (notAlan.value.trim()) satir.push(`Not: ${notAlan.value.trim()}`);
+        if (olcu()) satir.push(olcu().trim());
+        return satir.join('\n');
+      };
+      // href her değişiklikte güncellenir; tıklamayı yakalayan eklentiler (hediye notu, çeviri) güncel mesajı görür
+      const guncelle = () => { gonder.href = waLink(mesaj()); };
+      const cip = (metin, secili, f) => {
+        const b = el('button', { type: 'button', class: 'wa-sor__cip', 'aria-pressed': String(secili), text: metin });
+        b.addEventListener('click', () => { f(b); guncelle(); });
+        return b;
+      };
+      c.govde.append(el('div', { class: 'wa-sor__urun' }, [
+        el('img', { src: kucuk(u), alt: '', width: '84', height: '105' }),
+        el('div', {}, [el('strong', { text: u.ad }), el('small', { text: yasYazi(u) })])
+      ]));
+      c.govde.append(el('p', { class: 'wa-sor__bilgi', text: 'Ürünün fotoğrafı ve bağlantısı mesaja kendiliğinden eklenir, ekran görüntüsü almanıza gerek yok. Aşağıdakiler isteğe bağlı; hiçbirini seçmeden de gönderebilirsiniz.' }));
+      const bedenler = (u.bedenler || []).map((x) => x.beden).filter(Boolean);
+      const bedenKutu = el('fieldset', { class: 'wa-sor__grup' }, [el('legend', { text: 'Beden ya da yaş' })]);
+      if (bedenler.length) {
+        const cipler = el('div', { class: 'wa-sor__cipler' }, bedenler.map((x) => cip(x, false, (b) => {
+          const ac = b.getAttribute('aria-pressed') !== 'true';
+          b.parentElement.querySelectorAll('button').forEach((o) => o.setAttribute('aria-pressed', 'false'));
+          b.setAttribute('aria-pressed', String(ac)); beden = ac ? x : '';
+        })));
+        bedenKutu.append(cipler);
+      }
+      if (bedenler.length) bedenKutu.append(el('label', { class: 'wa-sor__etiket', for: 'wa-beden', text: 'ya da yazın' }));
+      else bedenAlan.setAttribute('aria-label', 'Beden ya da yaş');
+      bedenKutu.append(bedenAlan);
+      c.govde.append(bedenKutu);
+      c.govde.append(el('fieldset', { class: 'wa-sor__grup' }, [
+        el('legend', { text: 'Ne sormak istersiniz?' }),
+        el('div', { class: 'wa-sor__cipler' }, SORULAR.map((s) => cip(s, false, (b) => {
+          sorular.has(s) ? sorular.delete(s) : sorular.add(s);
+          b.setAttribute('aria-pressed', String(sorular.has(s)));
+        })))
+      ]));
+      c.govde.append(el('label', { class: 'not', for: 'wa-not' }, [el('span', { text: 'Notunuz' }), notAlan]));
+      bedenAlan.addEventListener('input', guncelle);
+      notAlan.addEventListener('input', guncelle);
+      guncelle();
+      c.alt.append(gonder);
+    });
+    c.tur = 'wa';
+  }
+  // kart köşesindeki düğme kartın bağlantısının içinde; tıklama ürüne gitmesin (yakalama aşaması, ek.js'teki kalp gibi)
+  document.addEventListener('click', (e) => {
+    const b = e.target.closest('[data-wa-urun]');
+    if (!b) return;
+    e.preventDefault(); e.stopPropagation();
+    waSorAc(b.dataset.waUrun);
+  }, true);
+  const tileId = (a) => a.dataset.id || decodeURIComponent(((a.getAttribute('href') || '').match(/\/urun\/([^/?#]+)/) || [])[1] || '');
+  function waDugme(kok) {
+    kok.querySelectorAll('a.tile:not([data-wa])').forEach((a) => {
+      const id = tileId(a), f = a.querySelector('.tile__frame');
+      if (!id || !f) return;
+      a.dataset.wa = '1';
+      f.append(el('button', { type: 'button', class: 'tile__wa', 'data-wa-urun': id, 'aria-label': 'WhatsApp’tan sor', title: 'WhatsApp’tan sor', html: IKON.wa }));
+    });
+  }
+  waDugme(document);
+  new MutationObserver((ml) => { for (const m of ml) for (const n of m.addedNodes) if (n.nodeType === 1 && (n.matches('a.tile') || n.querySelector('a.tile'))) waDugme(n.parentElement || n); })
+    .observe(document.body, { childList: true, subtree: true });
 
   // ---------- hesabım: üyelik yok, bu cihazdaki kayıtlar ----------
   function hesapAc() {
