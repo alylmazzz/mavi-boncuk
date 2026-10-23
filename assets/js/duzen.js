@@ -15,7 +15,18 @@
     return n;
   };
   const tl = (n) => !n ? '- TL' : `${Number(n).toLocaleString('tr-TR', { minimumFractionDigits: n % 1 ? 2 : 0, maximumFractionDigits: 2 })} TL`;
-  const sayi = (t) => { const s = String(t || '').replace(/[^\d,.]/g, ''); const n = Number(s.includes(',') ? s.replace(/\./g, '').replace(',', '.') : s); return Number.isFinite(n) && n > 0 ? n : null; };
+  // "1.890" bin sekiz yüz doksandır (1,89 değil); "1.890,50" ondalıklı, "19.99" ondalık nokta.
+  // api/urunler.js içindeki tutar() ile aynı kural — ikisi birlikte değişmeli.
+  const sayi = (t) => {
+    let s = String(t == null ? '' : t).replace(/[^\d,.]/g, '');
+    if (!s) return null;
+    const virgul = s.lastIndexOf(','), nokta = s.lastIndexOf('.');
+    if (virgul >= 0 && nokta >= 0) s = virgul > nokta ? s.replace(/\./g, '').replace(/,/g, '.') : s.replace(/,/g, '');
+    else if (virgul >= 0) s = s.replace(/,/g, '.');
+    else if (nokta >= 0 && (s.split('.').length > 2 || s.length - nokta - 1 === 3)) s = s.replace(/\./g, '');
+    const n = Number(s);
+    return Number.isFinite(n) && n > 0 ? Math.round(n * 100) / 100 : null;
+  };
   const TR = document.documentElement.lang === 'tr';
   const KATEGORI = { gunluk: 'Günlük takımlar', abiye: 'Abiye', 'takim-elbise': 'Takım elbise', okul: 'Okul', bebek: 'Bebek', aksesuar: 'Aksesuar' };
   const CINSIYET = { kiz: 'Kız', erkek: 'Erkek', unisex: 'İkisi de' };
@@ -23,7 +34,10 @@
 
   // ---------- sunucu ----------
   const gonder = (govde) => fetch('/api/urunler', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(govde), credentials: 'same-origin' })
-    .then((r) => (r.ok ? r.json() : Promise.reject(new Error(r.status === 401 ? 'Oturum bitmiş, yeniden giriş yapın.' : 'Kaydedilemedi.'))));
+    .then((r) => (r.ok ? r.json() : Promise.reject(new Error(r.status === 401 ? 'Oturum bitmiş, yeniden giriş yapın.' : 'Kaydedilemedi.'))))
+    .then((y) => { if (y && y.veri) window.mbOrtakFiyat = y.veri.ortak_fiyat || null; return y; });
+  // ortak fiyat (site.js yazar, kayıt yanıtı günceller): kendi fiyatı olmayan ürünlerde görünen fiyat
+  const ortakFiyat = () => window.mbOrtakFiyat || null;
   // fotoğraf telefonda küçültülür (en uzun kenar 1600px, webp; desteklemeyen tarayıcıda jpeg)
   async function fotoYukle(dosya, id) {
     const bmp = await createImageBitmap(dosya);
@@ -36,6 +50,16 @@
     if (!r.ok) throw new Error('Fotoğraf yüklenemedi.');
     return (await r.json()).url;
   }
+
+  // ---------- yalnızca yönetici modunda yüklenen küçük stil ----------
+  // Ortak fiyatla görünen (kendi fiyatı olmayan) ürün belli olsun; app.min.css'e
+  // girmesin diye burada, çünkü ziyaretçi bu dosyayı hiç indirmiyor.
+  document.head.append(el('style', {
+    text: '.tile__fiyat.is-ortak,.price.is-ortak{opacity:.72;font-style:italic}'
+      + '.tile__fiyat.is-ortak::after,.price.is-ortak::after{content:" (ortak)";font-size:.8em;font-style:normal}'
+      + '.duzen-urun .muted.is-hata{color:#b3261e;font-weight:600}'
+      + '.duzen-form .is-emin{background:#b3261e;color:#fff}'
+  }));
 
   // ---------- bildirim ----------
   const not = el('div', { class: 'duzen-not', role: 'status', 'aria-live': 'polite' });
@@ -92,7 +116,10 @@
     document.querySelectorAll('a.tile[data-id]:not([data-duzen])').forEach((a) => {
       a.dataset.duzen = '1';
       const fiyat = a.querySelector('.tile__fiyat');
-      if (fiyat) { fiyat.classList.add('is-duzen'); fiyat.setAttribute('data-duzen-ui', ''); fiyat.title = 'Fiyatı değiştir'; }
+      if (fiyat) {
+        fiyat.classList.add('is-duzen'); fiyat.setAttribute('data-duzen-ui', '');
+        fiyat.title = fiyat.dataset.ortak ? 'Bu ürünün kendi fiyatı yok, ortak fiyat görünüyor. Dokunup kendi fiyatını yazın.' : 'Fiyatı değiştir';
+      }
       const sil = el('button', { type: 'button', class: 'tile__sil', 'data-duzen-ui': '', text: 'Sil' });
       const gizle = el('button', { type: 'button', class: 'tile__gizle', 'data-duzen-ui': '', text: a.classList.contains('is-gizli') ? 'Göster' : 'Gizle' });
       (a.querySelector('.tile__frame') || a).append(el('span', { class: 'tile__yonetim' }, [sil, gizle]));
@@ -105,7 +132,18 @@
     e.preventDefault(); e.stopPropagation();
     const a = ui.closest('a.tile'), id = a.dataset.id;
     if (ui.classList.contains('tile__fiyat')) {
-      kutuAc(ui, String(sayi(ui.textContent) || ''), async (n) => { await gonder({ islem: 'guncelle', id, alanlar: { fiyat: n } }); ui.textContent = tl(n); bildir('Fiyat kaydedildi.'); });
+      // kutuda ürünün KENDİ fiyatı açılır; ortak fiyatla görünüyorsa boş açılır
+      // (yoksa görünen metin yeniden ayrıştırılıp ortak fiyat bu ürüne yazılırdı)
+      kutuAc(ui, 'kendi' in ui.dataset ? ui.dataset.kendi : String(sayi(ui.textContent) || ''), async (n) => {
+        await gonder({ islem: 'guncelle', id, alanlar: { fiyat: n } });
+        ui.dataset.kendi = n || '';
+        delete ui.dataset.ortak;
+        ui.classList.remove('is-ortak');
+        ui.textContent = tl(n || ortakFiyat());
+        if (!n && ortakFiyat()) { ui.dataset.ortak = '1'; ui.classList.add('is-ortak'); }
+        ui.title = ui.dataset.ortak ? 'Bu ürünün kendi fiyatı yok, ortak fiyat görünüyor. Dokunup kendi fiyatını yazın.' : 'Fiyatı değiştir';
+        bildir(n ? 'Fiyat kaydedildi.' : 'Fiyat kaldırıldı.');
+      });
     } else if (ui.classList.contains('tile__gizle')) {
       const gizli = !a.classList.contains('is-gizli');
       ui.disabled = true;
@@ -136,15 +174,53 @@
     if (!TR || !kok || !u || kok.querySelector('.duzen-urun')) return;
     const alanlar = [...kok.querySelectorAll('.product__info [data-alan]')];
     const ilk = new Map();
+
+    // ---- fiyat: kendi başına bir alan. Yazıp Enter'a basınca ya da alandan
+    // çıkınca hemen kaydedilir; "Değişiklikleri kaydet" beklemez. Dokunulmadıysa
+    // hiç gönderilmez (eskiden ekrandaki ortak fiyat yeniden yazılıp bu ürüne
+    // kendi fiyatı gibi geçiyordu).
+    const fiyatAlan = alanlar.find((n) => n.dataset.alan === 'fiyat');
+    let fiyatKendi = fiyatAlan && 'kendi' in fiyatAlan.dataset ? sayi(fiyatAlan.dataset.kendi) : (u.kendi_fiyat || null);
+    let fiyatDokundu = false, fiyatKaydediyor = false, fiyatBekleyen = null;
+    const fiyatGoster = () => {
+      if (!fiyatAlan) return;
+      fiyatAlan.textContent = tl(fiyatKendi || ortakFiyat());
+      fiyatAlan.classList.toggle('is-ortak', !fiyatKendi && !!ortakFiyat());
+      fiyatAlan.title = fiyatKendi ? 'Fiyatı değiştirip Enter’a basın' : 'Bu ürünün kendi fiyatı yok, ortak fiyat görünüyor. Yazıp Enter’a basın.';
+    };
+    const fiyatKaydet = async () => {
+      if (!fiyatAlan || fiyatKaydediyor) return;
+      const yazilan = fiyatAlan.textContent.trim();
+      const n = sayi(yazilan);
+      // boş ya da anlamsız yazı yanlışlıkla fiyatı SİLMESİN; eski değere dönülür
+      if (!n) {
+        fiyatDokundu = false; fiyatGoster();
+        bildir(/\d/.test(yazilan) ? 'Geçerli bir fiyat yazın.' : 'Fiyat değişmedi. Kaldırmak için karttaki fiyata dokunup boş kaydedin.', true);
+        return;
+      }
+      if (n === fiyatKendi) { fiyatDokundu = false; fiyatGoster(); return; }
+      fiyatKaydediyor = true;
+      try {
+        await gonder({ islem: 'guncelle', id: u.id, alanlar: { fiyat: n } });
+        fiyatKendi = n; u.kendi_fiyat = n; u.fiyat = n;
+        fiyatDokundu = false;
+        bildir(`Fiyat kaydedildi: ${tl(n)}`);
+      } catch (err) { bildir(err.message, true); }
+      fiyatKaydediyor = false;
+      fiyatGoster();
+    };
+
     alanlar.forEach((n) => {
       ilk.set(n, n.textContent.trim());
       n.contentEditable = 'true';
       // fiyat: sayı klavyesi açılır, yalnızca rakam ve virgül yazılır; boş bırakılırsa "-"
       if (n.dataset.alan === 'fiyat') {
         n.inputMode = 'decimal';
-        n.addEventListener('focus', () => { if (!sayi(n.textContent)) n.textContent = ''; });
+        // odaklanınca ürünün KENDİ fiyatı düz sayı olarak gelir (kendi fiyatı yoksa boş)
+        n.addEventListener('focus', () => { n.textContent = fiyatKendi ? String(fiyatKendi).replace('.', ',') : ''; });
         n.addEventListener('beforeinput', (e) => { if (e.data && /[^\d,.]/.test(e.data)) e.preventDefault(); });
-        n.addEventListener('blur', () => { const f = sayi(n.textContent); n.textContent = tl(f); });
+        n.addEventListener('input', () => { fiyatDokundu = true; });
+        n.addEventListener('blur', () => { if (fiyatDokundu) fiyatBekleyen = fiyatKaydet(); else fiyatGoster(); });
       }
       n.spellcheck = true;
       n.classList.add('duzen-alan');
@@ -202,12 +278,17 @@
     kok.querySelector('.product__info').append(kutu);
 
     kaydet.addEventListener('click', async () => {
+      // fiyat ayrı kaydediliyor: sayfa yenilenmeden önce o isteğin bitmesini bekle
+      const fiyatOnce = fiyatKendi;
+      if (fiyatDokundu) fiyatBekleyen = fiyatKaydet();
+      try { await fiyatBekleyen; } catch (e) { /* bildirimi fiyatKaydet verdi */ }
+      const fiyatDegisti = fiyatKendi !== fiyatOnce;
       const a = {};
       alanlar.forEach((n) => {
         const t = n.textContent.replace(/\s+\n/g, '\n').trim();
         if (t === ilk.get(n)) return;
         const k = n.dataset.alan;
-        if (k === 'fiyat') { a.fiyat = sayi(t); return; }
+        if (k === 'fiyat') return; // fiyat Enter'da / alandan çıkınca ayrıca kaydedilir
         a[k] = t === BOS ? null : t;
       });
       if (a.ad === null) { bildir('Ürün adı boş olamaz.', true); return; }
@@ -222,7 +303,7 @@
       if ((sayi(eski.value) || null) !== (u.eski_fiyat || null)) a.eski_fiyat = sayi(eski.value);
       if (gizle.checked !== !!u.gizle) a.gizle = gizle.checked;
       if (vitrin.checked !== !!u.vitrin) a.vitrin = vitrin.checked;
-      if (!Object.keys(a).length) { bildir('Değişiklik yok.'); return; }
+      if (!Object.keys(a).length) { if (!fiyatDegisti) bildir('Değişiklik yok.'); return; }
       kaydet.disabled = true;
       try { await gonder({ islem: 'guncelle', id: u.id, alanlar: a }); bildir('Kaydedildi.'); setTimeout(() => location.reload(), 600); }
       catch (err) { bildir(err.message, true); kaydet.disabled = false; }
@@ -263,16 +344,34 @@
     const inp = el('input', { type: 'text', inputmode: 'decimal', value: d.ortak_fiyat ? String(d.ortak_fiyat) : '', placeholder: 'Boş: fiyat belli değil (-)' });
     const hepsi = el('input', { type: 'checkbox' });
     const btn = el('button', { type: 'submit', class: 'button', text: 'Kaydet' });
+    // kaç ürüne tek tek fiyat girilmiş: "hepsine uygula" bunların hepsini siler, önce söyle
+    const kendiSayi = Object.values(d.guncel || {}).filter((v) => v && v.fiyat).length + (d.yeni || []).filter((u) => u.fiyat).length;
+    const uyari = el('p', { class: 'muted' });
+    const uyariYaz = () => {
+      uyari.textContent = hepsi.checked
+        ? `Dikkat: tek tek girdiğiniz ${kendiSayi} fiyat silinecek ve hepsi ortak fiyat olacak.`
+        : `Tek tek fiyat girdiğiniz ${kendiSayi} ürün kendi fiyatıyla kalır; fiyatı olmayan ürünler bu fiyatla görünür.`;
+      uyari.classList.toggle('is-hata', hepsi.checked);
+    };
+    hepsi.addEventListener('change', () => { btn.classList.remove('is-emin'); btn.textContent = 'Kaydet'; uyariYaz(); });
+    uyariYaz();
     const f = el('form', { class: 'duzen-urun', style: 'margin:0' }, [
       el('label', { class: 'duzen-satir' }, [el('span', { text: 'Ortak fiyat (TL)' }), inp]),
       el('p', { class: 'muted', text: 'Fiyatı ayrıca girilmemiş her ürün bu fiyatla görünür. Boş bırakılırsa "-" yazar.' }),
       el('label', { class: 'duzen-isaret' }, [hepsi, el('span', { text: 'Tek tek girilmiş fiyatlar dahil, tüm ürünler bu fiyat olsun' })]),
+      uyari,
       btn
     ]);
     f.addEventListener('submit', async (e) => {
       e.preventDefault();
       const n = sayi(inp.value);
       if (!n && /\d/.test(inp.value)) { bildir('Geçerli bir fiyat yazın.', true); return; }
+      // tek tek girilmiş fiyatları silmek geri alınamaz: iki dokunuş istiyoruz
+      if (hepsi.checked && kendiSayi && !btn.classList.contains('is-emin')) {
+        btn.classList.add('is-emin');
+        btn.textContent = `${kendiSayi} fiyat silinecek — eminim, kaydet`;
+        return;
+      }
       btn.disabled = true;
       try { await gonder({ islem: 'varsayilan', fiyat: n, sifirla: hepsi.checked }); bildir('Fiyatlar güncellendi.'); setTimeout(() => location.reload(), 600); }
       catch (err) { bildir(err.message, true); btn.disabled = false; }

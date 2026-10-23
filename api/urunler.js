@@ -7,7 +7,7 @@
 // POST /api/urunler?gorsel=1&id= -> gövde webp/jpeg fotoğraf, Blob'a yüklenir, {url} döner
 // Temel liste data/urunler.json'da kalır; site.js açılışta bu değişiklikleri üstüne uygular.
 // Silinen ürün kaybolmaz, "silinen"e yazılır; yönetici "Silinenler"den geri alabilir.
-const { put } = require('@vercel/blob');
+const { put, get, BlobNotFoundError, BlobPreconditionFailedError } = require('@vercel/blob');
 const { oturumGecerli } = require('./_lib/oturum');
 
 const BLOB = 'https://dzq8aevittl4dwp1.public.blob.vercel-storage.com';
@@ -16,17 +16,65 @@ const BOS = () => ({ guncel: {}, yeni: [], silinen: [], ortak_fiyat: null });
 const METIN = ['ad', 'kisa', 'aciklama', 'kumas', 'yikama', 'stok_notu', 'teslim', 'degisim', 'yas_yazi'];
 const KATEGORI = ['abiye', 'takim-elbise', 'gunluk', 'okul', 'bebek', 'aksesuar'];
 
-async function oku(taze) {
-  const r = await fetch(`${BLOB}/${DOSYA}${taze ? `?t=${Date.now()}` : ''}`, taze ? { cache: 'no-store' } : {});
+// Ziyaretçi okuması: CDN'den, 1 dk önbellekli (ucuz).
+async function okuCdn() {
+  const r = await fetch(`${BLOB}/${DOSYA}`);
   if (r.status === 404) return BOS();
   if (!r.ok) throw new Error('blob ' + r.status);
   return { ...BOS(), ...(await r.json()) };
 }
-const yaz = (d) => put(DOSYA, JSON.stringify(d), { access: 'public', addRandomSuffix: false, allowOverwrite: true, contentType: 'application/json', cacheControlMaxAge: 60 });
 
+// Yazmadan önceki ve yönetici okuması: CDN ATLANIR (useCache:false).
+// Önemli: public blob adresi 60 sn önbelleklidir; oradan okuyup üstüne yazmak
+// aynı dakika içindeki önceki kaydı siler (fiyatlar "kendiliğinden" geri dönerdi).
+// Dönen etag ile koşullu yazıp (ifMatch) araya giren kaydı fark ediyoruz.
+async function okuTaze() {
+  try {
+    const g = await get(DOSYA, { access: 'public', useCache: false });
+    if (!g || g.statusCode !== 200 || !g.stream) return { veri: BOS(), etag: null };
+    const metin = await new Response(g.stream).text();
+    return { veri: { ...BOS(), ...JSON.parse(metin || '{}') }, etag: g.blob.etag || null };
+  } catch (e) {
+    if (e instanceof BlobNotFoundError) return { veri: BOS(), etag: null };
+    throw e;
+  }
+}
+
+const yaz = (d, etag) => put(DOSYA, JSON.stringify(d), {
+  access: 'public', addRandomSuffix: false, allowOverwrite: true,
+  contentType: 'application/json', cacheControlMaxAge: 60,
+  ...(etag ? { ifMatch: etag } : {})
+});
+
+// Değişikliği her zaman TAZE verinin üstüne uygular; araya başka bir kayıt
+// girdiyse (etag tutmazsa) baştan okuyup yeniden dener. uygula() bir hata kodu
+// döndürürse hiç yazılmaz.
+async function degistir(uygula, kere = 4) {
+  for (let i = 1; ; i++) {
+    const { veri, etag } = await okuTaze();
+    const kod = uygula(veri);
+    if (kod) return { kod };
+    try {
+      await yaz(veri, etag);
+      return { veri };
+    } catch (e) {
+      const cakisma = e instanceof BlobPreconditionFailedError || /precondition|412/i.test(String((e && e.message) || ''));
+      if (!cakisma || i >= kere) throw e;
+    }
+  }
+}
+
+// Türkçe yazım: "1.890" bin sekiz yüz doksandır, 1,89 değil. "1.890,50" ondalıklı,
+// "19.99" ise ondalık nokta. Yanlış ayrıştırma fiyatı sessizce bozduğu için
+// (1.890 TL -> 1,89 TL) ayırıcıyı yazıma bakarak seçiyoruz.
 const tutar = (v) => {
-  const t = String(v == null ? '' : v).replace(/[^\d,.]/g, '');
-  const n = Number(t.includes(',') ? t.replace(/\./g, '').replace(',', '.') : t);
+  let t = String(v == null ? '' : v).replace(/[^\d,.]/g, '');
+  if (!t) return null;
+  const virgul = t.lastIndexOf(','), nokta = t.lastIndexOf('.');
+  if (virgul >= 0 && nokta >= 0) t = virgul > nokta ? t.replace(/\./g, '').replace(/,/g, '.') : t.replace(/,/g, '');
+  else if (virgul >= 0) t = t.replace(/,/g, '.');
+  else if (nokta >= 0 && (t.split('.').length > 2 || t.length - nokta - 1 === 3)) t = t.replace(/\./g, '');
+  const n = Number(t);
   return Number.isFinite(n) && n > 0 ? Math.round(n * 100) / 100 : null;
 };
 
@@ -63,9 +111,9 @@ module.exports = async (req, res) => {
   const yonetici = oturumGecerli(req, 'admin');
 
   if (req.method === 'GET') {
-    const taze = url.searchParams.get('taze') && yonetici;
+    const taze = !!url.searchParams.get('taze') && yonetici;
     res.setHeader('Cache-Control', taze ? 'no-store' : 'public, s-maxage=60, stale-while-revalidate=300');
-    try { return res.end(JSON.stringify(await oku(taze))); } catch (e) { return res.end(JSON.stringify(BOS())); }
+    try { return res.end(JSON.stringify(taze ? (await okuTaze()).veri : await okuCdn())); } catch (e) { return res.end(JSON.stringify(BOS())); }
   }
 
   if (req.method !== 'POST') return hata(res, 405);
@@ -84,40 +132,40 @@ module.exports = async (req, res) => {
     }
 
     const g = JSON.parse((await govdeOku(req, 64 * 1024)).toString('utf8') || '{}');
-    const d = await oku(true);
-
-    if (g.islem === 'varsayilan') {
-      // ortak fiyat: tek tek fiyatı girilmemiş ürünler bununla görünür; boşsa "-"
-      d.ortak_fiyat = tutar(g.fiyat);
-      delete d.varsayilan_fiyat; delete d.hepsi_varsayilan;
-      // "hepsine uygula": tek tek girilmiş fiyatlar bırakılır
-      if (g.sifirla) {
-        for (const k of Object.keys(d.guncel)) { delete d.guncel[k].fiyat; delete d.guncel[k].eski_fiyat; }
-        d.yeni.forEach((u) => { u.fiyat = null; u.eski_fiyat = null; });
-      }
-      await yaz(d);
-      return res.end(JSON.stringify({ ok: true, veri: d }));
-    }
-
     const id = String(g.id || (g.urun && g.urun.id) || '').replace(/[^a-z0-9-]/g, '').slice(0, 80);
-    if (!id) return hata(res, 400);
-    const yeni = d.yeni.find((u) => u.id === id);
+    if (g.islem !== 'varsayilan' && !id) return hata(res, 400);
 
-    if (g.islem === 'guncelle') {
-      const a = temizle(g.alanlar || {});
-      if (yeni) Object.assign(yeni, a); else d.guncel[id] = { ...(d.guncel[id] || {}), ...a };
-    } else if (g.islem === 'sil') {
-      if (!d.silinen.includes(id)) d.silinen.push(id);
-    } else if (g.islem === 'geri') {
-      d.silinen = d.silinen.filter((x) => x !== id);
-    } else if (g.islem === 'ekle') {
-      const u = { id, ...temizle(g.urun || {}), tarih: new Date().toISOString().slice(0, 10) };
-      if (!u.ad || !u.gorseller || !u.gorseller.length || yeni) return hata(res, 400);
-      d.yeni.unshift(u);
-    } else return hata(res, 400);
+    // Değişiklik her denemede yeniden okunan taze verinin üstüne uygulanır.
+    const { veri, kod } = await degistir((d) => {
+      if (g.islem === 'varsayilan') {
+        // ortak fiyat: tek tek fiyatı girilmemiş ürünler bununla görünür; boşsa "-"
+        d.ortak_fiyat = tutar(g.fiyat);
+        delete d.varsayilan_fiyat; delete d.hepsi_varsayilan;
+        // "hepsine uygula": tek tek girilmiş fiyatlar bırakılır
+        if (g.sifirla) {
+          for (const k of Object.keys(d.guncel)) { delete d.guncel[k].fiyat; delete d.guncel[k].eski_fiyat; }
+          d.yeni.forEach((u) => { u.fiyat = null; u.eski_fiyat = null; });
+        }
+        return 0;
+      }
 
-    await yaz(d);
-    return res.end(JSON.stringify({ ok: true, veri: d }));
+      const yeni = d.yeni.find((u) => u.id === id);
+      if (g.islem === 'guncelle') {
+        const a = temizle(g.alanlar || {});
+        if (yeni) Object.assign(yeni, a); else d.guncel[id] = { ...(d.guncel[id] || {}), ...a };
+      } else if (g.islem === 'sil') {
+        if (!d.silinen.includes(id)) d.silinen.push(id);
+      } else if (g.islem === 'geri') {
+        d.silinen = d.silinen.filter((x) => x !== id);
+      } else if (g.islem === 'ekle') {
+        const u = { id, ...temizle(g.urun || {}), tarih: new Date().toISOString().slice(0, 10) };
+        if (!u.ad || !u.gorseller || !u.gorseller.length || yeni) return 400;
+        d.yeni.unshift(u);
+      } else return 400;
+      return 0;
+    });
+    if (kod) return hata(res, kod);
+    return res.end(JSON.stringify({ ok: true, veri }));
   } catch (e) {
     res.statusCode = 500; return res.end(JSON.stringify({ ok: false, hata: String(e.message || e) }));
   }

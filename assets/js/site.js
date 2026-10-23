@@ -93,9 +93,16 @@
     else if (indirimde(u)) f.append(el('span', { class: 'rozet rozet--indirim', text: 'İndirim' }));
     else if (yeniMi(u)) f.append(el('span', { class: 'rozet rozet--yeni', text: 'Yeni' }));
     if (u.gizle) { a.classList.add('is-gizli'); f.append(el('span', { class: 'tile__badge tile__badge--gizli', text: 'Gizli' })); }
+    // yönetici modunda kartın kendi fiyatı data-kendi'de durur (düzenleme kutusu buradan okur);
+    // kendi fiyatı olmayıp ortak fiyatla görünenler is-ortak ile işaretlenir
+    const fiyatEl = el('span', { class: 'tile__fiyat', 'data-alan': 'fiyat', text: tl(u.fiyat) });
+    if (yonetici) {
+      fiyatEl.dataset.kendi = u.kendi_fiyat || '';
+      if (!u.kendi_fiyat && u.ortak_fiyat) { fiyatEl.classList.add('is-ortak'); fiyatEl.dataset.ortak = '1'; }
+    }
     const ust = el('span', { class: 'tile__ust' }, [
       u.eski_fiyat > u.fiyat ? el('s', { class: 'tile__eski', text: tl(u.eski_fiyat) }) : null,
-      el('span', { class: 'tile__fiyat', 'data-alan': 'fiyat', text: tl(u.fiyat) })
+      fiyatEl
     ]);
     a.append(f, el('span', { class: 'tile__name', text: u.ad }), el('span', { class: 'tile__fact', text: yasYazi(u) || u.kisa || TURLER[u.kategori] || '' }), ust);
     return el('div', { class: 'kart', 'data-id': u.id }, [a, sepetBtn(u, 'Sepete Ekle')]);
@@ -120,6 +127,7 @@
     } catch (e) { stok = {}; }
     const dz = d || { guncel: {}, yeni: [], silinen: [] };
     const ortak = dz.ortak_fiyat || null;
+    window.mbOrtakFiyat = ortak; // duzen.js kendi fiyatı silinince buna düşeceğini bilsin
     const silinen = dz.silinen || [];
     const birles = [...(dz.yeni || []).map((x) => ({ ...x, yeni: true })), ...u.urunler].filter((x) => !silinen.includes(x.id)).map((x) => {
       const s2 = stok[x.id];
@@ -129,7 +137,9 @@
       const z = { ...y, ...g };
       const kendi = x.yeni ? x.fiyat : g.fiyat;
       if (!kendi) z.eski_fiyat = null;
-      return { ...z, fiyat: kendi || ortak };
+      // kendi_fiyat: bu ürüne ayrıca girilmiş fiyat. Yönetici modu bunu düzenler;
+      // görünen fiyat (fiyat) kendi fiyatı yoksa ortak fiyattır, onun üstüne yazılmamalı.
+      return { ...z, fiyat: kendi || ortak, kendi_fiyat: kendi || null, ortak_fiyat: ortak };
     });
     // yönetici gizlenen ürünleri de görür (soluk ve "Gizli" etiketli)
     return { urunler: birles.filter((x) => yonetici || !x.gizle), site: s };
@@ -437,6 +447,12 @@
       satir('Değişim', u.degisim || 'Almadan önce sorun, ürüne göre söylüyoruz', 'degisim')
     ]);
     facts.children[1].lastChild.className = 'price';
+    // yönetici modu: kendi fiyatı data-kendi'de; ortak fiyatla görünüyorsa işaretli
+    if (yonetici) {
+      const fd = facts.children[1].lastChild;
+      fd.dataset.kendi = u.kendi_fiyat || '';
+      if (!u.kendi_fiyat && u.ortak_fiyat) { fd.classList.add('is-ortak'); fd.dataset.ortak = '1'; }
+    }
     // indirim: eski fiyat düzenlenen alanın dışında (başlığın yanında) üstü çizili durur
     if (u.eski_fiyat > u.fiyat) facts.children[1].firstChild.append(' ', el('s', { class: 'eski-fiyat', text: tl(u.eski_fiyat) }));
     const info = el('div', { class: 'product__info' }, [

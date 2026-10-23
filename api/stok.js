@@ -18,7 +18,17 @@ function csvSatirlari(metin) {
   if (hucre || satir.length) { satir.push(hucre); satirlar.push(satir); }
   return satirlar;
 }
-const sayi = (s) => { const t = String(s || '').replace(/[^\d,.]/g, ''); if (!t) return null; const n = Number(t.includes(',') ? t.replace(/\./g, '').replace(',', '.') : t); return Number.isFinite(n) && n > 0 ? n : null; };
+// "1.890" bin sekiz yüz doksan (api/urunler.js tutar() ile aynı kural)
+const sayi = (s) => {
+  let t = String(s == null ? '' : s).replace(/[^\d,.]/g, '');
+  if (!t) return null;
+  const virgul = t.lastIndexOf(','), nokta = t.lastIndexOf('.');
+  if (virgul >= 0 && nokta >= 0) t = virgul > nokta ? t.replace(/\./g, '').replace(/,/g, '.') : t.replace(/,/g, '');
+  else if (virgul >= 0) t = t.replace(/,/g, '.');
+  else if (nokta >= 0 && (t.split('.').length > 2 || t.length - nokta - 1 === 3)) t = t.replace(/\./g, '');
+  const n = Number(t);
+  return Number.isFinite(n) && n > 0 ? Math.round(n * 100) / 100 : null;
+};
 const durumu = (s) => { const t = String(s || '').trim().toLocaleLowerCase('tr'); if (/t[üu]kend|yok/.test(t)) return 'tükendi'; if (/gizle|kald[ıi]r/.test(t)) return 'gizle'; return t ? 'stokta' : null; };
 
 module.exports = async (req, res) => {
