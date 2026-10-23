@@ -29,14 +29,18 @@ async function okuCdn() {
 // aynı dakika içindeki önceki kaydı siler (fiyatlar "kendiliğinden" geri dönerdi).
 // Dönen etag ile koşullu yazıp (ifMatch) araya giren kaydı fark ediyoruz.
 async function okuTaze() {
+  // get() @vercel/blob 2.8+ ile geldi; yoksa ya da beklenmedik bir hata verirse
+  // kayıt hiç çalışmasın diye değil, eski yoldan (CDN) okuyup devam ediyoruz —
+  // etag olmadan koşullu yazma da düşer.
+  if (typeof get !== 'function') return { veri: await okuCdn(), etag: null };
   try {
     const g = await get(DOSYA, { access: 'public', useCache: false });
     if (!g || g.statusCode !== 200 || !g.stream) return { veri: BOS(), etag: null };
     const metin = await new Response(g.stream).text();
     return { veri: { ...BOS(), ...JSON.parse(metin || '{}') }, etag: g.blob.etag || null };
   } catch (e) {
-    if (e instanceof BlobNotFoundError) return { veri: BOS(), etag: null };
-    throw e;
+    if (e instanceof BlobNotFoundError || /not ?found|404/i.test(String((e && e.message) || ''))) return { veri: BOS(), etag: null };
+    return { veri: await okuCdn(), etag: null };
   }
 }
 
