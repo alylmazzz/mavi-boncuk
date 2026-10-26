@@ -7,7 +7,8 @@
 // POST /api/urunler?gorsel=1&id= -> gövde webp/jpeg fotoğraf, Blob'a yüklenir, {url} döner
 // Temel liste data/urunler.json'da kalır; site.js açılışta bu değişiklikleri üstüne uygular.
 // Silinen ürün kaybolmaz, "silinen"e yazılır; yönetici "Silinenler"den geri alabilir.
-const { put, get, BlobNotFoundError, BlobPreconditionFailedError } = require('@vercel/blob');
+const crypto = require('crypto');
+const { put, head, BlobNotFoundError, BlobPreconditionFailedError } = require('@vercel/blob');
 const { oturumGecerli } = require('./_lib/oturum');
 
 const BLOB = 'https://dzq8aevittl4dwp1.public.blob.vercel-storage.com';
@@ -24,24 +25,29 @@ async function okuCdn() {
   return { ...BOS(), ...(await r.json()) };
 }
 
-// Yazmadan önceki ve yönetici okuması: CDN ATLANIR (useCache:false).
-// Önemli: public blob adresi 60 sn önbelleklidir; oradan okuyup üstüne yazmak
-// aynı dakika içindeki önceki kaydı siler (fiyatlar "kendiliğinden" geri dönerdi).
-// Dönen etag ile koşullu yazıp (ifMatch) araya giren kaydı fark ediyoruz.
+// Yazmadan önceki ve yönetici okuması: TAZE olduğu doğrulanmış içerik + güçlü etag.
+// Önemli: public blob adresi önbelleklidir (yazmadan sonra ~10 sn eski içerik gelir);
+// oradan okuyup üstüne yazmak önceki kaydı siler. get({useCache:false}) yalnızca
+// private blob'da önbelleği atlar; public'te CDN'in ZAYIF etag'ini (W/"...") verir
+// ve ifMatch onu hiç kabul etmez (26.10: her kayıt "ETag mismatch" ile düşüyordu).
+// Bu yüzden: head() güncel etag'i verir (etag = içeriğin md5'i), CDN'den gelen
+// içeriğin md5'i onunla tutana kadar kısa aralıklarla yeniden okunur.
 async function okuTaze() {
-  // get() @vercel/blob 2.8+ ile geldi; yoksa ya da beklenmedik bir hata verirse
-  // kayıt hiç çalışmasın diye değil, eski yoldan (CDN) okuyup devam ediyoruz —
-  // etag olmadan koşullu yazma da düşer.
-  if (typeof get !== 'function') return { veri: await okuCdn(), etag: null };
-  try {
-    const g = await get(DOSYA, { access: 'public', useCache: false });
-    if (!g || g.statusCode !== 200 || !g.stream) return { veri: BOS(), etag: null };
-    const metin = await new Response(g.stream).text();
-    return { veri: { ...BOS(), ...JSON.parse(metin || '{}') }, etag: g.blob.etag || null };
-  } catch (e) {
-    if (e instanceof BlobNotFoundError || /not ?found|404/i.test(String((e && e.message) || ''))) return { veri: BOS(), etag: null };
-    return { veri: await okuCdn(), etag: null };
+  for (let i = 0; i < 12; i++) {
+    let h;
+    try { h = await head(DOSYA); } catch (e) {
+      if (e instanceof BlobNotFoundError) return { veri: BOS(), etag: null };
+      throw e;
+    }
+    const r = await fetch(`${h.url}?t=${Date.now()}`, { cache: 'no-store' });
+    if (!r.ok) throw new Error('blob ' + r.status);
+    const ham = Buffer.from(await r.arrayBuffer());
+    if (`"${crypto.createHash('md5').update(ham).digest('hex')}"` === h.etag) {
+      return { veri: { ...BOS(), ...JSON.parse(ham.toString('utf8') || '{}') }, etag: h.etag };
+    }
+    await new Promise((s) => setTimeout(s, 1500));
   }
+  throw new Error('Kayıt dosyası henüz güncellenmedi, birkaç saniye sonra yeniden deneyin.');
 }
 
 const yaz = (d, etag) => put(DOSYA, JSON.stringify(d), {

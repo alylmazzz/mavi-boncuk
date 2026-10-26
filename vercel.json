@@ -9,7 +9,8 @@
     { "source": "/yonetim", "destination": "/api/yonetim" }
   ],
   "functions": {
-    "api/yonetim.js": { "includeFiles": "api/_lib/panel/**" }
+    "api/yonetim.js": { "includeFiles": "api/_lib/panel/**" },
+    "api/urunler.js": { "maxDuration": 60 }
   },
   "crons": [
     { "path": "/api/indexnow", "schedule": "10 21 * * *" },
