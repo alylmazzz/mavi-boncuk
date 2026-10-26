@@ -26,35 +26,48 @@ async function okuCdn() {
 }
 
 // Yazmadan önceki ve yönetici okuması: TAZE olduğu doğrulanmış içerik + güçlü etag.
-// Önemli: public blob adresi önbelleklidir (yazmadan sonra ~10 sn eski içerik gelir);
-// oradan okuyup üstüne yazmak önceki kaydı siler. get({useCache:false}) yalnızca
-// private blob'da önbelleği atlar; public'te CDN'in ZAYIF etag'ini (W/"...") verir
-// ve ifMatch onu hiç kabul etmez (26.10: her kayıt "ETag mismatch" ile düşüyordu).
-// Bu yüzden: head() güncel etag'i verir (etag = içeriğin md5'i), CDN'den gelen
-// içeriğin md5'i onunla tutana kadar kısa aralıklarla yeniden okunur.
+// Önemli: public blob adresi önbelleklidir (yazmadan sonra 1 dakikaya kadar eski
+// içerik gelir); oradan okuyup üstüne yazmak önceki kaydı siler. get({useCache:false})
+// yalnızca private blob'da önbelleği atlar; public'te CDN'in ZAYIF etag'ini (W/"...")
+// verir ve ifMatch onu hiç kabul etmez (23-26.10: her kayıt "ETag mismatch" ile düştü).
+// Bu yüzden: head() güncel etag'i verir (etag = içeriğin md5'i); her yazmada içeriğin
+// değişmez bir kopyası da adı md5'i olacak şekilde yazılır (urunler/surum/<md5>.json).
+// O adres yalnızca o içeriği taşıdığı için önbellekte bayat kalamaz. Kopyası olmayan
+// eski içerikte asıl adresten okunur, md5 tutana kadar beklenir.
+const md5 = (b) => `"${crypto.createHash('md5').update(b).digest('hex')}"`;
+const SURUM = (etag) => `urunler/surum/${String(etag).replace(/"/g, '')}.json`;
+
 async function okuTaze() {
-  for (let i = 0; i < 12; i++) {
+  for (let i = 0; i < 40; i++) {
     let h;
     try { h = await head(DOSYA); } catch (e) {
       if (e instanceof BlobNotFoundError) return { veri: BOS(), etag: null };
       throw e;
     }
-    const r = await fetch(`${h.url}?t=${Date.now()}`, { cache: 'no-store' });
-    if (!r.ok) throw new Error('blob ' + r.status);
-    const ham = Buffer.from(await r.arrayBuffer());
-    if (`"${crypto.createHash('md5').update(ham).digest('hex')}"` === h.etag) {
-      return { veri: { ...BOS(), ...JSON.parse(ham.toString('utf8') || '{}') }, etag: h.etag };
+    for (const u of [`${BLOB}/${SURUM(h.etag)}`, `${h.url}?t=${Date.now()}`]) {
+      const r = await fetch(u, { cache: 'no-store' });
+      if (!r.ok) continue;
+      const ham = Buffer.from(await r.arrayBuffer());
+      if (md5(ham) === h.etag) return { veri: { ...BOS(), ...JSON.parse(ham.toString('utf8') || '{}') }, etag: h.etag };
     }
     await new Promise((s) => setTimeout(s, 1500));
   }
   throw new Error('Kayıt dosyası henüz güncellenmedi, birkaç saniye sonra yeniden deneyin.');
 }
 
-const yaz = (d, etag) => put(DOSYA, JSON.stringify(d), {
-  access: 'public', addRandomSuffix: false, allowOverwrite: true,
-  contentType: 'application/json', cacheControlMaxAge: 60,
-  ...(etag ? { ifMatch: etag } : {})
-});
+// Önce değişmez kopya, sonra asıl dosya (koşullu): okuyan, head()'in verdiği her
+// etag için kopyayı hazır bulur. Asıl yazma çakışırsa kopya sahipsiz kalır, zararsız.
+async function yaz(d, etag) {
+  const metin = JSON.stringify(d);
+  await put(SURUM(md5(Buffer.from(metin))), metin, {
+    access: 'public', addRandomSuffix: false, allowOverwrite: true, contentType: 'application/json'
+  });
+  return put(DOSYA, metin, {
+    access: 'public', addRandomSuffix: false, allowOverwrite: true,
+    contentType: 'application/json', cacheControlMaxAge: 60,
+    ...(etag ? { ifMatch: etag } : {})
+  });
+}
 
 // Değişikliği her zaman TAZE verinin üstüne uygular; araya başka bir kayıt
 // girdiyse (etag tutmazsa) baştan okuyup yeniden dener. uygula() bir hata kodu

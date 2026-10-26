@@ -10,7 +10,7 @@
   ],
   "functions": {
     "api/yonetim.js": { "includeFiles": "api/_lib/panel/**" },
-    "api/urunler.js": { "maxDuration": 60 }
+    "api/urunler.js": { "maxDuration": 120 }
   },
   "crons": [
     { "path": "/api/indexnow", "schedule": "10 21 * * *" },
