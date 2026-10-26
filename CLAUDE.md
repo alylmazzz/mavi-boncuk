@@ -114,8 +114,10 @@ Fiyat (2026-10-23 düzeltmesi): kartta fiyata dokun → kutu ürünün KENDİ fi
 ürün sayfasında fiyat alanı yazıp Enter'a basınca ya da alandan çıkınca hemen kaydedilir, "Değişiklikleri kaydet" beklemez,
 dokunulmadıysa hiç gönderilmez. Kendi fiyatı olmayıp ortak fiyatla görünen fiyatlar yönetici modunda "(ortak)" işaretli.
 Fiyat yazımı tek kural: "1.890" = 1890 (api/urunler.js `tutar`, api/stok.js ve duzen.js `sayi` aynı mantık, birlikte değişir).
-`api/urunler.js` her yazmadan önce blob'u CDN'i atlayarak okur (`get(..., {useCache:false})`) ve ETag ile koşullu yazar
-(`ifMatch`, çakışmada 4 deneme): public blob adresi 60 sn önbellekli olduğu için eskiden aynı dakikadaki kayıtlar birbirini siliyordu.
+`api/urunler.js` her yazmadan önce güncel etag'i `head()` ile alır (etag = içeriğin md5'i), içeriği o md5'in değişmez kopyasından
+(`urunler/surum/<md5>.json`, her yazmada asıl dosyadan önce yazılır) okur ve ETag ile koşullu yazar (`ifMatch`, çakışmada 4 deneme).
+public blob adresi 1 dk'ya kadar bayat kalır; `get({useCache:false})` bunu yalnız private blob'da atlar, public'te zayıf etag (W/"…")
+verir ve ifMatch onu reddeder (23-26.10 arası bütün kayıtlar "Kaydedilemedi" ile düştü). get()'e geri dönme.
 Statik SEO sayfaları/llms.txt bu değişiklikleri içermez. Deploy dosya sınırına takılırsa: `npx vercel deploy --prod --yes --archive=tgz`. Panel: fiş/fatura okuma (GİB karekod → PDF metni → Tesseract), satışlar, kargo Excel,
 aylık Excel, kurallar (Ayarlar'dan), kayıtlar cihazda IndexedDB + JSON yedek. Tasarım ve mevzuat: `docs/muhasebe-sistemi.md`.
 Vergi içeriği yalnızca yasal planlamadır; beyanı SMMM verir.
